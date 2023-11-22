@@ -1,0 +1,6 @@
+{
+  "name": {"message": "2048 Oyunu Oyna"},
+  "description": {"message": "2048, kolay ve eğlenceli bir bulmaca oyunudur. Chrome için 2048 Oyununu Ücretsiz Alın!"},
+  "locale": {"message": "tr"},
+  "short":{"message":"2048 Puzzle Game"}
+}

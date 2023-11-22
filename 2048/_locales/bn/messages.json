@@ -1,0 +1,6 @@
+{
+  "name": {"message": "2048 গেম খেলুন"},
+  "description": {"message": "2048 একটি সহজ এবং মজার ধাঁধা খেলা। ক্রোমের জন্য বিনামূল্যে 2048 গেম পান!"},
+  "locale": {"message": "bn"},
+  "short":{"message":"2048 Puzzle Game"}
+}

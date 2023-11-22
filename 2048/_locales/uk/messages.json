@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Грайте у гру 2048"},
+  "description": {"message": "2048 - це проста і весела головоломка. Отримайте гру 2048 для Chrome безкоштовно!"},
+  "locale": {"message": "uk"},
+  "short":{"message":"2048 Puzzle Game"}
+}

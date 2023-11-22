@@ -1,0 +1,406 @@
+body {
+    text-align: center;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.game-square {
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    float: left;
+    color: black;
+}
+
+.game-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    text-align: center;
+}
+
+h1 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-left: 20px;
+    font-size: 50px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header {
+    background-color: #929292;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    height: 60px;
+}
+
+.header-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+nav li {
+    margin-left: 20px;
+    border-radius: 10px;
+    padding: 7px 12px 7px 12px;
+    font-size: 25px;
+}
+
+nav li:hover {
+    background-color: #484848;
+}
+
+.menu-li {
+    margin-left: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e74c3c, #3498db);
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+header {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 100px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn {
+    display: inline-block;
+    background: #3498db;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #2980b9;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.hero h2 {
+    font-size: 36px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.animation {
+    text-align: center;
+}
+
+.animation img {
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+.container2 {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin-left: auto;
+    margin-right: 150px;
+}
+
+::selection {
+    color: #fff;
+    background: #664AFF;
+}
+
+.container2 {
+    max-width: 450px;
+}
+
+.container2 .resultBox {
+    position: absolute;
+}
+
+.container2.active .resultBox {
+    padding: 10px 8px;
+    pointer-events: auto;
+}
+
+.container2 .searchInput {
+    background: #000000;
+    opacity: 1;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.searchInput input {
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.searchInput.active input {
+    border-radius: 5px 5px 5px 0;
+}
+
+.resultBox:empty {
+    background: white;
+    width: 300px;
+    border-radius: 0 0 5px 5px;
+    padding: 0;
+}
+
+.resultBox:has(li) {
+    background: white;
+    width: 300px;
+    padding: 4px;
+    border-radius: 0 0 5px 5px;
+}
+
+.resultBox li {
+    list-style: none;
+    padding: 8px 12px;
+    display: none;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    text-align: left;
+    color:black;
+    width: 275px;
+}
+
+.searchInput.active .resultBox li {
+    display: block;
+}
+
+.resultBox li:hover {
+    background: #efefef;
+}
+
+.searchInput .icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    line-height: 55px;
+    font-size: 20px;
+    color: #644bff;
+    cursor: pointer;
+}
+
+.menu-button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    width: 30px;
+    margin-top: 10%;
+    transition: margin-right 0.3s ease, width 0.3s ease;
+}
+
+.menu-button.active {
+    /* Updated styles to increase margin-right and expand width */
+    margin-top: 2%;
+    margin-right: 250px
+}
+
+.bar {
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+.menu-button.active .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-button.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.active .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.sidebar {
+    position: fixed;
+    top: -100%;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    overflow-x: hidden;
+    transition: 0.3s ease; /* Added transition effect */
+}
+
+.sidebar.active {
+    top: 0;
+    width: 350px;
+}
+
+/* Add these styles to your existing CSS */
+
+.chat-container {
+    position: fixed;
+    bottom: -300px; /* Start below the viewport */
+    right: 20px;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #ff0062, #e73c67, #a934db, #3498db);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: bottom 0.5s ease; /* Add transition for smooth animation */
+    z-index: 9999999; /* Ensure the chat container is above other elements */
+    border: 0 10px 0 0;
+}
+
+.chat-container .name {
+    width: 100%;
+    background-color: #333;
+    height: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.chat-container input {
+    position: absolute;
+    bottom: 15px;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    left: 6%;
+}
+
+.chat-container button {
+    position: absolute;
+    right: 6%;
+    bottom: 15px;
+    font-size: 20px;
+    width: 60px;
+    border-radius:  0 5px 5px 0;
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: grey;
+}
+
+.chat-container button:active {
+    background-color: lightgrey;
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999999999999999999; /* Ensure the chat button is above other elements */
+    background-color: #7445a0;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.chat-container.active {
+    bottom: 100px; /* Bring it up to the desired position */
+}

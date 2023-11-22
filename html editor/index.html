@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emmet Demo</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #container {
+      display: flex;
+      height: 100%;
+      position: relative;
+    }
+
+    #button-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      background-color: blue;
+      padding: 5px;
+      border-radius: 10px;
+      cursor: move;
+    }
+
+    .button {
+      margin-right: 5px;
+      background-color: lightgray;
+      color: #333;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 5px;
+    }
+
+    #toggle-editor {
+      background-color: lightgray;
+      color: #333;
+    }
+
+    #editor-container {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #editor {
+      height: 100%;
+    }
+
+    #output-container {
+      flex: 1;
+      height: 100%;
+      overflow: auto;
+    }
+
+    #output {
+      height: 100%;
+      width: 100%;
+    }
+
+    .ace_gutter {
+      z-index: 1;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emmet/2.4.4/emmet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div id="button-container">
+      <div class="button" onclick="toggleEditor()">X</div>
+      <div class="button" onclick="openNewWindow()">New Window</div>
+      <div class="button" onclick="downloadCode()">Download</div>
+    </div>
+    <div id="editor-container">
+      <div id="editor"></div>
+    </div>
+    <div id="output-container">
+      <iframe id="output" sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve editor content from cookie
+    var savedCode = getCookie("editorContent");
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/html");
+    editor.setOption("enableEmmet", true); // Enable Emmet
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true,
+      enableSnippets: true,
+    }); // Enable autocompletion and snippets
+
+    // Emmet setup
+    emmet.require('ace').install(editor);
+    editor.setOption("enableEmmet", true);
+
+    // Restore editor content if available
+    if (savedCode) {
+      editor.setValue(savedCode, -1);
+    }
+
+    var outputFrame = document.getElementById("output");
+
+    function updateOutput() {
+      var code = editor.getValue();
+      outputFrame.srcdoc = code;
+      setCookie("editorContent", code, 365); // Save editor content in cookie
+    }
+
+    editor.on("change", function () {
+      updateOutput();
+    });
+
+    updateOutput();
+
+    function toggleEditor() {
+      var editorContainer = document.getElementById("editor-container");
+      var toggleButton = document.getElementById("toggle-editor");
+      if (editorContainer.style.display === "none") {
+        editorContainer.style.display = "block";
+        toggleButton.innerHTML = "X";
+      } else {
+        editorContainer.style.display = "none";
+        toggleButton.innerHTML = "Show Editor";
+      }
+    }
+
+    function openNewWindow() {
+      var code = editor.getValue();
+      var newWindow = window.open("about:blank");
+      newWindow.document.write(code);
+    }
+
+    function downloadCode() {
+      var code = editor.getValue();
+      var blob = new Blob([code], { type: "text/html" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = prompt("what would you like to name the file?");
+      link.click();
+    }
+
+    // Cookie functions
+    function setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+  </script>
+</body>
+</html>

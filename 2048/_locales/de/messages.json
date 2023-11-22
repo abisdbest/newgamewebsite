@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Spiel 2048"},
+  "description": {"message": "2048 ist ein einfaches und unterhaltsames Puzzlespiel. Holen Sie sich das 2048-Spiel für Chrome kostenlos!"},
+  "locale": {"message": "de"},
+  "short":{"message":"2048 Puzzle Game"}
+}
