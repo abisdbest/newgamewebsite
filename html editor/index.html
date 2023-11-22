@@ -1,9 +1,7 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emmet Demo</title>
   <style>
     html,
     body {
@@ -104,10 +102,6 @@
       enableLiveAutocompletion: true,
       enableSnippets: true,
     }); // Enable autocompletion and snippets
-
-    // Emmet setup
-    emmet.require('ace').install(editor);
-    editor.setOption("enableEmmet", true);
 
     // Restore editor content if available
     if (savedCode) {

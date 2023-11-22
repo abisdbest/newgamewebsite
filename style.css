@@ -16,6 +16,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     float: left;
     color: black;
+    z-index: -1;
 }
 
 .game-image {
@@ -343,8 +344,7 @@ img {
     border-radius: 5px;
     overflow: hidden;
     transition: bottom 0.5s ease; /* Add transition for smooth animation */
-    z-index: 9999999; /* Ensure the chat container is above other elements */
-    border: 0 10px 0 0;
+    z-index: 1; /* Ensure the chat container is above other elements */
 }
 
 .chat-container .name {
@@ -403,4 +403,64 @@ img {
 
 .chat-container.active {
     bottom: 100px; /* Bring it up to the desired position */
+}
+
+/* Add these styles to your existing CSS */
+
+.chat-container {
+    position: fixed;
+    bottom: -300px; /* Start below the viewport */
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: bottom 0.5s ease; /* Add transition for smooth animation */
+    z-index: 1; /* Set a higher z-index value to ensure it's on top */
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2; /* Ensure the chat button is above other elements */
+    background-color: #4c53af;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+/* Add these styles to your existing CSS */
+
+.chat-message {
+    padding: 10px;
+    border-bottom: 1px solid #080808;
+    opacity: 0.5;
+    border-radius: 30px 0 30px 30px;
+    width: max-content;
+    margin: 8px;
+}
+
+.chats {
+    display: flex;
+    align-items: flex-end;
+    height: fit-content;
+    flex-direction: column;
+}
+
+.chatters-name {
+    font-weight: bold;
+    margin: 5px;
+}
+
+/* Additional styles for a more visually appealing chat message */
+.chat-container.active .chat-message {
+    background-color: #080808;
+}
+
+.chat-container.active .chatters-name {
+    color: #4CAF50; /* You can choose your desired color */
 }
