@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/7a80d9bbce.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <button type="button" id="btn-login" onclick="githubLogin()">
+        <h3>
+            <i class="fa fa-github fa-1g" id="icon-github"></i>
+            Login with GitHub
+        </h3>
+    
+    </button>
+    <h2 style="color:orange;" id="logged-in-msg">Loading...</h4>
+    
+    <a onclick="logout()" id="logout-btn" style="color: red; text-decoration: underline; display: none;">Logout</a>
+</body>
+</html>
