@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github Login</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/7a80d9bbce.js" crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+   <title></title>
+   <link rel='stylesheet' href='styles.css'/>
+   <script src='script.js'></script>
+   <script src="https://kit.fontawesome.com/7a80d9bbce.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <button type="button" id="btn-login" onclick="githubLogin()">
-        <h3>
-            <i class="fa fa-github fa-1g" id="icon-github"></i>
-            Login with GitHub
-        </h3>
-    
+<h1>edit your github repository files from this website!</h1>
+<div>
+    <input type="text" name="" id="" onkeydown="keypress(event.key)" placeholder="type a github repository url...">
+    <button id="btn-edit-repo">
+        <i class="fa fa-arrow-right fa-1g" id="ico-edit-repo" style="color: white;"></i>
     </button>
-    <h2 style="color:orange;" id="logged-in-msg">Loading...</h4>
+
     
-    <a onclick="logout()" id="logout-btn" style="color: red; text-decoration: underline; display: none;">Logout</a>
+</div>
+<div id="notloggedin-popup">
+    <h1>You need to be logged in to edit a repository!<br><br>Redirecting to login...</h1>
+    <h1></h1>
+</div>
 </body>
 </html>

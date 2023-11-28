@@ -13,8 +13,9 @@ async function logged_in() {
     document.getElementById("btn-login").disabled = "disabled"
     msg.style.color = "green"
     json = await gitapi("/user")
+    pic = json.avatar
     uname = json.login
-    msg.innerHTML = `Login successful! Welcome back, ${uname}!`
+    msg.innerHTML = `Login successful! Welcome back, ${uname}! `
     document.getElementById("logout-btn").style.display = "block"
 }
 window.onload = function() {
