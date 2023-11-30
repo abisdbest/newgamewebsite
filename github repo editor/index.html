@@ -1,25 +1,52 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-   <title></title>
-   <link rel='stylesheet' href='styles.css'/>
-   <script src='script.js'></script>
-   <script src="https://kit.fontawesome.com/7a80d9bbce.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>github repo editor</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        
+        img {
+            height: 200px;
+            position: fixed;
+            left: 30px;
+            border-radius: 100px;
+        }
 
+        li {
+            border: 3px solid white;
+            width: 200px;
+            border-radius: 10px;
+            padding: 30px;
+            list-style-type: none;
+            margin: 10px;
+        }
+        
+        li:hover {
+            background-color: grey;
+        }
+
+        li:active {
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
-<h1>edit your github repository files from this website!</h1>
-<div>
-    <input type="text" name="" id="" onkeydown="keypress(event.key)" placeholder="type a github repository url...">
-    <button id="btn-edit-repo">
-        <i class="fa fa-arrow-right fa-1g" id="ico-edit-repo" style="color: white;"></i>
-    </button>
-
-    
-</div>
-<div id="notloggedin-popup">
-    <h1>You need to be logged in to edit a repository!<br><br>Redirecting to login...</h1>
-    <h1></h1>
-</div>
+    <h1>edit your repositories here!</h1>
+    <img src="https://avatars.githubusercontent.com/u/105310709?v=4#blooket">
+    <h2>your repositories:</h2>
+    <center>
+        <ul>
+            <li>my website</li>
+            <li>my game</li>
+            <li>my stuff</li>
+        </ul>
+    </center>
 </body>
 </html>
