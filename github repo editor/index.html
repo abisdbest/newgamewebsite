@@ -6,17 +6,18 @@
     <title>github repo editor</title>
     <style>
         body {
-            background-color: black;
+            background-color: rgb(75, 75, 75);
             color: white;
             text-align: center;
             font-family: sans-serif;
         }
         
         img {
-            height: 200px;
-            position: fixed;
+            height: 30px;
             left: 30px;
             border-radius: 100px;
+            position: fixed;
+            left: 800px
         }
 
         li {
@@ -33,17 +34,29 @@
         }
 
         li:active {
-            background-color: black;
+            background-color: rgb(75, 75, 75);
+        }
+
+        div {
+            position: fixed;
+            border-radius: 10px;
+            height: 10px;
+            width: 10px;
+            background-color: red;
+            border: 2px solid white;
         }
     </style>
 </head>
 <body>
     <h1>edit your repositories here!</h1>
-    <img src="https://avatars.githubusercontent.com/u/105310709?v=4#blooket">
     <h2>your repositories:</h2>
     <center>
         <ul>
-            <li>my website</li>
+            <li>
+                <img src="https://avatars.githubusercontent.com/u/105310709?v=4#blooket"><h3>youruser/my website</h3>
+                <p>a cool website made by me</p>
+                <div></div>made in html
+            </li>
             <li>my game</li>
             <li>my stuff</li>
         </ul>
