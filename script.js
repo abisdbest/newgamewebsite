@@ -116,12 +116,13 @@ function toggleChat() {
 
 
 function sendMessage() {
-  const username = document.getElementsByClassName('chatters-name').value;
+  const username = document.getElementById('chatter-username').value;
   const message = document.getElementById('chat-message').value;
 
   // Make a POST request to the server
-  fetch('http://localhost:3000/chats', {
+  fetch('localhost:3000/chats', {
     method: 'POST',
+    mode: 'no-cors',  // Set mode to 'no-cors'
     headers: {
       'Content-Type': 'application/json',
     },
