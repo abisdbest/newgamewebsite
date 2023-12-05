@@ -415,7 +415,7 @@ img {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    overflow: hidden;
+    overflow: none;
     transition: bottom 0.5s ease; /* Add transition for smooth animation */
     z-index: 1; /* Set a higher z-index value to ensure it's on top */
 }
@@ -435,26 +435,46 @@ img {
 
 /* Add these styles to your existing CSS */
 
-.chat-message {
-    padding: 10px;
-    border-bottom: 1px solid #080808;
-    opacity: 0.5;
-    border-radius: 30px 0 30px 30px;
-    width: max-content;
-    margin: 8px;
-}
+/* Existing styles */
 
 .chats {
     display: flex;
-    align-items: flex-end;
-    height: fit-content;
     flex-direction: column;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.chats::-webkit-scrollbar {
+    display: none;
 }
 
 .chatters-name {
     font-weight: bold;
     margin: 5px;
+    text-align: right;
 }
+
+.chat-message {
+    padding: 10px;
+    border-bottom: 1px solid #080808;
+    opacity: 0.5;
+    border-radius: 30px 30px 0 30px; /* Adjust border-radius for all messages */
+    width: max-content;
+    margin: 8px;
+    align-self: flex-end; /* Align all messages to the left */
+}
+
+/* Additional styles for user-specific messages */
+.chat-container.active .chat-message.user {
+    background-color: #080808;
+    border-radius: 30px 30px 30px 0; /* Adjust border-radius for user-specific messages */
+    align-self: flex-start; /* Align user-specific messages to the right */
+}
+
+.chat-container.active .chatters-name {
+    color: #4CAF50; /* You can choose your desired color */
+}
+
 
 /* Additional styles for a more visually appealing chat message */
 .chat-container.active .chat-message {

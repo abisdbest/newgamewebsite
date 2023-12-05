@@ -102,7 +102,37 @@ function toggleMenu() {
   }, 300); // Adjust the delay based on the sidebar transition duration
 }
 
+
+
+
 function toggleChat() {
   const chatContainer = document.querySelector('.chat-container');
   chatContainer.classList.toggle('active');
+  var messages = document.querySelector(".chats");
+  messages.scrollTop = messages.scrollHeight - messages.clientHeight;
+}
+
+
+
+
+function sendMessage() {
+  const username = document.getElementsByClassName('chatters-name').value;
+  const message = document.getElementById('chat-message').value;
+
+  // Make a POST request to the server
+  fetch('http://localhost:3000/chats', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, message }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Message sent:', data);
+    // You can update the UI or perform additional actions here
+  })
+  .catch(error => {
+    console.error('Error sending message:', error);
+  });
 }

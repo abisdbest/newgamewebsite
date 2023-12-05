@@ -1,65 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>github repo editor</title>
-    <style>
-        body {
-            background-color: rgb(75, 75, 75);
-            color: white;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        
-        img {
-            height: 30px;
-            left: 30px;
-            border-radius: 100px;
-            position: fixed;
-            left: 800px
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>GitHub Repositories</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #757575;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        li {
-            border: 3px solid white;
-            width: 200px;
-            border-radius: 10px;
-            padding: 30px;
-            list-style-type: none;
-            margin: 10px;
-        }
-        
-        li:hover {
-            background-color: grey;
-        }
+    h1 {
+      text-align: center;
+    }
 
-        li:active {
-            background-color: rgb(75, 75, 75);
-        }
+    .container {
+      margin-top: 20px;
+    }
 
-        div {
-            position: fixed;
-            border-radius: 10px;
-            height: 10px;
-            width: 10px;
-            background-color: red;
-            border: 2px solid white;
-        }
-    </style>
+    .repo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .repo-item {
+      border: 1px solid #303030;
+      border-radius: 6px;
+      background-color: #292929;
+      margin-bottom: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .repo-item img {
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 6px;
+      margin-right: 16px;
+    }
+
+    .repo-details {
+      flex-grow: 1;
+    }
+
+    h3, p {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #58a6ff;
+    }
+
+    p {
+      font-size: 14px;
+      color: #8b949e;
+    }
+
+    img {
+      height: 32px;
+      margin-top: 0;
+    }
+
+    .language {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #8b949e;
+    }
+
+    .lang {
+      height: 10px;
+      width: 10px;
+      background-color: red;
+      border-radius: 10px;
+      border: solid 1px white;
+      display: inline-block;
+    }
+
+    .star-btn {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .star-btn i {
+      margin-right: 4px;
+      color: #8b949e;
+    }
+
+    button.btn-outline-secondary {
+      color: #8b949e;
+      border-color: #30363d;
+    }
+
+    button.btn-outline-secondary:hover {
+      color: #fff;
+      background-color: #30363d;
+      border-color: #30363d;
+    }
+  </style>
 </head>
 <body>
-    <h1>edit your repositories here!</h1>
-    <h2>your repositories:</h2>
-    <center>
-        <ul>
-            <li>
-                <img src="https://avatars.githubusercontent.com/u/105310709?v=4#blooket"><h3>youruser/my website</h3>
-                <p>a cool website made by me</p>
-                <div></div>made in html
-            </li>
-            <li>my game</li>
-            <li>my stuff</li>
-        </ul>
-    </center>
+
+<br>
+<!-- <svg><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> -->
+<h1>Repositories listing for user null:</h1>
+<br>
+
+<div class="container">
+  <ul class="repo-list">
+    <!-- Repository 1 -->
+    <li class="repo-item">
+      <img src="https://avatars.githubusercontent.com/u/105310709?v=4" alt="Repository 1">
+      <div class="repo-details">
+        <h3>Repository 1</h3>
+        <p>Description of Repository 1.</p>
+        <p class="language"><div class="lang"></div> html</p>
+        <div class="star-btn">
+          <i class="far fa-star"></i>
+          <button type="button" class="btn btn-outline-secondary">Star</button>
+        </div>
+      </div>
+    </li>
+    <!-- Repository 2 -->
+    <li class="repo-item">
+      <img src="https://avatars.githubusercontent.com/u/105310709?v=4" alt="Repository 2">
+      <div class="repo-details">
+        <h3>Repository 2</h3>
+        <p>Description of Repository 2.</p>
+        <p class="language"><div class="lang"></div> html</p>
+        <div class="star-btn">
+          <i class="far fa-star"></i>
+          <button type="button" class="btn btn-outline-secondary">Star</button>
+        </div>
+      </div>
+    </li>
+
+    <!-- Repository 1 -->
+    <li class="repo-item">
+      <img src="https://avatars.githubusercontent.com/u/105310709?v=4" alt="Repository 1">
+      <div class="repo-details">
+        <h3>Repository 3</h3>
+        <p>Description of Repository 3.</p>
+        <p class="language"><div class="lang"></div> html</p>
+        <div class="star-btn">
+          <i class="far fa-star"></i>
+          <button type="button" class="btn btn-outline-secondary">Star</button>
+        </div>
+      </div>
+    </li>
+
+    <!-- Repository 1 -->
+    <li class="repo-item">
+      <img src="https://avatars.githubusercontent.com/u/105310709?v=4" alt="Repository 1">
+      <div class="repo-details">
+        <h3>Repository 4</h3>
+        <p>Description of Repository 4.</p>
+        <p class="language"><div class="lang"></div> html</p>
+        <div class="star-btn">
+          <i class="far fa-star"></i>
+          <button type="button" class="btn btn-outline-secondary">Star</button>
+        </div>
+      </div>
+    </li>
+
+    <!-- Repository 1 -->
+    <li class="repo-item">
+      <img src="https://avatars.githubusercontent.com/u/105310709?v=4" alt="Repository 1">
+      <div class="repo-details">
+        <h3>Repository 5</h3>
+        <p>Description of Repository 5.</p>
+        <p class="language"><div class="lang"></div> html</p>
+        <div class="star-btn">
+          <i class="far fa-star"></i>
+          <button type="button" class="btn btn-outline-secondary">Star</button>
+        </div>
+      </div>
+    </li>            
+    <!-- Add more repositories as needed -->
+
+  </ul>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
