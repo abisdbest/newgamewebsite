@@ -1,59 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSCode Clone</title>
   <style>
-    * {
+    body {
+      margin: 0;
+      font-family: 'Monaco', monospace;
+      overflow: hidden; /* Prevents scrollbar in the body */
+    }
+
+    /* Styling for the sidebar */
+    .sidebar {
+      width: 270px;
+      height: 100vh;
+      background-color: #1e1e1e;
+      color: #abb2bf;
+      padding: 10px;
+      font-family: 'Monaco', monospace;
+      float: left;
+    }
+
+    .file-explorer ul {
       list-style-type: none;
+      padding: 0;
     }
-    .folder label {
+
+    .folder-list {
+      padding-left: 20px;
+    }
+
+    .file-explorer li {
+      padding: 8px;
       cursor: pointer;
-      user-select: none;
+      display: flex;
+      align-items: center;
     }
-    .folder input {
-      display: none;
+
+    .file-explorer li:hover {
+      background-color: #2c2c2c;
     }
+
+    .file-icon {
+      margin-right: 8px;
+    }
+
     .folder ul {
       display: none;
-      margin-left: 20px;
+      padding-left: 20px;
     }
-    .folder input:checked ~ ul {
+
+    .folder.collapsed ul {
       display: block;
     }
-    .text {
-      background-color: rgb(117, 117, 117);
-      margin: 3px;
-      width: 200px;
-      border-radius: 10px;
+
+    /* Styling for the tab container */
+    .tab-container {
+      width: calc(100% - 270px);
+      height: 100vh;
+      background-color: #1e1e1e;
+      float: right;
+      overflow: hidden;
+      display: contents;
+    }
+
+    /* Styling for individual tabs */
+    .tab-bar {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      background-color: #333;
       padding: 5px;
-      color: white;
     }
-    .text:hover {
-      background-color: rgb(100, 100, 100);
+
+    .tab {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #abb2bf;
+      margin-right: 5px;
+      cursor: pointer;
     }
-    body {
-      background-color: rgb(48, 48, 48);
+
+    .tab.active {
+      background-color: #2c2c2c;
+      color: #fff;
+    }
+
+    /* Styling for the editor area */
+    .editor {
+      min-height: calc(100vh - 40px);
+      background-color: #2c2c2c;
+      padding: 10px;
+      font-family: 'Monaco', monospace;
+      color: #abb2bf;
+      overflow: auto;
+    }
+
+    /* Clear floating elements */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
     }
   </style>
 </head>
 <body>
-  <ul class="folder">
-    <li>
-      <label for="folder1"><div class="text">▼ Folder</div></label>
-      <input type="checkbox" id="folder1">
-      <ul>
-        <li><div class="text">File</div></li>
-        <li><div class="text">File</div></li>
-        <li>
-          <label for="folder2"><div class="text">▼ Folder</div></label>
-          <input type="checkbox" id="folder2">
+  <div class="sidebar">
+    <h2>Explorer</h2>
+    <div class="file-explorer">
+      <ul class="folder-list">
+        <li class="folder collapsed">
+          <span class="file-icon">📂</span>Folder 1
           <ul>
-            <li><div class="text">File</div></li>
-            <li><div class="text">File</div></li>
+            <li><span class="file-icon">📄</span>File 1.1</li>
+            <li><span class="file-icon">📄</span>File 1.2</li>
+          </ul>
+        </li>
+        <li class="folder collapsed">
+          <span class="file-icon">📂</span>Folder 2
+          <ul>
+            <li><span class="file-icon">📄</span>File 2.1</li>
+          </ul>
+        </li>
+        <li class="folder collapsed">
+          <span class="file-icon">📂</span>Folder 3
+          <ul>
+            <li><span class="file-icon">📄</span>File 3.1</li>
+            <li><span class="file-icon">📄</span>File 3.2</li>
           </ul>
         </li>
       </ul>
-    </li>
-    <li><div class="text">File</div></li>
-  </ul>
+    </div>
+  </div>
+  <div class="tab-container">
+    <div class="tab-bar">
+      <div class="tab active">File 1</div>
+      <div class="tab">File 2</div>
+      <div class="tab">File 3</div>
+    </div>
+    <div class="editor" contenteditable="true">
+      <p>This is the content of the active file.</p>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const folders = document.querySelectorAll('.folder');
+
+      folders.forEach(folder => {
+        folder.addEventListener('click', function (event) {
+          if (event.target !== this) {
+            return; // Ignore clicks on child elements
+          }
+
+          this.classList.toggle('collapsed');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
