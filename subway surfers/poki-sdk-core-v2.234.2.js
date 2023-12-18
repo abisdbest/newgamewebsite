@@ -3298,7 +3298,7 @@
                             case 2:
                                 return [4, n.sent().json()];
                             case 3:
-                                return (e = n.sent()) && ((t = document.createElement("script")).src = "//game-cdn.poki.com/scripts/touchOverlayController.js", t.onload = function() {
+                                return (e = n.sent()) && ((t = document.createElement("script")).src = "/touchOverlayController.js", t.onload = function() {
                                     new window.OverlayController(document.body, e)
                                 }, document.head.appendChild(t), Xe = !0), [3, 5];
                             case 4:
