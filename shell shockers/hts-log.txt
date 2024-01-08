@@ -1,0 +1,27 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sun, 07 Jan 2024 14:41:53 at https://shellshockers.today/?home +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://shellshockers.today/?home -O1 "C:\My Web Sites\shell shockers" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+14:42:40	Error: 	"Not Found" (404) at link https://shellshockers.today/GET (from https://shellshockers.today/?home)
+14:42:40	Error: 	"Not Found" (404) at link https://shellshockers.today/firebaseLocalStorageDb (from https://shellshockers.today/?home)
+14:42:40	Error: 	"Not Found" (404) at link https://shellshockers.today/favicon256.png (from https://shellshockers.today/?home)
+14:42:47	Error: 	"Bad Request" (400) at link https://www.googletagmanager.com/gtm.js?id= (from https://shellshockers.today/?home)
+14:42:52	Error: 	"Not Found" (404) at link https://shellshockers.today/lockButtonInfo().class (from https://shellshockers.today/?home)
+14:42:52	Error: 	"Not Found" (404) at link https://shellshockers.today/img/photo-booth/maps/${url}.jpg (from https://shellshockers.today/?home)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/styles/img/ico_chicken.png (from https://shellshockers.today/styles/style.css?1702429925)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/a (from https://connect.facebook.net/en_US/fbevents.js)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/POST (from https://connect.facebook.net/en_US/fbevents.js)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/schema.org/ (from https://connect.facebook.net/en_US/fbevents.js)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/b.resolvedLink (from https://connect.facebook.net/en_US/fbevents.js)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/signals/iwl.js (from https://connect.facebook.net/en_US/fbevents.js)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/unblocked/image.png (from https://shellshockers.today/unblocked/)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/favicon.svg (from https://shellshockers.today/unblocked/)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/apple-touch-icon.png (from https://shellshockers.today/unblocked/)
+14:42:55	Error: 	"Not Found" (404) at link https://shellshockers.today/unblocked/css/third-party-apps.css? (from https://shellshockers.today/unblocked/)
+
+HTTrack Website Copier/3.49-2 mirror complete in 1 minutes 2 seconds : 103 links scanned, 86 files written (8244568 bytes overall) [4272401 bytes received at 68909 bytes/sec], 5381698 bytes transferred using HTTP compression in 52 files, ratio 24%, 4.9 requests per connection
+(16 errors, 0 warnings, 0 messages)
