@@ -3,35 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monaco Editor Example</title>
-  <script src="https://unpkg.com/monaco-editor@0.28.2/min/vs/loader.js"></script>
+  <title>Editor Example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@typestyle/monaco/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs/loader.js"></script>
+  <script src="emmet.js"></script>
   <style>
-    #editor {
-      height: 90vh;
+    .editor-main-container {
+      height: 600px;
     }
   </style>
 </head>
 <body>
+  <div class="App">
+    <div id="editor" class="editor-main-container"></div>
+  </div>
 
-<div id="editor"></div>
+  <script>
+    // To escape eslint
+    const rTabs = (str) => str.trim().replace(/^ {4}/gm, "");
+    const exampleCode = {
+      html: rTabs(`
+        <h1 class="title">Hi, Cool Man</h1>
+        <p class="description">I'm Boba</p>
+      `)
+    };
 
-<script>
-  require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.28.2/min/vs' } });
+    let isEditorReady = false;
 
-  require(['vs/editor/editor.main'], function () {
-    var editor = monaco.editor.create(document.getElementById('editor'), {
-      value: [
-        'function hello() {',
-        '\tconsole.log("Hello, Monaco!");',
-        '}'
-      ].join('\n'),
-      language: 'javascript',
-      theme: 'vs-dark',
+    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs' } });
+
+    require(['vs/editor/editor.main'], function () {
+      emmetMonaco.emmetHTML(monaco);
+      const editor = monaco.editor.create(document.getElementById('editor'), {
+        value: exampleCode['html'],
+        language: 'html',
+        theme: 'vs-dark',
+        minimap: { enabled: false }
+      });
+
+      isEditorReady = true;
     });
-
-    // You can add more configurations, event listeners, and functionality here.
-  });
-</script>
-
+  </script>
 </body>
 </html>
