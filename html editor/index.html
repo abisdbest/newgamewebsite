@@ -3,30 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor Example</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@typestyle/monaco/dist/index.css">
-  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs/loader.js"></script>
-  <script src="emmet.js"></script>
-  <style>
+    <title>Document</title>
+  <style type="text/css">
+    .explorer {
+        background-color: #333333;
+        height: 100vh;
+        position:fixed;
+        top: 35px; 
+        left: 0; 
+        bottom: 0; 
+        right: 0;
+        width: 20%;
+    }
+    
+    header {
+        background-color: #434343;
+        height: 100vh;
+        position:fixed;
+        top: 0; 
+        left: 0; 
+        bottom: 0; 
+        right: 0; 
+        padding-top: 7px;
+        color: white;
+    }
+    
+    button {
+        background-color: green;
+        color: white;
+        border: none;
+        height: 25px;
+        width: 50px;
+        border-radius: 5px;
+        position:fixed;
+        top: 5px; 
+        right: 10px;
+        color: white;
+    }
+    
+    button:active {
+        background-color: darkgreen;
+    }
+    
+    file, folder-name {
+        color: white;
+        display: block;
+    }
+    
+    .folder {
+        display: block;
+    }
+    
+    folder > file {
+        display: none;
+        margin-left: 20px;
+    }
+    
+    file.open {
+        display: block;
+    }
+    
     .editor-main-container {
-      height: 600px;
+        position: fixed;
+        height: 94.5vh;
+        bottom: 0;
+        right: 0;
+        width: 80%;
     }
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-css@3.9.0/">
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs/loader.js"></script>
+  <script src="emmet.js"></script>
 </head>
 <body>
-  <div class="App">
+  <header>
+    <center>
+        file code editor
+        
+    </center><button onclick="runhtml()">run</button>
+  </header>
+
+  <div class="explorer">
+    <br/>
+    <ul>
+        <file>file 1</file>
+        <file>file 2</file>   
+        <folder><folder-name class="folder" onclick="toggle_open(this)">folder</folder-name>
+            <file>file 3</file>
+            <file>file 4</file>
+            <file>file 5</file>
+        </folder>
+    </ul>    
+  </div><div class="App">
     <div id="editor" class="editor-main-container"></div>
   </div>
-
-  <script>
-    // To escape eslint
-    const rTabs = (str) => str.trim().replace(/^ {4}/gm, "");
-    const exampleCode = {
-      html: rTabs(`
-        <h1 class="title">Hi, Cool Man</h1>
-        <p class="description">I'm Boba</p>
-      `)
-    };
+  <script type="text/javascript" charset="utf-8">
 
     let isEditorReady = false;
 
@@ -34,8 +105,8 @@
 
     require(['vs/editor/editor.main'], function () {
       emmetMonaco.emmetHTML(monaco);
-      const editor = monaco.editor.create(document.getElementById('editor'), {
-        value: exampleCode['html'],
+      var editor = monaco.editor.create(document.getElementById('editor'), {
+        value: '',
         language: 'html',
         theme: 'vs-dark',
         minimap: { enabled: false }
@@ -43,6 +114,31 @@
 
       isEditorReady = true;
     });
+
+    function toggle_open(element){
+        var files = element.parentNode.querySelectorAll("file");
+        files.forEach(function(file) {
+            file.classList.toggle('open');
+        });
+    }
+
+    function runhtml(){
+      var win = window.open();
+      win.write(editor.current.getValue())
+    }
   </script>
 </body>
 </html>
+
+
+
+<style>
+  
+</style>
+
+
+
+
+<script>
+  
+</script>
