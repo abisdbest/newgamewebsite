@@ -3,142 +3,250 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Document</title>
   <style type="text/css">
+
+    body {
+      font-family: Consolas, monaco, monospace; 
+      background: #434343;
+    }
+
     .explorer {
-        background-color: #333333;
-        height: 100vh;
-        position:fixed;
-        top: 35px; 
-        left: 0; 
-        bottom: 0; 
-        right: 0;
-        width: 20%;
+      background-color: #333333;
+      height: 95%;
+      position: fixed;
+      top: 35px; 
+      left: 0; 
+      bottom: 0; 
+      right: 0;
+      width: 20%;
     }
-    
+
     header {
-        background-color: #434343;
-        height: 100vh;
-        position:fixed;
-        top: 0; 
-        left: 0; 
-        bottom: 0; 
-        right: 0; 
-        padding-top: 7px;
-        color: white;
+      background-color: #434343;
+      height: 100vh;
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      bottom: 0; 
+      right: 0; 
+      padding-top: 7px;
+      color: white;
     }
-    
+
     button {
-        background-color: green;
-        color: white;
-        border: none;
-        height: 25px;
-        width: 50px;
-        border-radius: 5px;
-        position:fixed;
-        top: 5px; 
-        right: 10px;
-        color: white;
+      background-color: green;
+      color: white;
+      border: none;
+      height: 25px;
+      width: 50px;
+      border-radius: 5px;
+      position: fixed;
+      top: 5px; 
+      right: 10px;
     }
-    
+
     button:active {
-        background-color: darkgreen;
+      background-color: darkgreen;
     }
-    
+
+    ul {
+      padding-left: 20px;
+    }
+
     file, folder-name {
-        color: white;
-        display: block;
+      display: block;
+      position: relative;
+      color: white;
+      width: 300px;
+      border-radius: 2px;
+      padding-left: 10px;
     }
-    
+
+    file:hover, folder-name:hover {
+      background-color: #404040;
+    }
+
+    file:hover::before,
+    folder-name:hover::before {
+      background-color: #404040; /* Add the background color here */
+    }
+
+    .css::before {
+      content: '# ';
+      color: #009099;
+      position: absolute;
+      left: -20px; /* Adjust the positioning as needed */
+      width: 20px;
+      padding-left: 10px;
+    }
+
+    .html::before {
+      content: '<>';
+      color: red;
+      position: absolute;
+      left: -20px; /* Adjust the positioning as needed */
+      width: 20px;
+      padding-left: 10px;
+    }
+
+    .js::before {
+      content: 'JS';
+      color: yellow;
+      position: absolute;
+      left: -20px; /* Adjust the positioning as needed */
+      width: 20px;
+      padding-left: 40px;
+    }
+
+    .folder::before {
+      content: '>';
+      color: white;
+      position: absolute;
+      left: -20px; /* Adjust the positioning as needed */
+      width: 20px;
+      padding-left: 10px;
+    }
+
+    .folder-open::before {
+      content: 'v';
+      color: white;
+      position: absolute;
+      left: -20px; /* Adjust the positioning as needed */
+      width: 20px;
+      padding-left: 10px;
+      font-width: 10px;
+    }
+
     .folder {
-        display: block;
+      display: block;
     }
-    
+
+
     folder > file {
-        display: none;
-        margin-left: 20px;
+      display: none;
+      padding-left: 40px;
     }
-    
+
+
+
     file.open {
-        display: block;
+      display: block;
     }
-    
+
     .editor-main-container {
-        position: fixed;
-        height: 94.5vh;
-        bottom: 0;
-        right: 0;
-        width: 80%;
+      position: fixed;
+      height: 94.5%;
+      bottom: 0;
+      right: 0;
+      width: 80%;
     }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-css@3.9.0/">
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs/loader.js"></script>
   <script src="emmet.js"></script>
 </head>
+
 <body>
   <header>
     <center>
-        file code editor
-        
-    </center><button onclick="runhtml()">run</button>
+      file code editor
+    </center>
+    <button onclick="runhtml()">run</button>
   </header>
 
   <div class="explorer">
-    <br/>
     <ul>
-        <file>file 1</file>
-        <file>file 2</file>   
-        <folder><folder-name class="folder" onclick="toggle_open(this)">folder</folder-name>
-            <file>file 3</file>
-            <file>file 4</file>
-            <file>file 5</file>
-        </folder>
-    </ul>    
-  </div><div class="App">
+      <file class="html">index.html</file>
+      <file class="css">styles.css</file>
+      <folder>
+        <folder-name class="folder" onclick="toggle_open(this)">scripts</folder-name>
+        <file class="js">script.js</file>
+        <file class="js">index.js</file>
+        <file class="js">app.js</file>
+      </folder>
+    </ul>
+  </div>
+  <div class="App">
     <div id="editor" class="editor-main-container"></div>
   </div>
   <script type="text/javascript" charset="utf-8">
+    var startValue = ''
+    fetch('https://editor-server.blaub002-302.workers.dev/#blooket', { method: 'GET' })
+      .then(response => response.text())
+      .then(editorValue => {
+        startValue = editorValue
+      })
 
     let isEditorReady = false;
+    let editor;
 
-    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs' } });
+    require.config({
+      paths: {
+        'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs'
+      }
+    });
 
     require(['vs/editor/editor.main'], function () {
       emmetMonaco.emmetHTML(monaco);
-      var editor = monaco.editor.create(document.getElementById('editor'), {
-        value: '',
+      editor = monaco.editor.create(document.getElementById('editor'), {
+        value: startValue,
         language: 'html',
         theme: 'vs-dark',
-        minimap: { enabled: false }
+        minimap: {
+          enabled: false
+        }
+      });
+
+      // Add event listener for content change
+      editor.onDidChangeModelContent(() => {
+        sendContentToCloudflare();
       });
 
       isEditorReady = true;
     });
 
-    function toggle_open(element){
-        var files = element.parentNode.querySelectorAll("file");
-        files.forEach(function(file) {
-            file.classList.toggle('open');
-        });
+    function toggle_open(element) {
+      element.classList.toggle('folder-open')
+      var files = element.parentNode.querySelectorAll("file");
+      files.forEach(function (file) {
+        file.classList.toggle('open');
+      });
     }
 
-    function runhtml(){
-      var win = window.open();
-      win.write(editor.current.getValue())
+    function runhtml() {
+      if (isEditorReady) {
+        var win = window.open('run.html');
+        editor.onDidChangeModelContent(() => {
+          win.location.reload()
+        });
+      } else {
+        console.log("Editor is not ready yet.");
+      }
+    }
+
+    function sendContentToCloudflare() {
+      if (isEditorReady) {
+        var content = editor.getValue();
+
+        // Send a POST request to your Cloudflare Worker with the updated content
+        fetch('https://editor-server.blaub002-302.workers.dev/#blooket', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value: content
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+        })
+        .catch(error => console.error('Error sending content to Cloudflare:', error));
+      }
     }
   </script>
 </body>
 </html>
-
-
-
-<style>
-  
-</style>
-
-
-
-
-<script>
-  
-</script>
