@@ -34,7 +34,7 @@
       color: white;
     }
 
-    button {
+    .runbtn {
       background-color: green;
       color: white;
       border: none;
@@ -46,7 +46,7 @@
       right: 10px;
     }
 
-    button:active {
+    .runbtn:active {
       background-color: darkgreen;
     }
 
@@ -115,7 +115,6 @@
       left: -20px; /* Adjust the positioning as needed */
       width: 20px;
       padding-left: 10px;
-      font-width: 10px;
     }
 
     .folder {
@@ -152,14 +151,17 @@
     <center>
       file code editor
     </center>
-    <button onclick="runhtml()">run</button>
+    <button class="runbtn" onclick="runhtml()">run</button>
   </header>
 
+  
   <div class="explorer">
     <ul>
+      <button onclick="createFile('html')">New File</button>
+      <button onclick="createFolder()">New Folder</button>
       <file class="html">index.html</file>
       <file class="css">styles.css</file>
-      <folder>
+      <folder id="folder_div">
         <folder-name class="folder" onclick="toggle_open(this)">scripts</folder-name>
         <file class="js">script.js</file>
         <file class="js">index.js</file>
@@ -247,6 +249,121 @@
         .catch(error => console.error('Error sending content to Cloudflare:', error));
       }
     }
+    function createFile(type) {
+      if (isEditorReady) {
+        const folderOpen = document.querySelector('.folder-open');
+        const newFile = document.createElement('file');
+        newFile.classList.add(type);
+        newFile.textContent = `new.${type}`;
+        
+        if (folderOpen) {
+          folderOpen.appendChild(newFile);
+          newFile.classList.add('open');
+        } else {
+          document.querySelector('.explorer ul').appendChild(newFile);
+        }
+      }
+    }
+
+    function createFolder() {
+      if (isEditorReady) {
+        const folderOpen = document.querySelector('.folder-open');
+        const newFolder = document.createElement('folder');
+        const folderName = document.createElement('folder-name');
+        folderName.classList.add('folder');
+        folderName.textContent = 'new_folder';
+        newFolder.appendChild(folderName);
+
+        if (folderOpen) {
+          folderOpen.appendChild(newFolder);
+        } else {
+          document.querySelector('.explorer ul').appendChild(newFolder);
+        }
+      }
+    }
+
+    function toggle_open(element) {
+      if (element.tagName === 'FOLDER-NAME') {
+        // If clicked element is a folder name, toggle 'folder-open' class
+        element.classList.toggle('folder-open');
+      }
+
+      const files = element.parentNode.querySelectorAll("file, folder");
+      files.forEach(function (file) {
+        if (element.classList.contains('folder-open')) {
+          file.style.display = 'block';
+        } else {
+          file.style.display = 'none';
+        }
+      });
+    }
   </script>
 </body>
 </html>
+
+<!-- addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  if (request.method === 'OPTIONS') {
+    // Respond to preflight requests
+    return new Response(null, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
+
+  const url = new URL(request.url);
+  const filePath = url.pathname.substring(1); // remove leading '/'
+  
+  if (request.method === 'POST') {
+    // If it's a POST request, update the value for the specified file
+    const body = await request.text();
+    try {
+      const jsonBody = JSON.parse(body);
+      saveValue(filePath, jsonBody.value);
+      return new Response(`Value saved for ${filePath}`, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'text/plain',
+        },
+      });
+    } catch (error) {
+      return new Response('Invalid JSON format', {
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'text/plain',
+        },
+      });
+    }
+  } else {
+    // For other request methods (GET, etc.), retrieve the value for the specified file
+    const storedValue = getValue(filePath);
+    return new Response(`${storedValue}`, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'text/plain',
+      },
+    });
+  }
+}
+
+// In-memory storage for values
+const valueStorage = {};
+
+function saveValue(fileName, value) {
+  // Save the value for the specified file
+  valueStorage[fileName] = value;
+}
+
+function getValue(fileName) {
+  // Retrieve the value for the specified file
+  return valueStorage[fileName] || '';
+} -->
