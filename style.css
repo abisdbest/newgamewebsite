@@ -394,7 +394,7 @@ img {
 
 .chat-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 50px;
     right: 20px;
     z-index: 999999999999999999; /* Ensure the chat button is above other elements */
     background-color: #7445a0;
@@ -410,7 +410,7 @@ img {
 }
 
 .chat-container.active {
-    bottom: 100px; /* Bring it up to the desired position */
+    bottom: 130px; /* Bring it up to the desired position */
 }
 
 /* Add these styles to your existing CSS */
