@@ -200,11 +200,6 @@
         }
       });
 
-      // Add event listener for content change
-      editor.onDidChangeModelContent(() => {
-        sendContentToCloudflare();
-      });
-
       isEditorReady = true;
     });
 

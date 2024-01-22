@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repository Contents</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #757575;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      border: 1px solid #303030;
+      border-radius: 6px;
+      background-color: #292929;
+      margin-bottom: 16px;
+      padding: 16px;
+      cursor: pointer; /* Add cursor pointer for clickable items */
+    }
+
+    li img {
+      max-width: 48px;
+      max-height: 48px;
+      border-radius: 6px;
+      margin-right: 16px;
+    }
+
+    .content-details {
+      display: inline-block;
+    }
+
+    h3, p {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #58a6ff;
+      display: inline-block; /* Display folder name and type inline */
+      cursor: pointer; /* Add cursor pointer to folder names */
+    }
+
+    p {
+      font-size: 14px;
+      color: #8b949e;
+      display: inline-block; /* Display folder name and type inline */
+      margin-top: 8px; /* Add some space between name and type */
+    }
+
+    .nested-list {
+      list-style-type: none;
+      padding-left: 20px;
+      margin: 0;
+      display: none;
+      margin-top: 20px; /* Add extra margin between nested lists */
+    }
+
+    .nested-list li {
+      border-radius: 6px;
+      background-color: #292929;
+      margin-bottom: 16px;
+      padding: 16px;
+      cursor: pointer; /* Add cursor pointer for clickable items */
+      width: 97.5%; /* Make folder items wider */
+      display: inline-block; /* Display folder items inline */
+    }
+
+    .nested-list li img {
+      max-width: 48px;
+      max-height: 48px;
+      border-radius: 6px;
+      margin-right: 16px;
+    }
+
+    .nested-list .content-details {
+      display: inline-block;
+    }
+
+    .nested-list h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #58a6ff;
+      display: inline-block; /* Display folder name and type inline */
+      cursor: pointer; /* Add cursor pointer to folder names */
+    }
+
+    .nested-list p {
+      font-size: 14px;
+      color: #8b949e;
+      display: inline-block; /* Display folder name and type inline */
+      margin-top: 8px; /* Add some space between name and type */
+    }
+  </style>
+</head>
+<body>
+
+<h1>Contents of Repository</h1>
+
+<ul id="contentList">
+  <!-- Repository contents will be dynamically added here -->
+</ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const contentList = document.getElementById("contentList");
+
+    // Get the repository name from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const repoName = urlParams.get('q');
+
+    // Fetch repository contents from GitHub API
+    fetch(`https://api.github.com/repos/abisdbest/${repoName}/contents#blooket`)
+      .then(response => response.json())
+      .then(contents => {
+        // Function to fetch contents of a folder
+        async function fetchFolderContents(folderName, nestedList) {
+          const folderContents = await fetch(`https://api.github.com/repos/abisdbest/${repoName}/contents/${folderName}#blooket`);
+          const folderContentsData = await folderContents.json();
+          nestedList.innerHTML = ""; // Clear existing content
+          folderContentsData.forEach(content => {
+            const listItem = document.createElement("li");
+
+            listItem.innerHTML = `
+              <img src="${content.type === "file" ? 'https://img.icons8.com/color/48/000000/file.png#blooket' : 'https://img.icons8.com/color/48/000000/folder-invoices.png'}" alt="${content.name}">
+              <div class="content-details">
+                <h3>${content.name}</h3>
+                <p>Type: ${content.type}</p>
+              </div>
+            `;
+
+            // If the content is a folder, add a nested list
+            if (content.type === "dir") {
+              listItem.classList.add("folder");
+              listItem.innerHTML += `<ul class="nested-list" id="${content.name}-contents"></ul>`;
+            }
+
+            // Add click event listener to toggle visibility for folders and fetch contents
+            listItem.addEventListener("click", function() {
+              if (content.type === "dir") {
+                const nestedList = document.getElementById(`${content.name}-contents`);
+                nestedList.style.display = nestedList.style.display === "none" ? "block" : "none";
+                if (nestedList.style.display === "block") {
+                  fetchFolderContents(content.name, nestedList);
+                }
+              } else if (content.type === "file") {
+                window.location.href = `./edit?q=${repoName}&file=${content.name}`;
+              }
+            });
+
+            nestedList.appendChild(listItem);
+          });
+        }
+
+        // Iterate through the contents and create list items
+        contents.forEach(content => {
+          const listItem = document.createElement("li");
+
+          listItem.innerHTML = `
+            <img src="${content.type === "file" ? 'https://img.icons8.com/color/48/000000/file.png#blooket' : 'https://img.icons8.com/color/48/000000/folder-invoices.png'}" alt="${content.name}">
+            <div class="content-details">
+              <h3>${content.name}</h3>
+              <p>Type: ${content.type}</p>
+            </div>
+          `;
+
+          // If the content is a folder, add a nested list
+          if (content.type === "dir") {
+            listItem.classList.add("folder");
+            listItem.innerHTML += `<ul class="nested-list" id="${content.name}-contents"></ul>`;
+          }
+
+          // Add click event listener to toggle visibility for folders and fetch contents
+          listItem.addEventListener("click", function() {
+            if (content.type === "dir") {
+              const nestedList = document.getElementById(`${content.name}-contents`);
+              nestedList.style.display = nestedList.style.display === "none" ? "block" : "none";
+              if (nestedList.style.display === "block") {
+                fetchFolderContents(content.name, nestedList);
+              }
+            } else if (content.type === "file") {
+              window.location.href = ".././edit/" + `?q=${repoName}&file=${content.name}`;
+            }
+          });
+
+          contentList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error("Error fetching repository contents:", error));
+  });
+</script>
+
+</body>
+</html>

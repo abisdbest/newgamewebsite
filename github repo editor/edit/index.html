@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-css@3.9.0/">
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs/loader.js"></script>
+  <script src="emmet.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #editor {
+      height: 90vh;
+    }
+
+    #saveButton {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="editor"></div>
+<button id="saveButton" onclick="saveChanges()">Save</button>
+
+<script type="text/javascript" charset="utf-8">
+  var startValue = '';
+  var currentContent = ''; // Variable to store the current content
+  var repoDetails; // Variable to store repository details
+
+  // Extract repository name and file name from URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const repoName = urlParams.get('q');
+  const fileName = urlParams.get('file');
+
+  // Dynamically determine the GitHub API endpoint for repository details
+  const repoDetailsEndpoint = `https://api.github.com/repos/abisdbest/${repoName}#blooket`;
+  fetch(repoDetailsEndpoint, { method: 'GET' })
+    .then(response => response.json())
+    .then(details => {
+      repoDetails = details; // Store repository details
+
+      const branchName = repoDetails.default_branch;
+      const latestCommitEndpoint = `https://api.github.com/repos/abisdbest/${repoName}/commits/${branchName}#blooket`;
+      return fetch(latestCommitEndpoint, { method: 'GET' });
+    })
+    .then(response => response.json())
+    .then(latestCommit => {
+      const apiEndpoint = `https://api.github.com/repos/abisdbest/${repoName}/contents/${fileName}#blooket`;
+
+      // Fetch file content using the determined API endpoint
+      fetch(apiEndpoint, { method: 'GET' })
+        .then(response => response.json())
+        .then(fileContent => {
+          // Extract content from the response
+          startValue = atob(fileContent.content);
+          currentContent = startValue;
+
+          // Initialize Monaco Editor with the fetched file content
+          initMonacoEditor(startValue, latestCommit.sha);
+        });
+    });
+
+  let isEditorReady = false;
+  let editor;
+
+  function initMonacoEditor(initialValue, latestCommitSha) {
+    require.config({
+      paths: {
+        'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.31.1/min/vs'
+      }
+    });
+
+    require(['vs/editor/editor.main'], function () {
+      emmetMonaco.emmetHTML(monaco);
+      editor = monaco.editor.create(document.getElementById('editor'), {
+        value: initialValue,
+        language: 'html',
+        theme: 'vs-dark',
+        minimap: {
+          enabled: false
+        }
+      });
+
+      // Register an event listener to track changes in the editor
+      editor.onDidChangeModelContent(() => {
+        currentContent = editor.getValue(); // Update current content on changes
+      });
+
+      isEditorReady = true;
+    });
+  }
+
+  function saveChanges() {
+    if (!isEditorReady) {
+      console.error('Editor is not ready.');
+      return;
+    }
+
+    // Dynamically determine the GitHub API endpoint for repository details
+    const branchName = repoDetails.default_branch;
+    const latestCommitEndpoint = `https://api.github.com/repos/abisdbest/${repoName}/commits/${branchName}#blooket`;
+    fetch(latestCommitEndpoint, { method: 'GET' })
+      .then(response => response.json())
+      .then(latestCommit => {
+        const apiEndpoint = `https://api.github.com/repos/abisdbest/${repoName}/contents/${fileName}#blooket`;
+
+        // Replace 'your-github-token' with the GitHub token
+        const githubToken = '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';
+
+        // Prepare data for the GitHub API request
+        const requestData = {
+          message: 'Update file',
+          content: btoa(currentContent), // Encode the content in base64
+          sha: latestCommit.sha, // SHA of the latest commit
+          branch: branchName,
+          committer: {
+            name: 'Ariel Blau',
+            email: 'arielblau2@gmail.com'
+          },
+        };
+
+        // Make the request to update the file
+        fetch(apiEndpoint, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('File updated successfully:', data);
+        })
+        .catch(error => {
+          console.error('Error updating file:', error);
+        });
+      });
+  }
+</script>
+
+</body>
+</html>
