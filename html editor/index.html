@@ -174,7 +174,7 @@
   </div>
   <script type="text/javascript" charset="utf-8">
     var startValue = ''
-    fetch('https://editor-server.blaub002-302.workers.dev/#blooket', { method: 'GET' })
+    fetch('https://blooket-editor-server.blaub002-302.workers.dev/#blooket', { method: 'GET' })
       .then(response => response.text())
       .then(editorValue => {
         startValue = editorValue
@@ -227,7 +227,7 @@
         var content = editor.getValue();
 
         // Send a POST request to your Cloudflare Worker with the updated content
-        fetch('https://editor-server.blaub002-302.workers.dev/#blooket', {
+        fetch('https://blooket-editor-server.blaub002-302.workers.dev/#blooket', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

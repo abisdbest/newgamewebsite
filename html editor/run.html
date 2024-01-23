@@ -14,7 +14,7 @@
     document.body.innerHTML = '';
 
     // Fetch the latest value from the Cloudflare Worker
-    fetch('https://editor-server.blaub002-302.workers.dev/#blooket', { method: 'GET' })
+    fetch('https://blooket-editor-server.blaub002-302.workers.dev/', { method: 'GET' })
       .then(response => response.text())
       .then(editorValue => {
         // Display the content in the div
