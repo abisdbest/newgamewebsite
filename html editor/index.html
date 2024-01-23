@@ -218,6 +218,7 @@
         var win = window.open('run.html');
         editor.onDidChangeModelContent(() => {
           win.location.reload()
+          sendContentToCloudflare()
         });
       } else {
         console.log("Editor is not ready yet.");
