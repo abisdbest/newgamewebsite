@@ -174,10 +174,11 @@
   </div>
   <script type="text/javascript" charset="utf-8">
     var startValue = ''
-    fetch('https://blooket-editor-server.blaub002-302.workers.dev/#blooket', { method: 'GET' })
+    fetch('https://blooket-editor-server.blaub002-302.workers.dev/', { method: 'GET' })
       .then(response => response.text())
       .then(editorValue => {
         startValue = editorValue
+        alert(startValue)
       })
 
     let isEditorReady = false;
@@ -199,7 +200,9 @@
           enabled: false
         }
       });
-
+      editor.onDidChangeModelContent(() => {
+        sendContentToCloudflare()
+      });
       isEditorReady = true;
     });
 
@@ -227,7 +230,7 @@
         var content = editor.getValue();
 
         // Send a POST request to your Cloudflare Worker with the updated content
-        fetch('https://blooket-editor-server.blaub002-302.workers.dev/#blooket', {
+        fetch('https://blooket-editor-server.blaub002-302.workers.dev/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
