@@ -120,7 +120,7 @@
         const apiEndpoint = `https://api.github.com/repos/abisdbest/${repoName}/contents/${fileName}#blooket`;
 
         // Replace 'your-github-token' with the GitHub token
-        const githubToken = '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';
+        const githubToken = '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';
 
         // Prepare data for the GitHub API request
         const requestData = {
@@ -138,7 +138,7 @@
         fetch(apiEndpoint, {
           method: 'PUT',
           headers: {
-            'Authorization': `token ${githubToken}`,
+            'Authorization': `Bearer ${githubToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(requestData),
