@@ -1,3 +1,28 @@
+const gameSquareWidths = [
+    15, 12, 18, 10, 14,
+    10, 15, 12, 20, 10,
+    14, 16, 12, 10, 18,
+    14, 15, 12, 14, 16,
+    20, 12, 10, 18, 14,
+    15, 14, 12, 16, 20,
+    18, 10, 14, 15, 12,
+    18, 16, 14, 12, 15,
+    20, 18, 14, 16, 12
+];
+// Get all the game squares
+const gameSquares = document.querySelectorAll('.game-square');
+
+// Loop through each game square and set its width
+gameSquares.forEach((square, index) => {
+    const widthPercentage = gameSquareWidths[index] || 10; // Default width is 10% if not specified
+    square.style.width = `${widthPercentage}%`;
+
+    // Optionally, you can set a maximum width
+    const maxWidth = 400; // Adjust the maximum width as needed
+    square.style.maxWidth = `${maxWidth}px`;
+});
+
+
 function tsandcs() {
   if (localStorage.getItem("tcsRead") == null) {
     // Disable scrolling on the rest of the website
