@@ -23,6 +23,7 @@ gameSquares.forEach((square, index) => {
 });
 
 
+
 function tsandcs() {
   if (localStorage.getItem("tcsRead") == null) {
     // Disable scrolling on the rest of the website
