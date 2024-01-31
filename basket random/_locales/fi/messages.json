@@ -1,4 +1,8 @@
-﻿{
-	"appName":{"message":"Basket Random Unblocked"},
-	"appDesc":{"message":"Now you can play Basket Random Unblocked right on Chrome™ Browser! Offline and Popup Version, without internet required!"}
+{
+    "appName": {
+        "message": "Basket Random - Estetty & Ilmainen"
+    },
+    "appDesc": {
+        "message": "Nyt voit pelata Basket Random - Unblocked & Free suoraan Chrome\u2122-selaimella! Offline- ja Popup-versio, ilman internet-yhteytt\u00e4!"
+    }
 }

@@ -1,4 +1,8 @@
-﻿{
-	"appName":{"message":"Basket Random Unblocked"},
-	"appDesc":{"message":"Now you can play Basket Random Unblocked right on Chrome™ Browser! Offline and Popup Version, without internet required!"}
+{
+    "appName": {
+        "message": "Basket Random - Neblokov\u00e1no a zdarma"
+    },
+    "appDesc": {
+        "message": "Nyn\u00ed m\u016f\u017eete hr\u00e1t Basket Random - Neblokovan\u00e9 a zdarma p\u0159\u00edmo v prohl\u00ed\u017ee\u010di Chrome\u2122! Offline a ve verzi s vyskakovac\u00edmi okny, bez nutnosti internetu!"
+    }
 }
