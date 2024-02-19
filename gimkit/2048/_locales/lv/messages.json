@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Spēlējiet spēli 2048"},
+  "description": {"message": "2048 ir vienkārša un jautra mīklu spēle. Iegūstiet spēli 2048 pārlūkam Chrome bez maksas!"},
+  "locale": {"message": "lv"},
+  "short":{"message":"2048 Puzzle Game"}
+}

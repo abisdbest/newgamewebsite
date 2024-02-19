@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Žaisti žaidimą 2048"},
+  "description": {"message": "2048 yra lengvas ir įdomus galvosūkių žaidimas. Gaukite žaidimą „Chrome“ nemokamai 2048!"},
+  "locale": {"message": "lt"},
+  "short":{"message":"2048 Puzzle Game"}
+}

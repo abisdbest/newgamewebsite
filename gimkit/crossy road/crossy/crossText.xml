@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<text>
+  <lang id="en">
+    <tap>Tap to Start</tap>
+    <chooseTittle>Choose Your Pet</chooseTittle>
+    <pick>pick</pick>
+    <animal1>Frog</animal1>
+    <animal2>Cat</animal2>
+    <animal3>Dog</animal3>
+    <animal4>Pig</animal4>
+    <animal5>Rabbit</animal5>
+    <animal6>Red Frog</animal6>
+    <scorePanel>Your Score:</scorePanel>
+    <best>Best Score:</best>
+    <bestPanel>New High Score!</bestPanel>   
+    <howToTittle>How To Play</howToTittle>
+    
+  </lang>
+  <lang id="es">
+    <tap>Toca para Empezar</tap>
+    <chooseTittle>Elige tu mascota</chooseTittle>
+    <pick>Elegir</pick>
+    <animal1>Rana</animal1>
+    <animal2>Gato</animal2>
+    <animal3>Perro</animal3>
+    <animal4>Cerdo</animal4>
+    <animal5>Conejo</animal5>
+    <animal6>Rana Roja</animal6>
+    <scorePanel>Tu Puntaje:</scorePanel>
+    <best>Mejor Puntaje:</best>
+    <bestPanel>Nuevo Puntaje Mas Alto!</bestPanel>   
+    <howToTittle>Como Jugar</howToTittle>
+
+  </lang>
+  <lang id="de">
+    <tap>Antippen um zu starten</tap>
+    <chooseTittle>Such Dir ein Tier aus</chooseTittle>
+    <pick>Wählen</pick>
+    <animal1>Frosch</animal1>
+    <animal2>Katze</animal2>
+    <animal3>Hund</animal3>
+    <animal4>Schweinchen</animal4>
+    <animal5>Hase</animal5>
+    <animal6>Rote Frosch</animal6>
+    <scorePanel>Deine Punktzahl:</scorePanel>
+    <best>Dein Rekord:</best>
+    <bestPanel>Neuer Rekord!</bestPanel>   
+    <howToTittle>So geht's:</howToTittle>
+  </lang>
+
+    <lang id="fr">
+    <tap>Cliquez pour commencer</tap>
+    <chooseTittle>Choisissez votre animal</chooseTittle>
+    <pick>choisir</pick>
+    <animal1>Grenouille</animal1>
+    <animal2>Chat</animal2>
+    <animal3>Chien</animal3>
+    <animal4>Cochon</animal4>
+    <animal5>Lapin</animal5>
+    <animal6>Grenouille Rogue</animal6>
+    <scorePanel>Votre score:</scorePanel>
+    <best>Meilleur score:</best>
+    <bestPanel>Nouveau Score élevé!</bestPanel>   
+    <howToTittle>Comment jouer</howToTittle>
+  </lang>
+
+    <lang id="it">
+    <tap>Premi per iniziare</tap>
+    <chooseTittle>Scegli il tuo animale </chooseTittle>
+    <pick>scegli</pick>
+    <animal1>Rana</animal1>
+    <animal2>Gatto</animal2>
+    <animal3>Cane</animal3>
+    <animal4>Maiale</animal4>
+    <animal5>Coniglio</animal5>
+    <animal6>Rana Rossa</animal6>
+    <scorePanel>Il tuo punteggio:</scorePanel>
+    <best>Miglior punteggio:</best>
+    <bestPanel>Nuovo miglior punteggio!</bestPanel>   
+    <howToTittle>Come Giocare</howToTittle>
+  </lang>
+
+    <lang id="pt">
+    <tap>Clica para começar</tap>
+    <chooseTittle>Escolhe o teu animal de estimação</chooseTittle>
+    <pick>escolher</pick>
+    <animal1>Sapo</animal1>
+    <animal2>Gato</animal2>
+    <animal3>Cão</animal3>
+    <animal4>Porco</animal4>
+    <animal5>Coelho</animal5>
+    <animal6>Sapo Vermelho</animal6>
+    <scorePanel>A tua pontuação:</scorePanel>
+    <best>Melhor pontuação:</best>
+    <bestPanel>Nova melhor pontuação!</bestPanel>   
+    <howToTittle>Como jogar</howToTittle>
+  </lang>
+
+    <lang id="ru">
+    <tap>Нажмите, чтобы начать</tap>
+    <chooseTittle>Выберите животное</chooseTittle>
+    <pick>выбрать</pick>
+    <animal1>Лягушка</animal1>
+    <animal2>Кошка</animal2>
+    <animal3>Собака</animal3>
+    <animal4>Свинья</animal4>
+    <animal5>Кролик</animal5>
+    <animal6>Kрасная лягушка</animal6>
+    <scorePanel>Ваш счет:</scorePanel>
+    <best>Лучший счет:</best>
+    <bestPanel>Новый рекорд!</bestPanel>   
+    <howToTittle>Как играть</howToTittle>
+  </lang>
+
+    <lang id="tr">
+    <tap>Başlamak için Dokun</tap>
+    <chooseTittle>Hayvanını Seç</chooseTittle>
+    <pick>al</pick>
+    <animal1>Kurbağa</animal1>
+    <animal2>Kedi</animal2>
+    <animal3>Köpek</animal3>
+    <animal4>Domuz </animal4>
+    <animal5>Tavşan</animal5>
+    <animal6>Kırmızı Kurbağa</animal6>
+    <scorePanel>Skorun:</scorePanel>
+    <best>En İyi Skor:</best>
+    <bestPanel>Yeni Yüksek Skor!</bestPanel>   
+    <howToTittle>Nasıl Oynanır</howToTittle>
+  </lang>
+
+    <lang id="th">
+    <tap>แตะเพื่อเริ่มต้น</tap>
+    <chooseTittle>เลือกสัตว์เลี้ยงของคุณ</chooseTittle>
+    <pick>เลือก</pick>
+    <animal1>กบ</animal1>
+    <animal2>แมว</animal2>
+    <animal3>สุนัข</animal3>
+    <animal4>หมู </animal4>
+    <animal5>กระต่าย</animal5>
+    <animal6>กบสีแดง</animal6>
+    <scorePanel>คะแนนของคุณ:</scorePanel>
+    <best>คะแนนที่ดีที่สุด:</best>
+    <bestPanel>คะแนนสูงสุดใหม่!</bestPanel>   
+    <howToTittle>วิธีเล่น</howToTittle>
+  </lang>
+
+    <lang id="nl">
+    <tap>Tik om te starten</tap>
+    <chooseTittle>Kies je huisdier</chooseTittle>
+    <pick>Kies</pick>
+    <animal1>Kikker</animal1>
+    <animal2>Kat</animal2>
+    <animal3>Hond</animal3>
+    <animal4>Varken </animal4>
+    <animal5>Konijn</animal5>
+    <animal6>Rode Kikker</animal6>
+    <scorePanel>Jouw score:</scorePanel>
+    <best>Hoogste score:</best>
+    <bestPanel>Hoogste score:!</bestPanel>   
+    <howToTittle>Hoe te spelen</howToTittle>
+  </lang>
+
+    <lang id="pl">
+    <tap>Dotknij, by rozpocząć</tap>
+    <chooseTittle>Wybierz swojego zwierzaka</chooseTittle>
+    <pick>wybierz</pick>
+    <animal1>Żaba</animal1>
+    <animal2>Kot</animal2>
+    <animal3>Pies</animal3>
+    <animal4>Świnia </animal4>
+    <animal5>Królik</animal5>
+    <animal6>Czerwona Żaba:</animal6>
+    <scorePanel>Twój wynik:</scorePanel>
+    <best>Najlepszy wynik </best>
+    <bestPanel>Nowy najlepszy wynik!</bestPanel>   
+    <howToTittle>Jak grać</howToTittle>
+  </lang>
+
+    <lang id="az">
+    <tap>Başlamaq için tıkla</tap>
+    <chooseTittle>Heyvanını seç</chooseTittle>
+    <pick>Al</pick>
+    <animal1>Qurbağa</animal1>
+    <animal2>Pişik</animal2>
+    <animal3>İt</animal3>
+    <animal4>Donuz </animal4>
+    <animal5>Dovşan</animal5>
+    <animal6>Qırmızı Qurbağa</animal6>
+    <scorePanel>Xalın:</scorePanel>
+    <best>Ən yaxşı xal:</best>
+    <bestPanel>Ən yüksək xal!</bestPanel>   
+    <howToTittle>Necə oynamaq lazımdır?!</howToTittle>
+  </lang>
+
+    <lang id="ar">
+    <tap>اضغط للبدء</tap>
+    <chooseTittle>اختر حيوانك الاليف</chooseTittle>
+    <pick>اختر</pick>
+    <animal1>ضفدع</animal1>
+    <animal2>هرة</animal2>
+    <animal3>كلب</animal3>
+    <animal4>خنزير</animal4>
+    <animal5>ارنب</animal5>
+    <animal6>الضفدع الأحمر</animal6>
+    <scorePanel>النتيجة:</scorePanel>
+    <best>افضل نتيجة</best>
+    <bestPanel>نتيجة افضل جديدة !</bestPanel>   
+    <howToTittle>كيفية اللعب</howToTittle>
+  </lang>
+</text>

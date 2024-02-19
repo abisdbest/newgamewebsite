@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Играйте игра 2048"},
+  "description": {"message": "2048 е лесна и забавна пъзел игра. Вземете безплатно 2048 игра за Chrome!"},
+  "locale": {"message": "bg"},
+  "short":{"message":"2048 Puzzle Game"}
+}

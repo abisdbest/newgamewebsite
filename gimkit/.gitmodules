@@ -1,0 +1,3 @@
+[submodule "gbajs"]
+	path = gbajs
+	url = https://github.com/theclashman2/GBA-Emulator
