@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Mängi mängu 2048"},
+  "description": {"message": "2048 on lihtne ja lõbus puzzle mäng. Hankige Chrome&#39;i jaoks tasuta 2048 mäng!"},
+  "locale": {"message": "et"},
+  "short":{"message":"2048 Puzzle Game"}
+}

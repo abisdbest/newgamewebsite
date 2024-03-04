@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ice Dodo - Play Online at Onionfist.com</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ice Dodo is a popular 3D obstacle game. The controls are simple but the maps are terribly complex! The game is free and all levels are unlocked.">
+    <meta name="keywords" content="Ice Dodo, icedodo, Onionfist, 3d game, slope">
+    <meta name="author" content="Seojoon Yeon">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--SPLIT-->
+    <script type="text/javascript" src="libs/jquery-3.3.1.js"></script>
+    <!--SPLIT-->
+    <link rel="stylesheet" type="text/css" href="css/world.css">
+    <link rel="stylesheet" type="text/css" href="css/screen.css">
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="css/tabs.css">
+  </head>
+  <body>
+    <div id="inner_loading">
+        <p class="arial">Onionfist Studio Presents ...</p>
+        <p class="arial">ICE DODO</p>
+        <div class="loader"></div>
+        <p class="arial" id="loading_status">Loading game assets...</p>
+        <p class="arial">This could take a while.<br>Please wait 5 minutes!</p>
+    </div>
+    <!-- render section -->
+    <canvas id="renderCanvas"></canvas>
+    <br>
+
+    <a class="button" id="fullscreen_btn" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z"/>
+        </svg>
+    </a>
+
+    <button class="button" id="backtomenu2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+    </button>
+
+    <div id="controls_reversed">
+        <h2>CONTROLS REVERSED</h2>
+        <br>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+        </svg>
+    </div>
+    <div id="jump_enabled">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+        <br>
+        <h2>SPACEBAR TO JUMP</h2>
+    </div>
+
+    <div id="curr_time">TIME: 0</div>
+    <div id="best_time"></div>
+    <!-- controls -->
+    <div id="left_mobile_btn" class="mobile_btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+    </div>
+    <div id="right_mobile_btn" class="mobile_btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+    </div>
+    <div id="space_mobile_btn" class="mobile_btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+    </div>
+
+    <!-- preroll -->
+    <div id="preroll"></div>
+
+    <!-- popup -->
+    <div id="popup">
+        <div id="news">
+        </div>
+        <center id="cup_container">
+            <img id="cup_img" class="search_off">
+            <div id="cup">
+                <div class="change_cup" id="change_cup_left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                      <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                    </svg>
+                </div>
+                <div id="cup_mid">
+                    <div id="cup_name">...</div>
+
+                    <div id='play_cup' class="search_off">PLAY</div>
+                    <img src="assets/skins/finder_cup.png" class="search_on" style="width: 70px;">
+                    <div id="cup_info">
+                        <div>
+                            <span id="cup_weighted" class="search_off"></span>
+                            <div id="search_filter" class="search_setting_btn search_on">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                                  <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+                                </svg> -->
+                                <span>---</span>
+                            </div>
+                        </div>
+                        <div id="cups_btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                              <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span id="cup_percent" class="search_off"></span>
+
+                            <div id="search_order" class="search_setting_btn search_on">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+                                  <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                                </svg> -->
+                                <span>---</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="change_cup" id="change_cup_right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                    </svg>
+                </div>
+            </div>
+            <div id="duck_container">
+                <a id="duck" href="https://iceparty.io" target="_blank">
+                    <img src="assets/icons/duck.png">
+                </a>
+            </div>
+            
+            <div class="search_on" id="search_container">
+                
+                <h1 class="subt">Search map name</h1>
+                <input id="search_input" type="text" placeholder="Type here">
+                <button id="search_btn">Search</button>
+
+                
+            </div>
+
+            <div id="maps">
+                
+            </div>
+
+            <br>
+            <div id="search_exception">
+            </div>
+
+            <div class="search_off">
+
+                <div id="more_levels" style="margin: 15px 0px;">
+                    More Maps
+                </div>
+
+                <h1 class="subt">New maps sneak-peek</h1>
+                <div id="social_icons">
+                    <a href="https://discord.gg/S8kZjgb" target="_blank">
+                        <img src="assets/social_icons/discord.svg">
+                    </a>
+                    <a href="https://www.instagram.com/onionfist/" target="_blank">
+                        <img src="assets/social_icons/instagram.svg">
+                    </a>
+                    <a href="https://www.facebook.com/onionfist" target="_blank">
+                        <img src="assets/social_icons/facebook.svg">
+                    </a>
+                    <a href="https://twitter.com/onion_fist" target="_blank">
+                        <img src="assets/social_icons/twitter.svg">
+                    </a>
+                    
+                </div>
+                
+
+                <br>
+                <h1 class="subt">More by Onionfist Studio</h1>
+                <p>
+                    <a class="my_ad" target="_blank" href="https://onionfist.com/icedodo/">Full-Screen Ice Dodo</a>
+                </p>
+                <p>
+                    <a class="my_ad" target="_blank" href="https://iceparty.io/">Multiplayer Ice Dodo</a>
+                </p>
+                <p>
+                    <a class="my_ad" target="_blank" href="https://subcitizens.onionfist.com/">Sub Citizens</a>
+                </p>
+                <br>
+
+                <h1 class="subt">How to Support Us</h1>
+                <p class="arial">
+                    To support our free game:
+                </p>
+                <p>
+                    <a class="my_ad" target="_blank"  href="https://chrome.google.com/webstore/detail/ice-dodo/jhidcpailhmpjpbdbhceiaeeggkalgmd">Leave a Review! ❤️</a>
+                </p>
+                <p>
+                    <a class="my_ad" target="_blank"  href="https://www.buymeacoffee.com/seojoony">Donate ❤️</a>
+                </p>
+                <br>
+                <div style="color: #808080; margin: 15px 0px; font-family: Arial; font-size: 14px; width: 300px;">
+                    2021 Onionfist Studio. All Rights Reserved. Contact: flyingdodo9000@gmail.com <br>
+                    By using Ice Dodo, you agree to our <a href="https://onionfist.com/privacy_policy/" target="_blank" style="color: #808080; text-decoration: underline !important; color: #b5b5b5; border: none !important;">Privacy Policy</a> and 
+                    <a href="https://onionfist.com/terms_of_service/" target="_blank" style="color: #808080; text-decoration: underline !important; color: #b5b5b5; border: none !important;">Terms of Service</a>
+                </div>
+
+                
+            </div>
+            <!--SPLIT-->
+            <br>
+            <!--SPLIT-->
+        </center>
+        <br>
+        <br>
+        <br>
+    </div>
+    <!-- screens -->
+    <div id="map_text">
+        
+    </div>
+    <div id="alert" class="tab">
+        <p>
+            Please consider disabling your ad-blocker to support Ice Dodo!
+        </p>
+        <br>
+        <button class="button" id="alert_close">OK</button>
+    </div>
+    <div id="screen">
+        <div style="height: 30px;"></div>
+        <h1 id="screen_map_name"></h1>
+        <h1 id="screen_map_about"></h1>
+        <h1 id="screen_dialog"></h1>
+        <h1 id="screen_info"></h1>
+        <table>
+            <tr>
+                <th>
+                    <button class="button" id="play_again">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                          <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                        </svg>
+                        <span>RESTART</span>
+                    </button>
+                </th>
+                <th><button class="button" id="restart">
+                    <svg id="restart_icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                    <svg id="next_lvl_icon" style='padding-right: 6px;' xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-emoji-laughing" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      <path d="M12.331 9.5a1 1 0 0 1 0 1A4.998 4.998 0 0 1 8 13a4.998 4.998 0 0 1-4.33-2.5A1 1 0 0 1 4.535 9h6.93a1 1 0 0 1 .866.5zM7 6.5c0 .828-.448 0-1 0s-1 .828-1 0S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 0-1 0s-1 .828-1 0S9.448 5 10 5s1 .672 1 1.5z"/>
+                    </svg>
+
+                    <span id="restart_text"></span>
+                </button></th>
+                <th><button class="button" id="backtomenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    <span>MENU</span>
+                </button></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><i id="shortcut_label">SPACEBAR</i></th>
+                <th></th>
+            </tr>
+        </table>
+        <br>
+        <a target="_blank" id="map_leaderboard" class='leaderboard_buttons'>Open Leaderboard</a>
+        <h1 class="speedrun_info" id="speedrun_best"></h1>
+        <h1 class="speedrun_info" id="speedrun_now"></h1>
+    </div>
+    <table id="menu">
+        <tr>
+            <th class="btn" id="play_tab_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                </svg>
+            </th>
+
+            <th class="btn" id="ranks_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trophy-fill" viewBox="0 0 16 16">
+                  <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"/>
+                </svg>
+            </th>
+
+            <th class="btn" id="skins_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16">
+                  <path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-8 8c1.996 0 1.826-1.504 1.649-3.08-.124-1.101-.252-2.237.351-2.92.465-.527 1.42-.237 2.433.07zM8 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm.5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                </svg>
+            </th>
+
+
+
+            <th class="btn" id="about_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
+                  <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/>
+                </svg>
+            </th>
+
+            <th class="btn" id="settings_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                  <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                </svg>
+            </th>
+
+
+        </tr>
+    </table>
+    <!-- music -->
+    <audio controls id = "audio">
+    <source src="" id="audiosource">
+    </audio>
+    
+    <audio controls id = "sound_level_complete">
+    <source src="assets/sounds/level_complete.wav" type="audio/wav">
+    </audio>
+
+    <audio controls id = "sound_die">
+    <source src="assets/sounds/die.wav" type="audio/wav">
+    </audio>
+
+    <!-- tabs -->
+    <div class='tab' id="cups_tab" style="visibility: hidden; position: absolute; z-index: -10;">
+        <p class="title" id="list_cups_title"></p>
+        <div id="list_cups"></div>
+    </div>
+
+
+
+
+    <div class='tab' id="ranks_tab" style="visibility: hidden; position: absolute; z-index: -10;">
+        <p class="title">
+            SCORES
+        </p>
+        <h1 class="subt">Leaderboard</h1>
+        <div>
+            <input type="text" id="mem_name" maxlength="15" style="width: 130px;" placeholder="your name">
+            <a target="_blank" id="leaderboard_button" class='leaderboard_buttons'>Save to Leaderboard</a>
+            <p>Click the above button often<br>to keep your progress saved<br>and sync scores everywhere.</p>
+            <p id="name_error">Name must contain only A-Z, 0-9, dot, underscore and space.</p>
+        </div>
+        <h1 class="subt">Overall</h1>
+        <div id="records_overall"></div>
+        
+        <h1 class="subt">Breakdown</h1>
+        <table id="records_per_cup"></table>
+    </div>
+
+
+    <div class='tab' id="about_tab" style="visibility: hidden; position: absolute; z-index: -10;">
+        <!-- <div class="close_tab"><img src="assets/icons/close.png"></div> -->
+        <p class="title">
+            ABOUT
+        </p>
+        <h1 class="subt">Discord community</h1>
+        <p>
+            DISCORD <a href="https://discord.gg/S8kZjgb" target="_blank">Join Server</a>
+        </p>
+        <!-- <p>
+            INSTAGRAM <a href="https://www.instagram.com/onionfist/" target="_blank">Follow</a>
+        </p> -->
+        <h1 class="subt">Developer</h1>
+        <p class="arial">
+            Jason (flyingdodo9000@gmail.com)
+        </p>
+        <h1 class="subt">Music</h1>
+        <p class="arial">
+            Music is made by EnV and ColBreakz. <br>
+            Check out their music!
+        </p>
+        <h1 class="subt">Map makers</h1>
+        <a href="https://onionfist.com/bios" target="_blank">Member Bios</a>
+        <p class="arial">Kazil, dododo73, Carrots, skilledandkilled, Xdoomination, Furby, Rocky707, rytai3, TimTam, Bearded Baby, Cr43zy, DRV, Squirrel, Sungjoon, Usern, June, A_KittenIsh_exponent, datoneguy246, have2go2p, Helloe, Maplez, Masterminx9000, Milesrad, neonturtle, Revelboy, Rionte, skywolf, Soviet Coconut, thero, happyhockey, Jay, Ghoullsh, Gold3n d0d0, AnimeFan, David Ye, Anperson, Jaspko, uPilot, Destroyer, Mooshmaster+
+        </p>
+        
+        <h1 class="subt">Pixel art</h1>
+        <p class="arial">
+            ItsYaBoiPoppin, Furby, Daniel, The Unsuspicious Imposter, anperson
+        </p>
+        <h1 class="subt">More Great Contributors</h1>
+        <p class="arial">
+            Furby, sungjoon, parke, sleepyhatake, skywolf, masterclutch
+        </p>
+        
+
+    </div>
+
+    <div class='tab' id="settings_tab" style="visibility: hidden; position: absolute; z-index: -10;">
+        <p class="title">
+            SETTINGS
+        </p>
+        <h1 class="subt">General</h1>
+        <p>
+            <div class="select_list">
+                MUSIC
+                <div class="select_item" id="musicEnabled_on">ON</div>
+                <div class="select_item" id="musicEnabled_off">OFF</div>
+            </div>
+        </p>
+        <p>
+            <div class="select_list">
+                AUTO RESTART
+                <div class="select_item" id="autoRestart_on">ON</div>
+                <div class="select_item" id="autoRestart_off">OFF</div>
+            </div>
+        </p>
+        <p>
+            <div class="select_list">
+                TEXTURE
+                <div class="select_item" id="platformTexture_bright">BRIGHT</div>
+                <div class="select_item" id="platformTexture_dark">DARK</div>
+            </div>
+        </p>
+        <p>
+            <div class="select_list"  id="res_row">
+                RES
+                <div class="select_item" id="screenRes_400p">400p</div>
+                <div class="select_item" id="screenRes_600p">600p</div>
+                <div class="select_item" id="screenRes_900p">900p</div>
+            </div>
+        </p>
+        <p>
+            <div class="select_list">
+                FOV LEVEL
+                <div class="select_item" id="fovLevel_x1">x1</div>
+                <div class="select_item" id="fovLevel_x2">x2</div>
+                <div class="select_item" id="fovLevel_x3">x3</div>
+            </div>
+        </p>
+        <h1 class="subt">Advanced</h1>
+
+        <p>
+            <div class="select_list">
+                FRAME RATE
+                <div class="select_item" id="frameRate_fixed">FIXED</div>
+                <div class="select_item" id="frameRate_vsync">VSYNC</div>
+            </div>
+        </p>
+    </div>
+
+    <div class='tab arial' id="skins_tab" style="visibility: hidden; position: absolute; z-index: -10;">
+        <!-- <div class="close_tab"><img src="assets/icons/close.png"></div> -->
+
+        <p class="title">
+            SKINS
+        </p>
+        <h1 class="subt">Unlocked</h1>
+        <div class="select_list" id="unlocked_skins">
+        </div>
+
+        <h1 class="subt">Locked</h1>
+        <div id="locked_skins">
+            
+        </div>
+        
+
+    </div>
+
+    <!--SPLIT-->
+    <script type="text/javascript" src="libs/babylon.js"></script>
+    <script type="text/javascript" src="js/cup_info.js"></script>
+    <script type="text/javascript" src="js/map_info.js"></script>
+    <script type="text/javascript" src="js/skin_info.js"></script>
+    <script type="text/javascript" src="js/deployment.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+    <script type="text/javascript" src="js/audio.js"></script>
+    <script type="text/javascript" src="js/fov.js"></script>
+    <script type="text/javascript" src="js/size.js"></script>
+    <script type="text/javascript" src="js/news.js"></script>
+    <script type="text/javascript" src="js/change_state.js"></script>
+    <script type="text/javascript" src="js/leaderboard.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/decorations.js"></script>
+    <script type="text/javascript" src="js/guardian.js"></script>
+    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="js/maker.js"></script>
+    <script type="text/javascript" src="js/alias.js"></script>
+    <script type="text/javascript" src="js/const_controller.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/scorekeeper.js"></script>
+    <script type="text/javascript" src="js/cleanup.js"></script>
+    <script type="text/javascript" src="js/start.js"></script>
+    <script type="text/javascript" src="js/update.js"></script>
+    <script type="text/javascript" src="js/flyjump.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+    <script type="text/javascript" src="js/screen.js"></script>
+    <script type="text/javascript" src="js/tabs.js"></script>
+    <script type="text/javascript" src="js/ads.js"></script>
+    <script type="text/javascript" src="js/boot.js"></script>
+    <script defer type="text/javascript" src="js/testing_mode.js"></script>
+    <!--SPLIT-->
+  </body>
+</html>

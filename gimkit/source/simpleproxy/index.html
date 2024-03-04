@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        #browser {
+            width: 800px;
+            height: 600px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #address-bar {
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        
+        #address-bar input {
+            width: 80%;
+            padding: 5px;
+            font-size: 16px;
+        }
+        
+        #content {
+            flex: 1;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="browser">
+            <div id="address-bar">
+                <input type="text" id="url-input" placeholder="Enter URL" autofocus>
+                <button id="go-button">Go</button>
+            </div>
+            <div id="content">
+                <iframe id="web-view"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlInput = document.getElementById('url-input');
+        const goButton = document.getElementById('go-button');
+        const webView = document.getElementById('web-view');
+
+        // Set default language to English
+        webView.setAttribute('lang', 'en');
+
+        const loadWebsite = () => {
+            const url = urlInput.value;
+            const proxyUrl = 'https://api.codetabs.com/v1/proxy/?quest=' + url + "#blooket";
+
+            // Make an HTTP request through the proxy to fetch the website content
+            fetch(proxyUrl)
+                .then(response => response.text())
+                .then(content => {
+                    // Set the iframe source to display the fetched website content
+                    webView.srcdoc = content;
+
+                    // Reset the input field
+                    urlInput.value = url;
+                })
+                .catch(error => {
+                    console.error('Error fetching website:', error);
+                });
+        };
+
+        const handleButtonClick = () => {
+            loadWebsite();
+        };
+
+        const handleInputKeyPress = event => {
+            if (event.key === 'Enter') {
+                loadWebsite();
+            }
+        };
+
+        goButton.addEventListener('click', handleButtonClick);
+        urlInput.addEventListener('keypress', handleInputKeyPress);
+
+        // Listen for click events on links within the iframe
+        webView.addEventListener('load', () => {
+            const links = webView.contentWindow.document.getElementsByTagName('a');
+            for (let i = 0; i < links.length; i++) {
+                links[i].addEventListener('click', e => {
+                    e.preventDefault();
+                    const clickedUrl = links[i].getAttribute('href');
+                    const currentUrl = urlInput.value;
+                    let finalUrl = '';
+
+                    if (clickedUrl.startsWith('http://') || clickedUrl.startsWith('https://')) {
+                        finalUrl = clickedUrl;
+                    } else {
+                        const currentUrlObj = new URL(currentUrl);
+                        finalUrl = currentUrlObj.origin + clickedUrl;
+                    }
+
+                    urlInput.value = finalUrl;
+                    loadWebsite();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

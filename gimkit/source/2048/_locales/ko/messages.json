@@ -1,0 +1,6 @@
+{
+  "name": {"message": "2048 게임 플레이"},
+  "description": {"message": "2048은 쉽고 재미있는 퍼즐 게임입니다. Chrome용 2048 게임을 무료로 받으세요!"},
+  "locale": {"message": "ko"},
+  "short":{"message":"2048 Puzzle Game"}
+}

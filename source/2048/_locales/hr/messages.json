@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Igrajte igru 2048"},
+  "description": {"message": "2048 je laka i zabavna zagonetka. Nabavite igru 2048 za Chrome besplatno!"},
+  "locale": {"message": "hr"},
+  "short":{"message":"2048 Puzzle Game"}
+}

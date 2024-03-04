@@ -1,0 +1,6 @@
+{
+  "name": {"message": "العب لعبة 2048"},
+  "description": {"message": "2048 هي لعبة ألغاز سهلة وممتعة. احصل على 2048 لعبة للكروم مجانًا!"},
+  "locale": {"message": "ar"},
+  "short":{"message":"2048 Puzzle Game"}
+}

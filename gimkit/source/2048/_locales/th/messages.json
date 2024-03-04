@@ -1,0 +1,6 @@
+{
+  "name": {"message": "เล่นเกม 2048"},
+  "description": {"message": "2048 เป็นเกมไขปริศนาที่ง่ายและสนุก รับเกม 2048 สำหรับ Chrome ฟรี!"},
+  "locale": {"message": "th"},
+  "short":{"message":"2048 Puzzle Game"}
+}

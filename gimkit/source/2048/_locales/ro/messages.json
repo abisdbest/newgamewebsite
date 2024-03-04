@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Joacă jocul 2048"},
+  "description": {"message": "2048 este un joc de puzzle ușor și distractiv. Obțineți gratuit jocul 2048 pentru Chrome!"},
+  "locale": {"message": "ro"},
+  "short":{"message":"2048 Puzzle Game"}
+}

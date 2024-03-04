@@ -1,0 +1,6 @@
+{
+  "name": {"message": "שחק משחק 2048"},
+  "description": {"message": "2048 הוא משחק פאזל קל ומהנה. קבלו משחק 2048 בחינם ל- Chrome!"},
+  "locale": {"message": "he"},
+  "short":{"message":"2048 Puzzle Game"}
+}

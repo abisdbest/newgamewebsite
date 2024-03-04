@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<style>
+			#body {
+			   width:320px;
+			   height:376px;
+			}
+			
+			#myCanvas {
+				padding:0px;
+				width:328px;
+			    height:388px;
+				border-radius: 2px;
+				top:2px;
+				left:4px;
+				position: fixed;
+			}
+			
+			#nameMemTile {
+				display: none;
+				position: fixed;
+				top: 180px;
+				left: 109px;
+				height: 30px;
+				width: 120px;
+				border-radius: 5px;
+				border: 2px solid #666;
+				background: #ddd;	
+				text-align: center; 
+				font-size: 15px;
+			}
+		</style>
+		<img src="color.png" id="color" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="leaderboard.png" id="leaderboard" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="scanLines.png" id="scanLines" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="tutorial.png" id="tutorial" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="rename.png" id="rename" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="star.png" id="star" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="menu.png" id="menu" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="cross.png" id="cross" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="at.png" id="at" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="plus.png" id="plus" style="position:fixed;top:-1000px;display:none;"></img>
+		<img src="mute.png" id="mute" style="position:fixed;top:-1000px;display:none;"></img>
+	</head>
+	<body id="body">
+		<canvas id="myCanvas"></canvas>
+		<script src="jquery-3.3.1.min.js"></script>
+		<script src="popup.js"></script>
+		<input type="text" id="nameMemTile" maxlength="10" autocomplete="off"></input>
+	</body>
+</html>

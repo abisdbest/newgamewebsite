@@ -1,0 +1,6 @@
+{
+  "name": {"message": "2048 गेम खेलें"},
+  "description": {"message": "2048 एक आसान और मजेदार पहेली खेल है। क्रोम के लिए 2048 गेम मुफ्त में प्राप्त करें!"},
+  "locale": {"message": "hi"},
+  "short":{"message":"2048 Puzzle Game"}
+}
