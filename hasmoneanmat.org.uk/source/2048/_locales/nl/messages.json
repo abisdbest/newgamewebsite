@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Speel 2048-game"},
+  "description": {"message": "2048 is een eenvoudig en leuk puzzelspel. Krijg gratis 2048-game voor Chrome!"},
+  "locale": {"message": "nl"},
+  "short":{"message":"2048 Puzzle Game"}
+}

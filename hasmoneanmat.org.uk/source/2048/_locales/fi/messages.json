@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Pelaa peliä 2048"},
+  "description": {"message": "2048 on helppo ja hauska pulmapeli. Hanki 2048 -peli Chromelle ilmaiseksi!"},
+  "locale": {"message": "fi"},
+  "short":{"message":"2048 Puzzle Game"}
+}

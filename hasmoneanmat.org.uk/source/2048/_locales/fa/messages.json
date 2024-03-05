@@ -1,0 +1,6 @@
+{
+  "name": {"message": "بازی 2048 را انجام دهید"},
+  "description": {"message": "2048 یک بازی پازل آسان و سرگرم کننده است. بازی 2048 Chrome را به صورت رایگان دریافت کنید!"},
+  "locale": {"message": "fa"},
+  "short":{"message":"2048 Puzzle Game"}
+}

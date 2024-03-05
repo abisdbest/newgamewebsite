@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Hrajte hru 2048"},
+  "description": {"message": "2048 je jednoduchá a zábavná logická hra. Získajte hru 2048 pre Chrome zadarmo!"},
+  "locale": {"message": "sk"},
+  "short":{"message":"2048 Puzzle Game"}
+}

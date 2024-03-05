@@ -1,0 +1,10 @@
+.help a{
+    color: #606060;
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 4px;
+}
+
+object, embed{
+    width: 100%;
+}
