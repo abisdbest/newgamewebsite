@@ -12,7 +12,7 @@ $(document).ready(function() {
         thumbItem: 9
     });
     
-    $("#2player").lightSlider({
+    $("#action").lightSlider({
         item: 5,
         loop: true,
         rtl: true,

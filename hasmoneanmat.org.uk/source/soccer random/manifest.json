@@ -1,0 +1,30 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+   "action": {
+      "default_icon": {
+         "128": "img/icon128.png",
+         "16": "img/icon16.png",
+         "48": "img/icon48.png"
+      },
+      "default_title": "Soccer Random Unblocked"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+  
+   
+   "default_locale": "en",
+   "description": "__MSG_appDesc__",
+   "icons": {
+      "128": "img/icon128.png",
+         "16": "img/icon16.png",
+         "48": "img/icon48.png"
+   },
+  
+   "manifest_version": 3,
+   "name": "__MSG_appName__",
+  
+   "version": "18.24.22.3"
+}
+

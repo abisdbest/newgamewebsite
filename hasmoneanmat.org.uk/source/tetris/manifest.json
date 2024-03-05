@@ -1,0 +1,33 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+
+    "manifest_version": 3,
+    "name": "Tetris Offline Game (Simulator)",
+    "version": "2.0.1",
+    "version_name": "2.0.1",
+    "action": {
+        "default_icon": {             
+          "24": "img/icon24.png",  
+          "32": "img/icon32.png"    
+        },
+        "default_title": "Tetris!",   
+        "default_popup": "index.html?lan=en"  
+      },
+    "background": {
+        "service_worker": "update.js"
+      },
+      
+    "offline_enabled": true,
+    "description": "The classic Tetris game offline version on your Google Chrome!",
+    "icons": { "16": "img/icon16.png",
+        "48": "img/icon48.png",
+       "128": "img/icon128.png" },
+    "options_page": "index.html?lan=en",  
+
+        
+
+
+    "homepage_url": "https://www.w3technic.com/free-chrome-game/tetris-game-simulator/"
+
+  }

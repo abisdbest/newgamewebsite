@@ -3,7 +3,7 @@ function toggleSearch() {
     searchInput.classList.toggle('active');
 }
 
-// 
+
 $(document).ready(function() {
     $("#popular").lightSlider({
         item: 5,
@@ -12,7 +12,7 @@ $(document).ready(function() {
         thumbItem: 9
     });
     
-    $("#2player").lightSlider({
+    $("#action").lightSlider({
         item: 5,
         loop: true,
         rtl: true,
@@ -66,7 +66,6 @@ $(document).ready(function() {
         loop: true,
         rtl: false,
         thumbItem: 9
-        // 
     });
 });
 
