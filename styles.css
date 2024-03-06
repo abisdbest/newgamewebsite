@@ -10,6 +10,10 @@ logo {
     line-height: 1;
 }
 
+section {
+    display: block;
+}
+
 .logo {
     height: 30px;
     width: 30px;
