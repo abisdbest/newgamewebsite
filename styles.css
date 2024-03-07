@@ -226,7 +226,7 @@ img {
     margin-top: 20px;
     margin-left: 20px;
     position: relative;
-    width: 800px;
+    width: 60%;
     height: 500px;
     overflow: hidden;
 }
@@ -242,7 +242,7 @@ img {
     border-radius: 10px;
     position: relative;
     top: 0;
-    left: calc(50% - 100px);
+    left: calc(50% - 140px);
     z-index: 1;
 }
 
@@ -259,7 +259,6 @@ img {
 }
 
 #play-btn {
-    position: relative;
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -270,6 +269,10 @@ img {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%);
 }
 
 #fullscreen-btn, #new-page-btn {
@@ -285,9 +288,9 @@ img {
     border-radius: 5px;
 }
 
-#play-btn {
+.adsbygoogle {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background-color: white;
+    right: 80px;
+    top: 100px;
 }
