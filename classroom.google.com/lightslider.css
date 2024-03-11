@@ -157,7 +157,7 @@
     display: block;
     top: 50%;
     height: 32px;
-    background-image: url('/images/arrow.png');
+    background-image: url('images/arrow.png');
     cursor: pointer;
     position: absolute;
     z-index: 99;
