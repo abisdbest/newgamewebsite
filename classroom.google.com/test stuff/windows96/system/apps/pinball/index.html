@@ -1,0 +1,88 @@
+<!--
+Original game by Microsoft Corporation.
+Ported to Windows 96 by Windows 96 Team.
+
+Emscripten edition: https://github.com/alula/SpaceCadetPinball
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            body {
+				margin: 0;
+				background: black;
+				overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="emscripten" id="status" style="display: none;"></div>
+        <div class="emscripten">
+            <progress id="progress" max="1" value="0" hidden="" style="display: none;"></progress>
+        </div>
+        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" style="cursor: default;" tabindex="-1" width="600" height="440"></canvas>
+        <script>
+            var statusElement = document.getElementById("status"),
+              progressElement = document.getElementById("progress"),
+              Module = {
+                preRun: [],
+                postRun: [],
+                print: function() {
+                  var e = document.getElementById("output");
+                  return e && (e.value = ""),
+                    function(e) {
+                      arguments.length > 1 && (e = Array.prototype.slice.call(arguments).join(" ")), console.log(e)
+                    }
+                }(),
+                printErr: function(e) {
+                  arguments.length > 1 && (e = Array.prototype.slice.call(arguments).join(" ")), console.error(e)
+                },
+                canvas: function() {
+                  var e = document.getElementById("canvas");
+                  return e.addEventListener("webglcontextlost", (function(e) {
+                    parent.w96.alert("WebGL context lost. You will need to reload the page."), e.preventDefault()
+                  }), !1), e
+                }(),
+                setStatus: function(e) {
+                  if (Module.setStatus.last || (Module.setStatus.last = {
+                      time: Date.now(),
+                      text: ""
+                    }), e !== Module.setStatus.last.text) {
+                    var t = e.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/),
+                      n = Date.now();
+                    if (!(t && n - Module.setStatus.last.time < 30)) {
+                      if (Module.setStatus.last.time = n, Module.setStatus.last.text = e, t) e = t[1], progressElement.value = 100 * parseInt(t[2]), progressElement.max = 100 * parseInt(t[4]), progressElement.hidden = !1;
+                      else progressElement.value = null, progressElement.max = null, progressElement.hidden = !0, document.getElementById("canvas").style.display = "";
+                      statusElement.innerHTML = e, "" === e ? (statusElement.style.display = "none", progressElement.style.display = "none") : (statusElement.style.display = "", progressElement.style.display = "")
+                    }
+                  }
+                },
+                totalDependencies: 0,
+                monitorRunDependencies: function(e) {
+                  this.totalDependencies = Math.max(this.totalDependencies, e), Module.setStatus(e ? "Preparing... (" + (this.totalDependencies - e) + "/" + this.totalDependencies + ")" : "All downloads complete.")
+                }
+              };
+            Module.setStatus("Downloading..."), window.onerror = function() {
+              Module.setStatus("Exception thrown, see JavaScript console"), Module.setStatus = function(e) {
+                e && Module.printErr("[post-exception status] " + e)
+              }
+            }
+        </script>
+		<script>
+      const canvas = document.querySelector("canvas");
+
+			document.addEventListener('keydown', (e)=>{
+				e.preventDefault();
+				
+				if(e.altKey && (e.key == "Enter"))
+					canvas.requestFullscreen();
+			});
+
+      document.addEventListener('click', (e) => {
+        canvas.focus();
+      });
+		</script>
+        <script async src="pinball.js"></script>
+    </body>
+</html>

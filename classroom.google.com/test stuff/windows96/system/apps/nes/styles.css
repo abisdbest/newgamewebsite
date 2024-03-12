@@ -1,0 +1,43 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background: black;
+    display: flex;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.container>canvas {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container>canvas.full-scalemode-01 {
+    transform: scale(1.07);
+}
+
+.container>canvas.zoom-scale {
+    height: 100%;
+    width: auto;
+    margin: auto;
+}
+
+.container>canvas.pixel-perfect {
+    height: 240px;
+    width: 256px;
+    margin: auto;
+}
+
+.container>canvas.filter-pixel {
+    image-rendering: pixelated;
+}

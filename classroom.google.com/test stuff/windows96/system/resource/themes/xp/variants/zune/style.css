@@ -1,0 +1,170 @@
+/*
+Embedded CSS
+*/
+
+/* color scheme */
+:root {
+    --select-color-primary: #BEBEBE;
+    --select-color-secondary: black;
+    --3d-obj-color-primary: #EBE9ED;
+    --3d-obj-color-text: black; 
+}
+
+/* ------ COMPOSITED BORDER REPLACEMENTS ------ */
+.window-dlg .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY5aWlq6oqHj+/LmoqCgAHPYEsVcKDLUAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY5aWlpaRkSksLLx58yYAEgQEh3xpX2QAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY5CWlmbi4+NjiomJYZCWlgYADWQB5dJ9820AAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEBAMAAABb34NNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURRsbG4WFhSkpKTVqVk0AAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBjTY2BUYGBUYmAUZGBgAAAClgBXmovZ5QAAAABJRU5ErkJggg==');
+}
+
+.window-dlg .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEBAMAAABb34NNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURRsbGykpKYWFheRu69AAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBjTY2BUYBBUYFBSYGBgAAAD6QCV6IZyXAAAAABJRU5ErkJggg==');
+}
+
+/* inactive window state images */
+.window-dlg:not(.active) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY5SWlraysvr+/TsDAwMAF34D5pX8tm8AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY7S0tBQWFubk5Dx27BgADmYDU06ffMgAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY7C0tGQSFhZm4uTkZP79+zcAElwD+MpXAScAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAnSURBVBhXY1RVVTUwMPj+/fvbt2+ZGGBAWFgYyuEEA5AyCJ+BgQEAMNsHkFZs4EcAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVBhXY7S0tBQWFubk5Lxw4QITkMUAA0xAMSCAcBhVVVUhLAYGBgCnKQRUwn7hIQAAAABJRU5ErkJggg==');
+}
+
+/* dialog border for active windows */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY5aWlq6oqHj+/DkADyIEcvfJrC8AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY9DU1GxtbZWWlgYADE8CXFqSMfEAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY5CWlmbKyspikJaWBgALXAHjPzChFwAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAfSURBVBhXY5aWlq6oqHj+/DkTAxjExMQwAsVATAYGAHe0Bdr7FU7iAAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAfSURBVBhXY9DU1GxtbZWWlmaKiYlhAANGIA9EMzAAAFGhA8SnIXjEAAAAAElFTkSuQmCC');
+}
+
+/* dialog border for inactive windows */
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY5SWlraysvr+/TsAC8wD5h6vIsMAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY/bx8dHX1//48SMAD68ESDsBA9sAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY7C0tGSSkZFh/v37NwAOsAP2GkM9RQAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVBhXY1RVVTUwMPj+/TsTAxhwcnKCxEBMBgYAXwwEczhQzIMAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVBhXY/bx8dHX1//9+zcTJycnAxgwA3kvXrxgYGAAAI8vCi/ZInzgAAAAAElFTkSuQmCC');
+}
+
+/* start menu style replacements */
+.xpsm-container>.programs-view>.p1 .item,
+.xpsm-container>.programs-view>.p2 .item {
+    color: white;
+}
+
+.xpsm-container>.programs-view>.p1 .item>.subtext {
+    color: #8FB6E3;
+}
+
+.xpsm-container>.programs-view .separator {
+    background: linear-gradient(90deg, transparent, #4E4E4E, #4E4E4E, transparent);
+}
+
+.xpsm-container>.programs-view>.p2 .separator {
+    background: linear-gradient(90deg, transparent, #7D7D7D, #7D7D7D, transparent);
+}
+
+.xpsm-container>.programs-view .item:hover,
+.xpsm-container>.actions-view .item:hover {
+    background-color: #BEBEBE;
+    color: black !important;
+}
+
+/* taskbar style */
+.start_button:not(.sb-active):hover {
+    background-position-y: -60px;
+}
+
+.user-taskbar>.taskbar-notify {
+    border-left-color: black;
+}
+
+/* button styles */
+.w96-toolbar > .item:not([disabled]):hover {
+    background-color: #F4F4F4;
+}
+
+/* color patches */
+.w96-menubar > .root-item.selected, .w96-menubar > .root-item:hover {
+    background-color: var(--select-color-primary);
+    color: var(--select-color-secondary);
+}
+
+.exp-file-view .shell-icon.selected > .icon-text {
+    color: var(--select-color-secondary);
+}
+
+.shell-icon.selected .icon-image {
+    filter: brightness(0.4) contrast(0.8) sepia(100%) hue-rotate(185deg);
+}
+
+/* app specific mods */
+.ctrl-app > .view > .p1 > .box > .title {
+    color: black;
+}
+
+.ctrl-app > .view > .p1 > .box > .items {
+    background: #F1EEE9;
+}
+
+.ctrl-app > .view > .p1 {
+    background: linear-gradient(0deg, #454545, #808080);
+    border-right: 1px solid rgba(255, 255, 255, 0.274);
+}
+
+.ctrl-app > .view > .p2 {
+    background-color: #454545;
+    background-image: none;
+}
+
+.ctrl-app > .view > .p2 > .cat-marker::after {
+    background: linear-gradient(45deg, #8f8f8f, #ffffff00);
+}

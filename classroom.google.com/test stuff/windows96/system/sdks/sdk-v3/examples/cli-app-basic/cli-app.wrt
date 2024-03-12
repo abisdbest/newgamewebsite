@@ -1,0 +1,30 @@
+//!wrt $BSPEC:{"icn":null,"cpr":"Copyright (C) Windows 96 Team 2023.","dsc":"","frn":"Simple command line program","ver":1,"ssy":"cli"}
+// Easy ref
+const term = this.boxedEnv.term;
+
+if(!term)
+    return;
+
+/**
+ * The template for a terminal application.
+ */
+class HelloWorldApplication extends WApplication {
+    constructor() {
+        super();
+    }
+
+    async main(argv) {
+        super.main(argv);
+        term.writeln('Hello World!');
+        term.writeln('Welcome to the most useful app!');
+
+        let firstName = await term.prompt("Enter your first name: ");
+        term.writeln('Nice job ' + firstName + '!');
+
+        let lastName = await term.prompt('Last name: ');
+        term.writeln(`Hi there ${firstName} ${lastName}!`);
+        await term.pause();
+    }
+}
+
+return await WApplication.execAsync(new HelloWorldApplication(), this.boxedEnv.args, this);

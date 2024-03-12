@@ -1,0 +1,389 @@
+/* import trebuchet ms */
+@font-face {
+    font-family: "TBMS_RESOURCE";
+    src: url("$trebuchet_ms$");
+}
+
+/* window manager styles */
+.window-dlg {
+    padding: 0px !important;
+    border: none !important;
+    min-height: 30px;
+}
+
+/* contents */
+.window-dlg .window-html {
+    padding: 4px;
+    padding-bottom: 3px;
+    padding-top: 0px;
+}
+
+/* FOR DEVELOPMENT - REMOVE ON RELEASE PLEASE!!! */
+.titlebar-comments-btn {
+    display: none;
+}
+
+/* ------ COMPOSITED BORDER SETUP ------ */
+.window-dlg .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY2SQPM8uzc1vJvLp9XsAEfoEPBtGsQMAAAAASUVORK5CYII=');
+    width: 4px;
+    height: calc(100% - 30px);
+    top: 30px;
+    position: absolute;
+}
+
+.window-dlg .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAWSURBVBhXY2Tw+Mjw+SXDs/MMnx4DACUUBqFBavUHAAAAAElFTkSuQmCC');
+    width: 4px;
+    height: calc(100% - 30px);
+    top: 30px;
+    right: 0;
+    position: absolute;
+}
+
+.window-dlg .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY2Dw+MjE8PUNMwODMRPD19cAJicFNX7uwF8AAAAASUVORK5CYII=');
+    width: 100%;
+    height: 4px;
+    bottom: 0;
+    position: absolute;
+}
+
+.window-dlg .xpborder-S::before {
+    content: ' ';
+    height: 4px;
+    width: 4px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVBhXY2SQPM8hwcWlyMMiwcnEAAa/v3799eojI4PYOgaOT2ARRiaGf68Zvr4Boa+vAUBwEHlDeVVIAAAAAElFTkSuQmCC');
+    position: absolute;
+}
+
+.window-dlg .xpborder-S::after {
+    content: ' ';
+    height: 4px;
+    width: 4px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA4SURBVBhXFcJLDkAwFADAaXsscf9LWNkJC0TFE7+YTNJ25v6/T9m5eR+poCiNWN3hiqwO6uhY8AFG4hZSwkc6NQAAAABJRU5ErkJggg==');
+    position: absolute;
+    right: 0;
+}
+
+/* titlebar */
+.window-dlg .titlebar {
+    height: 30px;
+    padding: 0;
+    background: none;
+    background-image: url("$wm_sheet$"); 
+    background-position-y: -220px;
+}
+
+.window-dlg .titlebar::before {
+    width: 43px;
+    height: 30px;
+    content: ' ';
+    background-image: url("$wm_sheet$"); 
+    background-position-x: 0px;
+    background-position-y: -280px;
+    position: absolute;
+}
+
+.window-dlg .titlebar::after {
+    width: 43px;
+    height: 30px;
+    content: ' ';
+    background-image: url("$wm_sheet$"); 
+    background-position-x: -41px;
+    background-position-y: -280px;
+    position: absolute;
+    right: 0;
+    z-index: 0;
+}
+
+.window-dlg .titlebar-icon {
+    top: 8px;
+    left: 6px;
+}
+
+/* luna rounded corners */
+.window-dlg,
+.window-dlg .titlebar {
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+/* titlebar title */
+.window-dlg .titlebar .titlebar-title {
+    letter-spacing: normal;
+    font-family: "TBMS_RESOURCE";
+    font-size: 14px;
+    margin-top: 2px;
+    line-height: 1.8;
+    height: auto;
+    text-shadow: 1px 1px black;
+    padding-left: 7px;
+    max-width: calc(100% - 75px);
+}
+
+/* common titlebar button styles */
+.titlebar-closebutton,
+.titlebar-maxbutton,
+.titlebar-minbutton,
+.titlebar-maxbutton.wm-cbx-disabled {
+    z-index: 1;
+    margin-top: 6px;
+    margin-right: 2px;
+    height: 21px;
+    width: 21px;
+    background-image: url("$wm_sheet$");
+}
+
+/* button specifics */
+.titlebar-minbutton {
+    background-position-x: 0px;
+    background-position-y: 140px;
+}
+
+.titlebar-maxbutton {
+    background-position-x: -42px;
+    background-position-y: 140px;
+}
+
+.titlebar-closebutton {
+    background-position-x: -63px;
+    background-position-y: 140px;
+    margin-right: 6px;
+}
+
+.titlebar-maxbutton.wm-cbx-disabled {
+    background-position-x: -42px;
+    background-position-y: 56px;
+}
+
+.titlebar-maxbutton.titlebar-maxxed {
+    background-position-x: -21px;
+    background-position-y: 140px;
+}
+
+/* ----------------------- TITLEBAR BUTTONS HOVER STATE ----------------------- */
+.titlebar-minbutton:hover,
+.titlebar-maxbutton:hover,
+.titlebar-closebutton:hover,
+.titlebar-maxbutton.titlebar-maxxed:hover {
+    background-position-y: 119px !important;
+}
+
+/* ----------------------- TITLEBAR BUTTONS ACTIVE STATE ----------------------- */
+.titlebar-minbutton:active,
+.titlebar-maxbutton:active,
+.titlebar-closebutton:active,
+.titlebar-maxbutton.titlebar-maxxed:active {
+    background-position-y: 98px !important;
+    background: none;
+    background-image: url("$wm_sheet$");
+}
+
+.titlebar-minbutton:active {
+    background-position-x: 0px;
+}
+
+.titlebar-maxbutton:active {
+    background-position-x: -42px;
+}
+
+.titlebar-closebutton:active {
+    background-position-x: -63px;
+}
+
+.titlebar-maxbutton.wm-cbx-disabled:active {
+    background-position-x: -42px;
+}
+
+.titlebar-maxbutton.titlebar-maxxed:active {
+    background-position-x: -21px;
+}
+
+/* ----------------------- WINDOW INACTIVE STATE ----------------------- */
+
+/* titlebar state */
+.window-dlg:not(.active) .titlebar {
+    background-position-y: -250px;
+}
+
+.window-dlg:not(.active) .titlebar::before,
+.window-dlg:not(.active) .titlebar::after {
+    background-position-y: -310px;
+}
+
+.window-dlg:not(.active) .titlebar-title {
+    color: #D8E4F8;
+    text-shadow: none;
+}
+
+/* buttons state */
+.window-dlg:not(.active) .titlebar-minbutton,
+.window-dlg:not(.active) .titlebar-maxbutton,
+.window-dlg:not(.active) .titlebar-closebutton {
+    background-position-y: 77px;
+}
+
+.window-dlg:not(.active) .titlebar-maxbutton.wm-cbx-disabled {
+    background-position-y: 35px;
+}
+
+.window-dlg:not(.active) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY4zOOCspwc/Iw8jA8B8AFCcC30ccXugAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAWSURBVBhXYyxtu8PAyPjj7YdH998DACeDB2BpwA1UAAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.active) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZSURBVBhXYyhtu8PEwMjI9OPtB6ZH998DADAHB2WK9DpLAAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.active) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAwSURBVBhXY4zOOCspwc/IycTA/J+JAQ5+M4A4P798/PH6/Y+3H1iAnEf334NkGBgAT3wPGAxPMD4AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVBhXYyxtv/vv959fn748uv+eiQEJMP14+wEoDOGwAGUhLAYGBgByxRLNJRlSmAAAAABJRU5ErkJggg==');
+}
+
+/* ----------------------- WINDOW MAXIMIZED STATE ----------------------- */
+
+/* hide corners */
+.window-dlg.maximized .xpborder-W,
+.window-dlg.maximized .xpborder-E,
+.window-dlg.maximized .xpborder-S {
+    display: none;
+}
+
+.window-dlg.maximized .window-html {
+    padding: 0px;
+}
+
+.window-dlg.maximized .titlebar {
+    background-position-y: 364px;
+}
+
+/* modify titlebar height */
+.window-dlg.maximized .titlebar,
+.window-dlg.maximized .titlebar::before,
+.window-dlg.maximized .titlebar::after {
+    height: 26px;
+}
+
+.window-dlg.maximized .titlebar::before,
+.window-dlg.maximized .titlebar::after {
+    background-position-y: 312px;
+}
+
+/* new margins to match maximized button positions */
+.window-dlg.maximized .titlebar-closebutton,
+.window-dlg.maximized .titlebar-minbutton,
+.window-dlg.maximized .titlebar-maxbutton {
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+.window-dlg.maximized .titlebar-closebutton {
+    margin-right: 3px;
+}
+
+/* titlebar icon when maximized */
+.window-dlg:not(.ui-sortable-helper).maximized .titlebar-icon {
+    left: 2px !important;
+    top: 4px !important;
+}
+
+/* titlebar text when maximized */
+.window-dlg:not(.ui-sortable-helper).maximized .titlebar-title {
+    transform: translate(-4px, -3px);
+}
+
+/* ----------------------- WINDOW MAXIMIZED INACTIVE STATE ----------------------- */
+.window-dlg.maximized:not(.active) .titlebar {
+    background-position-y: 338px;
+}
+
+.window-dlg.maximized:not(.active) .titlebar::before,
+.window-dlg.maximized:not(.active) .titlebar::after {
+    background-position-y: 286px;
+}
+
+/* ----------------------- WINDOW DIALOG STATE (NON-RESIZABLE) ----------------------- */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar-icon {
+    left: 5px;
+    top: 7px;
+}
+
+/* titlebar text when maximized */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar-title {
+    transform: translateX(-1px);
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar {
+    background-position-y: 0px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar::before,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar::after {
+    background-position-y: -58px;
+}
+
+/* modify titlebar height */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar::before,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar::after {
+    height: 29px;
+}
+
+/* new margins to match dialog button positions */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar-closebutton,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar-minbutton,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .titlebar-maxbutton {
+    margin-top: 5px;
+}
+
+/* modify borders */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    width: 3px;
+    height: calc(100% - 29px);
+    top: 29px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    width: 3px;
+    height: calc(100% - 29px);
+    top: 29px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    width: 100%;
+    height: 3px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    height: 3px;
+    width: 3px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    height: 3px;
+    width: 3px;
+}
+
+/* modify content */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .window-html {
+    padding: 3px;
+    padding-top: 0;
+}
+
+/* ----------------------- WINDOW DIALOG INACTIVE STATE (NON-RESIZABLE) ----------------------- */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.active):not(.maximized) .titlebar {
+    background-position-y: -29px;
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.active):not(.maximized) .titlebar::before,
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.active):not(.maximized) .titlebar::after {
+    background-position-y: -87px;
+}

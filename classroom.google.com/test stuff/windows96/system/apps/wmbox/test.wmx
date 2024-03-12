@@ -1,0 +1,31 @@
+{
+    "meta": {
+        "name": "My Epic VM",
+        "description": "very Cool VM",
+        "icon": "generic"
+    },
+    "backend": "v86",
+    "memory_size": 67108864,
+    "vga": {
+        "memory_size": 8388608
+    },
+    "boot_order": 531,
+    "acpi": false,
+    "attachments": [
+        {
+            "type": "cdrom",
+            "path": "/tests/test.iso"
+        },
+        {
+            "type": "keyboard"
+        },
+        {
+            "type": "mouse"
+        },
+        {
+            "type": "nic",
+            "relayUrl": null
+        }
+    ],
+    "cmdline": null
+}

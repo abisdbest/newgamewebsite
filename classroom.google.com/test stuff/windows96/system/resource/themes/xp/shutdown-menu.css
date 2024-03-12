@@ -1,0 +1,175 @@
+/* shutdown menu */
+.xpsh-shutdown-container {
+    z-index: 1000000000000000;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.199);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg {
+    width: 313px;
+    height: 198px;
+    background-image: url("$smenu_bg$");
+    border: 1px solid black;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.top {
+    height: 43px;
+    display: flex;
+}
+.xpsh-shutdown-container>.shutdown-dlg>.top>.text {
+    color: white;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    margin-left: 12px;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle {
+    flex: 1;
+    display: flex;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options {
+    margin: auto;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item:not(:last-child) {
+    margin-right: 40px;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item>.icon {
+    height: 33px;
+    width: 33px;
+    background-image: url("$smenu_icons$");
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item:not(.disabled)>.icon:hover {
+    background-position-y: 66px;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item:not(.disabled)>.icon:active {
+    background-position-y: 33px;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.middle>.options>.item>.text {
+    color: white;
+    font-weight: bold;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.bottom {
+    height: 43px;
+    text-align: right;
+    display: flex;
+}
+
+.xpsh-shutdown-container>.shutdown-dlg>.bottom>button {
+    margin: auto;
+    margin-right: 10px;
+}
+
+/* grayscale effect animation */
+.anim-grayscale-effect {
+    animation: 3s grayscale-effect linear forwards;
+}
+
+@keyframes grayscale-effect {
+    0% {
+        filter: grayscale(0);
+    }
+
+    100% {
+        filter: grayscale(100%);
+    }
+}
+
+/* shutdown screen styles */
+.logon-container {
+    z-index: 1000000000000000;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+/* common styles for top and bototm */
+.logon-container>.top,
+.logon-container>.bottom {
+    background-color: #00309C;
+}
+
+/* specifics */
+.logon-container>.top {
+    height: 78px;
+}
+
+.logon-container>.top::after {
+    content: ' ';
+    height: 2px;
+    width: 100%;
+    display: block;
+    background: linear-gradient(to right, #5076D4, #C6DCFE, #C6DCFE, #5076D4, #5076D4);
+    position: absolute;
+    top: 78px;
+}
+
+.logon-container>.bottom {
+    height: 94px;
+}
+
+.logon-container>.bottom::before {
+    content: ' ';
+    height: 2px;
+    width: 100%;
+    display: block;
+    background: linear-gradient(to right, #0C3CA1, #ED923B, #ED923B, #0C3CA1);
+    position: absolute;
+    bottom: 94px;
+}
+
+.logon-container>.middle {
+    background-image: url("$logon_bg$");
+    background-repeat: no-repeat;
+    background-color: #5A7EDC;
+    flex: 1;
+    display: flex;
+}
+
+.logon-container>.middle>.box {
+    margin: auto;
+    margin-right: 33%;
+}
+
+.logon-container>.middle>.box>.image {
+    height: 86px;
+    width: 137px;
+    background-image: url("$logo_bg$");
+    margin-bottom: 22px;
+}
+
+.logon-container>.middle>.box>.text {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 16px;
+    min-width: 220px;
+}

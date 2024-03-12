@@ -1,0 +1,143 @@
+/*
+Embedded CSS
+*/
+
+/* color scheme */
+:root {
+    --select-color-primary: #335EA8;
+    --select-color-secondary: white;
+    --3d-obj-color-primary: #EBE9ED;
+    --3d-obj-color-text: black; 
+}
+
+/* ------ COMPOSITED BORDER REPLACEMENTS ------ */
+.window-dlg .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY2ZUsvVtXnf71XdGKX0AHZ0E6Kbx4/cAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY2BUsmU0ifWdcoZRyRYAEIsDAB2O4T4AAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY2BUsmViEFJg8J1yhoFRyRYAERMCokvVAl0AAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEBAMAAABb34NNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURQEiPU2UzAE0XeIWIW8AAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBjTY2BUYGBUYmAUZGBgAAAClgBXmovZ5QAAAABJRU5ErkJggg==');
+}
+
+.window-dlg .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVBhXY2BUsmU0ifWdcgbIYGIQUmCAARafhHwok4GBESgLZTIwAACrsQS0E8GcMQAAAABJRU5ErkJggg==');
+}
+
+/* inactive window state images */
+.window-dlg:not(.active) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY2RUspVxiv/+/TsDAwMAGBwEBPK493EAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY2T0aBAWFubk5HyybyEAD1YDYueaLvEAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY2D0aGASFhZm4uTkZP78lw0AEngDG3459KYAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAnSURBVBhXY2TUD5Ex9fj+/fvbt2+ZGGBAWFgYyuEEA5AyCJ+BgQEANrEHw/oLeyIAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVBhXY2T0aBAWFubk5HxyegcTkMUAA0xAMSCAcBgZ9UMgLAYGBgCr1QR+eEHzKQAAAABJRU5ErkJggg==');
+}
+
+/* dialog border for active windows */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY2ZUsvVtXnf71XcAD10EnmELrtMAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY2BUsvWdcoZRyRYACzQCbmUGyqkAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY2BUsmXwnXKGgVHJFgANowJu+jOqNgAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAfSURBVBhXY2ZUsvVtXnf71XcmBjDwSchnBIqBmAwMAHvMBhyXIZNwAAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAfSURBVBhXY2A0ifWdcoZRyZbJJyGfAQwYgTwQzcAAAFfdBB6HpUT3AAAAAElFTkSuQmCC');
+}
+
+/* dialog border for inactive windows */
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY2RUspVxiv/+/TsADBAEBHhB0I0AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY2b0aJB1iPn84T0ADvcEWAKBLugAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY2D0aGCSkZFh/vyXDQAOVAMZ4+JL+QAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVBhXY2TUD5Ex9fj+/TsTAxhwcnKCxEBMBgYAYg8EpknMBLwAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVBhXYxaJnixsHvz5LxsTJycnAxgwA3mfnt1hYGAAAHe6CGMMfWVaAAAAAElFTkSuQmCC');
+}
+
+/* start menu style replacements */
+.xpsm-container>.programs-view>.p1 .item,
+.xpsm-container>.programs-view>.p2 .item {
+    color: white;
+}
+
+.xpsm-container>.programs-view>.p1 .item>.subtext {
+    color: #8FB6E3;
+}
+
+.xpsm-container>.programs-view .separator {
+    background: linear-gradient(90deg, transparent, #165D95, #165D95, transparent);
+}
+
+.xpsm-container>.programs-view>.p2 .separator {
+    background: linear-gradient(90deg, transparent, #458CC4, #458CC4, transparent);
+}
+
+.xpsm-container>.programs-view .item:hover,
+.xpsm-container>.actions-view .item:hover {
+    background-color: #3E9DE8;
+}
+
+/* taskbar style */
+.start_button:not(.sb-active):hover {
+    background-position-y: -60px;
+}
+
+/* button styles */
+.w96-toolbar > .item:not([disabled]):hover {
+    background-color: #F4F4F4;
+}
+
+/* app specific mods */
+.ctrl-app > .view > .p1 {
+    background: linear-gradient(0deg, #004475, #0061AB);
+    border-right: 1px solid rgba(255, 255, 255, 0.274);
+}
+
+.ctrl-app > .view > .p2 {
+    background-color: #0D548C;
+    background-image: none;
+}
+
+.ctrl-app > .view > .p2 > .cat-marker::after {
+    background: linear-gradient(45deg, #293f72, #ffffff00);
+}

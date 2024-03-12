@@ -1,0 +1,5 @@
+{
+    "icon": "W:/system/sdks/sdk-v3/examples/gui-texted/icon32.png",
+    "icon_small": "W:/system/sdks/sdk-v3/examples/gui-texted/icon16.png",
+    "action": "W:/system/sdks/sdk-v3/examples/gui-texted/sdk-app-texted.wrt"
+}

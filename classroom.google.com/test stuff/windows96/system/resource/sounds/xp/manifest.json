@@ -1,0 +1,16 @@
+{
+	"meta": {
+		"name": "XP Sounds",
+		"author": "Windows 96 Team"
+	},
+	"sounds": {
+		"error": "w:/system/resource/sounds/xp/error.wav",
+		"warning": "w:/system/resource/sounds/xp/warning.wav",
+		"question": "w:/system/resource/sounds/xp/ding.wav",
+		"asterisk": "w:/system/resource/sounds/xp/ding.wav",
+		"start": "w:/system/resource/sounds/xp/start.wav",
+		"shutdown": "w:/system/resource/sounds/xp/shutdown.wav",
+		"navigate": "w:/system/resource/sounds/xp/nav.wav",
+		"recycle": "w:/system/resource/sounds/xp/recycle.wav"
+	}
+}

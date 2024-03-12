@@ -1,0 +1,19 @@
+{
+	"meta": {
+		"name": "Utopia",
+		"author": "Microsoft Corporation"
+	},
+	"sounds": {
+		"error": "w:/system/resource/sounds/utopia/error.mp3",
+		"question": "w:/system/resource/sounds/utopia/question.mp3",
+		"asterisk": "w:/system/resource/sounds/utopia/asterisk.mp3",
+		"ctxmenuopen": "w:/system/resource/sounds/utopia/ctxmenuopen.mp3",
+		"ctxmenucmd": "w:/system/resource/sounds/utopia/ctxmenucmd.mp3",
+		"minimize": "w:/system/resource/sounds/utopia/minimize.mp3",
+		"restore": "w:/system/resource/sounds/utopia/restore.mp3",
+		"navigate": "w:/system/resource/sounds/win96/nav.mp3",
+		"unmaximize": "w:/system/resource/sounds/utopia/unmaximize.mp3",
+		"maximize": "w:/system/resource/sounds/utopia/maximize.mp3",
+		"start": "w:/system/resource/sounds/utopia/start.mp3"
+	}
+}

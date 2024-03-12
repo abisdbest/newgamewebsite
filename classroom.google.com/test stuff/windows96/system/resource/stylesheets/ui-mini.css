@@ -1,0 +1,38 @@
+/*
+Windows 96 UI css file.
+
+Copyright (C) Windows 96 team 2021.
+*/
+
+@font-face {
+    font-family: "nouveaux";
+    src: url("../../resource/fonts/px_sans_nouveaux.woff");
+}
+
+.w96-button {
+    line-height: 1.9;
+    padding: 5px;
+    background-color: transparent;
+    font-family: nouveaux;
+    font-size: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: url(../cursors/hand.cur) 6 0, auto;
+    background: rgb(192,192,192);
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+    border: none;
+    outline: 0;
+    border-radius: 0px;
+}
+
+.w96-button:active {
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
+}
+
+.w96-button:focus {
+    outline-style: dotted;
+    outline-width: 1px;
+    outline-offset: -3px;
+}

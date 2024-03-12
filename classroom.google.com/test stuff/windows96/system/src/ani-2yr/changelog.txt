@@ -1,0 +1,73 @@
+Windows 96 Service Pack 1 Anniversary
+Update Changelog
+
+Date: 10/04/2021
+--------------------------------------
+
+ + Added dynamic wallpapers support
+   - Includes 5 default wallpapers
+   - Allows for HTML content to be embedded as a wallpaper
+   
+ + Updated the default wallpapers
+   - Removed some terrible wallpapers to increase storage space.
+   - Added a new cloudy default wallpaper.
+
+ + Added package manager
+   - Users can install packages from the official Windows 96 sources.
+   - Other sources can be added to get third party packages.
+   - The launch software catalog will be limited, but improved as time goes on. Right now there are 2 packages.
+ 
+ + Fixed major explorer bugs
+   - Desktop directory deletion
+   - Icon drag into folders
+   - General file manipulation
+ 
+ + Added general quality of life improvements
+   - Folder metadata to allow user customization.
+   - API simplification to allow for easier app writing.
+   - Quick navigation in explorer for important folders.
+   - Mobile users will be able to upload content in their desired folder via the menu bar.
+   
+ + Storage usage meter in Control Panel
+   - Only works reliably on indexedDB based backends due to how browsers estimate storage usage.
+ 
+ + Performance upgrades
+   - Code optimizations.
+
+ + Small changes to startup process
+   - New animations
+ 
+ + Cross browser support improved
+   - Firefox should not have any major styling differences compared to chromium based browsers.
+   - Apple Safari on Mobile will render windows properly compared to other browsers.
+   - Windows 96 will now warn the user if important features such as WebAssembly and indexedDB are missing.
+ 
+ + Physics bug fixes in Gameing
+   - Objects should now properly be discarded when positioned under the player.
+   - Object pickup is greatly improved - the object is brought to the player instead of being moved from a static position.
+   
+ + Developer QoL improvements
+   - Windowing and UI APIs are made much simpler.
+   - Windows 96 manual is in development, FS is partially documented.
+   - Better developers wiki.
+   - Library caching in B:/
+
+ + New apps added
+   - Monaco code editor is added, which is based on the editor featured in Visual Studio code.
+   - AVA bot is added.
+ 
+ + Open with handler is added
+   - Aids with opening of unknown files and lets the user select which application they would like to use to open a certain file.
+ 
+ + Theme selector is added, with previews, including new APIs
+   - Beta Aero theme has been added
+   - XP theme is refined
+   - Windows 2000 color scheme added
+   - Developer theme added
+   
+ + MsgRoom stability improvements
+ 
+ + Device settings to allow for mobile device optimizations
+   - New mobile apps menu
+
+Thank you for the support over the years, we hope you enjoy this massive update. 

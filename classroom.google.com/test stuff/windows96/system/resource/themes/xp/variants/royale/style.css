@@ -1,0 +1,132 @@
+/*
+Royale CSS
+*/
+
+/* color scheme */
+:root {
+    --select-color-primary: #335EA8;
+    --select-color-secondary: white;
+    --3d-obj-color-primary: #EBE9ED;
+    --3d-obj-color-text: black; 
+}
+
+/* ------ COMPOSITED BORDER REPLACEMENTS ------ */
+.window-dlg .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAWSURBVBhXYzRK2hvkp3Tr5pvju04CACXlBv6LRol7AAAAAElFTkSuQmCC');
+}
+
+.window-dlg .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY1R1nmLpZq6mLrJu0z0AFnQEUz8evQAAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY1B1nsJk6WbOpKYuwvyByw8AGkUDY7EtrOUAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVBhXYzRK2hvkp3Tr5pvju04yMcCApZs5C4Slpi4CJEHKIHwGBgYAYCcJbTATLecAAAAASUVORK5CYII=');
+}
+
+.window-dlg .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVBhXY1R1nmLpZq6mLrJu0z0mIIsBBliAYlAmAwOjUdJeKJOBAQDxRgbCCYI9OAAAAABJRU5ErkJggg==');
+}
+
+/* inactive window state images */
+.window-dlg:not(.active) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAWSURBVBhXYwyf88hBg/31b+bnj/4DACdUBvfXLLJ/AAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.active) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAIAAAB2XpiaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY8xc+FpSjlGU9e+BGz8BIGsF15vGIO0AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAIAAADAusJtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY8hc+JpJUo6RSZT1L9OBGz8BJ/cF3PogLa8AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVBhXYwyf88hBg/31b+bnj/4zMcCApBwjlCPK+heIWICsAzd+ggQYGAB0aAv2CFBlHgAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.active) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAoSURBVBhXY8xc+FpSjlGU9e+BGz+ZgCwGGGACigERhMMClIWwGBgYAFheCtZV3pDeAAAAAElFTkSuQmCC');
+}
+
+/* dialog border for active windows */
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXYzZK2ptd3/j4tSoAFcoEs3hnZkEAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY1Z1nlLUP/UDlx8AEpYD3peE+ZgAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY1B1nsLQsuE+8wcuPwAYygRbE+P76wAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVBhXYzRK2hvkp3Tr5hsmBjBQUxcBiYGYDAwAgBQGaZmkreUAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVBhXY4zrPK2mLrJu0z0mIMUABswfuPyu33zPwMAAAIkFCKCxAiFkAAAAAElFTkSuQmCC');
+}
+
+/* dialog border for inactive windows */
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-W {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXYwyf88hBg/3SXSYAFMcD92Dm/R0AAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-E {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAIAAACUgoPjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVBhXY8xc+FpP+d+BGz8BGd4F10tkdagAAAAASUVORK5CYII=');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVBhXY8hc+JpJT/kf04EbPwEfJwXadFuoQAAAAABJRU5ErkJggg==');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::before {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVBhXYwyf88hBg/31b2YmBjAQZf3LAqQO3PjJwMAAAIITB926fMMtAAAAAElFTkSuQmCC');
+}
+
+.window-dlg:not(.active):not(.ui-sortable-helper):not(.ui-resizable):not(.maximized) .xpborder-S::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVBhXY2za/0aU9e+BGz+ZgBQDGLAAeSCagQEAtqcJhQmRwQIAAAAASUVORK5CYII=');
+}
+
+/* start menu style replacements */
+.xpsm-container>.programs-view>.p1 .item,
+.xpsm-container>.programs-view>.p2 .item {
+    color: white;
+}
+
+.xpsm-container>.programs-view>.p1 .item>.subtext {
+    color: #8FB6E3;
+}
+
+.xpsm-container>.programs-view .separator {
+    background: linear-gradient(90deg, transparent, #405D97, #405D97, transparent);
+}
+
+.xpsm-container>.programs-view>.p2 .separator {
+    background: linear-gradient(90deg, transparent, #6186D5, #6186D5, transparent);
+}
+
+.xpsm-container>.programs-view .item:hover,
+.xpsm-container>.actions-view .item:hover {
+    background-color: #335EA8;
+}
+
+/* taskbar style */
+.user-taskbar>.taskbar-notify {
+    color: black;
+}
+
+.start_button:not(.sb-active):hover {
+    background-position-y: -60px;
+}
+
+/* button styles */
+.w96-toolbar > .item:not([disabled]):hover {
+    background-color: #F4F4F4;
+}

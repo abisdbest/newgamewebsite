@@ -1,0 +1,81 @@
+/*
+Compact Edition CSS
+*/
+
+.window-dlg>.titlebar {
+    height: 23px;
+}
+
+.window-dlg>.titlebar>.titlebar-title {
+    padding-top: 2px;
+    left: 1px;
+}
+
+.window-dlg>.titlebar-icon {
+    top: 5px;
+    left: 4px;
+}
+
+.window-dlg.maximized>.titlebar-icon {
+    left: 2px;
+    top: 3px;
+}
+
+.titlebar-comments-btn {
+    top: 2px;
+}
+
+.window-dlg>.titlebar>.titlebar-minbutton,
+.window-dlg>.titlebar>.titlebar-maxbutton,
+.window-dlg>.titlebar>.titlebar-closebutton {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: none;
+    background-color: #C6C3C6;
+    border: 1px solid #848284;
+    box-shadow: inset 1px 1px #DEDFDE, 1px 1px black;
+    height: 18px ;
+    width: 18px;
+    top: -2px;
+}
+
+.window-dlg>.titlebar>.titlebar-minbutton,
+.window-dlg>.titlebar>.titlebar-maxbutton {
+    margin-right: 4px;
+}
+
+.window-dlg>.titlebar>.titlebar-maxbutton {
+    display: none !important;
+}
+
+.window-dlg>.titlebar>.titlebar-closebutton,
+.window-dlg>.titlebar>.titlebar-closebutton:active {
+    margin-right: 1px;
+    background-image: url(/system/resource/ui/controls/ce-close.png);
+}
+
+.window-dlg>.titlebar>.titlebar-minbutton,
+.window-dlg>.titlebar>.titlebar-minbutton:active {
+    background-image: url(/system/resource/ui/controls/ce-min.png);
+}
+
+.window-dlg>.titlebar>.titlebar-minbutton:active,
+.window-dlg>.titlebar>.titlebar-maxbutton:active,
+.window-dlg>.titlebar>.titlebar-closebutton:active {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #C6C3C6;
+    border: 1px solid black;
+    border-bottom: 1px solid #DEDFDE;
+    border-right: 1px solid #DEDFDE;
+    box-shadow: inset 1px 1px #848284, 1px 1px white;
+}
+
+.window-dlg>.titlebar {
+    border-bottom: 1px solid black;
+    background: #848284;
+}
+
+.window-dlg.active>.titlebar {
+    background: rgb(0, 128, 128);
+}

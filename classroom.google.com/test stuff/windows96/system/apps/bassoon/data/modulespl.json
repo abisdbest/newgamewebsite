@@ -1,0 +1,8 @@
+{
+  "modulespl":[
+    {"title":"Browse by artist","children":[],"url":"artists"},
+    {"title":"Browse by genre","children":[],"url":"genres"},
+    {"title":"Top Rating","children":[],"url":"toprating"},
+    {"title":"Top Score","children":[],"url":"topscore"}
+  ]
+}

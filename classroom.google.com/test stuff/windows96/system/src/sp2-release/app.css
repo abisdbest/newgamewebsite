@@ -1,0 +1,188 @@
+.sp2-welc-app {
+	display: flex;
+	flex-direction: column;
+}
+
+.sp2-welc-app>.top {
+	height: 100px;
+	width: 100%;
+	background: radial-gradient(#0000 50%, #fff2);
+    box-shadow: 0 6px 9px 4px #fff1;
+	color: white;
+	font-family: nouveaux;
+	display: flex;
+	flex-direction: row;
+}
+
+.sp2-welc-app>.top>.trophy {
+	height: 100px;
+    width: 100px;
+    background-image: url(/system/src/sp2-release/trophy.png);
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: auto;
+}
+
+.sp2-welc-app>.top>.title {
+	margin: auto;
+	margin-left: 1em;
+}
+
+.sp2-welc-app>.content {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.sp2-welc-app>.content>.l {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	font-size: 8px;
+	font-family: nouveaux;
+	padding: 10px;
+    box-sizing: border-box;
+}
+
+.sp2-welc-app>.content>.r {
+	height: 100%;
+	width: 140px;
+	padding: 10px;
+	box-sizing: border-box;
+	font-family: 'nouveaux';
+    font-size: 8px;
+}
+
+.sp2-welc-app>.content>.r>.bold-noaa {
+	display: block;
+	margin-bottom: 1em;
+}
+
+.sp2-welc-app>.content>.r>a.w96-button {
+	text-decoration: none;
+	color: black;
+	width: 100%;
+	display: block;
+	margin-bottom: 5px;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.sp2-welc-app-cldlg {
+	box-sizing: border-box;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.sp2-welc-app-cldlg>article {
+	flex: 1;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	background: gainsboro;
+	line-height: 1.2em;
+	font-family: sans-serif;
+	font-size: 130%;
+	padding: 3px;
+}
+
+.sp2-welc-app-cldlg>.buttons {
+	padding: 10px;
+	padding-bottom: 0px;
+	box-sizing: border-box;
+	text-align: center;
+	width: 100%;
+}
+
+.sp2-welc-app-cldlg>.buttons>button {
+	width: 65px;
+}
+
+.sp2-welc-app-win.window-dlg {
+    border: 1px solid #0004 !important;
+    background: #0008 !important;
+    box-shadow: 0 0 12px #000a !important;
+    color: #fff;
+}
+
+.sp2-welc-app-win a {
+    color: #8fff;
+}
+
+.sp2-welc-app-win .titlebar {
+    background: none !important;
+    color: inherit !important;
+}
+
+.sp2-welc-app-win .titlebar-title::before,
+.sp2-welc-app-win .titlebar-title::after,
+.sp2-welc-app-win .titlebar::before,
+.sp2-welc-app-win .titlebar::after,
+.window-dlg::after {
+    display: none !important;
+}
+
+.sp2-welc-app-win div.nodrag:empty {
+    box-shadow: none;
+    border-color: #fff3;
+    background-size: 8px 8px;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+
+.sp2-welc-app-win .titlebar-closebutton {
+    background-image: url(/system/src/sp2-release/buttons/close.png) !important;
+}
+
+.sp2-welc-app-win .titlebar-maxbutton {
+    background-image: url(/system/src/sp2-release/buttons/maximize.png) !important;
+}
+
+.sp2-welc-app-win .titlebar-maxbutton.titlebar-maxxed {
+    background-image: url(/system/src/sp2-release/buttons/restore.png) !important;
+}
+
+.sp2-welc-app-win .titlebar-minbutton {
+    background-image: url(/system/src/sp2-release/buttons/minimize.png) !important;
+}
+
+.sp2-welc-app-win .window-html:not(.ui-sortable-helper) {
+    background: #fff1;
+    border-color: #fff1;
+    box-shadow: none;
+}
+
+.sp2-welc-app-win .w96-button {
+    outline: 0;
+    border-radius: 0 !important;
+    margin-right: 6px;
+    border: 1px solid #fff4 !important;
+    background: #fff4 !important;
+    color: #fff !important;
+    box-shadow: 4px 4px #0002 !important;
+    position: relative;
+}
+
+.sp2-welc-app-win .w96-button:active {
+    box-shadow: none !important;
+    top: 3px;
+    left: 3px;
+}
+
+.sp2-welc-app-win {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+@supports not (backdrop-filter: blur(0))  {
+    .sp2-welc-app-win {
+        background: #000a !important;
+    }
+}

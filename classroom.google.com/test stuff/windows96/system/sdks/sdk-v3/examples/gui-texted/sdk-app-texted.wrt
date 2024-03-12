@@ -1,0 +1,180 @@
+//!wrt
+const { Theme, MenuBar, DialogCreator, OpenFileDialog, SaveFileDialog } = w96.ui;
+
+/**
+ * The application class.
+ */
+class TextEdApp extends WApplication {
+    constructor() {
+        super();
+
+        this.editorState = {
+            fileName: null,
+            lastDir: "c:/user"
+        };
+    }
+
+    /**
+     * Resets the editor.
+     */
+    resetEditor() {
+        this.editorState.fileName = null;
+        this.wnd.getBodyContainer().querySelector("textarea").value = "";
+        this.updateUI();
+    }
+
+    /**
+     * Updates the editor UI.
+     */
+    updateUI() {
+        if(!this.editorState.fileName)
+            this.wnd.setTitle(`Untitled - TextEd`);
+        else
+            this.wnd.setTitle(`${FSUtil.fname(this.editorState.fileName)} - TextEd`);
+    }
+
+    /**
+     * Shows the save UI.
+     * @param force Whether to force show it (even if the file is saved).
+     */
+    async showSaveUI(force = false) {
+        const body = this.wnd.getBodyContainer();
+        body.classList.add('busy');
+
+        if((!this.editorState.fileName) || force) {
+            new SaveFileDialog(this.editorState.lastDir, [''], async(v) => {
+                if(v == null) {
+                    body.classList.remove('busy');
+                    return;
+                }
+
+                await FS.writestr(v, body.querySelector("textarea").value);
+                body.classList.remove('busy');
+                this.editorState.fileName = v;
+                this.updateUI();
+            }).show();
+        } else {
+            await FS.writestr(this.editorState.fileName, body.querySelector("textarea").value);
+            body.classList.remove('busy');
+        }
+    }
+
+    /**
+     * Loads the specified file.
+     * @param path The path of the file to load.
+     */
+    async loadFile(path) {
+        this.editorState.fileName = path;
+        this.editorState.lastDir = FSUtil.getParentPath(path);
+        
+        const body = this.wnd.getBodyContainer();
+        body.classList.add('busy');
+        body.querySelector("textarea").value = await FS.readstr(path);
+        body.classList.remove('busy');
+
+        this.updateUI();
+    }
+
+    /**
+     * Creates the app menu.
+     */
+    createMenu() {
+        const body = this.wnd.getBodyContainer();
+        const menuBar = new MenuBar();
+
+        menuBar.addRoot("File", [
+            {
+                type: "normal",
+                label: "New",
+                onclick: ()=>this.resetEditor()
+            },
+            { type: "separator" },
+            {
+                type: "normal",
+                label: "Open",
+                onclick: ()=> {
+                    new OpenFileDialog(this.editorState.lastDir, [''], async (v) => {
+                        if(v == null)
+                            return;
+
+                        // Process file
+                        this.loadFile(v);
+                    }).show();
+                }
+            },
+            {
+                type: "normal",
+                label: "Save",
+                onclick: ()=> this.showSaveUI()
+            },
+            {
+                type: "normal",
+                label: "Save As",
+                onclick: ()=> this.showSaveUI(true)
+            },
+            { type: "separator" },
+            {
+                type: "normal",
+                label: "Exit",
+                onclick: ()=>this.wnd.close()
+            },
+        ]);
+
+        menuBar.addRoot("Help", [
+            {
+                type: "normal",
+                label: "About",
+                onclick: ()=> DialogCreator.alert("TextEd SDK sample v1.0<br><br>Copyright (C) Author Name 2023.", {
+                    title: "About TextEd",
+                    icon: "info"
+                })
+            }
+        ]);
+
+        // Replace the dummy element
+        body.querySelector(".app-bar").replaceWith(menuBar.getMenuDiv());
+    }
+
+    /**
+     * The application entry point.
+     * @param argv The program arguments.
+     */
+    async main(argv) {
+        await super.main(argv);
+        this.title = "texted";
+
+        // Create a simple window
+        this.wnd = this.createWindow({
+            title: "Basic text editor",
+            initialWidth: 480,
+            initialHeight: 400,
+            body: `<div class="app-bar"></div>
+            <textarea class="content"></textarea>
+            <style>${await FS.readstr(FSUtil.combinePath(current.modulePath, "style.css"))}</style>`,
+            bodyClass: "texted-app",
+            icon: await Theme.getIconUrl('mime/executable', '16x16'),
+            taskbar: true
+        }, true); // The "true" here tells WApplication this is the main window.
+
+        // Create menu
+        this.createMenu();
+
+        // Reset the editor
+        this.resetEditor();
+
+        // Show the window
+        this.wnd.show();
+    }
+
+    /**
+     * On program exit.
+     */
+    async ontermination() {
+        await super.ontermination();
+
+        // TODO Shutdown code
+    }
+}
+
+// Startup line
+return await WApplication.execAsync(new TextEdApp(), this.boxedEnv.args, this);

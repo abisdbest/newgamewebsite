@@ -1,0 +1,6 @@
+{
+	"id": "js-ui-app"
+	"name": "Win96 UI Application",
+	"ideVer": 1,
+	"toolchain": "sdk-v3"
+}

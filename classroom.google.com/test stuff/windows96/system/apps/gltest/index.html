@@ -1,0 +1,173 @@
+<html>
+<head>
+	<title>gl test</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/103/three.min.js"></script>
+</head>
+</html>
+<body style="margin: 0px;">
+<script>
+// FPS counter
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+</script>
+<script>
+
+var _3dSettings = {
+	text: "Windows 96",
+	textColor: 0xFF00FF,
+	createShapes: true,
+	textHeight: 2,
+	textSize: 10,
+	bevelSegments: 3,
+	curveSegments: 50
+}
+
+if(localStorage.getItem("c:/AppData/gltest/3dsettings.json") != null) {
+	_3dSettings = JSON.parse(localStorage.getItem("c:/AppData/gltest/3dsettings.json").trim());
+} else {
+	localStorage.setItem("c:/AppData/gltest", "%:DIR");
+	localStorage.setItem("c:/AppData/gltest/3dsettings.json", JSON.stringify(_3dSettings, null, 4));
+}
+
+var scene = new THREE.Scene()
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight,.1, 1000)
+var renderer = new THREE.WebGLRenderer()
+camera.position.x = 40
+camera.position.y = 40
+camera.position.z = 40
+renderer.setClearColor(0x000000)
+renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.shadowMap.enabled = true
+renderer.shadowMapSoft = true
+var planeTex = new THREE.TextureLoader().load( '../../resource/misc/missing.png' );
+var planeGeo = new THREE.PlaneGeometry(100, 100, 100);
+var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
+var plane = new THREE.Mesh(planeGeo,planeMat)
+plane.rotation.x = -.5 * Math.PI
+plane.receiveShadow = true;
+var spotlight = new THREE.SpotLight(0xffffff)
+spotlight.castShadow = true
+spotlight.position.set(30,60,60)
+scene.add(plane)
+scene.add(spotlight)
+camera.lookAt(scene.position)
+document.body.appendChild(renderer.domElement)
+document.body.children[1].style.width="100%"
+document.body.children[1].style.height="100%"
+
+function loadFont() {
+	var loader = new THREE.FontLoader();
+	loader.load('../../libraries/misc/hfont.js', function (res) {
+		font = res;
+		createText();
+	});
+}
+
+function createBasicCube(a, b, c, x, y, z, color) {
+	var cubeGeo = new THREE.CubeGeometry(a, b, c) ;
+	var cubeMat = new THREE.MeshLambertMaterial( { color: color } );
+	var cube = new THREE.Mesh(cubeGeo, cubeMat);
+	cube.position.x = x;
+	cube.position.y = y;
+	cube.position.z = z;
+	return cube;
+}
+
+function createBasicCone(a, b, c, x, y, z, color) {
+	var coneGeo = new THREE.ConeGeometry(a, b, c) ;
+	var coneMat = new THREE.MeshLambertMaterial( { color: color } );
+	var cone = new THREE.Mesh(coneGeo, coneMat);
+	cone.position.x = x;
+	cone.position.y = y;
+	cone.position.z = z;
+	return cone;
+}
+
+function createBasicTorus(a, b, c, x, y, z, color) {
+	var torusGeo = new THREE.TorusGeometry(a, b, c) ;
+	torusGeo.curveSegments = 50;
+	var torusMat = new THREE.MeshLambertMaterial( { color: color } );
+	var torus = new THREE.Mesh(torusGeo, torusMat);
+	torus.position.x = x;
+	torus.position.y = y;
+	torus.position.z = z;
+	return torus;
+}
+
+function createBasicSphere(a, b, c, x, y, z, color) {
+	var sphereGeo = new THREE.SphereGeometry(a, b, c) ;
+	var sphereMat = new THREE.MeshLambertMaterial( { color: color } );
+	var sphere = new THREE.Mesh(sphereGeo, sphereMat);
+	sphere.position.x = x;
+	sphere.position.y = y;
+	sphere.position.z = z;
+	return sphere;
+}
+
+if(_3dSettings.createShapes) {
+	scene.add(createBasicCube(15, 15, 15, -10, 5, -10, 0xffffff));
+	scene.add(createBasicCone(15, 25, 15, 10, 5, 10, 0xffffff));
+	scene.add(createBasicTorus(5, 5, 5, -10, 5, 10, 0xffffff));
+	scene.add(createBasicSphere(8, 8, 8, 10, 5, -10, 0xffffff));
+	
+	// Add woozy
+	const woozy = createBasicCube(15, 15, 15, -5, 7.5, -30, 0xffffff);
+	const woozyTex = new THREE.TextureLoader().load( './woozy.png' );
+	woozy.material = new THREE.MeshBasicMaterial( { map: woozyTex } );
+	scene.add(woozy);
+}
+
+var increment = 0
+var render = function () {
+	increment += 0.01
+	requestAnimationFrame( render );
+	spinCamera()
+	renderer.render(scene, camera);
+};
+var rotation = 0
+function spinCamera(){
+	rotation += 0.005
+	camera.position.z = Math.sin(rotation) * 80;
+	camera.position.x = Math.cos(rotation) * 80;
+	camera.lookAt(scene.position)
+}
+
+function createText() {
+    textGeo = new THREE.TextGeometry( _3dSettings.text, {
+      font: font,
+      size: size,
+      height: height,
+      curveSegments:curveSegments,
+      weight: "normal",
+      bevelThickness:bevelThickness,
+      bevelSize:bevelSize,
+      bevelSegments:bevelSegments,
+      bevelEnabled:bevelEnabled
+    });
+    textGeo.computeBoundingBox();
+    textGeo.computeVertexNormals();
+
+    var text = new THREE.Mesh(textGeo, new THREE.MeshLambertMaterial( {color: _3dSettings.textColor} ))
+    text.position.x = -textGeo.boundingBox.max.x/2;
+	text.position.y = 10;
+    text.castShadow = true;
+    scene.add(text)
+ }
+loadFont();
+render();
+  		var text = "aems",
+        height = _3dSettings.textHeight,
+        size = _3dSettings.textSize,
+        curveSegments = _3dSettings.curveSegments,
+        bevelThickness = 1,
+        bevelSize = 0.3,
+        bevelSegments = _3dSettings.bevelSegments,
+        bevelEnabled = true,
+        font = undefined
+</script>
+<style>
+	canvas {
+		width: 100% !important;
+		height: 100% !important;
+	}
+</style>
+</body>

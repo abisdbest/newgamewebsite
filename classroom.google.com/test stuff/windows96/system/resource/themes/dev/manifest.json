@@ -1,0 +1,12 @@
+{
+	"id": "dev",
+	"name": "Developer Theme",
+	"description": "Development theme",
+	"author": "Windows 96 Team",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/win96",
+	"soundPack": "W:/system/resource/sounds/win96",
+	"stylesheets": [
+		"W:/system/resource/themes/dev/theme.css"
+	]
+}

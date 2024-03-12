@@ -1,0 +1,12 @@
+{
+	"id": "win98",
+	"name": "Windows 98",
+	"description": "Windows 98 theme and color scheme",
+	"author": "Windows 96 Team",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/win96",
+	"soundPack": "W:/system/resource/sounds/win96",
+	"stylesheets": [
+		"W:/system/resource/themes/98/theme.css"
+	]
+}

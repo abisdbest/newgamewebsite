@@ -1,0 +1,18 @@
+/*
+Windows 96 UI css file.
+
+Copyright (C) Windows 96 team 2022.
+*/
+
+
+@font-face {
+    font-family: "stdvga";
+    src: url("../fonts/vga.ttf");
+}
+
+.kern-term {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}

@@ -1,0 +1,12 @@
+{
+	"id": "win2k",
+	"name": "Windows 2000",
+	"description": "Windows 2000 theme and color scheme",
+	"author": "Windows 96 Team",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/win96",
+	"soundPack": "W:/system/resource/sounds/win96",
+	"stylesheets": [
+		"W:/system/resource/themes/2k/theme.css"
+	]
+}

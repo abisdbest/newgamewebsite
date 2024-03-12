@@ -1,0 +1,30 @@
+<div class="frame-cnt">
+    <div class="top">
+        <input class="w96-textbox" placeholder="Enter URL...">
+    </div>
+    <iframe class="browser" src="/system/apps/devenv/ui/www/startpage.html"></iframe>
+</div>
+<style>
+.wde-tab-web-browser>.frame-cnt {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wde-tab-web-browser>.frame-cnt>.top {
+    padding: 5px;
+}
+
+.wde-tab-web-browser>.frame-cnt>.top>input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid gray;
+    box-shadow: none;
+}
+
+.wde-tab-web-browser>.frame-cnt>.browser {
+    flex: 1;
+    border: 1px solid gray;
+}
+</style>

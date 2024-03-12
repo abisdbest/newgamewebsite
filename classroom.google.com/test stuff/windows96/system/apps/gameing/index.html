@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- copyright (C) windows 96.net 2022. -->
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Gameing</title>
+    <link rel="shortcut icon" href="Resources/favicon.ico">
+    <link rel="stylesheet" href="Resources/style.css">
+    <script src="Resources/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/game.json", {onProgress: UnityProgress});
+      window.onresize = ()=>{
+        const canvas = document.querySelector('canvas');
+        const rect = document.body.getBoundingClientRect();
+        canvas.setAttribute("height", rect.height);
+        canvas.setAttribute("width", rect.width);
+      }
+
+      window.onkeydown = (e)=>e.preventDefault();
+      window.onkeyup = (e)=>e.preventDefault();
+      window.onkeypress = (e)=>e.preventDefault();
+    </script>
+  </head>
+  <body>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 100%; height: 100%;"></div>
+    </div>
+  </body>
+</html>

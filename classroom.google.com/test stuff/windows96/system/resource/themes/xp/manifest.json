@@ -1,0 +1,92 @@
+{
+	"id": "xp",
+	"name": "XP",
+	"description": "XP Theme",
+	"author": "Windows 96 Team",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/xp",
+	"soundPack": "W:/system/resource/sounds/xp",
+    "stylesheets": [
+		"./wm.css",
+        "./taskbar.css",
+        "./xpui.css",
+        "./start-menu.css",
+        "./shutdown-menu.css"
+	],
+    "resourceMap": [
+        { "id": "taskbar_bg", "path": "./img/taskbar/bg.png" },
+        { "id": "notify_bg", "path": "./img/taskbar/notify-bg.png" },
+        { "id": "start_btn", "path": "./img/taskbar/start.png" },
+        { "id": "tb_item", "path": "./img/taskbar/taskbar-item.png" },
+        { "id": "wm_sheet", "path": "./img/window/window_sheet.png" },
+        { "id": "trebuchet_ms", "path": "./fonts/Trebuchet-MS.ttf" },
+        { "id": "menu_tex", "path": "./img/shell/menu.png" },
+        { "id": "menu_icons", "path": "./img/shell/sm-icons.png" },
+        { "id": "smenu_bg", "path": "./img/shell/smenu_bg.png" },
+        { "id": "smenu_icons", "path": "./img/shell/smenu-icons.png" },
+        { "id": "cpl_bg", "path": "./img/shell/cpl.png" },
+        { "id": "logon_bg", "path": "./img/logon/bg.png" },
+        { "id": "logo_bg", "path": "./img/logon/logo.png" }
+    ],
+    "previewFakeElements": [
+        {
+            "target": ".window-dlg",
+            "elements": [
+                { "class": "xpborder-W", "type": "div", "mode": "append" },
+                { "class": "xpborder-E", "type": "div", "mode": "append" },
+                { "class": "xpborder-S", "type": "div", "mode": "append" }
+            ]
+        }
+    ],
+    "scripts": [
+        "./theme.js"
+    ],
+    "rebootSuggested": true,
+    "variants": [
+        {
+            "name": "Zune",
+            "resourceMap": [
+                { "id": "wm_sheet", "path": "./variants/zune/img/window/window_sheet.png" },
+                { "id": "menu_tex", "path": "./variants/zune/img/shell/menu.png" },
+                { "id": "menu_icons", "path": "./variants/zune/img/shell/sm-icons.png" },
+                { "id": "taskbar_bg", "path": "./variants/zune/img/taskbar/bg.png" },
+                { "id": "notify_bg", "path": "./variants/zune/img/taskbar/notify-bg.png" },
+                { "id": "start_btn", "path": "./variants/zune/img/taskbar/start.png" },
+                { "id": "tb_item", "path": "./variants/zune/img/taskbar/taskbar-item.png" }
+            ],
+            "stylesheets": [
+                "./variants/zune/style.css"
+            ]
+        },
+        {
+            "name": "Embedded",
+            "resourceMap": [
+                { "id": "wm_sheet", "path": "./variants/embedded/img/window/window_sheet.png" },
+                { "id": "menu_tex", "path": "./variants/embedded/img/shell/menu.png" },
+                { "id": "menu_icons", "path": "./variants/embedded/img/shell/sm-icons.png" },
+                { "id": "taskbar_bg", "path": "./variants/embedded/img/taskbar/bg.png" },
+                { "id": "notify_bg", "path": "./variants/embedded/img/taskbar/notify-bg.png" },
+                { "id": "start_btn", "path": "./variants/embedded/img/taskbar/start.png" },
+                { "id": "tb_item", "path": "./variants/embedded/img/taskbar/taskbar-item.png" }
+            ],
+            "stylesheets": [
+                "./variants/embedded/style.css"
+            ]
+        },
+        {
+            "name": "Royale",
+            "resourceMap": [
+                { "id": "wm_sheet", "path": "./variants/royale/img/window/window_sheet.png" },
+                { "id": "menu_tex", "path": "./variants/royale/img/shell/menu.png" },
+                { "id": "menu_icons", "path": "./variants/royale/img/shell/sm-icons.png" },
+                { "id": "taskbar_bg", "path": "./variants/royale/img/taskbar/bg.png" },
+                { "id": "notify_bg", "path": "./variants/royale/img/taskbar/notify-bg.png" },
+                { "id": "start_btn", "path": "./variants/royale/img/taskbar/start.png" },
+                { "id": "tb_item", "path": "./variants/royale/img/taskbar/taskbar-item.png" }
+            ],
+            "stylesheets": [
+                "./variants/royale/style.css"
+            ]
+        }
+    ]
+}

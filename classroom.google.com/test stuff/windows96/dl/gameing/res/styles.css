@@ -1,0 +1,32 @@
+body {
+    background: url(./lole.png);
+    margin: 10px;
+}
+
+body>.box {
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+body>.box a {
+    color: royalblue;
+}
+
+body>.icon {
+    margin-top: 2em;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+    background:url(./Cubeoid.png);
+    height: 199px;
+    width: 199px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

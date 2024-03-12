@@ -1,0 +1,42 @@
+.ani4-welc-app-cldlg {
+	box-sizing: border-box;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.ani4-welc-app-cldlg>article {
+	flex: 1;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	background: gainsboro;
+	line-height: 1.2em;
+	font-family: sans-serif;
+	font-size: 130%;
+	padding: 3px;
+}
+
+.ani4-welc-app-cldlg>.buttons {
+	padding: 10px;
+	padding-bottom: 0px;
+	box-sizing: border-box;
+	text-align: center;
+	width: 100%;
+}
+
+.ani4-welc-app-cldlg>.buttons>button {
+	width: 65px;
+}
+
+.ani4-welc-app-cldlg>.header {
+	height: 66px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+	background-image: url(/system/src/ani-4yr/logo-w96-new.png);
+}

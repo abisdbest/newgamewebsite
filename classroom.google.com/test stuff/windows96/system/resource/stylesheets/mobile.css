@@ -1,0 +1,37 @@
+/*
+windows 96 mobile mode styles
+copyright (C) windows96.net 2022.
+*/
+
+.s36-mobile .user-taskbar {
+    max-height: 30px;
+    height: 30px;
+}
+
+.s36-mobile .user-taskbar>.start_button::after {
+    display: none;
+}
+
+.s36-mobile .user-taskbar>.taskbar-tasks>.taskbar-task,
+.s36-mobile .user-taskbar>.start_button {
+    padding-right: 3px;
+    animation: none;
+    width: 26px;
+    min-width: 26px;
+    height: 24px;
+    flex: 0;
+}
+
+.s36-mobile .user-taskbar>.start_button  {
+    height: 25px;
+    background-position-x: 5px;
+}
+
+.s36-mobile .user-taskbar>.taskbar-tasks>.taskbar-task>.taskbar-task-icon {
+    margin-left: 4px;
+    margin-top: 3px;
+}
+
+.s36-mobile .user-taskbar>.taskbar-tasks>.taskbar-task>.taskbar-task-text {
+    display: none;
+}

@@ -1,0 +1,9 @@
+{
+	"id": "default",
+	"name": "Windows 96",
+	"description": "The default theme for Windows 96",
+	"author": "Windows 96 Team",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/win96",
+	"soundPack": "W:/system/resource/sounds/win96"
+}

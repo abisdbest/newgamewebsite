@@ -1,0 +1,9 @@
+{
+	"id": "base",
+	"name": "Win96 Base",
+	"description": "The base theme for Windows 96",
+	"author": "Windows 96 Team | Tango Desktop Project",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/base",
+	"soundPack": "W:/system/resource/sounds/win96"
+}

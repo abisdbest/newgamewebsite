@@ -1,0 +1,14 @@
+{
+	"meta": {
+		"name": "Windows 96 Default Sounds",
+		"author": "Windows 96 Team"
+	},
+	"sounds": {
+		"error": "w:/system/resource/sounds/win96/error.mp3",
+		"question": "w:/system/resource/sounds/win96/ding.mp3",
+		"asterisk": "w:/system/resource/sounds/win96/ding.mp3",
+		"start": "w:/system/resource/sounds/win96/start.mp3",
+		"shutdown": "w:/system/resource/sounds/win96/shutdown.mp3",
+		"navigate": "w:/system/resource/sounds/win96/nav.mp3"
+	}
+}

@@ -1,0 +1,618 @@
+[
+  {
+    "name": "background",
+    "x": 662,
+    "y": 168,
+    "width": 17,
+    "height": 17
+  },
+  {
+    "name": "bar",
+    "x": 662,
+    "y": 84,
+    "width": 18,
+    "height": 84
+  },
+  {
+    "name": "bar_hover",
+    "x": 662,
+    "y": 0,
+    "width": 18,
+    "height": 84
+  },
+  {
+    "name": "boing",
+    "x": 256,
+    "y": 219,
+    "width": 218,
+    "height": 18
+  },
+  {
+    "name": "button_hover_green",
+    "x": 584,
+    "y": 327,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay",
+    "x": 304,
+    "y": 503,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_active",
+    "x": 583,
+    "y": 381,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_blue",
+    "x": 451,
+    "y": 256,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_blue_active",
+    "x": 583,
+    "y": 411,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_green",
+    "x": 451,
+    "y": 316,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_green_active",
+    "x": 451,
+    "y": 286,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_plain",
+    "x": 20,
+    "y": 503,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_red",
+    "x": 233,
+    "y": 503,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_red_active",
+    "x": 91,
+    "y": 503,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_inlay_red_hover",
+    "x": 162,
+    "y": 503,
+    "width": 71,
+    "height": 30
+  },
+  {
+    "name": "button_light",
+    "x": 530,
+    "y": 0,
+    "width": 132,
+    "height": 38
+  },
+  {
+    "name": "button_light_hover",
+    "x": 339,
+    "y": 433,
+    "width": 132,
+    "height": 38
+  },
+  {
+    "name": "checkbox_off",
+    "x": 662,
+    "y": 239,
+    "width": 14,
+    "height": 14
+  },
+  {
+    "name": "checkbox_on",
+    "x": 662,
+    "y": 253,
+    "width": 14,
+    "height": 14
+  },
+  {
+    "name": "dropbox",
+    "x": 370,
+    "y": 237,
+    "width": 21,
+    "height": 17
+  },
+  {
+    "name": "dropzone",
+    "x": 356,
+    "y": 256,
+    "width": 95,
+    "height": 95
+  },
+  {
+    "name": "font",
+    "x": 0,
+    "y": 0,
+    "width": 256,
+    "height": 256
+  },
+  {
+    "name": "disk",
+    "x": 662,
+    "y": 311,
+    "width": 12,
+    "height": 11
+  },
+  {
+    "name": "module",
+    "x": 662,
+    "y": 322,
+    "width": 12,
+    "height": 11
+  },
+  {
+    "name": "sample",
+    "x": 662,
+    "y": 333,
+    "width": 12,
+    "height": 11
+  },
+  {
+    "name": "keybutton",
+    "x": 332,
+    "y": 237,
+    "width": 38,
+    "height": 18
+  },
+  {
+    "name": "keybutton_highlight2",
+    "x": 474,
+    "y": 219,
+    "width": 38,
+    "height": 18
+  },
+  {
+    "name": "keybutton_highlight3",
+    "x": 256,
+    "y": 237,
+    "width": 38,
+    "height": 18
+  },
+  {
+    "name": "keybutton_hover",
+    "x": 294,
+    "y": 237,
+    "width": 38,
+    "height": 18
+  },
+  {
+    "name": "knob_back",
+    "x": 594,
+    "y": 232,
+    "width": 54,
+    "height": 54
+  },
+  {
+    "name": "knob_back_inactive",
+    "x": 594,
+    "y": 178,
+    "width": 54,
+    "height": 54
+  },
+  {
+    "name": "knob_front",
+    "x": 530,
+    "y": 327,
+    "width": 54,
+    "height": 54
+  },
+  {
+    "name": "lednumber",
+    "x": 339,
+    "y": 471,
+    "width": 88,
+    "height": 25
+  },
+  {
+    "name": "line_hor",
+    "x": 236,
+    "y": 360,
+    "width": 272,
+    "height": 2
+  },
+  {
+    "name": "line_ver",
+    "x": 662,
+    "y": 386,
+    "width": 2,
+    "height": 37
+  },
+  {
+    "name": "logo_colour_70",
+    "x": 0,
+    "y": 363,
+    "width": 339,
+    "height": 70
+  },
+  {
+    "name": "logo_grey_70",
+    "x": 0,
+    "y": 433,
+    "width": 339,
+    "height": 70
+  },
+  {
+    "name": "menu",
+    "x": 530,
+    "y": 301,
+    "width": 116,
+    "height": 26
+  },
+  {
+    "name": "mute",
+    "x": 618,
+    "y": 156,
+    "width": 44,
+    "height": 20
+  },
+  {
+    "name": "nibbles",
+    "x": 427,
+    "y": 471,
+    "width": 82,
+    "height": 24
+  },
+  {
+    "name": "oscilloscope",
+    "x": 0,
+    "y": 256,
+    "width": 236,
+    "height": 107
+  },
+  {
+    "name": "panel_black_insert",
+    "x": 391,
+    "y": 237,
+    "width": 19,
+    "height": 16
+  },
+  {
+    "name": "panel_dark",
+    "x": 256,
+    "y": 0,
+    "width": 274,
+    "height": 219
+  },
+  {
+    "name": "panel_dark_blueish",
+    "x": 410,
+    "y": 237,
+    "width": 19,
+    "height": 16
+  },
+  {
+    "name": "panel_dark_greyish",
+    "x": 429,
+    "y": 237,
+    "width": 19,
+    "height": 16
+  },
+  {
+    "name": "panel_dark_insert",
+    "x": 448,
+    "y": 237,
+    "width": 19,
+    "height": 16
+  },
+  {
+    "name": "panel_inset",
+    "x": 662,
+    "y": 223,
+    "width": 16,
+    "height": 16
+  },
+  {
+    "name": "panel_inset_dark",
+    "x": 478,
+    "y": 363,
+    "width": 39,
+    "height": 24
+  },
+  {
+    "name": "panel_inset_dark_active",
+    "x": 618,
+    "y": 78,
+    "width": 43,
+    "height": 28
+  },
+  {
+    "name": "panel_inset_dark_inactive",
+    "x": 618,
+    "y": 128,
+    "width": 43,
+    "height": 28
+  },
+  {
+    "name": "panel_light",
+    "x": 639,
+    "y": 357,
+    "width": 23,
+    "height": 19
+  },
+  {
+    "name": "panel_mid",
+    "x": 477,
+    "y": 403,
+    "width": 23,
+    "height": 19
+  },
+  {
+    "name": "panel_trans",
+    "x": 467,
+    "y": 237,
+    "width": 19,
+    "height": 16
+  },
+  {
+    "name": "piano",
+    "x": 375,
+    "y": 503,
+    "width": 82,
+    "height": 24
+  },
+  {
+    "name": "pianokey_black",
+    "x": 20,
+    "y": 533,
+    "width": 25,
+    "height": 85
+  },
+  {
+    "name": "pianokey_black_down",
+    "x": 556,
+    "y": 381,
+    "width": 27,
+    "height": 86
+  },
+  {
+    "name": "pianokey_white",
+    "x": 530,
+    "y": 178,
+    "width": 32,
+    "height": 123
+  },
+  {
+    "name": "pianokey_white_down",
+    "x": 562,
+    "y": 178,
+    "width": 32,
+    "height": 122
+  },
+  {
+    "name": "play",
+    "x": 601,
+    "y": 481,
+    "width": 46,
+    "height": 15
+  },
+  {
+    "name": "play_active_red",
+    "x": 584,
+    "y": 357,
+    "width": 55,
+    "height": 22
+  },
+  {
+    "name": "play_green",
+    "x": 530,
+    "y": 128,
+    "width": 88,
+    "height": 50
+  },
+  {
+    "name": "play_green_hover",
+    "x": 530,
+    "y": 78,
+    "width": 88,
+    "height": 50
+  },
+  {
+    "name": "radio_active",
+    "x": 662,
+    "y": 366,
+    "width": 10,
+    "height": 10
+  },
+  {
+    "name": "radio_big_active",
+    "x": 662,
+    "y": 344,
+    "width": 11,
+    "height": 11
+  },
+  {
+    "name": "radio_big_inactive",
+    "x": 662,
+    "y": 355,
+    "width": 11,
+    "height": 11
+  },
+  {
+    "name": "radio_inactive",
+    "x": 662,
+    "y": 376,
+    "width": 10,
+    "height": 10
+  },
+  {
+    "name": "record",
+    "x": 530,
+    "y": 481,
+    "width": 71,
+    "height": 17
+  },
+  {
+    "name": "record_active",
+    "x": 45,
+    "y": 533,
+    "width": 71,
+    "height": 27
+  },
+  {
+    "name": "record_hover",
+    "x": 583,
+    "y": 441,
+    "width": 71,
+    "height": 17
+  },
+  {
+    "name": "slider_back",
+    "x": 339,
+    "y": 403,
+    "width": 138,
+    "height": 20
+  },
+  {
+    "name": "slider_back_vert",
+    "x": 0,
+    "y": 503,
+    "width": 20,
+    "height": 138
+  },
+  {
+    "name": "slider_knob",
+    "x": 494,
+    "y": 433,
+    "width": 34,
+    "height": 23
+  },
+  {
+    "name": "slider_knob_vert",
+    "x": 471,
+    "y": 433,
+    "width": 23,
+    "height": 34
+  },
+  {
+    "name": "solo",
+    "x": 618,
+    "y": 106,
+    "width": 44,
+    "height": 21
+  },
+  {
+    "name": "steffest",
+    "x": 339,
+    "y": 363,
+    "width": 139,
+    "height": 40
+  },
+  {
+    "name": "tracker",
+    "x": 530,
+    "y": 38,
+    "width": 123,
+    "height": 40
+  },
+  {
+    "name": "vu_green",
+    "x": 664,
+    "y": 392,
+    "width": 10,
+    "height": 6
+  },
+  {
+    "name": "vu_green_active",
+    "x": 664,
+    "y": 386,
+    "width": 10,
+    "height": 6
+  },
+  {
+    "name": "vu_red",
+    "x": 664,
+    "y": 398,
+    "width": 10,
+    "height": 6
+  },
+  {
+    "name": "vu_red_active",
+    "x": 662,
+    "y": 185,
+    "width": 14,
+    "height": 19
+  },
+  {
+    "name": "vu_yellow",
+    "x": 664,
+    "y": 404,
+    "width": 10,
+    "height": 6
+  },
+  {
+    "name": "vu_yellow_active",
+    "x": 662,
+    "y": 204,
+    "width": 14,
+    "height": 19
+  },
+  {
+    "name": "vubar",
+    "x": 530,
+    "y": 381,
+    "width": 26,
+    "height": 100
+  },
+  {
+    "name": "w96",
+    "x": 236,
+    "y": 256,
+    "width": 120,
+    "height": 104
+  },
+  {
+    "name": "wave_saw",
+    "x": 662,
+    "y": 278,
+    "width": 15,
+    "height": 11
+  },
+  {
+    "name": "wave_saw_inverse",
+    "x": 662,
+    "y": 267,
+    "width": 15,
+    "height": 11
+  },
+  {
+    "name": "wave_sin",
+    "x": 662,
+    "y": 289,
+    "width": 15,
+    "height": 11
+  },
+  {
+    "name": "wave_square",
+    "x": 662,
+    "y": 300,
+    "width": 15,
+    "height": 11
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "BassoonTrackerApi",
+  "description": "BassoonTracker Api and Modarchive API-bidge",
+  "main": "server.js",
+  "version": "0.0.1",
+  "author": {
+    "name": "Steffest",
+    "email": "dev@stef.be"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/steffest/BassoonTracker"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "*",
+    "he": "^1.1.1",
+    "http-proxy" : "1.18.1",
+    "xml2js": "^0.4.17"
+  }
+}

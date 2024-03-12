@@ -1,0 +1,180 @@
+/* start menu styles */
+.xpsm-container {
+    width: 380px;
+    height: 478px;
+    position: fixed;
+    z-index: 10000000;
+    bottom: 30px;
+    background-image: url("$menu_tex$");
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 2px 4px #000000d1;
+    border-top-right-radius: 7px;
+}
+
+.xpsm-container>.user-bar {
+    height: 65px;
+    margin-bottom: 2px;
+    display: flex;
+}
+
+.xpsm-container>.user-bar>.name {
+    margin: auto;
+    margin-left: 20px;
+    color: white;
+    font-size: 18px;
+    font-family: "TBMS_RESOURCE";
+    text-shadow: 0 0 4px black;
+    line-height: 1em;
+}
+
+.xpsm-container>.programs-view {
+    flex: 1;
+    margin-right: 2px;
+    margin-left: 2px;
+    display: flex;
+}
+
+.xpsm-container>.programs-view>.p1 {
+    flex: 1;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* general item styles */
+.xpsm-container>.programs-view .separator {
+    margin-top: 5px;
+    margin-bottom: 4px;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, white, #D3D3C8, #D3D3C8, white);
+}
+
+.xpsm-container>.programs-view .item {
+    padding: 2px;
+}
+
+.xpsm-container>.programs-view .item>.icon {
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.xpsm-container>.programs-view .item>.text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.xpsm-container>.programs-view .item>.text>.title.bold {
+    font-weight: bold;
+}
+
+.xpsm-container>.programs-view .item:hover,
+.xpsm-container>.programs-view .item.selected {
+    background-color: #316AC5;
+    color: white;
+}
+
+/* start menu pane1 item styles */
+.xpsm-container>.programs-view>.p1 .item {
+    padding: 2px;
+    margin-bottom: 2px;
+}
+
+.xpsm-container>.programs-view>.p1 .bottom {
+    margin-top: auto;
+}
+
+.xpsm-container>.programs-view>.p1 .bottom .all-programs {
+    text-align: center;
+}
+
+.xpsm-container>.programs-view>.p1 .bottom .all-programs>.arrow {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url("$menu_icons$");
+    background-position-y: -48px;
+    margin-left: 6px;
+}
+
+.xpsm-container>.programs-view>.p1 .bottom .all-programs:hover>.arrow {
+    background-position-x: -24px;
+}
+
+/* start menu pane2 item styles */
+.xpsm-container>.programs-view>.p2 .separator {
+    background: linear-gradient(90deg, transparent, #81B6FF, #81B6FF, transparent);
+}
+
+.xpsm-container>.programs-view>.p2 .item {
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #0A246A;
+    margin-bottom: 3px;
+}
+
+.xpsm-container>.programs-view>.p2 .item:hover {
+    color: white;
+}
+
+.xpsm-container>.programs-view>.p2 .item>.icon {
+    height: 24px;
+    width: 24px;
+}
+
+.xpsm-container>.programs-view>.p2 {
+    flex: 1;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.xpsm-container>.actions-view {
+    height: 41px;
+    padding-right: 2px;
+    box-sizing: border-box;
+}
+
+.xpsm-container>.actions-view .item {
+    margin-top: 5px;
+    padding: 3px;
+    float: right;
+    color: white;
+}
+
+.xpsm-container>.actions-view .item:hover {
+    background-color: #316AC5;
+}
+
+.xpsm-container>.actions-view .item>.icon {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    background-image: url($menu_icons$);
+    background-position-x: 0;
+    background-position-y: 0;
+}
+
+.xpsm-container>.actions-view .item:hover>.icon {
+    background-position-y: -24px;
+}
+
+.xpsm-container>.actions-view .item>.icon.shutdown {
+    background-position-x: -48px;
+}
+
+.xpsm-container>.actions-view .item>.text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}

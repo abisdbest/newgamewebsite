@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BassoonTracker - Amiga music tracker - by Steffest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width user-scalable=no">
+    <meta name="author" content="Steffest">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+            cursor: url(skin/cursor_amiga.cur),default;
+        }
+        body{
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas{
+            margin: auto;
+            display: block;
+        }
+        canvas:focus {
+            outline:none;
+        }
+        .message{
+            font-family: sans-serif;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            min-height: 30px;
+            padding: 20px;
+            background-color: rgba(243,33,70,0.5);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
+
+        .message a{
+            color: white;
+        }
+    </style>
+
+    <script>var buildNumber = "0.4.0-build20211124.0918"; var versionNumber = "0.4.0";</script>
+    <script src="script/bassoontracker-min.js?v0.4.0-build20211124.0918"></script>
+
+    <script>
+		// force HTTPS - it is needed for the Dropbox integration
+        if (document.location.href.indexOf("stef.be")>0 && document.location.href.indexOf("https:")<0){
+            document.location.href = document.location.href.replace("http:","https:");
+        }
+
+        if (document.location.href.indexOf("updateversion")<0){
+            if (window.XMLHttpRequest) {
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        var version = this.responseText;
+                        if (version != versionNumber){
+                            console.log("update available");
+                            var char = document.location.href.indexOf("?") > 0 ? "&" : "?";
+                            document.location.href = document.location.href + char + "updateversion=" + version;
+                        }
+                    }
+                };
+                req.open("GET", "version.txt?r=" + new Date().getTime(), true);
+                req.send();
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<canvas id="canvas" tabindex='1' moz-opaque></canvas>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+    "pinned": [
+        {
+            "name": "Web Browser",
+            "subtext": "Internete",
+            "icon": "apps/iexploder",
+            "exec": "internete"
+        }
+    ],
+    "programs": [
+        {
+            "name": "File Explorer",
+            "icon": "apps/explorer",
+            "exec": "explorer"
+        },
+        {
+            "name": "Textpad",
+            "icon": "apps/textpad",
+            "exec": "textpad"
+        },
+        {
+            "name": "Command Line",
+            "icon": "apps/terminal",
+            "exec": "terminal"
+        },
+        {
+            "name": "Gameing",
+            "icon": "apps/gameing",
+            "exec": "gameing"
+        },
+        {
+            "name": "MsgRoom",
+            "icon": "apps/chat",
+            "exec": "win96-chat"
+        },
+        {
+            "name": "Task Manager",
+            "icon": "apps/taskmgr",
+            "exec": "taskmgr"
+        }
+    ],
+    "locations": [
+        {
+            "name": "My User Folder",
+            "path": "c:/user"
+        },
+        {
+            "name": "My Documents",
+            "icon": "places/documents",
+            "path": "c:/user/documents"
+        },
+        {
+            "name": "My Favorites",
+            "path": "c:/user/links"
+        },
+        {
+            "name": "My Computer",
+            "path": "computer://"
+        }
+    ],
+    "aux_shortcuts_1": [
+        {
+            "name": "Settings",
+            "icon": "apps/settings",
+            "exec": "ctrl"
+        },
+        {
+            "name": "Install Additional Software",
+            "icon": "apps/pkmgr",
+            "exec": "pkmgr"
+        }
+    ],
+    "aux_shortcuts_2": [
+        {
+            "name": "Help and Support",
+            "icon": "objects/help-book",
+            "exec": "internete https://w96.wiki"
+        },
+        {
+            "name": "Run",
+            "icon": "apps/run",
+            "exec": "run"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Shut Down",
+            "icon": "shutdown",
+            "exec": "$SM_MENU"
+        }
+    ]
+}

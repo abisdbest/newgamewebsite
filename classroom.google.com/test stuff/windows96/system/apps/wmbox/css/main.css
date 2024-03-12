@@ -1,0 +1,35 @@
+/**
+WMBox Copyright (C) Windows 96 2022.
+*/
+
+@font-face {
+    font-family: "stdvga";
+    src: url(../fonts/vga.ttf) format("truetype");
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+body>.screen {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+body>.screen>canvas {
+    margin: auto;
+    image-rendering: auto !important;
+}
+
+body>.screen>div {
+    margin: auto;
+    font: 16px / 16px stdvga !important;
+}
+
+.view-scaled canvas {
+    height: 100% !important;
+    width: 100% !important;
+}

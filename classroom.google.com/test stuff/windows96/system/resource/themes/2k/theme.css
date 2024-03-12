@@ -1,0 +1,81 @@
+.titlebar {
+	background: linear-gradient(90deg, #0A246A 0, #A6CAF0 100%);
+}
+
+.titlebar-title-disabled {
+	background: linear-gradient(to left, #C0C0C0 0, #808080 100%);
+}
+
+.w96-tab-control-content,
+.menu-basic .menu-basic-options,
+.taskbar,
+.w96-panel,
+.pm-button,
+.user-taskbar,
+.w96-tab-control>.pages>button.active::after,
+.w96-groupbox>.title,
+.dlg-except>.ex,
+.wcontext-menu,
+.shell36-start-menu,
+::-webkit-scrollbar-corner
+{
+	background: #D4D0C8;
+}
+
+.start-menu,
+.window-dlg:not(.ui-sortable-helper),
+.w96-tab-button-selected,
+.a96-volscroll .ui-slider-handle,
+.explorer-warning-msg .container .button-group .w96-button,
+.taskbar-task,
+.start-menu-item,
+.w96-checkbox>input[type="checkbox"]:active, .w96-checkbox>input[type="checkbox"]:disabled,
+::-webkit-scrollbar-thumb
+{
+	background-color: #D4D0C8;
+}
+
+.shell36-start-menu .sidebar {
+	background: linear-gradient(to top, rgb(0,0,0), rgb(0, 0, 255));
+}
+
+.w96-button {
+	background-color: #D4D0C8 !important;
+	box-shadow: inset -1px -1px black, inset 1px 1px white, inset -2px -2px #808080;
+}
+
+.w96-button:focus {
+	box-shadow: inset black 1px 1px, inset black -2px -2px, inset white 2px 2px, inset #808080 -3px -3px;
+	outline: 0;
+}
+
+.w96-button:not([disabled]):active {
+	box-shadow: inset 1px 1px black, inset -1px -1px black, inset 2px 2px #808080, inset -2px -2px #808080 !important;
+}
+
+:root {
+    --select-color-primary: #0a246a;
+    --select-color-secondary: white;
+    --3d-obj-color-primary: #D4D0C8;
+    --3d-obj-color-text: black; 
+}
+
+.shell36-start-menu {
+	width: 250px;
+}
+
+.shell36-start-menu > .item-container > .item {
+	height: 32px;
+}
+
+.shell36-start-menu > .item-container > .item.sub::after {
+	transform: translateY(-3px);
+}
+
+.shell36-start-menu > .item-container > .item > .icon {
+	margin-top: 4px;
+}
+
+.taskbar-task_active {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAVSURBVBhXY7hy4cTfv38Zgfj65dMAS6kK0fcxiuQAAAAASUVORK5CYII=');
+}

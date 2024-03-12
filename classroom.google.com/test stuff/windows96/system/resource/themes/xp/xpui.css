@@ -1,0 +1,309 @@
+/* color scheme */
+:root {
+    --select-color-primary: #316AC5;
+    --select-color-secondary: white;
+    --3d-obj-color-primary: #ECE9D8;
+    --3d-obj-color-text: black; 
+}
+
+/* footer style */
+.w96-footer {
+    border: none;
+    border-top: 1px solid #959385;
+    box-shadow: inset 0px -4px 5px 0px rgb(217 214 192), inset 0px -1px 2px 1px rgb(149 147 133);
+    height: 22px;
+    line-height: 17px;
+    padding: 2px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+}
+
+.w96-footer .cell {
+    border: none;
+}
+
+.w96-footer .cell:not(:last-child) {
+    border-right: 1px solid #C7C3B1;
+    box-shadow: 1px 0px #ffffff;
+}
+
+/* use custom xp grip style */
+.window-dlg.ui-resizable .w96-footer::after {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABmSURBVChTYyAHMEJpvGDHlsX/GRj+MZiYGjGIiOsyMkHFCQOg8cJiOlAOkeA/FEC5VAIgP+zYshBuKjoft5+AfkBxDjofGwApAAEol0p+IuQH3H4i5Ad0/s1rB0B8MIAKUdtPDAwABuxrD203SIsAAAAASUVORK5CYII=');
+    right: 4px;
+    bottom: 4px;
+}
+
+/* toolbar style */
+.w96-toolbar {
+    box-shadow: inset 0px 1px #D8D2BD, inset 0px 2px white;
+}
+
+.w96-toolbar > .item {
+    border-radius: 3px;
+}
+
+.w96-toolbar > .item:not([disabled]):hover {
+    box-shadow: inset 0px 0px 0px 1px #cecec3, inset 0px -2px 3px 0px #d7d2c6, inset -2px 0px 2px 0px #d7d2c6;
+    background-color: #F1F1EB;
+}
+
+.w96-toolbar > .item:not([disabled]):active {
+    box-shadow: none;
+    background-color: #E6E5DF;
+    box-shadow: inset 0px 0px 0px 1px #9d9d92, inset 0px 0px 2px 1px rgb(155 155 155 / 51%);
+}
+
+.w96-toolbar > .item:not([disabled]) > .icon {
+    filter: none !important;
+}
+
+.w96-toolbar .vseparator {
+    border-left: 1px solid #CAC6AF;
+    box-shadow: none;
+}
+
+.w96-ui-inset {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #d8d2bd;
+    box-shadow: 0px 1px white;
+    margin: 0;
+}
+
+/* menu bar styles */
+.w96-menubar > .root-item.selected,
+.w96-menubar > .root-item:hover {
+    box-shadow: none;
+    color: white;
+    background-color: #316AC5;
+}
+
+.w96-menubar > .root-item {
+    padding-left: 9px;
+    padding-right: 8px;
+}
+
+/* tab control styles */
+.w96-tab-control > .content {
+    background: #FCFCFE;
+    border: 1px solid #919B9C;
+    box-shadow: 1px 1px 1px #00000029;
+}
+
+.w96-tab-control > .pages > button {
+    border: 1px solid #919B9C;
+    box-shadow: none;
+    margin-right: -1px;
+}
+
+.w96-tab-control > .pages > button:hover {
+    border-top: 1px solid #E68B2C;
+    box-shadow: inset 0px 2px #ffc73c;
+}
+
+.w96-tab-control > .pages > button.active {
+    background: #FCFCFE;
+    top: 0;
+    border-top: 1px solid #E68B2C;
+    box-shadow: inset 0px 2px #ffc73c;
+}
+
+.w96-tab-control > .pages > button.active::after {
+    background: #FCFCFE;
+    border-left-color: #919B9C;
+    border-left-width: 1px;
+    border-right-width: 0px;
+    width: 100%;
+}
+
+.w96-tab-control > .pages > button:first-child.active::after {
+    border-left-width: 1px;
+}
+
+.w96-tab-control > .pages > button:not(.active)::after {
+    display: none;
+}
+
+.w96-tab-control > .pages > button:not(.active) {
+    border-bottom-color: #919B9C !important;
+    background: #F8F8F6;
+    box-shadow: inset -1px -1px 3px 0px #d5d1bf;
+}
+
+.w96-tab-control > .pages > button:not(.active):hover {
+    box-shadow: inset 0px 2px #ffc73c, inset -1px -1px 3px 0px #d5d1bf;
+}
+
+.w96-tab-control .w96-groupbox > .title {
+    background: white;
+}
+
+/* context menus */
+.wcontext-menu {
+    border: 1px solid #ACA899;
+    box-shadow: none;
+    background: white;
+    box-shadow: 2px 3px 2px -1px #8e8e8e7a;
+}
+
+.wcontext-menu > .separator {
+    border: none;
+    height: 1px;
+    background: #ACA899;
+}
+
+/* buttons */
+.w96-button {
+    box-shadow: inset 0px 0px 0 1px #003c74, inset -1px -1px 3px #6e6d6bcc;
+    background-color: #F4F4F0;
+    border-radius: 3px;
+}
+
+.w96-button:not(:disabled):focus {
+    outline: 0;
+    box-shadow: inset 0px 0px 0 1px #003c74, inset 2px 2px 0 0px #CEE7FF, inset 0px 0px 0 3px #9DBCEB, inset -1px -1px 3px #6e6d6bcc;
+}
+
+.w96-button:not(:disabled):hover {
+    box-shadow: inset 0px 0px 0 1px #003c74, inset 2px 2px 0 0px #fff0cf, inset 0px 0px 0 3px #f9bd49, inset -1px -1px 3px #6e6d6bcc;
+}
+
+.w96-button:not(:disabled):active {
+    background-color: #E3E2DA;
+    box-shadow: inset 0px 0px 0 1px #003c74, inset 1px 1px 0px 1px #a9a9a978, inset -1px -1px 0px 1px #c7c7c761;
+}
+
+.w96-button:disabled {
+    background-color: #F5F4EA;
+    color: #A1A192;
+    box-shadow: inset 0px 0px 0 1px #C9C7BA;
+}
+
+/* input fields */
+/* 7F9DB9 border */
+.w96-textbox,
+.cdlg-ofd .exp-file-view,
+:not(.prompt) > input[type=text],
+:not(.prompt) > input[type=number],
+:not(.prompt) > textarea {
+    border: 1px solid #7F9DB9;
+    box-shadow: none;
+}
+
+.w96-textbox[readonly], .w96-textbox[disabled], .w96-textbox.disabled {
+    background: #ECE9D8;
+}
+
+/* misc containers (listbox) */
+.w96-listbox {
+    border: 1px solid #7F9DB9;
+    box-shadow: none;
+}
+
+/* remove insets from common controls */
+/* this is quite hacky since w96-inset is barely used as a standard :( */
+.wexplorer-app > .view-box {
+    border: 1px solid #7F9DB9;
+    box-shadow: none;
+}
+
+/* app specific patches */
+/* inset fixes for various apps */
+.textpad-app > .main-editor {
+    border: 1px solid #7F9DB9;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+/* explorer patches */
+.wexplorer-app > .view-box {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.wexplorer-app .nav-bar {
+    box-shadow: inset 0px 1px #D8D2BD, inset 0px 2px white;
+}
+
+.wexplorer-app .w96-toolbar > .item[disabled] > .icon {
+    filter: grayscale(100%);
+}
+
+/* internete patches */
+.internete-app .w96-toolbar {
+    height: 48px;
+}
+
+.internete-app .w96-toolbar .item {
+    padding-top: 1px;
+    height: 44px;
+}
+
+.internete-app .w96-toolbar .item[disabled] > .icon {
+    filter: grayscale(100%);
+}
+
+.internete-app .combo-panel .left .pane-container.favorites .content {
+    background: white;
+    border: 1px solid gray;
+}
+
+.pkmgr-app > .content > .view > .info {
+    background-color: #ECE9D8;
+}
+
+/* control panel styles */
+.ctrl-app > .view > .p1 {
+    background: linear-gradient(180deg, #7AA1E6, #6375D6);
+    border-right: 1px solid rgba(255, 255, 255, 0.274);
+}
+
+.ctrl-app > .view > .p1 > .box > .title {
+    color: #215DC6;
+    background: white;
+    letter-spacing: normal;
+    text-shadow: none;
+    font-weight: bold;
+    margin-left: 0;
+    padding: 4px 5px;
+}
+
+.ctrl-app > .view > .p1 > .box > .items {
+    background: #D6DFF7;
+}
+
+.ctrl-app > .view > .p1 > .box {
+    border: 1px solid white;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.ctrl-app > .view > .p2 {
+    background-color: #6375D6;
+    background-image: url("$cpl_bg$");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}
+
+.ctrl-app > .view > .p2 > .item > .title,
+.ctrl-app > .view > .p2 > .cat-marker {
+    letter-spacing: normal;
+    color: white;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+.ctrl-app > .view > .p2 > .cat-marker::after {
+    background: linear-gradient(45deg, #8a9ae2, #ffffff00);
+}
+
+.ctrl-app .w96-footer {
+    margin-top: 0;
+}
+
+/* aliasing tweaks */
+/* pixelated rendering looks terrible for xp icons :) */
+.wexplorer-app .w96-toolbar > .item > .icon, .shell-icon, .titlebar-icon, .start_button, .titlebar-minbutton, .titlebar-maxbutton, .titlebar-closebutton, .notify-icon, .app-mbprograms .item > button, .ctrl-app > .view > .p2 > .item > .icon, .devcfg-applet .w96-groupbox > .dp, .w96-tree details > summary > .icon, .w96-tree .item > .icon, .openwith-app > .box > .appbox > .item > .icon {
+    image-rendering: auto !important;
+}

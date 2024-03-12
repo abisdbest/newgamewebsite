@@ -1,0 +1,46 @@
+//!wrt
+const { Theme } = w96.ui;
+
+/**
+ * The application class.
+ */
+class MyApp extends WApplication {
+    constructor() {
+        super();
+    }
+
+    /**
+     * The application entry point.
+     * @param argv The program arguments.
+     */
+    async main(argv) {
+        await super.main(argv);
+        this.title = "my-app";
+
+        // Create a simple window
+        const wnd = this.createWindow({
+            title: "Simple GUI Window",
+            initialWidth: 400,
+            initialHeight: 400,
+            body: "This is some text.",
+            bodyClass: "my-app-wndbody-class",
+            icon: await Theme.getIconUrl('mime/executable', '16x16'),
+            taskbar: true
+        }, true); // The "true" here tells WApplication this is the main window.
+
+        // Show the window
+        wnd.show();
+    }
+
+    /**
+     * On program exit.
+     */
+    async ontermination() {
+        await super.ontermination();
+
+        // TODO Shutdown code
+    }
+}
+
+// Startup line
+return await WApplication.execAsync(new MyApp(), this.boxedEnv.args, this);

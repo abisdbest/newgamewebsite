@@ -1,0 +1,9 @@
+{
+	"id": "utopia",
+	"name": "Utopia (sounds)",
+	"description": "Windows 2000 Utopia sounds",
+	"author": "Windows 96 Team | Microsoft Corporation",
+	"themeType": "normal",
+	"soundPack": "W:/system/resource/sounds/utopia",
+	"iconTheme": "W:/system/resource/icons/win96"
+}

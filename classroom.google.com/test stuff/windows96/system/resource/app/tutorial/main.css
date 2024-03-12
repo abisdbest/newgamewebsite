@@ -1,0 +1,81 @@
+.tutorial-wnd {
+    height: 100vh !important;
+    width: 100vw !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    top: 0px !important;
+    left: 0px !important;
+}
+
+.tutorial-wnd>.titlebar {
+    display: none;
+}
+
+.tutorial-wnd>.window-html {
+    padding: 0;
+    background-color: black;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.tutorial-wnd>.window-html>.window-html-content {
+    display: flex;
+}
+
+.tutorial-app {
+    background: black;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+}
+
+.tutorial-app>.top, .tutorial-app>.bottom {
+    text-align: right;
+}
+
+
+.tutorial-app>.box {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tutorial-app>.box>.view {
+    height: 100%;
+    flex: 1;
+    width: 70%;
+    margin: auto;
+    border: 2px solid white;
+}
+
+.tutorial-app>.box>.text {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.tutorial-app>.box>.text>.title {
+    margin-top: 0;
+    font-size: 40px;
+}
+
+.tutorial-app>.box>.text>.desc {
+    font-size: 22px;
+}
+
+.tutorial-app .spin {
+    animation: tutorial-spin 5s linear infinite;
+}
+
+@keyframes tutorial-spin {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}

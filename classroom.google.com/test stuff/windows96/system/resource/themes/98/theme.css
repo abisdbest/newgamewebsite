@@ -1,0 +1,11 @@
+.window-dlg.active>.titlebar {
+    background: linear-gradient(to right, #000080, #1084D0);
+}
+
+.start_button {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACjSURBVDhPpVPbEcAgCAP3H8rNLDnlIdbqXfPRKCVESuXWGv3BVQFmnpJqrWN1KJCFGSjEwlKjgSdEMRaWMG2IymATgLN4QQiW6H468hugaNLEtgU8lpchaC2IoruDw0kWMRCCZXLftuDhPDQRYwirkX8PVfQULcBDEabQM8G6voFMwd33Qj+gOiuwPf5IX7ACECj3V45sEHPsLtwIM6D5eZ2JHlF8WpWzjq7oAAAAAElFTkSuQmCC);
+}
+
+.shell36-start-menu .sidebar {
+    background: linear-gradient(to bottom, rgb(0,0,256), rgb(0, 0, 128));
+}

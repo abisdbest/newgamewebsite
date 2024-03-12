@@ -1,0 +1,43 @@
+<h2>F.A.Q.</h2>
+<div id="faq">
+    <h3>Dude, stereo is not working</h3>
+    <div class="faq padded">
+        You are using Safari, right?<br>
+        
+        <i>The technical story:</i><br>
+        Safari doesn't support <a href="https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode">StereoPanner</a> so everything will be in mono.<br>
+        It does support a normal <a href="https://developer.mozilla.org/en-US/docs/Web/API/PannerNode">Panner</a>, but you can't set their position "over time" so they are somewhat useless.<br>
+        Yes, I know there's a <a href="https://github.com/mohayonao/stereo-panner-node">nice shim</a>. This works but it is too slow.
+        <br>
+        
+        <i>The solution:</i><br>
+        Use another browser like Chrome or Firefox. There you'll have full stereo.
+        
+    </div>
+    <br>
+    <h3>Dude, I have no audio on mobile</h3>
+    <div class="faq padded">
+        You are using an iPhone, right? <br>
+        &nbsp;&nbsp;&nbsp;-> Your 'silent-mode' switch at the top right side is on.<br>
+
+
+        <i>The technical story:</i><br>
+           For some weird reason Apple has decided to play 'normal' media on websites with the 'media' audio setting, but webAudio with the 'ringer'
+        audio settings. This is why when you have your silent-mode switch active, you still hear e.g. video on websites, but you won't hear anything in BassoonTracker.
+        <br>
+
+        <i>The solution:</i><br>
+        Switch the silent-mode switch to inactive.
+
+    </div>
+    <br>
+    <h3>Dude, Midi is not working</h3>
+    <div class="faq padded">
+        Midi is only fully supported in Chrome.<br>
+        Is it enabled in the options?<br>
+        Is your midi device working in other midi-enabled software?<br>
+        Also make sure you play some audio first using the regular keybaord, the audio needs user-interaction to be allowed to start.
+
+    </div>
+    <br>
+</div>

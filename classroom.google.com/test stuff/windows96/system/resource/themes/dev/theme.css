@@ -1,0 +1,31 @@
+/*
+Theme developer's theme 
+*/
+
+.shell-icon>.icon-image, .file-box>.icon, .window-html-content>.mbox>.content>.icon, .wexplorer-app-propdlg>.p1>.icon, .openwith-app>.top>.icon, .openwith-app>.box>.appbox>.item>.icon, .dlg-run-box>.exp>.icon {
+    background: url(/system/resource/themes/dev/icons/32x.png) !important;
+}
+
+.titlebar-icon, .wcontext-menu>.item.wi, .taskbar-task-icon, .start_button, .notify-icon {
+    background-image: url(/system/resource/themes/dev/icons/16x.png) !important;
+}
+
+.w96_sm_item_image {
+    background: url(/system/resource/themes/dev/icons/24x.png) !important;
+}
+
+.support-us-ui>.w96-tab-control>.content>.container>.p2>.cryptos>.currency>button {
+    background: url(/system/resource/themes/dev/icons/72x.png) !important;
+}
+
+.w96_sm_logo .container .text::after {
+    content: 'Developer Theme';
+}
+
+.start_button::after {
+    content: 'String';
+}
+
+.user-desktop {
+    background: url(/system/resource/themes/dev/back.png) !important;
+}

@@ -1,0 +1,10 @@
+{
+	"id": "osx",
+	"name": "OS X Snow Leopard (Icon Theme)",
+	"description": "Mac OS X Snow Leopard Theme",
+	"author": "Original Design (C) Apple Inc. | Windows 96",
+	"themeType": "normal",
+	"iconTheme": "W:/system/resource/icons/snow_leopard",
+	"soundPack": "W:/system/resource/sounds/win96",
+    "stylesheets": []
+}
