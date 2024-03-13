@@ -1,1 +1,0 @@
-Trebuchet MS is property of Microsoft Corporation. It has only been used to provide accurate titlebars for this XP recreation theme.
