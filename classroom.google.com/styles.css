@@ -294,3 +294,35 @@ img {
     right: 80px;
     top: 100px;
 }
+
+#speedread {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 1);
+    z-index: 9999;
+}
+
+#word {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: -1em;
+    text-align: center;
+    font-size: 96px;
+    color: white;
+}
+
+#controls {
+    text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    color: #999;
+    font-family: sans-serif;
+    line-height: 1em;
+}
