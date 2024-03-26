@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="blooket1, games, fun, unblocked, educational" />
     <title>Blooket1 Games | The ultimate game website</title>
-    <link rel="icon" type="image/x-icon" href="images/b-logo.png"">
+    <link rel="icon" type="image/x-icon" href="images/b-logo.png">
     <meta name="description" content="Blooket1 is your go-to website for unblocked games and tools. For educational use only." />
     <link type="text/css" rel="stylesheet" href="lightslider.css" />
     <link rel="stylesheet" href="styles.css"> <!-- Create a separate CSS file for better organization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
     <script src="//cdn.jsdelivr.net/npm/eruda#gimkit"></script>
     <script>eruda.init();</script>
-    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#222222","text":"#ffffff","border":"#b5e1a0"},"button":{"background":"#b5e1a0","text":"#000000"}},"position":"bottom-right","content":{"link":"terms and conditions","message":"By clicking I agree you agree to the terms and conditions of Blooket1 and allow personal data and cookies to be stored.","button":"I agree","href":"tsandcs"}})});</script>
+    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js#classroom.google.com" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#222222","text":"#ffffff","border":"#b5e1a0"},"button":{"background":"#b5e1a0","text":"#000000"}},"position":"bottom-right","content":{"link":"terms and conditions","message":"By clicking I agree you agree to the terms and conditions of Blooket1 and allow personal data and cookies to be stored.","button":"I agree","href":"tsandcs"}})});</script>
     <script  src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="lightslider.js"></script>
@@ -106,9 +106,13 @@
 
 <body>
     <nav>
-        <logo onclick="window.location += './'" style="cursor: pointer; user-select: none;"><img class="logo" src="images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo>
+        <a href='./'><logo style="cursor: pointer; user-select: none;"><img class="logo" src="images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo></a>
         <div class="container options">
-            <a href="">Games</a>
+            <a style="font-weight: 100;" href="./">Games</a>
+            <a style="font-weight: 100;" href="tsandcs/">Terms & Conditions</a>
+            <a style="font-weight: 100;" href="about us/">About Us</a>
+            <a style="font-weight: 100;" href="privacy policy/">Blooket1 Privacy Policy</a>
+            <a style="font-weight: 100;" href="contact us/">Contact Us</a>
         </div>
         
             
@@ -121,9 +125,9 @@
     <aside class="sidebar">
         <div class="container">
             <div class="icons">
-                <div class="icon"><i style="cursor: wait;" class="fas fa-cog"></i></div>
-                <div class="icon"><i style="cursor: wait;" class="fas fa-comments"></i></div>
-                <div class="icon"><i style="cursor: wait;" class="fas fa-info-circle"></i></div>
+                <div class="icon"><i class="fas fa-cog" onclick="window.location += 'settings/'"></i></div>
+                <div class="icon"><i class="fas fa-comments" onclick="window.location += 'chat/'"></i></div>
+                <div class="icon"><i class="fas fa-info-circle" onclick="window.location += 'info/'"></i></div>
             </div>
         </div>
     </aside>
@@ -132,72 +136,57 @@
         <h2>Popular Games</h2>
         <div class="carousel-container">
             <ul id="popular" class="light-slider">
-                <li onclick="window.location += 'play/alien hominid'">
+                <a href="play/alien hominid"><li>
                     <img src="images/alienhominid.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">alien hominid</span>
-                </li>
-                <li onclick="window.location += 'play/snow rider 3d'">
+                </li></a>
+                <a href="play/snow rider 3d"><li>
                     <img src="images/snowrider.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">Snow rider 3D</span>
-                </li>
-                <li onclick="window.location += 'play/monkey mart'">
+                </li></a>
+                <a href="play/monkey mart"><li>
                     <img src="images/monkey mart.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">monkey mart</span>
-                </li>
-                <li onclick="window.location += 'play/minecraft'">
+                </li></a>
+                <a href="play/minecraft"><li>
                     <img src="images/minecraft.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">minecraft</span>
-                </li>
-                <li onclick="window.location += 'play/subway surfers'">
+                </li></a>
+                <a href="play/subway surfers"><li>
                     <img src="images/subwaysurfers.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">subway surfers</span>
-                </li>
-                <li onclick="window.location += 'play/zigzag'">
+                </li></a>
+                <a href="play/zigzag"><li>
                     <img src="images/zigzag.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">zigzag</span>
-                </li>
-                <li onclick="window.location += 'play/paperio'">
+                </li></a>
+                <a href="play/paperio"><li>
                     <img src="images/paperio.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">paper.io</span>
-                </li>
-                <li onclick="window.location += 'play/cubes 2048'">
+                </li></a>
+                <a href="play/cubes 2048"><li>
                     <img src="images/cubes 2048.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cubes 2048</span>
-                </li>
-                <li onclick="window.location += 'play/soccer random'">
+                </li></a>
+                <a href="play/soccer random"><li>
                     <img src="images/soccerrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">soccer random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/eggy car'">
+                <a href="play/eggy car"><li>
                     <img src="images/eggycar.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">eggy car</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/boxing random'">
+                <a href="play/boxing random"><li>
                     <img src="images/boxingrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">boxing random</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/cookie clicker'">
+                <a href="play/cookie clicker"><li>
                     <img src="images/cookieclicker.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cookie clicker</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/basket random'">
+                <a href="play/basket random"><li>
                     <img src="images/basketrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">basket random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/volley random'">
+                <a href="play/volley random"><li>
                     <img src="images/volleyrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">volley random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/doodle jump'">
+                <a href="play/doodle jump"><li>
                     <img src="images/doodlejump.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">doodle jump</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section>
@@ -206,45 +195,37 @@
         <h2>2 Player Games</h2>
         <div class="carousel-container">
             <ul id="action" class="light-slider">
-                <li onclick="window.location += 'play/soccer random'">
+                <a href="play/soccer random"><li>
                     <img src="images/soccerrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">soccer random</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/boxing random'">
+                <a href="play/boxing random"><li>
                     <img src="images/boxingrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">boxing random</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/basket random'">
+                <a href="play/basket random"><li>
                     <img src="images/basketrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">basket random</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/volley random'">
+                <a href="play/volley random"><li>
                     <img src="images/volleyrandom.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">volley random</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/gswitch'">
+                <a href="play/gswitch"><li>
                     <img src="images/g-switch.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">g switch</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/rocket league'">
+                <a href="play/rocket league"><li>
                     <img src="images/rocketleague.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">rocket league</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/tank game'">
+                <a href="play/tank game"><li>
                     <img src="images/tankgame.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">tank game</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/fireboy and watergirl'">
+                <a href="play/fireboy and watergirl"><li>
                     <img src="images/fireboyandwatergirl.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">fireboy and watergirl</span>
-                </li>
+                </li></a>
                     
             </ul>
         </div>
@@ -254,45 +235,37 @@
         <h2>Car / Racing Games</h2>
         <div class="carousel-container">
             <ul id="racing" class="light-slider">
-                <li onclick="window.location += 'play/hex gl'">
+                <a href="play/hex gl"><li>
                     <img src="images/hexgl.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">hex gl</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/rocket league'">
+                <a href="play/rocket league"><li>
                     <img src="images/rocketleague.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">rocket league</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/tank game'">
+                <a href="play/tank game"><li>
                     <img src="images/tankgame.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">tank game</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/moto x3m pool party'">
+                <a href="play/moto x3m pool party"><li>
                     <img src="images/motox3mpoolparty.webp" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">moto x3m pool party</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/eggy car'">
+                <a href="play/eggy car"><li>
                     <img src="images/eggycar.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">eggy car</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/moto x3m spooky land'">
+                <a href="play/moto x3m spooky land"><li>
                     <img src="images/motox3mspookyland.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">moto x3m spooky land</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/happy wheels'">
+                <a href="play/happy wheels"><li>
                     <img src="images/happywheels.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">happy wheels</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/traffic racer'">
+                <a href="play/traffic racer"><li>
                     <img src="images/trafficracer.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">car racing</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section>
@@ -301,35 +274,29 @@
         <h2>Shooting Games</h2>
         <div class="carousel-container">
             <ul id="shooting" class="light-slider">
-                <li onclick="window.location += 'play/pixel battle royale/'">
+                <a href="play/pixel battle royale/"><li>
                     <img src="images/pixelbattleroyale.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">pixel battle royale</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/war brokers'">
+                <a href="play/war brokers"><li>
                     <img src="images/warbrokers.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">war brokers</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/doodle jump'">
+                <a href="play/doodle jump"><li>
                     <img src="images/doodlejump.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">doodle jump</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/tank game'">
+                <a href="play/tank game"><li>
                     <img src="images/tankgame.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">tank game</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/raft wars'">
+                <a href="play/raft wars"><li>
                     <img src="images/raftwars.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">raft wars</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/alien hominid'">
+                <a href="play/alien hominid"><li>
                     <img src="images/alienhominid.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">alien hominid</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section> 
@@ -338,55 +305,45 @@
         <h2>Puzzle Games</h2>
         <div class="carousel-container">
             <ul id="puzzle" class="light-slider">
-                <li onclick="window.location += 'play/2048'">
+                <a href="play/2048"><li>
                     <img src="images/2048.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">2048</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/impossible quiz'">
+                <a href="play/impossible quiz"><li>
                     <img src="images/theimpossiblequiz.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">the impossible quiz</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/impossible quiz 2'">
+                <a href="play/impossible quiz 2"><li>
                     <img src="images/theimpossiblequiz2.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">the impossible quiz 2</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/zork'">
+                <a href="play/zork"><li>
                     <img src="images/zork.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">zork</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/fireboy and watergirl'">
+                <a href="play/fireboy and watergirl"><li>
                     <img src="images/fireboyandwatergirl.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">fireboy and watergirl</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/bloons td 3'">
+                <a href="play/bloons td 3"><li>
                     <img src="images/btd3.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">bloons tower defence 3</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/cut the rope'">
+                <a href="play/cut the rope"><li>
                     <img src="images/cuttherope.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cut the rope</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/mem tile'">
+                <a href="play/mem tile"><li>
                     <img src="images/memtile.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">mem tile</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/mine sweeper'">
+                <a href="play/mine sweeper"><li>
                     <img src="images/minesweeper.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">mine sweeper</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/spider solitare'">
+                <a href="play/spider solitare"><li>
                     <img src="images/spidersolitare.webp" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">spider solitare</span>
-                </li>                    
+                </li>></a>
             </ul>
         </div>
     </section> 
@@ -395,85 +352,69 @@
         <h2>Retro Games</h2>
         <div class="carousel-container">
             <ul id="survival" class="light-slider">
-                <li onclick="window.location += 'play/tetris'">
+                <a href="play/tetris"><li>
                     <img src="images/tetris.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">tetris</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/mine sweeper'">
+                <a href="play/mine sweeper"><li>
                     <img src="images/minesweeper.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">mine sweeper</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/pac-man'">
+                <a href="play/pac-man"><li>
                     <img src="images/pacman.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">pac-man</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/pin ball'">
+                <a href="play/pin ball"><li>
                     <img src="images/pinball.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">pin ball</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/pong'">
+                <a href="play/pong"><li>
                     <img src="images/pong.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">pong</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/dino game'">
+                <a href="play/dino game"><li>
                     <img src="images/dinogame.webp" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">dino game</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/hard mario'">
+                <a href="play/hard mario"><li>
                     <img src="images/mario.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">hard mario</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/flappy bird'">
+                <a href="play/flappy bird"><li>
                     <img src="images/flappybird.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">flappy bird</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/crossy road'">
+                <a href="play/crossy road"><li>
                     <img src="images/crossyroad.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">crossy road</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/canabalt'">
+                <a href="play/canabalt"><li>
                     <img src="images/canabalt.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">canabalt</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/zork'">
+                <a href="play/zork"><li>
                     <img src="images/zork.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">zork</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/gswitch'">
+                <a href="play/gswitch"><li>
                     <img src="images/g-switch.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">g switch</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/doodle jump'">
+                <a href="play/doodle jump"><li>
                     <img src="images/doodlejump.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">doodle jump</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/2048'">
+                <a href="play/2048"><li>
                     <img src="images/2048.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">2048</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/gbajs'">
+                <a href="play/gbajs"><li>
                     <img src="images/gba.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">gbajs</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/theclashman2'">
+                <a href="play/theclashman2"><li>
                     <img src="images/theclashman2.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">theclashman2</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section> 
@@ -482,80 +423,61 @@
         <h2>Addictive Games</h2>
         <div class="carousel-container">
             <ul id="roleplaying" class="light-slider">
-                <li onclick="window.location += 'play/slope'">
+                <a href="play/slope"><li>
                     <img src="images/slope.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">slope</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/monkey mart'">
+                <a href="play/monkey mart"><li>
                     <img src="images/monkey mart.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">monkey mart</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/ice dodo'">
+                <a href="play/ice dodo"><li>
                     <img src="images/ice-dodo.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">ice dodo</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/cubes 2048'">
+                <a href="play/cubes 2048"><li>
                     <img src="images/cubes 2048.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cubes 2048</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/paperio'">
+                <a href="play/paperio"><li>
                     <img src="images/paperio.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">paperio</span>
-                </li>
-                
-                <li onclick="window.location += 'play/duck life 4'">
-                    <img src="images/duck life 4.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">duck life 4</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/eggy car'">
+                <a href="play/eggy car"><li>
                     <img src="images/eggycar.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">eggy car</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/minecraft'">
+                <a href="play/minecraft"><li>
                     <img src="images/minecraft.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">minecraft</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/snow rider 3d'">
+                <a href="play/snow rider 3d"><li>
                     <img src="images/snowrider.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">snow rider 3d</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/zigzag'">
+                <a href="play/zigzag"><li>
                     <img src="images/zigzag.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">zigzag</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/doodle jump'">
+                <a href="play/doodle jump"><li>
                     <img src="images/doodlejump.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">doodle jump</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/getting over it'">
+                <a href="play/getting over it"><li>
                     <img src="images/gettingoverit.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">getting over it - scratch</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/subway surfers'">
+                <a href="play/subway surfers"><li>
                     <img src="images/subwaysurfers.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">subway surfers</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/tower building'">
+                <a href="play/tower building"><li>
                     <img src="images/towerbuilding.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">tower building</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/cookie clicker'">
+                <a href="play/cookie clicker"><li>
                     <img src="images/cookieclicker.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cookie clicker</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section>
@@ -564,45 +486,37 @@
         <h2>Tools</h2>
         <div class="carousel-container">
             <ul id="tools" class="light-slider">
-                <li onclick="window.location += 'play/gbajs'">
+                <a href="play/gbajs"><li>
                     <img src="images/gba.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">gbajs</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/theclashman2'">
+                <a href="play/theclashman2"><li>
                     <img src="images/theclashman2.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">theclashman2</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/simpleproxy'">
+                <a href="play/simpleproxy"><li>
                     <img src="images/proxy.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">simpleproxy</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/html editor'">
+                <a href="play/html editor"><li>
                     <img src="images/htmleditor.jpeg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">html editor</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/python editor'">
+                <a href="play/python editor"><li>
                     <img src="images/pythoneditor.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">python editor</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/github repo editor'">
+                <a href="play/github repo editor"><li>
                     <img src="images/githubrepoeditor.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">github repo viewer</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/sparx'">
+                <a href="play/sparx"><li>
                     <img src="images/sparx.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">sparx helper</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/ask the stars'">
+                <a href="play/ask the stars"><li>
                     <img src="images/askthestars.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">ask the stars</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section> 
@@ -611,315 +525,249 @@
         <h2>All Games</h2>
         <div class="carousel-container">
             <ul id="all" class="light-slider">
-            <li onclick="window.location += 'play/2048'">
+            <li <a href="/">onclick>
                     <img src="images/2048.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">2048</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/slope'">
+                <a href="play/slope"><li>
                     <img src="images/slope.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">slope</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/monkey mart'">
+                <a href="play/monkey mart"><li>
                     <img src="images/monkey mart.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">monkey mart</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/cubes 2048'">
+                <a href="play/cubes 2048"><li>
                     <img src="images/cubes 2048.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">cubes 2048</span>
-                </li>
+                </li></a>
 
-                <li onclick="window.location += 'play/gbajs'">
+                <a href="play/gbajs"><li>
                     <img src="images/gba.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">gbajs</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/duck life 4'">
-                    <img src="images/duck life 4.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">duck life 4</span>
-                </li>
-
-                <li onclick="window.location += 'play/theclashman2'">
+                <a href="play/theclashman2"><li>
                     <img src="images/theclashman2.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">theclashman2</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/eggy car'">
+                <a href="play/eggy car"><li>
                     <img src="images/eggycar.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">eggy car</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/simpleproxy'">
+                <a href="play/simpleproxy"><li>
                     <img src="images/proxy.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">simpleproxy</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/ice dodo'">
+                <a href="play/ice dodo"><li>
                     <img src="images/ice-dodo.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">ice dodo</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/minecraft'">
+                <a href="play/minecraft"><li>
                     <img src="images/minecraft.png" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">minecraft</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/snow rider 3d'">
+                <a href="play/snow rider 3d"><li>
                     <img src="images/snowrider.jpg" style="object-fit: cover; height: 195.26px;"/>
-                    <span class="game-name">snow rider 3d</span>
-                </li>
+                </li></a>
                     
-                <li onclick="window.location += 'play/zigzag'">
+                <a href="play/zigzag"><li>
                     <img src="images/zigzag.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">zigzag</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/hex gl'">
+                <a href="play/hex gl"><li>
                     <img src="images/hexgl.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">hex gl</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/soccer random'">
+                <a href="play/soccer random"><li>
                     <img src="images/soccerrandom.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">soccer random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/boxing random'">
+                <a href="play/boxing random"><li>
                     <img src="images/boxingrandom.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">boxing random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/basket random'">
+                <a href="play/basket random"><li>
                     <img src="images/basketrandom.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">basket random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/volley random'">
+                <a href="play/volley random"><li>
                     <img src="images/volleyrandom.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">volley random</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/doodle jump'">
+                <a href="play/doodle jump"><li>
                     <img src="images/doodlejump.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">doodle jump</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/gswitch'">
+                <a href="play/gswitch"><li>
                     <img src="images/g-switch.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">g switch</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/rocket league'">
+                <a href="play/rocket league"><li>
                     <img src="images/rocketleague.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">rocket league</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/tank game'">
+                <a href="play/tank game"><li>
                     <img src="images/tankgame.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">tank game</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/moto x3m pool party'">
+                <a href="play/moto x3m pool party"><li>
                     <img src="images/motox3mpoolparty.webp" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">moto x3m pool party</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/moto x3m spooky land'">
+                <a href="play/moto x3m spooky land"><li>
                     <img src="images/motox3mspookyland.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">moto x3m spooky land</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/getting over it'">
+                <a href="play/getting over it"><li>
                     <img src="images/gettingoverit.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">getting over it - scratch</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/impossible quiz'">
+                <a href="play/impossible quiz"><li>
                     <img src="images/theimpossiblequiz.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">the impossible quiz</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/impossible quiz 2'">
+                <a href="play/impossible quiz 2"><li>
                     <img src="images/theimpossiblequiz2.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">the impossible quiz 2</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/raft wars'">
+                <a href="play/raft wars"><li>
                     <img src="images/raftwars.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">raft wars</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/star wars'">
+                <a href="play/star wars"><li>
                     <img src="images/starwars.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">star wars</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/zork'">
+                <a href="play/zork"><li>
                     <img src="images/zork.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">zork</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/happy wheels'">
+                <a href="play/happy wheels"><li>
                     <img src="images/happywheels.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">happy wheels</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/alien hominid'">
+                <a href="play/alien hominid"><li>
                     <img src="images/alienhominid.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">alien hominid</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/bloons td 3'">
+                <a href="play/bloons td 3"><li>
                     <img src="images/btd3.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">bloons tower defence 3</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/canabalt'">
+                <a href="play/canabalt"><li>
                     <img src="images/canabalt.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">canabalt</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/fireboy and watergirl'">
+                <a href="play/fireboy and watergirl"><li>
                     <img src="images/fireboyandwatergirl.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">fireboy and watergirl</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/tunnel glider'">
+                <a href="play/tunnel glider"><li>
                     <img src="images/tunnelglider.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">tunnel glider</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/cookie clicker'">
+                <a href="play/cookie clicker"><li>
                     <img src="images/cookieclicker.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">cookie clicker</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/html editor'">
+                <a href="play/html editor"><li>
                     <img src="images/htmleditor" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">html editor</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/crossy road'">
+                <a href="play/crossy road"><li>
                     <img src="images/crossyroad.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">crossy road</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/geometry dash'">
+                <a href="play/geometry dash"><li>
                     <img src="images/geodash.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">geometry dash</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/stick jet challenge'">
+                <a href="play/stick jet challenge"><li>
                     <img src="images/stickjetchallenge.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">stick jet challenge</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/pixel battle royale/'">
+                <a href="play/pixel battle royale/"><li>
                     <img src="images/pixelbattleroyale.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">pixel battle royale</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/war brokers'">
+                <a href="play/war brokers"><li>
                     <img src="images/warbrokers.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">war brokers</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/python editor'">
+                <a href="play/python editor"><li>
                     <img src="images/pythoneditor.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">python editor</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/cut the rope'">
+                <a href="play/cut the rope"><li>
                     <img src="images/cuttherope.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">cut the rope</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/github repo editor'">
+                <a href="play/github repo editor"><li>
                     <img src="images/githubrepoeditor.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">github repo viewer</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/sparx'">
+                <a href="play/sparx"><li>
                     <img src="images/sparx.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">sparx helper</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/ask the stars'">
+                <a href="play/ask the stars"><li>
                     <img src="images/askthestars.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">ask the stars</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/subway surfers'">
+                <a href="play/subway surfers"><li>
                     <img src="images/subwaysurfers.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">subway surfers</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/traffic racer'">
+                <a href="play/traffic racer"><li>
                     <img src="images/trafficracer" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">car racing</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/dino game'">
+                <a href="play/dino game"><li>
                     <img src="images/dinogame.webp" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">dino game</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/hard mario'">
+                <a href="play/hard mario"><li>
                     <img src="images/mario.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">hard mario</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/flappy bird'">
+                <a href="play/flappy bird"><li>
                     <img src="images/flappybird.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">flappy bird</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/solitare'">
+                <a href="play/solitare"><li>
                     <img src="images/solitare.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">solitare</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/mem tile'">
+                <a href="play/mem tile"><li>
                     <img src="images/memtile.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">mem tile</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/mine sweeper'">
+                <a href="play/mine sweeper"><li>
                     <img src="images/minesweeper.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">mine sweeper</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/pac-man'">
+                <a href="play/pac-man"><li>
                     <img src="images/pacman.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">pac-man</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/pin ball'">
+                <a href="play/pin ball"><li>
                     <img src="images/pinball.png" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">pin ball</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/pong'">
+                <a href="play/pong"><li>
                     <img src="images/pong.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">pong</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/spider solitare'">
+                <a href="play/spider solitare"><li>
                     <img src="images/spidersolitare.webp" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">spider solitare</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/tetris'">
+                <a href="play/tetris"><li>
                     <img src="images/tetris.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">tetris</span>
-                </li>
+                </li></a>
                 
-                <li onclick="window.location += 'play/tower building'">
+                <a href="play/tower building"><li>
                     <img src="images/towerbuilding.jpg" style="object-fit: cover; height: 195.26px;" />
-                    <span class="game-name">tower building</span>
-                </li>
+                </li></a>
             </ul>
         </div>
     </section> 
