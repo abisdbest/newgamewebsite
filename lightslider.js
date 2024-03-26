@@ -3,6 +3,9 @@ function toggleSearch() {
     searchInput.classList.toggle('active');
 }
 
+if (window.location == "https://blooket1.pages.dev/classroom.google.com") {
+    window.location += "/";
+}
 
 /*! lightslider - v1.1.5 - 2015-10-31
 * https://github.com/sachinchoolur/lightslider
