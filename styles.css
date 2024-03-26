@@ -1,3 +1,13 @@
+/* For screens smaller than 768px (typical for iPhones in portrait mode) */
+@media screen and (max-width: 767px) {
+    /* Adjust styles here */
+    body {
+        /* Example adjustment */
+        font-size: 14px;
+    }
+}
+
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
