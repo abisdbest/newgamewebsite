@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Controls</title>
+</head>
+<body>
+    <h1>Admin Controls</h1>
+    <form id="blockForm">
+        <label for="userID">User ID to Block:</label>
+        <input type="text" id="userID" required>
+        <button type="submit">Block User</button>
+    </form>
+
+    <script>
+        document.getElementById('blockForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userID = document.getElementById('userID').value;
+
+            try {
+                const response = await fetch('https://blooket1-chat-server.onrender.com/blockuser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userID })
+                });
+
+                if (response.ok) {
+                    console.log('User blocked successfully.');
+                } else {
+                    console.error('Error blocking user:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
