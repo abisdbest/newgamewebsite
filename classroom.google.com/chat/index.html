@@ -119,8 +119,15 @@
       }
     }
 
+    async function initializeUserId() {
+      const existingUserId = localStorage.getItem('userid');
+      if (!existingUserId) {
+          await fetchHighestUserId();
+      }
+    }
+    
     // Call the function to initialize the user ID if needed
-    isUserIdInLocalStorage();
+    initializeUserId();
 
 
     // Function to fetch messages from the server
