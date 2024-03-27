@@ -93,10 +93,40 @@
   </form>
 
   <script>
+    async function fetchHighestUserId() {
+    try {
+        const response = await fetch('https://blooket1-chat-server.onrender.com/userid');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const serverData = await response.json();
+        const userIDs = serverData.userIDs;
+
+        // Find the highest number in the server's list of user IDs
+        const highestUserId = userIDs.reduce((maxId, currentId) => {
+          const numericId = parseInt(currentId, 10);
+          return numericId > maxId ? numericId : maxId;
+        }, 0);
+
+        // Set the next user ID in localStorage
+        const nextUserId = highestUserId + 1;
+        localStorage.setItem('userid', nextUserId.toString());
+
+        console.log(`New user ID set: ${nextUserId}`);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    // Call the function to initialize the user ID if needed
+    isUserIdInLocalStorage();
+
+
     // Function to fetch messages from the server
     async function fetchMessages() {
       try {
-        const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com');
+        const response = await fetch('https://blooket1-chat-server.onrender.com/messages');
         if (!response.ok) {
           throw new Error('Failed to fetch messages');
         }
@@ -125,14 +155,31 @@
       event.preventDefault();
       const username = document.getElementById('username').value;
       const message = document.getElementById('message').value;
+      const userid = getUserID()
+      fetch('https://blooket1-chat-server.onrender.com/userid', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userID: userid }), // Use "userID" here
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message); // Should print "UserID saved successfully."
+        })
+        .catch((error) => {
+          console.error('Error saving userID:', error);
+        });
+
+
 
       try {
-        const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com', {
+        const response = await fetch('https://blooket1-chat-server.onrender.com/messages', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ username, message })
+          body: JSON.stringify({ username, message, userid })
         });
 
         if (!response.ok) {
@@ -143,7 +190,7 @@
         fetchMessages();
       } catch (error) {
         console.error(error);
-        alert('Failed to send message.');
+        alert('Failed to send message.' + error);
       }
     }
 
@@ -152,13 +199,16 @@
       return localStorage.getItem('username') || '';
     }
 
+    function getUserID() {
+      return localStorage.getItem('userid') || '';
+    }
+
     // Fetch messages on page load
     document.addEventListener('DOMContentLoaded', () => {
       fetchMessages();
       document.getElementById('username').value = getUsername();
     });
 
-    // Auto-refresh messages every 5 seconds
     setInterval(fetchMessages, 2000);
 
     // Add submit event listener to the form
