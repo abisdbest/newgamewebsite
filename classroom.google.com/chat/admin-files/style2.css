@@ -74,3 +74,11 @@ p {
   color: darkcyan;
   cursor: pointer;
 }
+
+.ctrl-button :hover {
+  text-decoration: underline;
+}
+
+#msg-list sup {
+  font-size: 16px;
+}
