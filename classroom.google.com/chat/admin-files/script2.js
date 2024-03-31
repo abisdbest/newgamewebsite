@@ -38,18 +38,6 @@ $(document).ready(async function () {
     // //     "\nIf website response is undefined there was a NetworkError, TypeError or some other that means the fetch didn't go through."
     // // );
   }
-  if (state != 200) {
-    $("#msg-list sup")
-      .html("(fetching messages error check console)")
-      .css({ color: "red" });
-    console.error(
-      "Fetching messages error!\nGET /messages failed:\nError description: Website did not return a status of 200, website returned" +
-        state +
-        "!" +
-        "\nWebsite response: " +
-        text
-    );
-  }
   vals = await res.json();
   Object.values(vals).forEach((val) => {
     $("#msg-list-div").append(
