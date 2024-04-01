@@ -1,173 +1,174 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Application</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f0f0f0;
-    }
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
 
-    #messages {
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: #f0f0f0;
-      overflow-y: auto;
-      height: calc(100vh - 80px);
-    }
+      #messages {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        overflow-y: auto;
+        height: calc(100vh - 80px);
+      }
 
-    .user-message {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 10px 10px 0 10px;
-      float: right;
-      clear: both;
-      background-color: #007bff;
-      color: #fff;
-    }
+      .user-message {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 10px 10px 0 10px;
+        float: right;
+        clear: both;
+        background-color: #007bff;
+        color: #fff;
+      }
 
-    .other-message {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 10px 10px 10px 0;
-      background-color: #ddd;
-      color: #333;
-      float: left;
-      clear: both;
-    }
+      .other-message {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 10px 10px 10px 0;
+        background-color: #ddd;
+        color: #333;
+        float: left;
+        clear: both;
+      }
 
-    #messageForm {
-      display: block;
-      position: fixed;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      bottom: 0;
-      right: 0;
-      width: 100%;
-    }
+      #messageForm {
+        z-index: 999999 !important;
+        display: block;
+        position: fixed;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        bottom: 0;
+        right: 0;
+        width: calc(100% - 240px);
+      }
 
-    #username {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      margin-left: calc(100% - 550px);
-    }
+      #username {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-left: calc(100% - 520px);
+      }
 
-    #message {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+      #message {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
 
-    button[type="submit"] {
-      padding: 8px 20px;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      position: relative;
-    }
+      button[type="submit"] {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+      }
 
-    button[type="submit"]:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div id="messages"></div>
-  <form id="messageForm">
-    <input type="text" id="username" placeholder="Your Username" required>
-    <input type="text" id="message" placeholder="Your Message" required>
-    <button type="submit">Send</button>
-  </form>
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="messages"></div>
+    <form id="messageForm">
+      <input type="text" id="username" placeholder="Your Username" required>
+      <input type="text" id="message" placeholder="Your Message" required>
+      <button type="submit">Send</button>
+    </form>
 
-  <script>
-    // Function to fetch messages from the server
-    async function fetchMessages() {
-      try {
-        const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com');
-        if (!response.ok) {
-          throw new Error('Failed to fetch messages');
-        }
-        const data = await response.json();
-        const messagesElement = document.getElementById('messages');
-        messagesElement.innerHTML = '';
-        data.forEach(message => {
-          const messageDiv = document.createElement('div');
-          messageDiv.textContent = `${message.username}: ${message.message}`;
-          if (message.username === getUsername()) {
-            messageDiv.classList.add('user-message');
-          } else {
-            messageDiv.classList.add('other-message');
+    <script>
+      // Function to fetch messages from the server
+      async function fetchMessages() {
+        try {
+          const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com');
+          if (!response.ok) {
+            throw new Error('Failed to fetch messages');
           }
-          messagesElement.appendChild(messageDiv);
-        });
-        messagesElement.scrollTop = messagesElement.scrollHeight;
-      } catch (error) {
-        console.error(error);
-        alert('Failed to fetch messages.');
-      }
-    }
-
-    // Function to handle form submission
-    async function sendMessage(event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value;
-      const message = document.getElementById('message').value;
-
-      try {
-        const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, message })
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to send message');
+          const data = await response.json();
+          const messagesElement = document.getElementById('messages');
+          messagesElement.innerHTML = '';
+          data.forEach(message => {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = `${message.username}: ${message.message}`;
+            if (message.username === getUsername()) {
+              messageDiv.classList.add('user-message');
+            } else {
+              messageDiv.classList.add('other-message');
+            }
+            messagesElement.appendChild(messageDiv);
+          });
+          messagesElement.scrollTop = messagesElement.scrollHeight;
+        } catch (error) {
+          console.error(error);
+          alert('Failed to fetch messages.');
         }
-
-        document.getElementById('message').value = '';
-        fetchMessages();
-      } catch (error) {
-        console.error(error);
-        alert('Failed to send message.');
       }
-    }
 
-    // Function to get username from local storage
-    function getUsername() {
-      return localStorage.getItem('username') || '';
-    }
+      // Function to handle form submission
+      async function sendMessage(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const message = document.getElementById('message').value;
 
-    // Fetch messages on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchMessages();
-      document.getElementById('username').value = getUsername();
-    });
+        try {
+          const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, message })
+          });
 
-    // Auto-refresh messages every 5 seconds
-    setInterval(fetchMessages, 2000);
+          if (!response.ok) {
+            throw new Error('Failed to send message');
+          }
 
-    // Add submit event listener to the form
-    document.getElementById('messageForm').addEventListener('submit', event => {
-      event.preventDefault();
-      const username = document.getElementById('username').value;
-      localStorage.setItem('username', username);
-      sendMessage(event);
-    });
-  </script>
-</body>
-</html>
+          document.getElementById('message').value = '';
+          fetchMessages();
+        } catch (error) {
+          console.error(error);
+          alert('Failed to send message.');
+        }
+      }
+
+      // Function to get username from local storage
+      function getUsername() {
+        return localStorage.getItem('username') || '';
+      }
+
+      // Fetch messages on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchMessages();
+        document.getElementById('username').value = getUsername();
+      });
+
+      // Auto-refresh messages every 5 seconds
+      setInterval(fetchMessages, 2000);
+
+      // Add submit event listener to the form
+      document.getElementById('messageForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        localStorage.setItem('username', username);
+        sendMessage(event);
+      });
+    </script>
+  </body>
+  </html>
