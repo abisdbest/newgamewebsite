@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+html {
+  font-family: "Lato";
+}
+body {
+  background-color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+  color: white;
+}
+/* 
+#msg-list {
+  text-align: left;
+  color: white;
+  position: absolute;
+  left: 11%;
+  top: 10%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#title {
+  text-align: left;
+  color: white;
+  position: absolute;
+  left: 12%;
+  top: 2%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* #msg-list-div {
+  text-align: left;
+  color: white;
+  position: absolute;
+  left: 11%;
+  top: 20%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+} */
+
+/* #msg-list-div h2 { */
+/* color: white;
+  position: absolute;
+  left: 11%;
+  top: 20%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+
+/* text-align: left; */
+/* } */
+#msg-list-div {
+  border: 0.1px solid grey;
+  /* width: 45%; */
+  max-width: 60%;
+  height: fit-content;
+  display: inline-block;
+}
+.ctrl-buttons * {
+  /* border: 1px solid white; */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ctrl-buttons .ctrl-button {
+  color: darkcyan;
+  cursor: pointer;
+}
+
+.ctrl-button :hover {
+  text-decoration: underline;
+}
+
+#msg-list sup {
+  font-size: 16px;
+}
