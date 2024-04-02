@@ -82,3 +82,52 @@ p {
 #msg-list sup {
   font-size: 16px;
 }
+
+#admin-log-panel {
+  /* border: 0.1px solid grey; */
+  width: 45%;
+  max-width: 60%;
+  height: fit-content;
+  display: inline-block;
+  position: absolute;
+  left: 76%;
+  top: 23%;
+  height: fit-content;
+  max-height: 0%;
+  /* -webkit-transform: translate(-50%, -50%); */
+  transform: translate(-50%, -50%);
+}
+
+#title-2 {
+  position: absolute;
+  left: 80%;
+  top: 13%;
+  /* height: fit-content; */
+  /* max-height: 100%; */
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+}
+
+#title {
+  text-align: center;
+}
+
+#info {
+  color: darkcyan;
+}
+
+#warning {
+  color: orangered;
+}
+
+#error {
+  color: red;
+}
+
+#fatal {
+  color: brown;
+}
+
+#log-message {
+}
