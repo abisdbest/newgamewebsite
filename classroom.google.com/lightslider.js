@@ -98,7 +98,7 @@ function checkTime() {
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.shiftKey && event.key === 'K') {
         var password = prompt("Please enter the password:");
-        if (password === "hellobla1234") {
+        if (password === "hihihi1234") {
             removeSpeedReadDiv();
             divCreated = true
         }
