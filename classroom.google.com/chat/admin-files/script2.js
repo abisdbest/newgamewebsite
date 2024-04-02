@@ -11,6 +11,59 @@ function UnknownError() {
 }
 UnknownError.prototype = Object.create(Error.prototype);
 
+async function delmsg(user, msg) {
+  log("info", `Deleting message '${msg}'`);
+  try {
+    // debugger;
+    response = await fetch(
+      "https://blooket1-test.onrender.com/deletemessage#classroom.google.com",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user,
+          message: msg,
+          password: "aaa",
+        }),
+      }
+    );
+    text = await response.text();
+    console.log(text);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function log(level, text) {
+  elem = $("#admin-log-panel");
+  var currentdate = new Date();
+  time =
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds();
+  if (level == "info") {
+    elem.append(
+      `<h3 class='log-message' id='info'> [INFO] - ${time} - ${text}</h3>`
+    );
+  } else if (level == "warning") {
+    elem.append(
+      `<h3 class='log-message' id='warning'> [WARN] - ${time} - ${text}</h3>`
+    );
+  } else if (level == "error") {
+    elem.append(
+      `<h3 class='log-message' id='error'> [ERROR] - ${time} - ${text}</h3>`
+    );
+  } else if (level == "fatal") {
+    elem.append(
+      `<h3 class='log-message' id='fatal'> [FATAL] - ${time} - ${text}</h3>`
+    );
+  }
+}
+
 $(document).ready(async function () {
   state = 200;
   try {
@@ -39,16 +92,19 @@ $(document).ready(async function () {
     // // );
   }
   vals = await res.json();
+  // if (vals == "[]") {
+  //   $("#msg-list-div").append("<h2>no messages!</h2>");
+  // }
   Object.values(vals).forEach((val) => {
     $("#msg-list-div").append(
       `<h2 id="author">${val["username"] + ": "}</h2>`,
-      `<h2 id="author">${val["message"]}</h2>`,
+      `<h2 id="message">${val["message"]}</h2>`,
       `<div class="ctrl-buttons">
       <div class="ctrl-buttons">
         <p>message actions:</p>
         <p class="ctrl-button" id="edit">edit</p>
         <p id="separator">|</p>
-        <p class="ctrl-button" id="delete">delete</p>
+        <p class="ctrl-button" onclick="delmsg('${val["username"]}', '${val["message"]}')" id="delete">delete</p>
         <p id="separator">|</p>
         <p class="ctrl-button" id="block">block ip</p>
       </div>`

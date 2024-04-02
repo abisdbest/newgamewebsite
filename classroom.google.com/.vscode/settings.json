@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["checkpassword", "passcorrect", "passwordcheck", "vals"]
+  "cSpell.words": [
+    "checkpassword",
+    "currentdate",
+    "passcorrect",
+    "passwordcheck",
+    "vals"
+  ],
+  "cmake.configureOnOpen": false
 }
