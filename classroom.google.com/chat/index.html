@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Application</title>
-=======
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +8,6 @@
     <script>
       eruda.init();
     </script>
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -55,26 +45,15 @@
       }
 
       #messageForm {
-<<<<<<< HEAD
-        z-index: 999999 !important;
-=======
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
         display: block;
         position: fixed;
         background-color: #fff;
         padding: 10px;
         border-radius: 5px;
-<<<<<<< HEAD
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         bottom: 0;
         right: 0;
-        width: calc(100% - 240px);
-=======
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        bottom: 0;
-        right: 0;
         width: 100%;
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
       }
 
       #username {
@@ -82,11 +61,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
-<<<<<<< HEAD
-        margin-left: calc(100% - 520px);
-=======
-        margin-left: calc(100% - 550px);
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
+        margin-left: calc(100% - 600px);
       }
 
       #message {
@@ -115,70 +90,12 @@
   <body>
     <div id="messages"></div>
     <form id="messageForm">
-<<<<<<< HEAD
       <input type="text" id="username" placeholder="Your Username" required>
       <input type="text" id="message" placeholder="Your Message" required>
-=======
-      <input type="text" id="username" placeholder="Your Username" required />
-      <input type="text" id="message" placeholder="Your Message" required />
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
       <button type="submit">Send</button>
     </form>
 
     <script>
-<<<<<<< HEAD
-      // Function to fetch messages from the server
-      async function fetchMessages() {
-        try {
-          const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com');
-          if (!response.ok) {
-            throw new Error('Failed to fetch messages');
-          }
-          const data = await response.json();
-          const messagesElement = document.getElementById('messages');
-          messagesElement.innerHTML = '';
-          data.forEach(message => {
-            const messageDiv = document.createElement('div');
-            messageDiv.textContent = `${message.username}: ${message.message}`;
-            if (message.username === getUsername()) {
-              messageDiv.classList.add('user-message');
-            } else {
-              messageDiv.classList.add('other-message');
-            }
-            messagesElement.appendChild(messageDiv);
-          });
-          messagesElement.scrollTop = messagesElement.scrollHeight;
-        } catch (error) {
-          console.error(error);
-          alert('Failed to fetch messages.');
-        }
-      }
-
-      // Function to handle form submission
-      async function sendMessage(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const message = document.getElementById('message').value;
-
-        try {
-          const response = await fetch('https://blooket1-chat-server.onrender.com/messages#classroom.google.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, message })
-          });
-
-          if (!response.ok) {
-            throw new Error('Failed to send message');
-          }
-
-          document.getElementById('message').value = '';
-          fetchMessages();
-        } catch (error) {
-          console.error(error);
-          alert('Failed to send message.');
-=======
       async function fetchHighestUserId() {
         try {
           const response = await fetch(
@@ -292,36 +209,11 @@
         } catch (error) {
           console.error(error);
           alert("Failed to send message." + error);
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
         }
       }
 
       // Function to get username from local storage
       function getUsername() {
-<<<<<<< HEAD
-        return localStorage.getItem('username') || '';
-      }
-
-      // Fetch messages on page load
-      document.addEventListener('DOMContentLoaded', () => {
-        fetchMessages();
-        document.getElementById('username').value = getUsername();
-      });
-
-      // Auto-refresh messages every 5 seconds
-      setInterval(fetchMessages, 2000);
-
-      // Add submit event listener to the form
-      document.getElementById('messageForm').addEventListener('submit', event => {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        localStorage.setItem('username', username);
-        sendMessage(event);
-      });
-    </script>
-  </body>
-  </html>
-=======
         return localStorage.getItem("username") || "";
       }
 
@@ -349,4 +241,3 @@
     </script>
   </body>
 </html>
->>>>>>> 490eb01933e28439e903718cdb4176674c852b39
