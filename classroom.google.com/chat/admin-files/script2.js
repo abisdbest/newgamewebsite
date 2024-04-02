@@ -16,7 +16,7 @@ async function delmsg(user, msg) {
   try {
     // debugger;
     response = await fetch(
-      "https://blooket1-t`est.onrender.com/deletemessage#classroom.google.com",
+      "https://blooket1-test.onrender.com/deletemessage#classroom.google.com",
       {
         method: "POST",
         headers: {
@@ -25,7 +25,7 @@ async function delmsg(user, msg) {
         body: JSON.stringify({
           username: user,
           message: msg,
-          password: localStorage.getItem("password"),
+          password: "aaa",
         }),
       }
     );
