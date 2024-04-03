@@ -85,7 +85,7 @@
   }
   
   body {
-    display: flex;
+    /* display: flex; */
     font-family: "Roboto", sans-serif;
     background-color: var(--background-color);
   }
