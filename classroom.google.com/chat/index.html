@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Application</title>
     <script src="//cdn.jsdelivr.net/npm/eruda#classroom.google.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script>
       eruda.init();
     </script>
@@ -50,7 +50,7 @@
         background-color: #fff;
         padding: 10px;
         border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         bottom: 0;
         right: 0;
         width: 100%;
@@ -86,74 +86,96 @@
         background-color: #0056b3;
       }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+      integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
-    <header>Blooket1 Chat 
-          <label class="header__selection toggle">
-            <input js-toggle class="toggle__input" aria-label="toggle dark mode" type="checkbox">
-            <span class="toggle__fake"></span>
-            <h1 class="toggle__text">Dark Mode</h1>
-          </label>
+    <header>Blooket1 Chat</header>
+    <label class="header__selection toggle">
+      <input
+        js-toggle
+        class="toggle__input"
+        aria-label="toggle dark mode"
+        type="checkbox"
+      />
+      <span class="toggle__fake"></span>
+      <h1 class="toggle__text">Dark Mode</h1>
+    </label>
     <div id="messages"></div>
     <form id="messageForm">
-      <input type="text" id="username" placeholder="Your Username" required>
-      <input type="text" id="message" placeholder="Your Message" required>
+      <input type="text" id="username" placeholder="Your Username" required />
+      <input type="text" id="message" placeholder="Your Message" required />
       <button type="submit">Send</button>
     </form>
 
     <script>
       const themePreference = () => {
-      const hasLocalStorage = localStorage.getItem('theme');
-      let theme = undefined;
-      if (hasLocalStorage === 'light') { theme = 'light'; }
-      if (hasLocalStorage === 'dark') { theme = 'dark'; }
-      if (window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
-        theme = hasLocalStorage ? hasLocalStorage : 'dark';
-      };
-      if (window.matchMedia(`(prefers-color-scheme: light)`).matches) {
-        theme = hasLocalStorage ? hasLocalStorage : 'light';
-      };
-      if (window.matchMedia(`(prefers-color-scheme: no-preference)`).matches) {
-        theme = hasLocalStorage ? hasLocalStorage : 'none';
-      };
-      return theme;
-    }
-
-    document.addEventListener('DOMContentLoaded', e => {
-      const userThemePreference = themePreference();
-      const toggle = document.querySelector('[js-toggle]');
-      const html = document.documentElement;
-      
-      const setTheme = () => {
-        switch(userThemePreference) {
-          case 'dark':
-            toggle.checked = true;
-            html.classList.add('dark');
-            html.classList.remove('light');
-            break;
-          case 'light':
-            toggle.checked = false;
-            html.classList.remove('dark');
-            html.classList.add('light');
-            break;
+        const hasLocalStorage = localStorage.getItem("theme");
+        let theme = undefined;
+        if (hasLocalStorage === "light") {
+          theme = "light";
         }
-      }
-      setTheme();
-      toggle.addEventListener('click', e => {
-        if (toggle.checked) {
-          html.classList.add('dark');
-          html.classList.remove('light');
-          localStorage.setItem('theme', 'dark');
-        } else {
-          html.classList.remove('dark');
-          html.classList.add('light');
-          localStorage.setItem('theme', 'light');
+        if (hasLocalStorage === "dark") {
+          theme = "dark";
         }
-      }, false);
-    }, false);
+        if (window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
+          theme = hasLocalStorage ? hasLocalStorage : "dark";
+        }
+        if (window.matchMedia(`(prefers-color-scheme: light)`).matches) {
+          theme = hasLocalStorage ? hasLocalStorage : "light";
+        }
+        if (
+          window.matchMedia(`(prefers-color-scheme: no-preference)`).matches
+        ) {
+          theme = hasLocalStorage ? hasLocalStorage : "none";
+        }
+        return theme;
+      };
 
+      document.addEventListener(
+        "DOMContentLoaded",
+        (e) => {
+          const userThemePreference = themePreference();
+          const toggle = document.querySelector("[js-toggle]");
+          const html = document.documentElement;
 
+          const setTheme = () => {
+            switch (userThemePreference) {
+              case "dark":
+                toggle.checked = true;
+                html.classList.add("dark");
+                html.classList.remove("light");
+                break;
+              case "light":
+                toggle.checked = false;
+                html.classList.remove("dark");
+                html.classList.add("light");
+                break;
+            }
+          };
+          setTheme();
+          toggle.addEventListener(
+            "click",
+            (e) => {
+              if (toggle.checked) {
+                html.classList.add("dark");
+                html.classList.remove("light");
+                localStorage.setItem("theme", "dark");
+              } else {
+                html.classList.remove("dark");
+                html.classList.add("light");
+                localStorage.setItem("theme", "light");
+              }
+            },
+            false
+          );
+        },
+        false
+      );
 
       async function fetchHighestUserId() {
         try {
@@ -208,8 +230,8 @@
           messagesElement.innerHTML = "";
           data.forEach((message) => {
             var converter = new showdown.Converter(),
-            text      = message.message,
-            html      = converter.makeHtml(text);
+              text = message.message,
+              html = converter.makeHtml(text);
             const messageDiv = document.createElement("div");
             messageDiv.innerHTML = `${message.username}: ${html}`;
             if (message.username === getUsername()) {

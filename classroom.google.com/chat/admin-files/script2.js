@@ -16,15 +16,15 @@ async function delmsg(user, msg) {
   try {
     // debugger;
     response = await fetch(
-      "https://blooket1-test.onrender.com/deletemessage#classroom.google.com",
+      "https://blooket1-chat-server.onrender.com/deletemessage#classroom.google.com",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: user,
-          message: msg,
+          otheruser: user,
+          othermessage: msg,
           password: "aaa",
         }),
       }
@@ -47,7 +47,7 @@ function log(level, text) {
     currentdate.getSeconds();
   if (level == "info") {
     elem.append(
-      `<h3 class='log-message' id='info'> [INFO] - ${time} - ${text}</h3>`
+      `<h3 class='log-message' id='info'> [INFO] - [${time}] - ${text}</h3>`
     );
   } else if (level == "warning") {
     elem.append(
@@ -92,6 +92,7 @@ $(document).ready(async function () {
     // // );
   }
   vals = await res.json();
+  console.log(vals);
   // if (vals == "[]") {
   //   $("#msg-list-div").append("<h2>no messages!</h2>");
   // }
