@@ -86,6 +86,7 @@
         background-color: #0056b3;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <header>Blooket1 Chat 
@@ -206,9 +207,11 @@
           const messagesElement = document.getElementById("messages");
           messagesElement.innerHTML = "";
           data.forEach((message) => {
-
+            var converter = new showdown.Converter(),
+            text      = message.message,
+            html      = converter.makeHtml(text);
             const messageDiv = document.createElement("div");
-            messageDiv.innerHTML = `${message.username}: ${message.message}`;
+            messageDiv.innerHTML = `${message.username}: ${html}`;
             if (message.username === getUsername()) {
               messageDiv.classList.add("user-message");
             } else {
