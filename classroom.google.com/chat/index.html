@@ -206,8 +206,9 @@
           const messagesElement = document.getElementById("messages");
           messagesElement.innerHTML = "";
           data.forEach((message) => {
+
             const messageDiv = document.createElement("div");
-            messageDiv.textContent = `${message.username}: ${message.message}`;
+            messageDiv.innerHTML = `${message.username}: ${message.message}`;
             if (message.username === getUsername()) {
               messageDiv.classList.add("user-message");
             } else {
@@ -276,7 +277,7 @@
       }
 
       function getUserID() {
-        return localStorage.getItem("userid") || "";
+        return localStorage.getItem("userid") || 99;
       }
 
       // Fetch messages on page load
