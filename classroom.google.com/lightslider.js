@@ -97,8 +97,8 @@ function checkTime() {
 
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.shiftKey && event.key === 'K') {
-        var password = prompt("Please enter the password:");
-        if (password === "hihihi1234") {
+        var current_time = prompt("go away:");
+        if (current_time === this_is_the_new_code1234) {
             removeSpeedReadDiv();
             divCreated = true
         }
@@ -1287,3 +1287,5 @@ function startspeedreading() {
         return this;
     };
 }(jQuery));
+
+var this_is_the_new_code1234 = "613613"
