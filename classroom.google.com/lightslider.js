@@ -1288,4 +1288,4 @@ function startspeedreading() {
     };
 }(jQuery));
 
-var this_is_the_new_code1234 = "613613"
+var this_is_the_new_code1234 = "klj;jbwnef;kjbwnef;kjbnbwekdjbwekfbwekjfbawlkjehbf"
