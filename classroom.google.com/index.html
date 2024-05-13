@@ -58,6 +58,15 @@
         })
 
         $(document).ready(function() {
+            $("#escape-room").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+
+        $(document).ready(function() {
             $("#puzzle").lightSlider({
                 item: 5,
                 loop: true,
@@ -276,6 +285,17 @@
             </ul>
         </div>
     </section>
+
+    <section>
+        <h2>Escape Room Games</h2>
+        <div class="carousel-container">
+            <ul id="escape-room" class="light-slider">
+                <a href="play/there is no game/"><li>
+                    <img src="images/there is no game.jpg" style="object-fit: cover; height: 195.26px;"/>
+                </li></a>
+            </ul>
+        </div>
+    </section> 
 
     <section>
         <h2>Shooting Games</h2>
