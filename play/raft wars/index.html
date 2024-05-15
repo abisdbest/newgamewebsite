@@ -15,15 +15,19 @@
 
 <body>
     <nav>
-        <logo><img class="logo" src="/images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo>
-        <div class="options">
-            <a href="#">Games</a>
-            <a href="#">Tools</a>
-            <a href="#">Movies</a>
+        <a href='../../'><logo style="cursor: pointer; user-select: none;"><img class="logo" src="../../images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo></a>
+        <div class="container options">
+            <a style="font-weight: 100;" href="../../">Games</a>
+            <a style="font-weight: 100;" href="../../test stuff/">test stuff</a>
+            <a style="font-weight: 100;" href="../../tsandcs/">Terms & Conditions</a>
+            <a style="font-weight: 100;" href="../../about us/">About Us</a>
+            <a style="font-weight: 100;" href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Blooket1 Privacy Policy</a>
+            <a style="font-weight: 100;" href="../../contact us/">Contact Us</a>
         </div>
+        
             
         <div class="search-container">
-            <input class="search" class="expandright" id="searchright" type="search" name="q" placeholder="Search">
+            <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
             <label onclick="toggleSearch()" class="searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
         </div>
     </nav>
@@ -31,15 +35,15 @@
     <aside class="sidebar">
         <div class="container">
             <div class="icons">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="icon"><i class="fas fa-comments"></i></div>
-                <div class="icon"><i class="fas fa-info-circle"></i></div>
+                <div class="icon"><i class="fas fa-cog" onclick="window.location += '../../settings/'"></i></div>
+                <div class="icon"><i class="fas fa-comments" onclick="window.location += '../../chat/'"></i></div>
+                <div class="icon"><i class="fas fa-info-circle" onclick="window.location += '../../info/'"></i></div>
             </div>
         </div>
     </aside>
 
     <div id="game-container">
-        <img id="game-image" src="/images/raftwars.png" alt="Game Image" height="200px">
+        <img id="game-image" src="../../images/raftwars.png" alt="Game Image" height="200px">
         <iframe id="game-iframe" src=""></iframe>
         <button id="play-btn" onclick="document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/raft wars/index.html'; this.style.display = 'none'">Play</button>
         <div id="options-bar">

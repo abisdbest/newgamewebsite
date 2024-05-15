@@ -34,9 +34,9 @@ def create_html_content(data):
     <aside class="sidebar">
         <div class="container">
             <div class="icons">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="icon"><i class="fas fa-comments"></i></div>
-                <div class="icon"><i class="fas fa-info-circle"></i></div>
+                <div class="icon"><i class="fas fa-cog" onclick="window.location += '../../settings/'"></i></div>
+                <div class="icon"><i class="fas fa-comments" onclick="window.location += '../../chat/'"></i></div>
+                <div class="icon"><i class="fas fa-info-circle" onclick="window.location += '../../info/'"></i></div>
             </div>
         </div>
     </aside>
