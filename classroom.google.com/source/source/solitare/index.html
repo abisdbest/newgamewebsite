@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Freecell</title>
+		<meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no" />
+
+		<link rel="stylesheet" type="text/css" href="cards.css" />
+		<script type="text/javascript" src="js/languages.js"></script>
+		<script type="text/javascript" src="js/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="js/mousetrap.min.js"></script>
+		<script type="text/javascript" src="js/scoreboard.js"></script>
+		<script type="text/javascript" src="js/i18next-latest.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/backbone-min.js"></script>
+		<script type="text/javascript" src="js/deck.js"></script>
+		<script type="text/javascript" src="js/FreecellGame.js"></script>
+		<script type="text/javascript" src="js/FreecellGameView.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+	</head>
+	<body>
+		<ul id="toolbar">
+			<li id="tb-menu" class="toggle">
+				<a class="button">Menu</a>
+				<ul>
+					<li><a href="#" id="tb-newgame" data-i18n="interface.toolbar.new-game">New Game</a></li>
+					<li><a href="#" id="tb-restartgame" data-i18n="interface.toolbar.restart-game">Restart this game</a></li>
+					<li><a href="#" id="tb-loadgame" data-i18n="interface.toolbar.load-game">Load Game</a></li>
+					<li><a href="#" id="tb-rules" data-i18n="interface.toolbar.rules">How to Play</a></li>
+					<li><a target="_blank" href="https://chrome.google.com/webstore/support/lhppflinkhhgcllcdnocdiceepgpemah#bug" id="tb-sendfeedback" data-i18n="interface.toolbar.sendfeedback">Send Feedback</a></li>
+					<li><a href="#" id="tb-about" data-i18n="interface.toolbar.about">About</a></li>
+				</ul>
+			</li>
+			<li class="titlebar selectable" data-i18n="interface.app-name">Spider Solitaire</li>
+			<li class="gamenumber"></li>
+<!--
+			<li id="tb-timer" class="right gameonly">0:00</li>
+-->
+<!--
+			<li id="tb-score" class="right gameonly"></li>
+-->
+			<li id="tb-moves" class="right gameonly"></li>
+			<li id="tb-undo" class="button icon text right gameonly"><a href="#" data-i18n="interface.toolbar.undo" title="Undo (ctrl+z)">Undo</a></li>
+			<li id="tb-hint" class="button icon text right gameonly "><a href="#" data-i18n="interface.toolbar.hint" title="Hint (h)">Hint</a></li>
+		</ul>
+	</body>
+</html>

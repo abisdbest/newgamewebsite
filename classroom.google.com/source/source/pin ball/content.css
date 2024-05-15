@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin&display=swap');
+
+.prompt-__MSG_@@extension_id__{
+    font-family: Cabin, sans-serif !important;
+    position: fixed;
+    top: 30%;
+    right: 25%;
+    /*cursor: pointer;*/
+    background-color: rgba(0, 0, 0, 0.74);
+    padding: 0;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    min-width: 326px;
+}
+.prompt-__MSG_@@extension_id__{
+    right: calc(50% - 165px);
+}
+
+.prompt-__MSG_@@extension_id__ .header-rem-dxy{
+    background: #333234;
+    border-radius: 4px 4px 0 0;
+    width: 100%;
+    display: block;
+    height: 34px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 34px;
+    color: #6B6A6B;
+    text-transform: uppercase;
+    padding-left: 16px;
+    box-sizing: border-box;
+}
+
+
+.prompt-__MSG_@@extension_id__ .reminder-close-icon-svg-dxy{
+    float: right;
+    margin-top: 12px;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.prompt-__MSG_@@extension_id__ h2.looking-dxy{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px!important;
+    line-height: 18px!important;
+    text-align: center!important;
+    color: #D8D8D8!important;
+    margin: 22px 5px 5px;
+    padding: 0;
+
+}
+.prompt-__MSG_@@extension_id__ h2.game-name-dxy{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px!important;
+    line-height: 24px!important;
+    text-align: center!important;
+    text-transform: uppercase;
+    color: #FFFFFF!important;
+    margin: 0 5px 5px;
+}
+
+.prompt-__MSG_@@extension_id__ .body-center-dxy{
+    text-align: center;
+}
+
+.prompt-__MSG_@@extension_id__ .game-icon-128-dxy{
+    border-radius: 12px;
+    width: 100px;
+    height: 100px;
+    margin-top: 9px;
+}
+
+.prompt-__MSG_@@extension_id__ .game-icon-border-dxy{
+    background: #28262A;
+    border-radius: 17px;
+    width: 119px;
+    height: 119px;
+    margin: 22px auto 10px;
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+}
+
+.prompt-__MSG_@@extension_id__ .game-play-btn-dxy{
+    position: relative;
+    margin-top: -47px;
+    cursor: pointer;
+    z-index: 1;
+}

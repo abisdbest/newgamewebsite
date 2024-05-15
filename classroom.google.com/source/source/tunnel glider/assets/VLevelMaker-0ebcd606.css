@@ -1,0 +1,154 @@
+@font-face {
+  font-family: "pixeled";
+  src: url("/assets/fonts/pixeled.ttf");
+}
+.colorDarker[data-v-2cf22489] {
+  color: #0D0630;
+}
+.colorDark[data-v-2cf22489] {
+  color: #18314F;
+}
+.colorBright[data-v-2cf22489] {
+  color: #384E77;
+}
+.colorBrighter[data-v-2cf22489] {
+  color: #E6F9AF;
+}
+.colorPurple[data-v-2cf22489] {
+  color: #63266d;
+}
+.colorPink[data-v-2cf22489] {
+  color: #932a53;
+}
+.colorGreen[data-v-2cf22489] {
+  color: #03fc84;
+}
+.colorYellow[data-v-2cf22489] {
+  color: #f4fc03;
+}
+.textSmall[data-v-2cf22489] {
+  font-size: 12px;
+  line-height: 24px;
+  margin: 6px;
+  font-weight: normal;
+}
+.textLarge[data-v-2cf22489] {
+  font-size: 15px;
+  line-height: 30px;
+  margin: 7.5px;
+  font-weight: normal;
+}
+.fontArial[data-v-2cf22489] {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.clickableText[data-v-2cf22489] {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #E6F9AF;
+  font-size: 12px;
+  line-height: 12px;
+}
+.buttonLarge[data-v-2cf22489] {
+  text-decoration: none;
+  font-size: 15px;
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 5px;
+  margin: 5px;
+}
+.buttonLarge[data-v-2cf22489]:hover {
+  color: yellow;
+  border-color: yellow;
+}
+.noAntiAlias[data-v-2cf22489] {
+  image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges; /* Firefox                        */
+  image-rendering: -o-crisp-edges; /* Opera                          */
+  image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering: pixelated; /* Universal support since 2021   */
+  image-rendering: optimize-contrast; /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+}
+.noDrag[data-v-2cf22489] {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+.noHighlight[data-v-2cf22489] {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+   supported by Chrome, Edge, Opera and Firefox */
+}
+.paddingDiv[data-v-2cf22489] {
+  padding: 20px;
+}
+.buttonSmall[data-v-2cf22489] {
+  text-decoration: none;
+  background-color: #E6F9AF;
+  color: #0D0630;
+  cursor: pointer;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 5px;
+  font-size: 12px;
+  display: inline-block;
+}
+.buttonSmall[data-v-2cf22489]:hover {
+  background-color: #d0f468;
+}
+.buttonSmall.buttonDisabled[data-v-2cf22489] {
+  background-color: gray;
+  cursor: not-allowed;
+}
+.titleWithIcon[data-v-2cf22489] {
+  display: flex;
+  align-items: center;
+  background-color: #0D0630;
+}
+.titleWithIcon img[data-v-2cf22489] {
+  flex: 1;
+  flex-grow: 0;
+  width: 40px;
+  cursor: pointer;
+}
+.titleWithIcon img[data-v-2cf22489]:hover {
+  transform: scale(1.3);
+}
+.titleWithIcon h1[data-v-2cf22489] {
+  flex: 1;
+  text-align: left;
+}
+.hoverGrow[data-v-2cf22489] {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.hoverGrow[data-v-2cf22489]:hover {
+  transform: scale(1.25);
+}
+.mapMakerMain[data-v-2cf22489] {
+  display: inline-block;
+  width: 500px !important;
+  height: 300px !important;
+}
+.mapMakerMain #customLevelBlueprintGridText[data-v-2cf22489] {
+  resize: none;
+  font-family: monospace;
+  font-size: 10px;
+  width: 70px;
+  height: 30px;
+}
+.mapMakerMain #customLevelBlueprintGridText.isHidden[data-v-2cf22489] {
+  display: none;
+}
+.mapMakerMain .errorMessage[data-v-2cf22489] {
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+}

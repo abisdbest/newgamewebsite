@@ -1,0 +1,6 @@
+{
+  "name": {"message": "Spela 2048 spel"},
+  "description": {"message": "2048 är ett enkelt och roligt pusselspel. Få 2048 spel gratis för Chrome!"},
+  "locale": {"message": "sv"},
+  "short":{"message":"2048 Puzzle Game"}
+}
