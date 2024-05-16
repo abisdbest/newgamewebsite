@@ -33,7 +33,7 @@
             Awesome stuff! Now make your own and share the link.<br>
             Paste an image URL bellow and press enter.
           </div>
-          <input placeholder="http://imgur.com/your_favourite_image.jpg"/>
+          <input placeholder="http://imgur.com/your_favourite_image.jpg" onkeydown="check_enter(event)" id="img_input"/>
         </div>
       </div>
     </div>
@@ -48,6 +48,13 @@
     </div>
 
     <script type="text/javascript">
+      var input_val = document.getElementById("img_input")
+
+      function check_enter() {
+        if (event.key === "Enter") {
+          alert(input_val.value)
+        }
+      }
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-17409200-2']);

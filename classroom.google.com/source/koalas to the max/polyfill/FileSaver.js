@@ -95,8 +95,8 @@ var saveAs = saveAs
           if (target_view) {
             target_view.location.href = object_url;
           } else {
-                        window.open(object_url, "_blank");
-                    }
+            window.open(object_url, "_blank");
+          }
           filesaver.readyState = filesaver.DONE;
           dispatch_all();
         }
