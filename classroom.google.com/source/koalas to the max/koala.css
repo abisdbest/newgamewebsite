@@ -15,7 +15,6 @@ body {
   -o-user-select: none;
   user-select: none;
 
-  -ms-touch-action: none;
 }
 
 div {
@@ -61,9 +60,11 @@ circle {
 }
 
 #next input {
+  position: fixed;
+  bottom: 50px;
   width: 480px;
+  left: calc(50% - 240px);
   border: 1px solid #ccc;
-  outline: none;
 }
 
 #next .err {
