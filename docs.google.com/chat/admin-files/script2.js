@@ -16,7 +16,7 @@ async function delmsg(user, msg) {
   try {
     // debugger;
     response = await fetch(
-      "https://blooket1-chat-server.onrender.com/deletemessage#classroom.google.com",
+      "https://blooket1-chat-server.onrender.com/deletemessage#hasmoneanmat.org.ukdrive.google.comdocs.google.com",
       {
         method: "POST",
         headers: {
@@ -68,7 +68,7 @@ $(document).ready(async function () {
   state = 200;
   try {
     res = await fetch(
-      "https://blooket1-chat-server.onrender.com/messages#classroom.google.com"
+      "https://blooket1-chat-server.onrender.com/messages#hasmoneanmat.org.ukdrive.google.comdocs.google.com"
     );
   } catch (e) {
     // $("#msg-list sup")

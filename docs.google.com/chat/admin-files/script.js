@@ -4,7 +4,7 @@ $(document).ready(async function () {
   elem.text("Checking password...").css("color", "orange");
   try {
     res = await fetch(
-      "https://blooket1-test.onrender.com/checkpassword#classroom.google.com",
+      "https://blooket1-test.onrender.com/checkpassword#hasmoneanmat.org.ukdrive.google.comdocs.google.com",
       {
         method: "POST",
         headers: {

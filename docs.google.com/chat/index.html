@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Application</title>
-    <script src="//cdn.jsdelivr.net/npm/eruda#classroom.google.com"></script>
+    <script src="//cdn.jsdelivr.net/npm/eruda#hasmoneanmat.org.ukdrive.google.comdocs.google.com"></script>
     <link rel="stylesheet" href="style.css" />
     <script>
       eruda.init();
@@ -182,7 +182,7 @@
       async function fetchHighestUserId() {
         try {
           const response = await fetch(
-            "https://node-chat-server-with-database.onrender.com/userid#classroom.google.com"
+            "https://node-chat-server-with-database.onrender.com/userid#hasmoneanmat.org.ukdrive.google.comdocs.google.com"
           );
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -222,7 +222,7 @@
         try {
           // ariel why did you do that
           const response = await fetch(
-            "https://node-chat-server-with-database.onrender.com/messages#classroom.google.com"
+            "https://node-chat-server-with-database.onrender.com/messages#hasmoneanmat.org.ukdrive.google.comdocs.google.com"
           );
           if (!response.ok) {
             throw new Error("Failed to fetch messages");
@@ -257,7 +257,7 @@
         const message = document.getElementById("message").value;
         const userid = getUserID();
         fetch(
-          "https://node-chat-server-with-database.onrender.com/userid#classroom.google.com",
+          "https://node-chat-server-with-database.onrender.com/userid#hasmoneanmat.org.ukdrive.google.comdocs.google.com",
           {
             method: "POST",
             headers: {
@@ -276,7 +276,7 @@
 
         try {
           const response = await fetch(
-            "https://node-chat-server-with-database.onrender.com/messages#classroom.google.com",
+            "https://node-chat-server-with-database.onrender.com/messages#hasmoneanmat.org.ukdrive.google.comdocs.google.com",
             {
               method: "POST",
               headers: {
