@@ -1,0 +1,27 @@
+{"manifest_version": 3,
+  "name": "__MSG_name__",
+  "version": "1.13",
+  "default_locale": "en_US",
+  "description": "__MSG_description__",
+  "icons": {
+    "128": "images/128.png",
+    "48": "images/48.png"
+  },
+  "permissions": ["storage", "unlimitedStorage"],
+  "background": {"service_worker": "js/background.js"},
+  "web_accessible_resources": [{"resources": ["js/*", "images/*"], "matches": ["*://*/*"]}],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "content_security_policy": {"extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"},
+  "action": {
+    "default_icon": "images/48.png",
+    "default_title": "__MSG_name__"
+  },"content_scripts": [
+  {
+    "matches": [
+      "https://*/*"
+    ],
+    "js": [
+      "js/content.bundle.js"
+    ]
+  }
+]}
