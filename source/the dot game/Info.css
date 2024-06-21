@@ -1,0 +1,72 @@
+#title1{
+  text-align: center;
+  color: white;
+}
+
+#title2{
+  color: white;
+  text-align: center;
+}
+
+#objects{
+  float: left;
+  width: 100px;
+  height: 75px;
+}
+
+#text1{
+  color: white;
+  font-family: arial;
+}
+
+#back{
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  align-self: center;
+}
+
+#back{
+  text-align: center;
+  color: lightblue;
+}
+
+#ArrowImg{
+  width: 100px;
+  height: 75px;
+  align-self: center;
+}
+
+.ObT{
+  color: white;
+  position: absolute;
+}
+
+#RedObT{
+  left: 2.5%;
+  top: 73%;
+}
+
+#BlueObT{
+  left: 15%;
+  top: 77%;
+}
+
+#GreenObT{
+  left: 31%;
+  top: 77%;
+}
+
+#PurpleObT{
+  left: 43%;
+  top: 75.5%;
+}
+
+body{
+  background-color: black;
+  min-width: 750px;
+  max-width: 750px;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+}

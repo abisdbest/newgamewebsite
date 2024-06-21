@@ -1,0 +1,96 @@
+#title1{
+  font-family: monospace;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  cursor: help;
+}
+
+#store{
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  position: absolute;
+  top: 40%;
+  left: 27%;
+}
+
+#storeT{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 45px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+#stage1{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  left: 43.5%;
+  top: 40%;
+}
+
+#stage2{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  left: 60%;
+  top: 40%;
+}
+
+#stage3{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+  left: 47%;
+  top: 70%;
+}
+
+#stage1T{
+  text-align: center;
+  color: white;
+  font-family: arial;
+  font-size: 20px;
+}
+
+#stage2T{
+  text-align: center;
+  color: white;
+  font-family: arial;
+  font-size: 20px;
+}
+
+#stage3T{
+  text-align: center;
+  color: black;
+  font-family: arial;
+  font-size: 10px;
+}
+
+#info{
+  position: absolute;
+  font-size: 13px;
+  color: lightblue;
+  top: 95%;
+  left: 45.5%;
+  text-align: center;
+}
+
+body{
+  background-color: black;
+  max-width: 750px;
+  min-width: 750px;
+  max-height: 450px;
+  min-height: 450px;
+}

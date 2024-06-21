@@ -1,0 +1,175 @@
+body{
+  background-color: black;
+  max-width: 750px;
+  min-width: 750px;
+  max-height: 450px;
+  min-height: 450px;
+}
+
+#home{
+  color: white;
+  position: absolute;
+  text-decoration: none;
+  left: 2%;
+  top: 1%;
+  font-size: 20px;
+  font-family: monospace;
+}
+
+#coins{
+  text-align: center;
+  color: white;
+  font-family: monospace;
+  font-size: 30px;
+}
+
+#mover{
+  width: 100%;
+  height: 200px;
+}
+
+#title{
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-family: monospace;
+  font-size: 30px;
+  cursor: help;
+}
+
+#buy1{
+  text-align: center;
+  background-color: red;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: red;
+  cursor: pointer;
+}
+
+#buy2{
+  text-align: center;
+  background-color: aqua;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: aqua;
+  cursor: pointer;
+}
+
+#buy3{
+  text-align: center;
+  background-color: blue;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: blue;
+  cursor: pointer;
+}
+
+#buy4{
+  text-align: center;
+  background-color: #32CD32;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: #32CD32;
+  cursor: pointer;
+}
+
+#buy5{
+  text-align: center;
+  background-color: black;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+
+#buy7{
+  text-align: center;
+  background-color: #EA4630;
+  width: 140px;
+  height: 100px;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: monospace;
+  border-color: #EA4630;
+  cursor: pointer;
+  color: black;
+}
+
+#sel1{
+  background: red;
+  border-color: red;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+#sel2{
+  background: aqua;
+  border-color: aqua;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+#sel3{
+  background: blue;
+  border-color: blue;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+#sel4{
+  background: #32CD32;
+  border-color: #32CD32;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+#sel5{
+  background: black;
+  border-color: white;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+  color: white;
+}
+#sel6{
+  background: white;
+  border-color: white;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+#sel7{
+  background: #EA4630;
+  border-color: #EA4630;
+  width: 140px;
+  height: 20px;
+  border-radius: 3px;
+}
