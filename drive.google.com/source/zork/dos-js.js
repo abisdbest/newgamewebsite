@@ -96,7 +96,7 @@
         Dosbox.prototype.downloadScript = function() {
           this.module.setStatus('Downloading js-dos');
           this.ui.updateMessage('Downloading js-dos');
-          return new Dosbox.Xhr('https://js-dos.com/cdn/js-dos-v3.js#gimkit', {
+          return new Dosbox.Xhr('https://js-dos.com/cdn/js-dos-v3.js#quizizz', {
             success: (function(_this) {
               return function(script) {
                 var func;
