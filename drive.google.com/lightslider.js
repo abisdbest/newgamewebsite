@@ -1288,4 +1288,4 @@ function startspeedreading() {
     };
 }(jQuery));
 
-var this_is_the_new_code1234 = "period4"
+var this_is_the_new_code1234 = "hiufwyr.kuzy,kruzlsiwujhglzi8ewur,kwueryo;aw46246aw8i8eyiwy5uwyrfkzuegrkuaw7tswu5"
