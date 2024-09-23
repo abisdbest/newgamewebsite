@@ -6,7 +6,7 @@ function toggleSearch() {
 // var startTime = '11:35:00';
 // var endTime = '12:20:00';
 
-var divCreated = false; // Variable to track if the div is already created
+var divCreated = true; // Variable to track if the div is already created
 var intervalID = null; // Variable to store interval ID for clearing
 
 function createSpeedReadDiv() {
