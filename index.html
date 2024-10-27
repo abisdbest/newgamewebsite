@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="lightslider.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
      crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-5346759304245799">
@@ -17,108 +19,15 @@
     <link rel="stylesheet" href="styles.css"> <!-- Create a separate CSS file for better organization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
     <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="lightslider.js"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Blooket1 Unblocked Games",
         "url": "https://blooket1.pages.dev",
-        "description": "Blooket1 offers free unblocked games for school, including puzzles, action, and educational games that can be played without filters.",
-        "genre": ["Puzzle", "Action", "Strategy", "Educational"]
+        "description": "Blooket1 offers free unblocked games for school, including puzzles, racing, and educational games that can be played even with filters.",
+        "genre": ["Games", "Puzzle", "Action", "Strategy", "Educational", "Racing"]
     }
-    </script>        
-    <script>
-        $(document).ready(function() {
-            $("#popular").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: false,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {            
-            $("#action").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: true,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {            
-            $("#racing").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: false,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#shooting").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: true,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#escape-room").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: false,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#puzzle").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: true,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#survival").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: false,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#roleplaying").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: true,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#tools").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: false,
-                thumbItem: 9
-            });
-        })
-
-        $(document).ready(function() {
-            $("#all").lightSlider({
-                item: 5,
-                loop: true,
-                rtl: true,
-                thumbItem: 9
-            });
-        })
     </script>
 </head>
 
@@ -149,7 +58,16 @@
             </div>
         </div>
     </aside>
-
+    <script>
+        $(document).ready(function() {
+            $("#popular").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Popular Games</h2>
         <div class="carousel-container">
@@ -221,11 +139,20 @@
             </ul>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function() {
+            $("#2player").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: true,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>2 Player Games</h2>
         <div class="carousel-container">
-            <ul id="action" class="light-slider">
+            <ul id="2player" class="light-slider">
                 <a href="play/soccer random"><li>
                     <img src="images/soccerrandom.png" style="object-fit: cover; height: 195.26px;" alt="Play soccer random on Blooket1"/>
                 </li></a>
@@ -268,7 +195,16 @@
             </ul>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function() {
+            $("#racing").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Car / Racing Games</h2>
         <div class="carousel-container">
@@ -311,7 +247,16 @@
             </ul>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function() {
+            $("#shooting").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: true,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Shooting Games</h2>
         <div class="carousel-container">
@@ -349,7 +294,16 @@
             </ul>
         </div>
     </section> 
-
+    <script>
+        $(document).ready(function() {
+            $("#escape-room").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Escape Room Games</h2>
         <div class="carousel-container">
@@ -375,7 +329,16 @@
             </ul>
         </div>
     </section> 
-
+    <script>
+        $(document).ready(function() {
+            $("#puzzle").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: true,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Puzzle Games</h2>
         <div class="carousel-container">
@@ -425,11 +388,20 @@
             </ul>
         </div>
     </section> 
-
+    <script>
+        $(document).ready(function() {
+            $("#retro").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Retro Games</h2>
         <div class="carousel-container">
-            <ul id="survival" class="light-slider">
+            <ul id="retro" class="light-slider">
                 <a href="play/tetris"><li>
                     <img src="images/tetris.jpg" style="object-fit: cover; height: 195.26px;" alt="Play tetris on Blooket1"/>
                 </li></a>
@@ -496,11 +468,20 @@
             </ul>
         </div>
     </section> 
-
+    <script>
+        $(document).ready(function() {
+            $("#addictive").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: true,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Addictive Games</h2>
         <div class="carousel-container">
-            <ul id="roleplaying" class="light-slider">
+            <ul id="addictive" class="light-slider">
                 <a href="play/slope"><li>
                     <img src="images/slope.png" style="object-fit: cover; height: 195.26px;" alt="Play slope on Blooket1"/>
                 </li></a>
@@ -562,7 +543,16 @@
             </ul>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function() {
+            $("#tools").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: false,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>Tools</h2>
         <div class="carousel-container">
@@ -601,12 +591,21 @@
             </ul>
         </div>
     </section> 
-
+    <script>
+        $(document).ready(function() {
+            $("#all").lightSlider({
+                item: 5,
+                loop: true,
+                rtl: true,
+                thumbItem: 9
+            });
+        })
+    </script>
     <section>
         <h2>All Games</h2>
         <div class="carousel-container">
             <ul id="all" class="light-slider">
-            <li <a href="/">onclick>
+                <a href="play/2048"><li>
                     <img src="images/2048.jpg" style="object-fit: cover; height: 195.26px;"/>
                 </li></a>
                     

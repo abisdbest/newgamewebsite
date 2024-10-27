@@ -82,7 +82,6 @@ nav a {
     font-weight: bold;
 }
 
-/* Add more styles for content, buttons, and other elements to match your desired look */
 .sidebar {
     position: fixed;
     top: 0;
@@ -157,6 +156,7 @@ img {
     border-radius: 5px;
     max-width: 100%;
 }
+
 
 .game-name {
     position: relative;
