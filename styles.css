@@ -300,18 +300,18 @@ img {
 .side1, .side2 {
     position: absolute;
     top: 80px;
-    width: calc(25% - 55px);
+    width: calc(25% - 95px);
     height: 400px; /* Match the height of the game */
     background-color: white; /* Optional for visualization */
 }
 
 .side1 {
-    left: 8px; /* Place on the left side */
+    left: 28px; /* Place on the left side */
 }
 
 .side2 {
-    right: 80px; /* Place on the right side */
-    width: calc(25% - 60px);
+    right: 94px; /* Place on the right side */
+    width: calc(25% - 90px);
 }
 
 /* For screens smaller than 768px (typical for iPhones in portrait mode) */
