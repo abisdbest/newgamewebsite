@@ -7,6 +7,15 @@ def create_html_content(data):
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VNGZND6VMN');
+</script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js#gimkit"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,8 +49,34 @@ def create_html_content(data):
             </div>
         </div>
     </aside>
+    <!-- side of game -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
+     crossorigin="anonymous"></script>
+    <ins class="adsbygoogle side1"
+    style="display:block"
+    data-ad-client="ca-pub-5346759304245799"
+    data-ad-slot="5440051367"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
-    <div id="game-container">
+    <!-- side of game -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
+    crossorigin="anonymous"></script>
+    <ins class="adsbygoogle side2"
+    style="display:block"
+    data-ad-client="ca-pub-5346759304245799"
+    data-ad-slot="5440051367"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <div class="game">
+<div id="game-container">
         <img id="game-image" src="{data["image"]}" alt="Game Image" height="200px">
         <iframe id="game-iframe" src=""></iframe>
         <button id="play-btn" onclick="document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/{data["name"]}/index.html'; this.style.display = 'none'">Play</button>
@@ -71,7 +106,7 @@ def create_html_content(data):
     <div class="g-ads"></div>
 
     <br><br><br><br><br>
-
+    </div>
     <footer>
         <div class="container">
             <p>2024 Blooket1.</p>
