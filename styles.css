@@ -231,8 +231,8 @@ img {
 }
 
 #game-iframe {
-    width: 800px;
-    height: 442px;
+    width: 100%;
+    height: calc(100% - 60px);
     border: none;
 }
 
