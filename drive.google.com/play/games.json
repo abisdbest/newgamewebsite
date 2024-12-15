@@ -199,7 +199,7 @@
     },
     "cookie clicker": {
         "name": "cookie clicker",
-        "image": "/images/cookieclicker.jpg",
+        "image": "/images/cookieclicker.png",
         "onclick": "/play/cookie clicker",
         "categories": ""
     },
