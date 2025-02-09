@@ -37,3 +37,8 @@
 //     localStorage.setItem("surveyDisplayed", "true");
 //   }
 // });
+
+function toggleSearch() {
+  var searchInput = document.getElementById('searchright');
+  searchInput.classList.toggle('active');
+}
