@@ -10,10 +10,6 @@ logo {
     line-height: 1;
 }
 
-section {
-    display: block;
-}
-
 .logo {
     height: 30px;
     width: 30px;
@@ -122,48 +118,6 @@ nav a {
     opacity: 1;
 }
 
-section {
-    padding: 0 20px 0 20px;
-}
-
-.carousel-container {
-    width: calc(100% - 70px);
-    margin: 0;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.light-slider {
-    width: 100%;
-    margin: 0;
-    height: 80px;
-}
-
-.carousel-item {
-    list-style: none;
-}
-
-img {
-    width: 100%;
-    border-radius: 5px;
-    max-width: 100%;
-}
-
-
-.game-name {
-    position: relative;
-    bottom: 40px;
-    left: 85px;
-    padding:  15px 50px 15px 50px;
-    background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://www.stadtteilschule-oejendorf.de/Unterricht/files/stacks_image_2936.png);
-    opacity: 0;
-    z-index: 200;
-}
-
-.game-name:hover {
-    opacity: 1;
-}
-
 .searchbutton:hover {
 	transition-duration: 0.4s;
 	-moz-transition-duration: 0.4s;
@@ -234,6 +188,10 @@ img {
     width: 100%;
     height: calc(100% - 60px);
     border: none;
+}
+
+#game-iframe[src]:not([src=""]) {
+    background-color: white;
 }
 
 #game-image {

@@ -1,496 +1,674 @@
-{
-    "2048": {
-        "name": "2048",
-        "image": "images/2048.jpg",
-        "onclick": "play/2048",
-        "categories": [
-            "Puzzle Games",
-            "Retro Games"
-        ]
+[
+    {
+        "g switch 3": {
+            "game image": "images/g switch 3.webp",
+            "game link": "play/g switch 3",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games",
+                "Retro Games"
+            ]
+        }
     },
-    "alien hominid": {
-        "name": "alien hominid",
-        "image": "images/alienhominid.jpg",
-        "onclick": "play/alien hominid",
-        "categories": [
-            "Popular Games",
-            "Shooting Games"
-        ]
+    {
+        "2048": {
+            "game image": "images/2048.webp",
+            "game link": "play/2048",
+            "game categories": [
+                "Puzzle Games",
+                "Retro Games"
+            ]
+        }
     },
-    "snow rider 3d": {
-        "name": "snow rider 3d",
-        "image": "images/snowrider.jpg",
-        "onclick": "play/snow rider 3d",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "snow rider 3d": {
+            "game image": "images/snowrider.webp",
+            "game link": "play/snow rider 3d",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "monkey mart": {
-        "name": "monkey mart",
-        "image": "images/monkey mart.png",
-        "onclick": "play/monkey mart",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "monkey mart": {
+            "game image": "images/monkey mart.webp",
+            "game link": "play/monkey mart",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "among us": {
-        "name": "among us",
-        "image": "data:image/jpeg;base64,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",
-        "onclick": "https://abisdbest.github.io/classroom.google.com/drive.google.com/among us/",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "minecraft": {
+            "game image": "images/minecraft.webp",
+            "game link": "play/minecraft",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "minecraft": {
-        "name": "minecraft",
-        "image": "images/minecraft.png",
-        "onclick": "play/minecraft",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "temple run 2": {
+            "game image": "images/temple run 2.webp",
+            "game link": "play/temple run 2",
+            "game categories": [
+                "Popular Games"
+            ]
+        }
     },
-    "subway surfers": {
-        "name": "subway surfers",
-        "image": "images/subwaysurfers.jpg",
-        "onclick": "play/subway surfers",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "Escape Road": {
+            "game image": "images/escape road.webp",
+            "game link": "play/escape road/",
+            "game categories": [
+                "Popular Games"
+            ]
+        }
     },
-    "zigzag": {
-        "name": "zigzag",
-        "image": "images/zigzag.jpg",
-        "onclick": "play/zigzag",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "subway surfers": {
+            "game image": "images/subwaysurfers.webp",
+            "game link": "play/subway surfers",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "paperio": {
-        "name": "paperio",
-        "image": "images/paperio.jpg",
-        "onclick": "play/paperio",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "getaway shootout": {
+            "game image": "images/getaway shootout.webp",
+            "game link": "play/getaway shootout/",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games",
+                "Shooting Games"
+            ]
+        }
     },
-    "cubes 2048": {
-        "name": "cubes 2048",
-        "image": "images/cubes 2048.png",
-        "onclick": "play/cubes 2048",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "alien hominid": {
+            "game image": "images/alienhominid.webp",
+            "game link": "play/alien hominid",
+            "game categories": [
+                "Popular Games",
+                "Shooting Games"
+            ]
+        }
     },
-    "soccer random": {
-        "name": "soccer random",
-        "image": "images/soccerrandom.png",
-        "onclick": "play/soccer random",
-        "categories": [
-            "Popular Games",
-            "2 Player Games"
-        ]
+    {
+        "mariokart wii": {
+            "game image": "images/mariokart wii.webp",
+            "game link": "play/mariokart wii/",
+            "game categories": [
+                "Popular Games",
+                "Car / Racing Games"
+            ]
+        }
     },
-    "eggy car": {
-        "name": "eggy car",
-        "image": "images/eggycar.jpg",
-        "onclick": "play/eggy car",
-        "categories": [
-            "Popular Games",
-            "Car / Racing Games",
-            "Addictive Games"
-        ]
+    {
+        "zigzag": {
+            "game image": "images/zigzag.webp",
+            "game link": "play/zigzag",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "boxing random": {
-        "name": "boxing random",
-        "image": "images/boxingrandom.png",
-        "onclick": "play/boxing random",
-        "categories": [
-            "Popular Games",
-            "2 Player Games"
-        ]
+    {
+        "koalas to the max": {
+            "game image": "images/koalas to the max.webp",
+            "game link": "play/koalas to the max/",
+            "game categories": [
+                "Popular Games"
+            ]
+        }
     },
-    "cookie clicker": {
-        "name": "cookie clicker",
-        "image": "images/cookieclicker.png",
-        "onclick": "play/cookie clicker",
-        "categories": [
-            "Popular Games",
-            "Addictive Games"
-        ]
+    {
+        "paperio": {
+            "game image": "images/paperio.webp",
+            "game link": "play/paperio",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "basket random": {
-        "name": "basket random",
-        "image": "images/basketrandom.png",
-        "onclick": "play/basket random",
-        "categories": [
-            "Popular Games",
-            "2 Player Games"
-        ]
+    {
+        "cubes 2048": {
+            "game image": "images/cubes 2048.webp",
+            "game link": "play/cubes 2048",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "volley random": {
-        "name": "volley random",
-        "image": "images/volleyrandom.png",
-        "onclick": "play/volley random",
-        "categories": [
-            "Popular Games",
-            "2 Player Games"
-        ]
+    {
+        "soccer random": {
+            "game image": "images/soccerrandom.webp",
+            "game link": "play/soccer random",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games"
+            ]
+        }
     },
-    "doodle jump": {
-        "name": "doodle jump",
-        "image": "images/doodlejump.png",
-        "onclick": "play/doodle jump",
-        "categories": [
-            "Popular Games",
-            "Shooting Games",
-            "Retro Games",
-            "Addictive Games"
-        ]
+    {
+        "eggy car": {
+            "game image": "images/eggycar.webp",
+            "game link": "play/eggy car",
+            "game categories": [
+                "Popular Games",
+                "Car / Racing Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "rooftop snipers": {
-        "name": "rooftop snipers",
-        "image": "images/rooftop snipers.jpg",
-        "onclick": "play/rooftop snipers",
-        "categories": [
-            "2 Player Games",
-            "Shooting Games"
-        ]
+    {
+        "boxing random": {
+            "game image": "images/boxingrandom.webp",
+            "game link": "play/boxing random",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games"
+            ]
+        }
     },
-    "gswitch": {
-        "name": "gswitch",
-        "image": "images/g-switch.png",
-        "onclick": "play/gswitch",
-        "categories": [
-            "2 Player Games",
-            "Retro Games"
-        ]
+    {
+        "cookie clicker": {
+            "game image": "images/cookieclicker.webp",
+            "game link": "play/cookie clicker",
+            "game categories": [
+                "Popular Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "rocket league": {
-        "name": "rocket league",
-        "image": "images/rocketleague.png",
-        "onclick": "play/rocket league",
-        "categories": [
-            "2 Player Games",
-            "Car / Racing Games"
-        ]
+    {
+        "basket random": {
+            "game image": "images/basketrandom.webp",
+            "game link": "play/basket random",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games"
+            ]
+        }
     },
-    "tank game": {
-        "name": "tank game",
-        "image": "images/tankgame.jpg",
-        "onclick": "play/tank game",
-        "categories": [
-            "2 Player Games",
-            "Car / Racing Games",
-            "Shooting Games"
-        ]
+    {
+        "volley random": {
+            "game image": "images/volleyrandom.webp",
+            "game link": "play/volley random",
+            "game categories": [
+                "Popular Games",
+                "2 Player Games"
+            ]
+        }
     },
-    "fireboy and watergirl": {
-        "name": "fireboy and watergirl",
-        "image": "images/fireboyandwatergirl.jpg",
-        "onclick": "play/fireboy and watergirl",
-        "categories": [
-            "2 Player Games",
-            "Puzzle Games"
-        ]
+    {
+        "doodle jump": {
+            "game image": "images/doodlejump.webp",
+            "game link": "play/doodle jump",
+            "game categories": [
+                "Popular Games",
+                "Shooting Games",
+                "Retro Games",
+                "Addictive Games"
+            ]
+        }
     },
-    "hex gl": {
-        "name": "hex gl",
-        "image": "images/hexgl.png",
-        "onclick": "play/hex gl",
-        "categories": [
-            "Car / Racing Games"
-        ]
+    {
+        "rooftop snipers": {
+            "game image": "images/rooftop snipers.webp",
+            "game link": "play/rooftop snipers",
+            "game categories": [
+                "2 Player Games",
+                "Shooting Games"
+            ]
+        }
     },
-    "moto x3m pool party": {
-        "name": "moto x3m pool party",
-        "image": "images/motox3mpoolparty.webp",
-        "onclick": "play/moto x3m pool party",
-        "categories": [
-            "Car / Racing Games"
-        ]
+    {
+        "rocket league": {
+            "game image": "images/rocketleague.webp",
+            "game link": "play/rocket league",
+            "game categories": [
+                "2 Player Games",
+                "Car / Racing Games"
+            ]
+        }
     },
-    "moto x3m spooky land": {
-        "name": "moto x3m spooky land",
-        "image": "images/motox3mspookyland.jpg",
-        "onclick": "play/moto x3m spooky land",
-        "categories": [
-            "Car / Racing Games"
-        ]
+    {
+        "tank game": {
+            "game image": "images/tankgame.webp",
+            "game link": "play/tank game",
+            "game categories": [
+                "2 Player Games",
+                "Car / Racing Games",
+                "Shooting Games"
+            ]
+        }
     },
-    "happy wheels": {
-        "name": "happy wheels",
-        "image": "images/happywheels.jpg",
-        "onclick": "play/happy wheels",
-        "categories": [
-            "Car / Racing Games"
-        ]
+    {
+        "fireboy and watergirl": {
+            "game image": "images/fireboyandwatergirl.webp",
+            "game link": "play/fireboy and watergirl",
+            "game categories": [
+                "2 Player Games",
+                "Puzzle Games"
+            ]
+        }
     },
-    "traffic racer": {
-        "name": "traffic racer",
-        "image": "images/trafficracer.png",
-        "onclick": "play/traffic racer",
-        "categories": [
-            "Car / Racing Games"
-        ]
+    {
+        "hex gl": {
+            "game image": "images/hexgl.webp",
+            "game link": "play/hex gl",
+            "game categories": [
+                "Car / Racing Games"
+            ]
+        }
     },
-    "war brokers": {
-        "name": "war brokers",
-        "image": "images/warbrokers.jpg",
-        "onclick": "play/war brokers",
-        "categories": [
-            "Shooting Games"
-        ]
+    {
+        "moto x3m pool party": {
+            "game image": "images/motox3mpoolparty.webp",
+            "game link": "play/moto x3m pool party",
+            "game categories": [
+                "Car / Racing Games"
+            ]
+        }
     },
-    "raft wars": {
-        "name": "raft wars",
-        "image": "images/raftwars.png",
-        "onclick": "play/raft wars",
-        "categories": [
-            "Shooting Games"
-        ]
+    {
+        "moto x3m spooky land": {
+            "game image": "images/motox3mspookyland.webp",
+            "game link": "play/moto x3m spooky land",
+            "game categories": [
+                "Car / Racing Games"
+            ]
+        }
     },
-    "impossible quiz": {
-        "name": "impossible quiz",
-        "image": "images/theimpossiblequiz.jpg",
-        "onclick": "play/impossible quiz",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "happy wheels": {
+            "game image": "images/happywheels.webp",
+            "game link": "play/happy wheels",
+            "game categories": [
+                "Car / Racing Games"
+            ]
+        }
     },
-    "impossible quiz 2": {
-        "name": "impossible quiz 2",
-        "image": "images/theimpossiblequiz2.jpg",
-        "onclick": "play/impossible quiz 2",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "traffic racer": {
+            "game image": "images/trafficracer.webp",
+            "game link": "play/traffic racer",
+            "game categories": [
+                "Car / Racing Games"
+            ]
+        }
     },
-    "zork": {
-        "name": "zork",
-        "image": "images/zork.png",
-        "onclick": "play/zork",
-        "categories": [
-            "Puzzle Games",
-            "Retro Games"
-        ]
+    {
+        "pixel battle royale": {
+            "game image": "images/pixelbattleroyale.webp",
+            "game link": "play/pixel battle royale/",
+            "game categories": [
+                "Shooting Games"
+            ]
+        }
     },
-    "bloons td 3": {
-        "name": "bloons td 3",
-        "image": "images/btd3.jpg",
-        "onclick": "play/bloons td 3",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "war brokers": {
+            "game image": "images/warbrokers.webp",
+            "game link": "play/war brokers",
+            "game categories": [
+                "Shooting Games"
+            ]
+        }
     },
-    "cut the rope": {
-        "name": "cut the rope",
-        "image": "images/cuttherope.png",
-        "onclick": "play/cut the rope",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "raft wars": {
+            "game image": "images/raftwars.webp",
+            "game link": "play/raft wars",
+            "game categories": [
+                "Shooting Games"
+            ]
+        }
     },
-    "mem tile": {
-        "name": "mem tile",
-        "image": "images/memtile.jpg",
-        "onclick": "play/mem tile",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "there is no game": {
+            "game image": "images/there is no game.webp",
+            "game link": "play/there is no game/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "mine sweeper": {
-        "name": "mine sweeper",
-        "image": "images/minesweeper.jpg",
-        "onclick": "play/mine sweeper",
-        "categories": [
-            "Puzzle Games",
-            "Retro Games"
-        ]
+    {
+        "escape the bathroom": {
+            "game image": "images/escape the bathroom.webp",
+            "game link": "play/escape the bathroom/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "spider solitare": {
-        "name": "spider solitare",
-        "image": "images/spidersolitare.webp",
-        "onclick": "play/spider solitare",
-        "categories": [
-            "Puzzle Games"
-        ]
+    {
+        "escape the car": {
+            "game image": "images/escape the car.webp",
+            "game link": "play/escape the car/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "tetris": {
-        "name": "tetris",
-        "image": "images/tetris.jpg",
-        "onclick": "play/tetris",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "dont escape": {
+            "game image": "images/dont escape.webp",
+            "game link": "play/dont escape/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "pac-man": {
-        "name": "pac-man",
-        "image": "images/pacman.png",
-        "onclick": "play/pac-man",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "dont escape 2": {
+            "game image": "images/dont escape 2.webp",
+            "game link": "play/dont escape 2/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "pin ball": {
-        "name": "pin ball",
-        "image": "images/pinball.png",
-        "onclick": "play/pin ball",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "dont escape 3": {
+            "game image": "images/dont escape 3.webp",
+            "game link": "play/dont escape 3/",
+            "game categories": [
+                "Escape Room Games"
+            ]
+        }
     },
-    "pong": {
-        "name": "pong",
-        "image": "images/pong.jpg",
-        "onclick": "play/pong",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "impossible quiz": {
+            "game image": "images/theimpossiblequiz.webp",
+            "game link": "play/impossible quiz",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "dino game": {
-        "name": "dino game",
-        "image": "images/dinogame.webp",
-        "onclick": "play/dino game",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "impossible quiz 2": {
+            "game image": "images/theimpossiblequiz2.webp",
+            "game link": "play/impossible quiz 2",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "hard mario": {
-        "name": "hard mario",
-        "image": "images/mario.png",
-        "onclick": "play/hard mario",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "zork": {
+            "game image": "images/zork.webp",
+            "game link": "play/zork",
+            "game categories": [
+                "Puzzle Games",
+                "Retro Games"
+            ]
+        }
     },
-    "flappy bird": {
-        "name": "flappy bird",
-        "image": "images/flappybird.png",
-        "onclick": "play/flappy bird",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "Hextris": {
+            "game image": "images/hextris.webp",
+            "game link": "play/hextris",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "crossy road": {
-        "name": "crossy road",
-        "image": "images/crossyroad.jpg",
-        "onclick": "play/crossy road",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "bloons td 3": {
+            "game image": "images/btd3.webp",
+            "game link": "play/bloons td 3",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "canabalt": {
-        "name": "canabalt",
-        "image": "images/canabalt.jpg",
-        "onclick": "play/canabalt",
-        "categories": [
-            "Retro Games"
-        ]
+    {
+        "cut the rope": {
+            "game image": "images/cuttherope.webp",
+            "game link": "play/cut the rope",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "gbajs": {
-        "name": "gbajs",
-        "image": "images/gba.png",
-        "onclick": "play/gbajs",
-        "categories": [
-            "Retro Games",
-            "Tools"
-        ]
+    {
+        "mem tile": {
+            "game image": "images/memtile.webp",
+            "game link": "play/mem tile",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "theclashman2": {
-        "name": "theclashman2",
-        "image": "images/theclashman2.png",
-        "onclick": "play/theclashman2",
-        "categories": [
-            "Retro Games",
-            "Tools"
-        ]
+    {
+        "mine sweeper": {
+            "game image": "images/minesweeper.webp",
+            "game link": "play/mine sweeper",
+            "game categories": [
+                "Puzzle Games",
+                "Retro Games"
+            ]
+        }
     },
-    "slope": {
-        "name": "slope",
-        "image": "images/slope.png",
-        "onclick": "play/slope",
-        "categories": [
-            "Addictive Games"
-        ]
+    {
+        "spider solitare": {
+            "game image": "images/spidersolitare.webp",
+            "game link": "play/spider solitare",
+            "game categories": [
+                "Puzzle Games"
+            ]
+        }
     },
-    "ice dodo": {
-        "name": "ice dodo",
-        "image": "images/ice-dodo.png",
-        "onclick": "play/ice dodo",
-        "categories": [
-            "Addictive Games"
-        ]
+    {
+        "tetris": {
+            "game image": "images/tetris.webp",
+            "game link": "play/tetris",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "getting over it": {
-        "name": "getting over it",
-        "image": "images/gettingoverit.jpg",
-        "onclick": "play/getting over it",
-        "categories": [
-            "Addictive Games"
-        ]
+    {
+        "pac-man": {
+            "game image": "images/pacman.webp",
+            "game link": "play/pac-man",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "tower building": {
-        "name": "tower building",
-        "image": "images/towerbuilding.jpg",
-        "onclick": "play/tower building",
-        "categories": [
-            "Addictive Games"
-        ]
+    {
+        "pin ball": {
+            "game image": "images/pinball.webp",
+            "game link": "play/pin ball",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "simpleproxy": {
-        "name": "simpleproxy",
-        "image": "images/proxy.jpg",
-        "onclick": "play/simpleproxy",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "pong": {
+            "game image": "images/pong.webp",
+            "game link": "play/pong",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "html editor": {
-        "name": "html editor",
-        "image": "images/htmleditor.jpeg",
-        "onclick": "play/html editor",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "dino game": {
+            "game image": "images/dinogame.webp",
+            "game link": "play/dino game",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "python editor": {
-        "name": "python editor",
-        "image": "images/pythoneditor.jpg",
-        "onclick": "play/python editor",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "hard mario": {
+            "game image": "images/mario.webp",
+            "game link": "play/hard mario",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "github repo editor": {
-        "name": "github repo editor",
-        "image": "images/githubrepoeditor.png",
-        "onclick": "play/github repo editor",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "flappy bird": {
+            "game image": "images/flappybird.webp",
+            "game link": "play/flappy bird",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "sparx": {
-        "name": "sparx",
-        "image": "images/sparx.jpg",
-        "onclick": "play/sparx",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "crossy road": {
+            "game image": "images/crossyroad.webp",
+            "game link": "play/crossy road",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
     },
-    "ask the stars": {
-        "name": "ask the stars",
-        "image": "images/askthestars.jpg",
-        "onclick": "play/ask the stars",
-        "categories": [
-            "Tools"
-        ]
+    {
+        "canabalt": {
+            "game image": "images/canabalt.webp",
+            "game link": "play/canabalt",
+            "game categories": [
+                "Retro Games"
+            ]
+        }
+    },
+    {
+        "gbajs": {
+            "game image": "images/gba.webp",
+            "game link": "play/gbajs",
+            "game categories": [
+                "Retro Games",
+                "Tools"
+            ]
+        }
+    },
+    {
+        "theclashman2": {
+            "game image": "images/theclashman2.webp",
+            "game link": "play/theclashman2",
+            "game categories": [
+                "Retro Games",
+                "Tools"
+            ]
+        }
+    },
+    {
+        "slope": {
+            "game image": "images/slope.webp",
+            "game link": "play/slope",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "ice dodo": {
+            "game image": "images/ice-dodo.webp",
+            "game link": "play/ice dodo",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "bottle flip 3d": {
+            "game image": "images/bottle flip 3d.webp",
+            "game link": "play/bottle flip 3d/",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "universal paperclip": {
+            "game image": "images/universal paperclip.webp",
+            "game link": "play/universal paperclip",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "getting over it": {
+            "game image": "images/gettingoverit.webp",
+            "game link": "play/getting over it",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "tower building": {
+            "game image": "images/towerbuilding.webp",
+            "game link": "play/tower building",
+            "game categories": [
+                "Addictive Games"
+            ]
+        }
+    },
+    {
+        "simpleproxy": {
+            "game image": "images/proxy.webp",
+            "game link": "play/simpleproxy",
+            "game categories": [
+                "Tools"
+            ]
+        }
+    },
+    {
+        "html editor": {
+            "game image": "images/htmleditor.webp",
+            "game link": "play/html editor",
+            "game categories": [
+                "Tools"
+            ]
+        }
+    },
+    {
+        "python editor": {
+            "game image": "images/pythoneditor.webp",
+            "game link": "play/python editor",
+            "game categories": [
+                "Tools"
+            ]
+        }
+    },
+    {
+        "sparx": {
+            "game image": "images/sparx.webp",
+            "game link": "play/sparx",
+            "game categories": [
+                "Tools"
+            ]
+        }
+    },
+    {
+        "ask the stars": {
+            "game image": "images/askthestars.webp",
+            "game link": "play/ask the stars",
+            "game categories": [
+                "Tools"
+            ]
+        }
     }
-}
+]
