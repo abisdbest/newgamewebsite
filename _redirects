@@ -1,0 +1,5 @@
+# Redirect all URLs from blooket1.pages.dev to blooket1.com, except /drive.google.com
+https://blooket1.pages.dev/* https://blooket1.com/:splat 301
+
+# Exclude only the /drive.google.com path from being redirected
+https://blooket1.pages.dev/drive.google.com/* /drive.google.com/:splat 200
