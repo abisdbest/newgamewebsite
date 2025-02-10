@@ -1,1 +1,7 @@
-ErrorDocument 404 404.html
+ErrorDocument 404 /404.html
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^blooket1\.pages\.dev$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.blooket1\.pages\.dev$
+RewriteCond %{REQUEST_URI} !^/drive\.google\.com  # Exclude Google Drive links correctly
+RewriteRule ^(.*)$ https://blooket1.com/$1 [R=301,L]
