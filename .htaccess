@@ -1,13 +1,13 @@
 ErrorDocument 404 /404.html
 
-RewriteEngine On
+# RewriteEngine On
 
 # Redirect from blooket1.pages.dev and www.blooket1.pages.dev
-RewriteCond %{HTTP_HOST} ^blooket1\.pages\.dev$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.blooket1\.pages\.dev$
+# RewriteCond %{HTTP_HOST} ^blooket1\.pages\.dev$ [OR]
+# RewriteCond %{HTTP_HOST} ^www\.blooket1\.pages\.dev$
 
 # Exclude URLs that begin with /drive.google.com (specifically)
-RewriteCond %{REQUEST_URI} !^/drive\.google\.com
+# RewriteCond %{REQUEST_URI} !^/drive\.google\.com
 
 # Perform the 301 Redirect to the new domain
-RewriteRule ^(.*)$ https://blooket1.com/$1 [R=301,L]
+# RewriteRule ^(.*)$ https://blooket1.com/$1 [R=301,L]
