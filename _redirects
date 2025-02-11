@@ -1,5 +1,5 @@
 # Exclude /drive.google.com path first
-/drive.google.com/* /drive.google.com/:splat 200
+# /drive.google.com/* /drive.google.com/:splat 200
 
 # Redirect all other URLs to the new domain, preserving the path
-/* https://blooket1.com/:splat 301
+# /* https://blooket1.com/:splat 301
