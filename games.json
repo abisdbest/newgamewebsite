@@ -79,6 +79,17 @@
         }
     },
     {
+        "block blast": {
+            "game image": "images/block blast.webp",
+            "game link": "play/block blast",
+            "game categories": [
+                "Popular Games",
+                "Puzzle Games",
+                "Addictive Games"
+            ]
+        }
+    },
+    {
         "getaway shootout": {
             "game image": "images/getaway shootout.webp",
             "game link": "play/getaway shootout/",
