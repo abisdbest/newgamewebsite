@@ -43,7 +43,7 @@ function toggleSearch() {
   searchInput.classList.toggle('active');
 }
 
-if (window.location.hostname === 'blooket1.com') {
-  alert('Sorry, blooket1.com is not ready for public use yet. Please use blooket1.pages.dev. Thank you!');
-  window.location.href = 'https://blooket1.pages.dev';
-}
+// if (window.location.hostname === 'blooket1.com') {
+//   alert('Sorry, blooket1.com is not ready for public use yet. Please use blooket1.pages.dev. Thank you!');
+//   window.location.href = 'https://blooket1.pages.dev';
+// }
