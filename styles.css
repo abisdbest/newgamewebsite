@@ -272,44 +272,102 @@ nav a {
     width: calc(25% - 90px);
 }
 
-#blooket-transfer-notification {
+/* Notification on blooket1.pages.dev (Old Site) */
+#blooket-migration-notification {
+    position: fixed;         /* Fixed position at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24;         /* Dark red text */
+    border-bottom: 2px solid #f5c6cb; /* Lighter red border */
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;          /* Ensure it's on top of other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
+  
+  #blooket-migration-notification a {
+    color: #007bff; /* Blue link color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  #blooket-migration-notification a:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
+  
+  #blooket-notification-close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #721c24; /* Match main notification text color*/
+      padding: 0;
+      line-height: 1;
+  }
+  #blooket-notification-close:hover {
+    color: #000; /* Darker on hover */
+  }
+  #blooket-migration-notification p {
+    margin: 0; /* Remove default paragraph margins */
+    display: inline-block; /* Allow close button to be next to it */
+    vertical-align: middle;
+  }
+  #blooket-transfer-button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;          /* Make the button a block element */
+    margin-left: auto;     /* Center horizontally */
+    margin-right: auto;    /* Center horizontally */
+  }
+  
+  #blooket-transfer-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Notification on blooket1.com (New Site - Data Received) */
+  #blooket-migration-notification-received {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #d4edda; /* Light green background */
-    color: #155724; /* Dark green text */
+    background-color: #d4edda; /* Light green */
+    color: #155724;        /* Dark Green */
     border-bottom: 2px solid #c3e6cb;
     padding: 15px;
     text-align: center;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-#blooket-transfer-notification a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-#blooket-transfer-notification a:hover {
-    text-decoration: underline;
-}
-
-#blooket-transfer-button {
-    background-color: #28a745; /* Green button */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-#blooket-transfer-button:disabled {
-    background-color: #ccc; /* Gray out when disabled */
-    cursor: not-allowed;
-}
+  }
+  #blooket-migration-notification-received button{
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #155724; /* Match main notification text color*/
+      padding: 0;
+      line-height: 1;
+  }
+  #blooket-migration-notification-received button:hover{
+      color: #000;
+  }
+  #blooket-migration-notification-received p{
+      margin: 0;
+      display: inline-block;
+      vertical-align: middle;
+  }
 
 /* For screens smaller than 768px (typical for iPhones in portrait mode) */
 @media screen and (max-width: 767px) {

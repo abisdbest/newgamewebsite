@@ -48,116 +48,109 @@ function toggleSearch() {
 //   window.location.href = 'https://blooket1.pages.dev';
 // }
 
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.hostname === 'blooket1.com') {
-      return; // Don't run on the development site
-  }
-  console.log('DOM fully loaded and parsed.');
 
-  // --- Collect ALL localStorage data ---
-  const allData = {};
-  for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      try {
-          // Attempt to parse as JSON; if it fails, store as a plain string
-          allData[key] = JSON.parse(localStorage.getItem(key));
-      } catch (e) {
-          allData[key] = localStorage.getItem(key); // Store as string if parsing fails
-      }
-  }
-  console.log('Collected localStorage data:', allData);
+// document.addEventListener('DOMContentLoaded', function() {
+//   // Check if there's *any* localStorage data. If not, no need to show the button.
+//   if (localStorage.length === 0) {
+//       return;
+//   }
 
-  // --- Only proceed if there's any data to transfer ---
-  if (Object.keys(allData).length === 0) {
-      console.log('No data to transfer.');
-      return; // No data to transfer
-  }
+//   // Create the notification container
+//   const notificationContainer = document.createElement('div');
+//   notificationContainer.id = 'blooket-migration-notification';
 
-  // --- Create the notification/transfer UI ---
-  const transferContainer = document.createElement('div');
-  transferContainer.id = 'blooket-transfer-notification';
+//   // Create the message element
+//   const message = document.createElement('p');
+//   message.innerHTML = '<strong>We\'re moving to <a href="https://blooket1.com" target="_blank">blooket1.com</a>!</strong> Click below to attempt to transfer your game progress.';
 
-  const message = document.createElement('p');
-  message.innerHTML = '<strong>We\'re moving to <a href="https://blooket1.com" target="_blank">blooket1.com</a>!</strong> Click below to transfer your game progress.';
+//   // Create the transfer button
+//   const transferButton = document.createElement('button');
+//   transferButton.textContent = 'Transfer Progress';
+//   transferButton.id = 'blooket-transfer-button';
 
-  const transferButton = document.createElement('button');
-  transferButton.textContent = 'Transfer Progress';
-  transferButton.id = 'blooket-transfer-button';
+//    // Create the close button
+//   const closeButton = document.createElement('button');
+//   closeButton.textContent = 'X';
+//   closeButton.id = 'blooket-notification-close';
 
-  transferContainer.appendChild(message);
-  transferContainer.appendChild(transferButton);
-  document.body.appendChild(transferContainer);
-  console.log('Transfer UI created.');
+//   // Add elements to the container
+//   notificationContainer.appendChild(closeButton);
+//   notificationContainer.appendChild(message);
+//   notificationContainer.appendChild(transferButton);
 
-  // --- Add the transfer button click handler ---
-  transferButton.addEventListener('click', function() {
-      console.log('Transfer button clicked.');
-      const newWindow = window.open('https://blooket1.com', '_blank');
+//   // Add the container to the body
+//   document.body.appendChild(notificationContainer);
 
-      newWindow.onload = () => {
-          try {
-              // Stringify the ENTIRE data object
-              const dataToSend = JSON.stringify(allData);
-              console.log('Data to send:', dataToSend);
+//   // Add event listener to the transfer button
+//   transferButton.addEventListener('click', function() {
+//       const newWindow = window.open('/', '_blank'); // Open in new tab
 
-              newWindow.postMessage({ type: 'blooketAllGameData', data: dataToSend }, 'https://blooket1.com');
+//       // Important: wait for the new window to load before sending the message
+//       newWindow.onload = () => {
+//           // Create an object to hold all localStorage data
+//           const allData = {};
 
-              transferButton.textContent = 'Progress Transferred!';
-              transferButton.disabled = true;
-              console.log('Progress transferred.');
+//           // Iterate through all localStorage keys
+//           for (let i = 0; i < localStorage.length; i++) {
+//               const key = localStorage.key(i);
+//               allData[key] = localStorage.getItem(key);
+//           }
 
-              // redirect after 5 sec
-              setTimeout(() => {
-                  window.location.replace("https://blooket1.com");
-              }, 5000); // 5000 milliseconds = 5 seconds
-          } catch (error) {
-              console.error('Error transferring data:', error);
-              transferButton.textContent = 'Transfer Failed';
-          }
-      };
-      newWindow.onerror = () => {
-          console.error('New window failed to load');
-          transferButton.textContent = 'Transfer Failed';
-      }
-  });
-});
+//           // Send the data via postMessage
+//           newWindow.postMessage({ type: 'allGameData', data: allData }, 'https://blooket1.com');
+//           notificationContainer.style.display = 'none'; // Hide the notification. No need for a flag.
 
-window.addEventListener('message', (event) => {
-  // VERY IMPORTANT: Check the origin!
-  if (event.origin !== 'https://blooket1.pages.dev') {
-      console.log("Received message from:", event.origin, "Expected: https://blooket1.pages.dev - Ignoring"); // Debug Log
-      // return; // Ignore messages from other origins
-  }
+//       };
+//   });
 
-  console.log("Received message:", event.data); // Debug Log: Full message
+//     // Add event listener to the close button
+//       closeButton.addEventListener('click', function() {
+//           notificationContainer.style.display = 'none'; // Hide the notification
+//       });
+// });
 
-  if (event.data.type === 'blooketAllGameData') {
-      try {
-          const receivedData = JSON.parse(event.data.data);
-          console.log("Parsed data:", receivedData); // Debug Log: Parsed data
+// window.addEventListener('message', (event) => {
+//   // IMPORTANT: Check the origin!  This is crucial for security.
+//   // if (event.origin =!== 'https://blooket1.pages.dev') {
+//       if (event.data.type === 'allGameData') {
+//           const receivedData = event.data.data;
 
-          // Iterate through the received data and set each key-value pair
-          for (const key in receivedData) {
-              if (receivedData.hasOwnProperty(key)) {
-                  try {
-                      // Attempt to stringify; store as plain string if it's not an object
-                      localStorage.setItem(key, JSON.stringify(receivedData[key]));
-                      console.log(`Set localStorage key: ${key}`); // Debug Log: Key set
-                  } catch (e) {
-                      localStorage.setItem(key, receivedData[key]); // Store as string
-                      console.log(`Set localStorage key (as string): ${key}`); // Debug Log: Key set (as string)
-                  }
-              }
-          }
+//           // Iterate through the received data and set it in localStorage
+//           for (const key in receivedData) {
+//               if (receivedData.hasOwnProperty(key)) { // Important: check for own properties
+//                   try {
+//                       localStorage.setItem(key, receivedData[key]);
+//                   } catch (e) {
+//                       console.error('Error setting localStorage item:', key, e);
+//                       // Handle potential errors (e.g., quota exceeded)
+//                   }
+//               }
+//           }
+//             // Notify the user (optional, but recommended)
+//             const notificationContainer = document.createElement('div');
+//             notificationContainer.id = 'blooket-migration-notification-received';
 
-          console.log('All game data received and saved!');
-      } catch (error) {
-          console.error('Error receiving data:', error);
-          console.log("Raw data causing error:", event.data.data); // Debug Log: Raw data
-      }
-  } else { //debug for wrong type
-      console.log("wrong type", event.data.type)
-  }
-});
+//           // Create the message element
+//           const message = document.createElement('p');
+//           message.textContent = 'Game progress data received. Refresh to see if it worked!';
 
-console.log("Message listener is active on this page."); // Add this line
+//           // Create the close button
+//           const closeButton = document.createElement('button');
+//           closeButton.textContent = 'X';
+
+//               // Add elements to the container
+//           notificationContainer.appendChild(closeButton);
+//           notificationContainer.appendChild(message);
+
+
+//           // Add the container to the body
+//           document.body.appendChild(notificationContainer);
+
+//             closeButton.addEventListener('click', function() {
+//               notificationContainer.style.display = 'none';
+//               });
+
+//       }
+//   // }
+// });
+// console.log("Message listener is active on this page."); // Add this line
