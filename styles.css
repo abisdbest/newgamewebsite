@@ -272,6 +272,45 @@ nav a {
     width: calc(25% - 90px);
 }
 
+#blooket-transfer-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    border-bottom: 2px solid #c3e6cb;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#blooket-transfer-notification a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#blooket-transfer-notification a:hover {
+    text-decoration: underline;
+}
+
+#blooket-transfer-button {
+    background-color: #28a745; /* Green button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#blooket-transfer-button:disabled {
+    background-color: #ccc; /* Gray out when disabled */
+    cursor: not-allowed;
+}
+
 /* For screens smaller than 768px (typical for iPhones in portrait mode) */
 @media screen and (max-width: 767px) {
     /* Adjust styles here */
