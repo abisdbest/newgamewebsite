@@ -49,6 +49,7 @@ function toggleSearch() {
 // }
 
 // document.addEventListener('DOMContentLoaded', function() {
+//   console.log('DOM fully loaded and parsed.');
 
 //   // --- Collect ALL localStorage data ---
 //   const allData = {};
@@ -61,9 +62,11 @@ function toggleSearch() {
 //           allData[key] = localStorage.getItem(key); // Store as string if parsing fails
 //       }
 //   }
+//   console.log('Collected localStorage data:', allData);
 
 //   // --- Only proceed if there's any data to transfer ---
 //   if (Object.keys(allData).length === 0) {
+//       console.log('No data to transfer.');
 //       return; // No data to transfer
 //   }
 
@@ -81,23 +84,26 @@ function toggleSearch() {
 //   transferContainer.appendChild(message);
 //   transferContainer.appendChild(transferButton);
 //   document.body.appendChild(transferContainer);
-
+//   console.log('Transfer UI created.');
 
 //   // --- Add the transfer button click handler ---
 //   transferButton.addEventListener('click', function() {
+//       console.log('Transfer button clicked.');
 //       const newWindow = window.open('https://blooket1.com', '_blank');
 
 //       newWindow.onload = () => {
 //           try {
 //               // Stringify the ENTIRE data object
 //               const dataToSend = JSON.stringify(allData);
+//               console.log('Data to send:', dataToSend);
 
 //               newWindow.postMessage({ type: 'blooketAllGameData', data: dataToSend }, 'https://blooket1.com');
 
 //               transferButton.textContent = 'Progress Transferred!';
 //               transferButton.disabled = true;
+//               console.log('Progress transferred.');
 
-//                // redirect after 5 sec
+//               // redirect after 5 sec
 //               setTimeout(() => {
 //                   window.location.replace("https://blooket1.com");
 //               }, 5000); // 5000 milliseconds = 5 seconds
@@ -114,13 +120,18 @@ function toggleSearch() {
 // });
 
 window.addEventListener('message', (event) => {
+  // VERY IMPORTANT: Check the origin!
   if (event.origin !== 'https://blooket1.pages.dev') {
-      return;
+      console.log("Received message from:", event.origin, "Expected: https://blooket1.pages.dev - Ignoring"); // Debug Log
+      // return; // Ignore messages from other origins
   }
+
+  console.log("Received message:", event.data); // Debug Log: Full message
 
   if (event.data.type === 'blooketAllGameData') {
       try {
           const receivedData = JSON.parse(event.data.data);
+          console.log("Parsed data:", receivedData); // Debug Log: Parsed data
 
           // Iterate through the received data and set each key-value pair
           for (const key in receivedData) {
@@ -128,8 +139,10 @@ window.addEventListener('message', (event) => {
                   try {
                       // Attempt to stringify; store as plain string if it's not an object
                       localStorage.setItem(key, JSON.stringify(receivedData[key]));
+                      console.log(`Set localStorage key: ${key}`); // Debug Log: Key set
                   } catch (e) {
                       localStorage.setItem(key, receivedData[key]); // Store as string
+                      console.log(`Set localStorage key (as string): ${key}`); // Debug Log: Key set (as string)
                   }
               }
           }
@@ -137,6 +150,11 @@ window.addEventListener('message', (event) => {
           console.log('All game data received and saved!');
       } catch (error) {
           console.error('Error receiving data:', error);
+          console.log("Raw data causing error:", event.data.data); // Debug Log: Raw data
       }
+  } else { //debug for wrong type
+      console.log("wrong type", event.data.type)
   }
 });
+
+console.log("Message listener is active on this page."); // Add this line
