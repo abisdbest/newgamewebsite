@@ -49,7 +49,7 @@ function toggleSearch() {
 // }
 
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.hostname === 'blooket1.pages.dev') {
+  if (window.location.hostname !== 'blooket1.pages.dev') {
       return; // Don't run on the development site
   }
   console.log('DOM fully loaded and parsed.');
