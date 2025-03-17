@@ -48,76 +48,76 @@ function toggleSearch() {
 //   window.location.href = 'https://blooket1.pages.dev';
 // }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   console.log('DOM fully loaded and parsed.');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM fully loaded and parsed.');
 
-//   // --- Collect ALL localStorage data ---
-//   const allData = {};
-//   for (let i = 0; i < localStorage.length; i++) {
-//       const key = localStorage.key(i);
-//       try {
-//           // Attempt to parse as JSON; if it fails, store as a plain string
-//           allData[key] = JSON.parse(localStorage.getItem(key));
-//       } catch (e) {
-//           allData[key] = localStorage.getItem(key); // Store as string if parsing fails
-//       }
-//   }
-//   console.log('Collected localStorage data:', allData);
+  // --- Collect ALL localStorage data ---
+  const allData = {};
+  for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      try {
+          // Attempt to parse as JSON; if it fails, store as a plain string
+          allData[key] = JSON.parse(localStorage.getItem(key));
+      } catch (e) {
+          allData[key] = localStorage.getItem(key); // Store as string if parsing fails
+      }
+  }
+  console.log('Collected localStorage data:', allData);
 
-//   // --- Only proceed if there's any data to transfer ---
-//   if (Object.keys(allData).length === 0) {
-//       console.log('No data to transfer.');
-//       return; // No data to transfer
-//   }
+  // --- Only proceed if there's any data to transfer ---
+  if (Object.keys(allData).length === 0) {
+      console.log('No data to transfer.');
+      return; // No data to transfer
+  }
 
-//   // --- Create the notification/transfer UI ---
-//   const transferContainer = document.createElement('div');
-//   transferContainer.id = 'blooket-transfer-notification';
+  // --- Create the notification/transfer UI ---
+  const transferContainer = document.createElement('div');
+  transferContainer.id = 'blooket-transfer-notification';
 
-//   const message = document.createElement('p');
-//   message.innerHTML = '<strong>We\'re moving to <a href="https://blooket1.com" target="_blank">blooket1.com</a>!</strong> Click below to transfer your game progress.';
+  const message = document.createElement('p');
+  message.innerHTML = '<strong>We\'re moving to <a href="https://blooket1.com" target="_blank">blooket1.com</a>!</strong> Click below to transfer your game progress.';
 
-//   const transferButton = document.createElement('button');
-//   transferButton.textContent = 'Transfer Progress';
-//   transferButton.id = 'blooket-transfer-button';
+  const transferButton = document.createElement('button');
+  transferButton.textContent = 'Transfer Progress';
+  transferButton.id = 'blooket-transfer-button';
 
-//   transferContainer.appendChild(message);
-//   transferContainer.appendChild(transferButton);
-//   document.body.appendChild(transferContainer);
-//   console.log('Transfer UI created.');
+  transferContainer.appendChild(message);
+  transferContainer.appendChild(transferButton);
+  document.body.appendChild(transferContainer);
+  console.log('Transfer UI created.');
 
-//   // --- Add the transfer button click handler ---
-//   transferButton.addEventListener('click', function() {
-//       console.log('Transfer button clicked.');
-//       const newWindow = window.open('https://blooket1.com', '_blank');
+  // --- Add the transfer button click handler ---
+  transferButton.addEventListener('click', function() {
+      console.log('Transfer button clicked.');
+      const newWindow = window.open('https://blooket1.com', '_blank');
 
-//       newWindow.onload = () => {
-//           try {
-//               // Stringify the ENTIRE data object
-//               const dataToSend = JSON.stringify(allData);
-//               console.log('Data to send:', dataToSend);
+      newWindow.onload = () => {
+          try {
+              // Stringify the ENTIRE data object
+              const dataToSend = JSON.stringify(allData);
+              console.log('Data to send:', dataToSend);
 
-//               newWindow.postMessage({ type: 'blooketAllGameData', data: dataToSend }, 'https://blooket1.com');
+              newWindow.postMessage({ type: 'blooketAllGameData', data: dataToSend }, 'https://blooket1.com');
 
-//               transferButton.textContent = 'Progress Transferred!';
-//               transferButton.disabled = true;
-//               console.log('Progress transferred.');
+              transferButton.textContent = 'Progress Transferred!';
+              transferButton.disabled = true;
+              console.log('Progress transferred.');
 
-//               // redirect after 5 sec
-//               setTimeout(() => {
-//                   window.location.replace("https://blooket1.com");
-//               }, 5000); // 5000 milliseconds = 5 seconds
-//           } catch (error) {
-//               console.error('Error transferring data:', error);
-//               transferButton.textContent = 'Transfer Failed';
-//           }
-//       };
-//       newWindow.onerror = () => {
-//           console.error('New window failed to load');
-//           transferButton.textContent = 'Transfer Failed';
-//       }
-//   });
-// });
+              // redirect after 5 sec
+              setTimeout(() => {
+                  window.location.replace("https://blooket1.com");
+              }, 5000); // 5000 milliseconds = 5 seconds
+          } catch (error) {
+              console.error('Error transferring data:', error);
+              transferButton.textContent = 'Transfer Failed';
+          }
+      };
+      newWindow.onerror = () => {
+          console.error('New window failed to load');
+          transferButton.textContent = 'Transfer Failed';
+      }
+  });
+});
 
 window.addEventListener('message', (event) => {
   // VERY IMPORTANT: Check the origin!
