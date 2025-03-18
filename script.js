@@ -51,25 +51,26 @@ function toggleSearch() {
 
 document.addEventListener("DOMContentLoaded", function () {
   const KEY = "migration_shown"; // To prevent showing the message multiple times
+  const CURRENT_DOMAIN = location.hostname; // Gets current domain
 
-  // Check if the message has already been shown
-  if (localStorage.getItem(KEY)) return;
+  // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
+  if (CURRENT_DOMAIN === "blooket1.pages.dev" && !localStorage.getItem(KEY)) {
+      // Create the migration popup
+      const popup = document.createElement("div");
+      popup.id = "migration-popup";
+      popup.innerHTML = `
+          <p>Blooket1 is migrating to blooket1.com!</p>
+          <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
+          <button id="redirect-btn">Go to blooket1.com</button>
+      `;
+      document.body.appendChild(popup);
 
-  // Create the migration popup
-  const popup = document.createElement("div");
-  popup.id = "migration-popup";
-  popup.innerHTML = `
-      <p>Blooket1 is migrating to blooket1.com!</p>
-      <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
-      <button id="redirect-btn">Go to blooket1.com</button>
-  `;
-  document.body.appendChild(popup);
+      // Handle button click for redirect
+      document.getElementById("redirect-btn").onclick = function () {
+          window.location.href = "https://blooket1.com";
+      };
 
-  // Handle button click for redirect
-  document.getElementById("redirect-btn").onclick = function () {
-      window.location.href = "https://blooket1.com";
-  };
-
-  // Mark the migration message as shown
-  localStorage.setItem(KEY, "true");
+      // Mark the migration message as shown
+      localStorage.setItem(KEY, "true");
+  }
 });
