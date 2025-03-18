@@ -53,14 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const KEY = "storage_migrated"; // Prevents multiple migrations
 
   // Prevent script from running if migration already completed
-  if (localStorage.getItem(KEY)) return;
+  if (localStorage.getItem(KEY)) {
+      console.log("Migration already completed. Skipping...");
+      return;
+  }
 
   // Save all localStorage data to sessionStorage
   const allStorage = {};
   Object.keys(localStorage).forEach((key) => {
       allStorage[key] = localStorage.getItem(key);
+      console.log(`Saving key "${key}" to sessionStorage.`);
   });
   sessionStorage.setItem("migratedStorage", JSON.stringify(allStorage));
+  console.log("All localStorage data has been saved to sessionStorage.");
 
   // Create the migration popup
   const popup = document.createElement("div");
@@ -70,26 +75,35 @@ document.addEventListener("DOMContentLoaded", function () {
       <button id="migrate-btn">Continue</button>
   `;
   document.body.appendChild(popup);
+  console.log("Migration popup created and added to the page.");
 
   // Handle button click
   document.getElementById("migrate-btn").onclick = function () {
+      console.log("Migration button clicked. Preparing to redirect...");
       popup.style.opacity = "0"; // Fade out effect
       setTimeout(() => {
           // Redirect to the new domain
+          console.log("Redirecting to blooket1.com...");
           location.href = "https://blooket1.com";
       }, 500);
   };
 
   // If on blooket1.com, restore data
   if (location.hostname === "blooket1.com") {
+      console.log("On blooket1.com. Restoring localStorage data...");
       const savedData = sessionStorage.getItem("migratedStorage");
       if (savedData) {
           const parsedData = JSON.parse(savedData);
           Object.keys(parsedData).forEach((key) => {
               localStorage.setItem(key, parsedData[key]);
+              console.log(`Restoring key "${key}" to localStorage.`);
           });
+          sessionStorage.removeItem("migratedStorage"); // Clean up sessionStorage
+          console.log("Migration data restored from sessionStorage.");
+      } else {
+          console.log("No migrated storage found in sessionStorage.");
       }
-      sessionStorage.removeItem("migratedStorage"); // Clean up sessionStorage
       localStorage.setItem(KEY, "true"); // Mark migration as complete
+      console.log("Migration marked as complete.");
   }
 });
