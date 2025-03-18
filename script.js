@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const CURRENT_DOMAIN = location.hostname; // Gets current domain
 
   // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
-  if (CURRENT_DOMAIN === "blooket1.pages.dev" && !localStorage.getItem(KEY)) {
+  if (CURRENT_DOMAIN === "blooket1.pages.dev") {
       // Create the migration popup
       const popup = document.createElement("div");
       popup.id = "migration-popup";
