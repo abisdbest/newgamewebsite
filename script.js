@@ -50,60 +50,26 @@ function toggleSearch() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const KEY = "storage_migrated"; // Prevents multiple migrations
+  const KEY = "migration_shown"; // To prevent showing the message multiple times
 
-  // Prevent script from running if migration already completed
-  if (localStorage.getItem(KEY)) {
-      console.log("Migration already completed. Skipping...");
-      return;
-  }
-
-  // Save all localStorage data to sessionStorage
-  const allStorage = {};
-  Object.keys(localStorage).forEach((key) => {
-      allStorage[key] = localStorage.getItem(key);
-      console.log(`Saving key "${key}" to sessionStorage.`);
-  });
-  sessionStorage.setItem("migratedStorage", JSON.stringify(allStorage));
-  console.log("All localStorage data has been saved to sessionStorage.");
+  // Check if the message has already been shown
+  if (localStorage.getItem(KEY)) return;
 
   // Create the migration popup
   const popup = document.createElement("div");
-  popup.id = "storage-migration-popup";
+  popup.id = "migration-popup";
   popup.innerHTML = `
-      <p>Your game progress is being migrated to our new site!</p>
-      <button id="migrate-btn">Continue</button>
+      <p>Blooket1 is migrating to blooket1.com!</p>
+      <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
+      <button id="redirect-btn">Go to blooket1.com</button>
   `;
   document.body.appendChild(popup);
-  console.log("Migration popup created and added to the page.");
 
-  // Handle button click
-  document.getElementById("migrate-btn").onclick = function () {
-      console.log("Migration button clicked. Preparing to redirect...");
-      popup.style.opacity = "0"; // Fade out effect
-      setTimeout(() => {
-          // Redirect to the new domain
-          console.log("Redirecting to blooket1.com...");
-          location.href = "https://blooket1.com";
-      }, 500);
+  // Handle button click for redirect
+  document.getElementById("redirect-btn").onclick = function () {
+      window.location.href = "https://blooket1.com";
   };
 
-  // If on blooket1.com, restore data
-  if (location.hostname === "blooket1.com") {
-      console.log("On blooket1.com. Restoring localStorage data...");
-      const savedData = sessionStorage.getItem("migratedStorage");
-      if (savedData) {
-          const parsedData = JSON.parse(savedData);
-          Object.keys(parsedData).forEach((key) => {
-              localStorage.setItem(key, parsedData[key]);
-              console.log(`Restoring key "${key}" to localStorage.`);
-          });
-          sessionStorage.removeItem("migratedStorage"); // Clean up sessionStorage
-          console.log("Migration data restored from sessionStorage.");
-      } else {
-          console.log("No migrated storage found in sessionStorage.");
-      }
-      localStorage.setItem(KEY, "true"); // Mark migration as complete
-      console.log("Migration marked as complete.");
-  }
+  // Mark the migration message as shown
+  localStorage.setItem(KEY, "true");
 });

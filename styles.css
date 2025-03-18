@@ -272,7 +272,7 @@ nav a {
     width: calc(25% - 90px);
 }
 
-#storage-migration-popup {
+#migration-popup {
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -289,12 +289,21 @@ nav a {
     z-index: 1000;
 }
 
-#storage-migration-popup p {
+#migration-popup p {
     margin: 0 0 10px;
     font-weight: bold;
 }
 
-#migrate-btn {
+#migration-popup a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+#migration-popup a:hover {
+    text-decoration: underline;
+}
+
+#redirect-btn {
     background: #ffcc00;
     color: #222;
     border: none;
@@ -306,7 +315,7 @@ nav a {
     transition: background 0.3s ease;
 }
 
-#migrate-btn:hover {
+#redirect-btn:hover {
     background: #ffdd44;
 }
 
