@@ -49,108 +49,47 @@ function toggleSearch() {
 // }
 
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   // Check if there's *any* localStorage data. If not, no need to show the button.
-//   if (localStorage.length === 0) {
-//       return;
-//   }
+document.addEventListener("DOMContentLoaded", function () {
+  const KEY = "storage_migrated"; // Prevents multiple migrations
 
-//   // Create the notification container
-//   const notificationContainer = document.createElement('div');
-//   notificationContainer.id = 'blooket-migration-notification';
+  // Prevent script from running if migration already completed
+  if (localStorage.getItem(KEY)) return;
 
-//   // Create the message element
-//   const message = document.createElement('p');
-//   message.innerHTML = '<strong>We\'re moving to <a href="https://blooket1.com" target="_blank">blooket1.com</a>!</strong> Click below to attempt to transfer your game progress.';
+  // Save all localStorage data to sessionStorage
+  const allStorage = {};
+  Object.keys(localStorage).forEach((key) => {
+      allStorage[key] = localStorage.getItem(key);
+  });
+  sessionStorage.setItem("migratedStorage", JSON.stringify(allStorage));
 
-//   // Create the transfer button
-//   const transferButton = document.createElement('button');
-//   transferButton.textContent = 'Transfer Progress';
-//   transferButton.id = 'blooket-transfer-button';
+  // Create the migration popup
+  const popup = document.createElement("div");
+  popup.id = "storage-migration-popup";
+  popup.innerHTML = `
+      <p>Your game progress is being migrated to our new site!</p>
+      <button id="migrate-btn">Continue</button>
+  `;
+  document.body.appendChild(popup);
 
-//    // Create the close button
-//   const closeButton = document.createElement('button');
-//   closeButton.textContent = 'X';
-//   closeButton.id = 'blooket-notification-close';
+  // Handle button click
+  document.getElementById("migrate-btn").onclick = function () {
+      popup.style.opacity = "0"; // Fade out effect
+      setTimeout(() => {
+          // Redirect to the new domain
+          location.href = "https://blooket1.com";
+      }, 500);
+  };
 
-//   // Add elements to the container
-//   notificationContainer.appendChild(closeButton);
-//   notificationContainer.appendChild(message);
-//   notificationContainer.appendChild(transferButton);
-
-//   // Add the container to the body
-//   document.body.appendChild(notificationContainer);
-
-//   // Add event listener to the transfer button
-//   transferButton.addEventListener('click', function() {
-//       const newWindow = window.open('/', '_blank'); // Open in new tab
-
-//       // Important: wait for the new window to load before sending the message
-//       newWindow.onload = () => {
-//           // Create an object to hold all localStorage data
-//           const allData = {};
-
-//           // Iterate through all localStorage keys
-//           for (let i = 0; i < localStorage.length; i++) {
-//               const key = localStorage.key(i);
-//               allData[key] = localStorage.getItem(key);
-//           }
-
-//           // Send the data via postMessage
-//           newWindow.postMessage({ type: 'allGameData', data: allData }, 'https://blooket1.com');
-//           notificationContainer.style.display = 'none'; // Hide the notification. No need for a flag.
-
-//       };
-//   });
-
-//     // Add event listener to the close button
-//       closeButton.addEventListener('click', function() {
-//           notificationContainer.style.display = 'none'; // Hide the notification
-//       });
-// });
-
-// window.addEventListener('message', (event) => {
-//   // IMPORTANT: Check the origin!  This is crucial for security.
-//   // if (event.origin =!== 'https://blooket1.pages.dev') {
-//       if (event.data.type === 'allGameData') {
-//           const receivedData = event.data.data;
-
-//           // Iterate through the received data and set it in localStorage
-//           for (const key in receivedData) {
-//               if (receivedData.hasOwnProperty(key)) { // Important: check for own properties
-//                   try {
-//                       localStorage.setItem(key, receivedData[key]);
-//                   } catch (e) {
-//                       console.error('Error setting localStorage item:', key, e);
-//                       // Handle potential errors (e.g., quota exceeded)
-//                   }
-//               }
-//           }
-//             // Notify the user (optional, but recommended)
-//             const notificationContainer = document.createElement('div');
-//             notificationContainer.id = 'blooket-migration-notification-received';
-
-//           // Create the message element
-//           const message = document.createElement('p');
-//           message.textContent = 'Game progress data received. Refresh to see if it worked!';
-
-//           // Create the close button
-//           const closeButton = document.createElement('button');
-//           closeButton.textContent = 'X';
-
-//               // Add elements to the container
-//           notificationContainer.appendChild(closeButton);
-//           notificationContainer.appendChild(message);
-
-
-//           // Add the container to the body
-//           document.body.appendChild(notificationContainer);
-
-//             closeButton.addEventListener('click', function() {
-//               notificationContainer.style.display = 'none';
-//               });
-
-//       }
-//   // }
-// });
-// console.log("Message listener is active on this page."); // Add this line
+  // If on blooket1.com, restore data
+  if (location.hostname === "blooket1.com") {
+      const savedData = sessionStorage.getItem("migratedStorage");
+      if (savedData) {
+          const parsedData = JSON.parse(savedData);
+          Object.keys(parsedData).forEach((key) => {
+              localStorage.setItem(key, parsedData[key]);
+          });
+      }
+      sessionStorage.removeItem("migratedStorage"); // Clean up sessionStorage
+      localStorage.setItem(KEY, "true"); // Mark migration as complete
+  }
+});
