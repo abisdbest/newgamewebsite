@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const CURRENT_DOMAIN = location.hostname; // Gets current domain
 
   // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
-  if (CURRENT_DOMAIN === "blooket1.pages.dev") {
+  if (CURRENT_DOMAIN === "blooket1.pages.dev" && !localStorage.getItem(KEY)) {
       // Create the migration popup
       const popup = document.createElement("div");
       popup.id = "migration-popup";
       popup.innerHTML = `
-          <p>Blooket1 is migrating to blooket1.com!</p>
+          <p style="font-weight: bold; color: red;">Important: Blooket1.pages.dev will be taken down soon! Please migrate to blooket1.com.</p>
           <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
           <button id="redirect-btn">Go to blooket1.com</button>
       `;
