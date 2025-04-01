@@ -48,13 +48,12 @@ function toggleSearch() {
 //   window.location.href = 'https://blooket1.pages.dev';
 // }
 
- 
+
 document.addEventListener("DOMContentLoaded", function () {
-  const KEY = "migration_shown"; // To prevent showing the message multiple times
   const CURRENT_DOMAIN = location.hostname; // Gets current domain
 
   // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
-  if (CURRENT_DOMAIN === "blooket1.pages.dev" && !localStorage.getItem(KEY)) {
+  if (CURRENT_DOMAIN === "blooket1.pages.dev") {
       // Create the migration popup
       const popup = document.createElement("div");
       popup.id = "migration-popup";
@@ -69,8 +68,5 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("redirect-btn").onclick = function () {
           window.location.href = "https://blooket1.com";
       };
-
-      // Mark the migration message as shown
-      localStorage.setItem(KEY, "true");
   }
 });
