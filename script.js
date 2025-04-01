@@ -48,7 +48,7 @@ function toggleSearch() {
 //   window.location.href = 'https://blooket1.pages.dev';
 // }
 
-
+ 
 document.addEventListener("DOMContentLoaded", function () {
   const KEY = "migration_shown"; // To prevent showing the message multiple times
   const CURRENT_DOMAIN = location.hostname; // Gets current domain
