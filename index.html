@@ -16,6 +16,8 @@
      crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-5346759304245799">
     <meta name="google-site-verification" content="UM7NoVkmCmkfjn_tf88CQk6c9Rf7phrwocZtMWdbF2M" />
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +26,7 @@
     <link rel="icon" type="image/x-icon" href="images/b-logo.webp">
     <meta name="description" content="Blooket1 offers the best unblocked games for school. Play free puzzle, action, strategy, and educational games with no filters on your school device." />
     <link type="text/css" rel="stylesheet" href="carousel.css" />
+    <link type="text/css" rel="stylesheet" href="ub.css" />
     <link rel="stylesheet" href="styles.css"> <!-- Create a separate CSS file for better organization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
     <script src="script.js"></script>
@@ -62,11 +65,28 @@
             <div class="icons">
                 <div class="icon"><i class="fas fa-cog" onclick="window.location += 'settings/'"></i></div>
                 <div class="icon"><i class="fas fa-comments" onclick="window.location += 'chat/'"></i></div>
+                <div class="icon"><i id="ubicon" class="fa-solid fa-lock-open" onclick="startUnblockAssistant()"></i></div>
                 <div class="icon"><i class="fas fa-info-circle" onclick="window.location += 'info/'"></i></div>
             </div>
         </div>
     </aside>
     <div class="all-game-carousels" id="all-game-carousels">
+    </div>
+    <div id="unblockAssistantOverlay">
+        <div id="unblockAssistantPopup">
+            <h2>Unblock Assistant</h2>
+            <div id="unblockAssistantProgressBarContainer">
+                <div id="unblockAssistantProgressBar"></div>
+            </div>
+            <div id="unblockAssistantContent">
+                <!-- Content will be loaded here by JavaScript -->
+            </div>
+            <div id="unblockAssistantButtons">
+                <button id="unblockPrevBtn">← Previous</button>
+                <button id="unblockNextBtn">Next →</button>
+                <button id="unblockSubmitBtn" class="hidden">Send Report</button>
+            </div>
+        </div>
     </div>
 <br><br><br><br><br>
 
