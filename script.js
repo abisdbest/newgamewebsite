@@ -659,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>Oops! Something Went Wrong.</h3>
                 <p style="text-align: center; color: red;">${errorMessage}</p>
                 <p style="text-align: center;">Please try again later. If the problem continues, you might need to email us directly with the details you noted down from the review step.</p>
-                <p style="text-align: center;">Email: <a href="mailto:your-support-email@example.com">your-support-email@example.com</a></p>
+                <p style="text-align: center;">Email: <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a></p>
             `;
             const networkErrorCloseBtn = document.createElement('button');
             networkErrorCloseBtn.id = 'unblockFinishBtn';
