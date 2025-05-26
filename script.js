@@ -709,31 +709,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   const CURRENT_DOMAIN = location.hostname; // Gets current domain
+  const POPUP_DISPLAY_DURATION = 3000; // 10 seconds in milliseconds (adjust as needed)
 
   // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
   if (CURRENT_DOMAIN === "blooket1.pages.dev") {
-      // Create the migration popup
-      const popup = document.createElement("div");
-      popup.id = "migration-popup";
-      popup.innerHTML = `
-          <p style="font-weight: bold; color: red;">Important: Blooket1.pages.dev will be taken down soon! Please migrate to blooket1.com.</p>
-          <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
-          <button id="redirect-btn">Go to blooket1.com</button>
-      `;
-      document.body.appendChild(popup);
+    // Create the migration popup
+    const popup = document.createElement("div");
+    popup.id = "migration-popup";
+    popup.innerHTML = `
+        <button id="close-popup-btn" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">×</button>
+        <p style="font-weight: bold; color: red;">Important: Blooket1.pages.dev will be taken down soon! Please migrate to blooket1.com.</p>
+        <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
+        <button id="redirect-btn">Go to blooket1.com</button>
+    `;
+    document.body.appendChild(popup);
 
-      // Handle button click for redirect
-      document.getElementById("redirect-btn").onclick = function () {
-          window.location.href = "https://blooket1.com";
-      };
+    // Get references to elements
+    const closeButton = document.getElementById("close-popup-btn");
+    const redirectButton = document.getElementById("redirect-btn");
+
+    // Handle button click for redirect
+    redirectButton.onclick = function () {
+      window.location.href = "https://blooket1.com";
+    };
+
+    // Handle close button click
+    closeButton.onclick = function () {
+      popup.style.opacity = "0"; // Start fade out
+      setTimeout(() => {
+        popup.remove(); // Remove after fade out
+      }, 500); // Match transition duration
+    };
+
+    // Make the popup disappear after a few seconds
+    setTimeout(() => {
+      if (popup) { // Check if popup still exists (might have been closed by user)
+        popup.style.opacity = "0"; // Start fade out
+        setTimeout(() => {
+          popup.remove(); // Remove after fade out
+        }, 500); // Match transition duration
+      }
+    }, POPUP_DISPLAY_DURATION);
   }
 });
-
-// feature-popup.js
-
-// feature-popup.js
-
-// feature-popup.js
 
 document.addEventListener('DOMContentLoaded', () => {
     const ubIcon = document.getElementById('ubicon'); // Your unblock icon

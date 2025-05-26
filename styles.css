@@ -319,6 +319,10 @@ nav a {
     background: #ffdd44;
 }
 
+#close-popup-btn:hover {
+    color: #ffcc00;
+}
+
 /* For screens smaller than 768px (typical for iPhones in portrait mode) */
 @media screen and (max-width: 767px) {
     /* Adjust styles here */
