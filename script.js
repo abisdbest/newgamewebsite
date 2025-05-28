@@ -32,15 +32,15 @@
 //     color: white;" onclick="document.getElementById('surveyframe').style.display = 'none'; document.body.style.overflow = 'auto';document.body.style.pointerEvents = 'auto';">X close</button>`
 
 //     document.body.append(surveyContainer)
-    
+
 //     // Set a flag in local storage to indicate the survey has been displayed
 //     localStorage.setItem("surveyDisplayed", "true");
 //   }
 // });
 
 function toggleSearch() {
-  var searchInput = document.getElementById('searchright');
-  searchInput.classList.toggle('active');
+    var searchInput = document.getElementById('searchright');
+    searchInput.classList.toggle('active');
 }
 
 // if (window.location.hostname === 'blooket1.com') {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existingFinishBtn) existingFinishBtn.remove();
         // Remove specific browse buttons if they exist
         const browseBackBtn = document.getElementById('browseBackToInitialBtn');
-        if(browseBackBtn) browseBackBtn.remove();
+        if (browseBackBtn) browseBackBtn.remove();
 
 
         if (currentView === 'initial') {
@@ -186,7 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         listContainer.innerHTML = '<p class="loading-text">Fetching latest versions...</p>';
         try {
-            const response = await fetch('https://blooket1ubdirectory.arielblau2.workers.dev/api/educational-urls');
+            const response = await fetch('https://blooket1ubdirectory.arielblau2.workers.dev/api/educational-urls', {
+                cache: "no-store"
+            });
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
@@ -230,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.url.includes('drive.google.com/') && item.url.length > 50) {
                 displayUrl = item.url.substring(0, item.url.indexOf('drive.google.com/') + 'drive.google.com/'.length) + '...';
             } else if (item.url.length > 40 && !item.url.startsWith('http')) {
-                 // Heuristic for other long URLs
+                // Heuristic for other long URLs
                 displayUrl = item.url.substring(0, 37) + '...';
             }
 
@@ -348,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextBtn.onclick = handleSubmissionNext;
                 break;
             case 3:
-                 contentDiv.innerHTML = `
+                contentDiv.innerHTML = `
                     <h3>Step 3: Do you know your school's web filter?</h3>
                     <p>Many schools use a specific system to block websites. Sometimes, the block message will mention its name!</p>
                     <p>Have you seen any of these names, or do you know what your school uses?</p>
@@ -448,8 +450,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p style="text-align: center; color: #dc3545;">Based on the tests, we couldn't find an immediate unblock method.</p>
                     <p style="text-align: center;">We still encourage you to submit a report (go back to Review & Send if you'd like) so our team can analyze your situation for future solutions.</p>
                 `;
-                 addTerminalButton('Go Back to Tests', '#007bff', () => { currentStep = 4; renderSubmissionStep(); });
-                 addTerminalButton('Close', '#95a5a6', closeAssistant, true); // Add as a secondary button
+                addTerminalButton('Go Back to Tests', '#007bff', () => { currentStep = 4; renderSubmissionStep(); });
+                addTerminalButton('Close', '#95a5a6', closeAssistant, true); // Add as a secondary button
                 break;
             case 9: // Submission sending
                 contentDiv.innerHTML = `
@@ -512,9 +514,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Data already collected if this point is reached after interaction or by default for next
             // Validation for step 4 (checkAllKeywordTestsCompleted) is key
             if (!validateStep()) { // This calls checkAllKeywordTestsCompleted
-                 alert('Please complete at least one link test (either predefined or your custom one) by selecting its result.');
-                 nextBtn.disabled = !checkAllKeywordTestsCompleted(); // Ensure button state reflects this
-                 return;
+                alert('Please complete at least one link test (either predefined or your custom one) by selecting its result.');
+                nextBtn.disabled = !checkAllKeywordTestsCompleted(); // Ensure button state reflects this
+                return;
             }
             const anyPredefinedLoaded = predefinedKeywordTestUrls.some(test => formData.predefinedKeywordTests?.[test.id]?.result === 'loaded');
             const customLoaded = formData.customKeywordTest?.result === 'loaded';
@@ -572,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 console.error('Failed to send report:', response.status, response.statusText);
                 let errorMessage = `Failed to send report (${response.status} ${response.statusText}).`;
-                 if (response.status === 0 || String(response.status).startsWith('4') || String(response.status).startsWith('5')) {
+                if (response.status === 0 || String(response.status).startsWith('4') || String(response.status).startsWith('5')) {
                     errorMessage = `Oops! We couldn't send your report. This might be a network filter or temporary issue.`;
                 }
                 contentDiv.innerHTML = `
@@ -635,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const customKeywordInput = document.getElementById('customKeywordInput');
             const customTestResultRadio = document.querySelector('input[name="customTestResult"]:checked');
             if (customKeywordInput && customKeywordInput.value.trim()) {
-                 const generatedUrl = formData.customKeywordTest?.url || `https://blooket1.com/?kw=${encodeURIComponent(customKeywordInput.value.trim())}`;
+                const generatedUrl = formData.customKeywordTest?.url || `https://blooket1.com/?kw=${encodeURIComponent(customKeywordInput.value.trim())}`;
                 formData.customKeywordTest = {
                     keyword: customKeywordInput.value.trim(),
                     url: generatedUrl,
@@ -669,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const systemSelected = !!document.querySelector('input[name="blockingSystem"]:checked');
             if (!systemSelected) return false;
             if (formData.blockingSystem === 'i_dont_know' && formData.blockingSystemDetails && formData.blockingSystemDetails.length < 3) {
-                 // If "I don't know" and details are very short, maybe prompt more, but allow for now.
+                // If "I don't know" and details are very short, maybe prompt more, but allow for now.
             }
             return true;
         } else if (currentStep === 4) {
@@ -713,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nextBtn.disabled = !checkAllKeywordTestsCompleted();
                 });
             });
-             if (!formData.predefinedKeywordTests[test.id]) { // Ensure object exists for this test
+            if (!formData.predefinedKeywordTests[test.id]) { // Ensure object exists for this test
                 formData.predefinedKeywordTests[test.id] = { url: test.url, result: undefined };
             }
         });
@@ -762,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else { // Edge case: result selected before generating link (should not happen with UI flow)
                     const keyword = customKeywordInput.value.trim();
                     if (keyword) {
-                         formData.customKeywordTest = {
+                        formData.customKeywordTest = {
                             keyword: keyword,
                             url: `https://blooket1.com/?kw=${encodeURIComponent(keyword)}`, // Re-generate URL to be safe
                             result: event.target.value
@@ -795,7 +797,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.type === 'radio' && !event.target.name.startsWith('predefinedTest-') && event.target.name !== 'customTestResult') {
             collectData(); // Collect data for the current step
             if (currentStep === 1 || currentStep === 3 || currentStep === 5) { // Steps with simple radio validation
-                 // Potentially re-validate or enable next button if applicable, but typically handled by Next click.
+                // Potentially re-validate or enable next button if applicable, but typically handled by Next click.
             }
         }
     });
@@ -870,49 +872,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const CURRENT_DOMAIN = location.hostname; // Gets current domain
-  const POPUP_DISPLAY_DURATION = 3000; // 10 seconds in milliseconds (adjust as needed)
+    const CURRENT_DOMAIN = location.hostname; // Gets current domain
+    const POPUP_DISPLAY_DURATION = 3000; // 10 seconds in milliseconds (adjust as needed)
 
-  // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
-  if (CURRENT_DOMAIN === "blooket1.pages.dev") {
-    // Create the migration popup
-    const popup = document.createElement("div");
-    popup.id = "migration-popup";
-    popup.innerHTML = `
+    // Only show the popup if on blooket1.pages.dev and migration hasn't been shown before
+    if (CURRENT_DOMAIN === "blooket1.pages.dev") {
+        // Create the migration popup
+        const popup = document.createElement("div");
+        popup.id = "migration-popup";
+        popup.innerHTML = `
         <button id="close-popup-btn" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">×</button>
         <p style="font-weight: bold; color: red;">Important: Blooket1.pages.dev will be taken down soon! Please migrate to blooket1.com.</p>
         <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
         <button id="redirect-btn">Go to blooket1.com</button>
     `;
-    document.body.appendChild(popup);
+        document.body.appendChild(popup);
 
-    // Get references to elements
-    const closeButton = document.getElementById("close-popup-btn");
-    const redirectButton = document.getElementById("redirect-btn");
+        // Get references to elements
+        const closeButton = document.getElementById("close-popup-btn");
+        const redirectButton = document.getElementById("redirect-btn");
 
-    // Handle button click for redirect
-    redirectButton.onclick = function () {
-      window.location.href = "https://blooket1.com";
-    };
+        // Handle button click for redirect
+        redirectButton.onclick = function () {
+            window.location.href = "https://blooket1.com";
+        };
 
-    // Handle close button click
-    closeButton.onclick = function () {
-      popup.style.opacity = "0"; // Start fade out
-      setTimeout(() => {
-        popup.remove(); // Remove after fade out
-      }, 500); // Match transition duration
-    };
+        // Handle close button click
+        closeButton.onclick = function () {
+            popup.style.opacity = "0"; // Start fade out
+            setTimeout(() => {
+                popup.remove(); // Remove after fade out
+            }, 500); // Match transition duration
+        };
 
-    // Make the popup disappear after a few seconds
-    setTimeout(() => {
-      if (popup) { // Check if popup still exists (might have been closed by user)
-        popup.style.opacity = "0"; // Start fade out
+        // Make the popup disappear after a few seconds
         setTimeout(() => {
-          popup.remove(); // Remove after fade out
-        }, 500); // Match transition duration
-      }
-    }, POPUP_DISPLAY_DURATION);
-  }
+            if (popup) { // Check if popup still exists (might have been closed by user)
+                popup.style.opacity = "0"; // Start fade out
+                setTimeout(() => {
+                    popup.remove(); // Remove after fade out
+                }, 500); // Match transition duration
+            }
+        }, POPUP_DISPLAY_DURATION);
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
