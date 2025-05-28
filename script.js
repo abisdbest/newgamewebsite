@@ -174,86 +174,141 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchAndDisplayEducationalUrls() {
-        const listContainer = document.getElementById('browseUrlListContainer');
-        if (!listContainer) return;
-
-        // Use cache if available and search is empty (initial load or navigating back)
-        if (educationalUrlCache && document.getElementById('browseSearchInput') && document.getElementById('browseSearchInput').value === '') {
-            filteredUrlCache = [...educationalUrlCache];
-            displayBrowseItems(filteredUrlCache);
-            return;
-        }
-
-        listContainer.innerHTML = '<p class="loading-text">Fetching latest versions...</p>';
-        try {
-            const response = await fetch('https://blooket1ubdirectory.arielblau2.workers.dev/api/educational-urls', {
-                cache: "no-store"
-            });
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            const urls = await response.json();
-
-            if (!Array.isArray(urls)) {
-                console.error("API response is not an array:", urls);
-                throw new Error("Received invalid data format from the server.");
-            }
-
-            educationalUrlCache = urls.map(url => ({
-                url: url,
-                users: Math.floor(Math.random() * 300) + 20 // Simulate 20-320 users
-            })).sort((a, b) => b.users - a.users); // Sort by users descending
-
-            filteredUrlCache = [...educationalUrlCache]; // Initialize filtered list
-            displayBrowseItems(filteredUrlCache);
-
-        } catch (error) {
-            console.error('Error fetching educational URLs:', error);
-            listContainer.innerHTML = `<p class="error-text">Sorry, couldn't load existing versions at the moment. Please try again later.<br><small>Error: ${error.message}</small></p>`;
-        }
+    const listContainer = document.getElementById('browseUrlListContainer');
+    if (!listContainer) {
+        console.error("Error: browseUrlListContainer not found in the DOM.");
+        return;
     }
 
-    function displayBrowseItems(items) {
-        const listContainer = document.getElementById('browseUrlListContainer');
-        if (!listContainer) return;
-        listContainer.innerHTML = ''; // Clear previous items or loading text
+    const searchInput = document.getElementById('browseSearchInput');
+    // Use cache if available and search is empty
+    if (educationalUrlCache && searchInput && searchInput.value === '') {
+        console.log("Using cached educational URLs.");
+        filteredUrlCache = [...educationalUrlCache];
+        displayBrowseItems(filteredUrlCache);
+        return;
+    }
 
-        if (!items || items.length === 0) {
-            listContainer.innerHTML = '<p class="info-text">No versions found matching your criteria.</p>';
-            return;
+    listContainer.innerHTML = '<p class="loading-text">Fetching latest versions...</p>';
+    try {
+        const response = await fetch('https://blooket1ubdirectory.arielblau2.workers.dev/api/educational-urls', {
+            cache: "no-store" // Ensures fresh data is fetched
+        });
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText} (status: ${response.status})`);
+        }
+        const rawDataFromApi = await response.json();
+        // console.log('Raw data from API:', JSON.stringify(rawDataFromApi, null, 2)); // For verbose debugging
+
+        if (!Array.isArray(rawDataFromApi)) {
+            console.error("API response is not an array:", rawDataFromApi);
+            throw new Error("Received invalid data format from the server (expected an array).");
         }
 
-        items.forEach(item => {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'browse-item';
+        educationalUrlCache = rawDataFromApi.map((apiItem, index) => {
+            let url = 'Error: URL data missing';
+            let users = 0;
 
-            let displayUrl = item.url;
-            // Attempt to make URL more readable if it's very long, e.g. drive.google.com paths
-            if (item.url.includes('drive.google.com/') && item.url.length > 50) {
-                displayUrl = item.url.substring(0, item.url.indexOf('drive.google.com/') + 'drive.google.com/'.length) + '...';
-            } else if (item.url.length > 40 && !item.url.startsWith('http')) {
-                // Heuristic for other long URLs
-                displayUrl = item.url.substring(0, 37) + '...';
+            if (apiItem && typeof apiItem === 'object') {
+                if (typeof apiItem.url === 'string' && apiItem.url.trim() !== '') {
+                    url = apiItem.url;
+                } else {
+                    console.warn(`Item at index ${index} has invalid or empty URL:`, apiItem.url, 'Full API item:', apiItem);
+                    url = 'Error: Invalid URL format in API data';
+                }
+
+                if (typeof apiItem.users === 'number' && isFinite(apiItem.users)) {
+                    users = apiItem.users;
+                } else {
+                    console.warn(`Item at index ${index} has invalid users count:`, apiItem.users, 'Full API item:', apiItem);
+                    // users remains 0 as default
+                }
+            } else {
+                console.warn(`Item at index ${index} is not a valid object:`, apiItem);
+                url = 'Error: Invalid item structure from API';
             }
 
+            return { url, users };
+        }).sort((a, b) => b.users - a.users); // Sort by actual users descending
 
-            itemDiv.innerHTML = `
-                <a href="https://${item.url}" target="_blank" class="browse-item-link" title="Visit ${item.url} (opens in new tab)">${displayUrl}</a>
-                <div class="browse-item-stats" title="${item.users} estimated users">
-                    ${userIconSVG}
-                    <span>${item.users}</span>
-                </div>
-            `;
-            // Ensure URLs start with https:// for the link
-            let targetUrl = item.url;
+        // console.log('Processed educationalUrlCache:', JSON.stringify(educationalUrlCache, null, 2)); // For verbose debugging
+
+        filteredUrlCache = [...educationalUrlCache]; // Initialize filtered list
+        displayBrowseItems(filteredUrlCache);
+
+    } catch (error) {
+        console.error('Error fetching or processing educational URLs:', error);
+        listContainer.innerHTML = `<p class="error-text">Sorry, couldn't load existing versions at the moment. Please try again later.<br><small>Error: ${error.message}</small></p>`;
+    }
+}
+
+function displayBrowseItems(items) {
+    const listContainer = document.getElementById('browseUrlListContainer');
+    if (!listContainer) {
+        console.error("Critical Error: browseUrlListContainer not found in displayBrowseItems.");
+        return;
+    }
+    listContainer.innerHTML = ''; // Clear previous items or loading text
+
+    if (!items || items.length === 0) {
+        listContainer.innerHTML = '<p class="info-text">No versions found matching your criteria.</p>';
+        return;
+    }
+
+    // console.log('Items to display:', JSON.stringify(items, null, 2)); // For verbose debugging
+
+    items.forEach(item => {
+        // By this point, item.url should be a string and item.users a number
+        // due to the robust mapping in fetchAndDisplayEducationalUrls.
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'browse-item';
+
+        let displayUrl = item.url;
+        const currentItemUrl = item.url; // This is now guaranteed to be a string.
+
+        // Only attempt to shorten if it's not an error message
+        if (!currentItemUrl.startsWith('Error:')) {
+            if (currentItemUrl.includes('drive.google.com/') && currentItemUrl.length > 50) {
+                displayUrl = currentItemUrl.substring(0, currentItemUrl.indexOf('drive.google.com/') + 'drive.google.com/'.length) + '...';
+            } else if (currentItemUrl.length > 40 && !currentItemUrl.startsWith('http')) {
+                // Make sure this heuristic is what you want for non-http URLs
+                displayUrl = currentItemUrl.substring(0, 37) + '...';
+            }
+        }
+        // else displayUrl remains the error message string.
+
+        // Ensure userIconSVG is defined or provide a fallback
+        const userIconContent = typeof userIconSVG !== 'undefined' ? userIconSVG : '👤';
+
+        itemDiv.innerHTML = `
+            <a href="#" class="browse-item-link" title="Visit ${currentItemUrl.startsWith('Error:') ? 'N/A' : currentItemUrl} (opens in new tab)">${displayUrl}</a>
+            <div class="browse-item-stats" title="${item.users} users">
+                ${userIconContent}
+                <span>${item.users}</span>
+            </div>
+        `;
+
+        let targetUrl = '#'; // Default to '#'
+        if (!currentItemUrl.startsWith('Error:')) {
+            targetUrl = currentItemUrl;
             if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
                 targetUrl = 'https://' + targetUrl;
             }
-            itemDiv.querySelector('.browse-item-link').href = targetUrl;
+        }
 
-            listContainer.appendChild(itemDiv);
-        });
-    }
+        const linkElement = itemDiv.querySelector('.browse-item-link');
+        if (linkElement) {
+            linkElement.href = targetUrl;
+            if (targetUrl !== '#') {
+                linkElement.target = '_blank';
+            }
+        } else {
+            console.error("Could not find .browse-item-link in created element for:", item);
+        }
+
+        listContainer.appendChild(itemDiv);
+    });
+}
 
 
     // --- Submission Flow Logic (adapted from original) ---
@@ -841,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .browse-view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .browse-search-container { margin-bottom: 15px; }
         .browse-search-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em;}
-        .browse-url-list-container { max-height: 300px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 4px; background: #f9f9f9; }
+        .browse-url-list-container { max-height: 275px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 4px; background: #f9f9f9; }
         .browse-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
         .browse-item:last-child { border-bottom: none; }
         .browse-item-link { text-decoration: none; color: #007bff; font-weight: 500; flex-grow: 1; word-break: break-all; }
