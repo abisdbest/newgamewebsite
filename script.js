@@ -650,7 +650,7 @@ function displayBrowseItems(items) {
             contentDiv.innerHTML = `
                 <h3>Oops! Something Went Wrong.</h3>
                 <p style="text-align: center; color: red;">${errorMessage}</p>
-                <p style="text-align: center;">Try again later or email: <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a></p>
+                <p style="text-align: center;">Try again later or email: <a href="mailto:support@blooket1.com">support@blooket1.com</a></p>
             `;
             addTerminalButton('Close', '#95a5a6');
         } finally {
@@ -938,7 +938,7 @@ document.addEventListener("DOMContentLoaded", function () {
         popup.innerHTML = `
         <button id="close-popup-btn" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">×</button>
         <p style="font-weight: bold; color: red;">Important: Blooket1.pages.dev will be taken down soon! Please migrate to blooket1.com.</p>
-        <p>If you encounter any issues, please email us at <a href="mailto:info.blooket1@gmail.com">info.blooket1@gmail.com</a>.</p>
+        <p>If you encounter any issues, please email us at <a href="mailto:support@blooket1.com">support@blooket1.com</a>.</p>
         <button id="redirect-btn">Go to blooket1.com</button>
     `;
         document.body.appendChild(popup);
