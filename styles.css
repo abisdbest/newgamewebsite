@@ -723,3 +723,219 @@ footer {
         width: 100%; /* Full width for footer on mobile */
     }
 }
+
+/* ADD THESE STYLES TO YOUR EXISTING styles.css FILE */
+
+/* Game Page Specific Layout */
+.game-page-layout {
+    display: flex;
+    flex-wrap: wrap; /* Allow ads to wrap on smaller screens */
+    justify-content: center; /* Center game content */
+    gap: 20px;
+}
+
+.game-content-wrapper {
+    flex-grow: 1;
+    max-width: 800px; /* Max width for game and description */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Common game aspect ratio, adjust as needed */
+    background-color: var(--tertiary-bg-color);
+    border-radius: 10px;
+    overflow: hidden; /* Clip iframe/image corners */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    display: flex; /* For centering play button and image */
+    justify-content: center;
+    align-items: center;
+}
+
+#game-image {
+    max-width: 70%; /* Adjust size of preview image */
+    max-height: 70%;
+    object-fit: contain;
+    border-radius: 8px;
+    z-index: 1; /* Above iframe if iframe is initially there but empty */
+}
+
+#game-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000; /* Background for iframe before game loads */
+}
+#game-iframe[src=""], #game-iframe:not([src]) { /* If iframe has no src, or src is empty */
+    /* display: none; Or keep it to show black background */
+}
+
+
+#play-btn {
+    position: absolute; /* Position over the image/empty container */
+    z-index: 2; /* Above image */
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 600;
+    background-color: var(--link-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+#play-btn:hover {
+    background-color: #3e8e41; /* Darken link color */
+    transform: scale(1.05);
+}
+
+#options-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(var(--secondary-bg-color), 0.9);
+    padding: 10px;
+    display: flex; /* Will be set to flex by JS when play is clicked */
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+    z-index: 3; /* Above iframe */
+    border-top: 1px solid var(--tertiary-bg-color);
+    box-sizing: border-box;
+}
+
+.game-option-btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: var(--tertiary-bg-color);
+    color: var(--secondary-text-color);
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.game-option-btn:hover {
+    background-color: #4a4a4a;
+    color: var(--primary-text-color);
+}
+.game-option-btn i {
+    font-size: 1.1em;
+}
+
+
+/* Game Description Area */
+.game-description-area {
+    background-color: var(--secondary-bg-color);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.game-description-area h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--tertiary-bg-color);
+    padding-bottom: 10px;
+}
+.game-description-area h2 {
+    font-size: 1.4em;
+    font-weight: 500;
+    color: var(--primary-text-color);
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.game-description-area p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    color: var(--secondary-text-color);
+}
+.game-description-area strong {
+    color: var(--primary-text-color);
+    font-weight: 500;
+}
+.game-description-area section { /* For semantic grouping of description parts */
+    margin-bottom: 20px;
+}
+
+
+/* Ads Sidebar styling (Basic - adjust as needed for your ad provider) */
+.game-ads-sidebar {
+    width: 160px; /* Typical width for skyscraper ads, adjust */
+    min-height: 600px; /* Typical height, adjust */
+    /* background-color: var(--tertiary-bg-color); /* Placeholder */
+    /* border: 1px dashed #555; /* Placeholder */
+    /* display: flex; /*
+    /* align-items: center; /*
+    /* justify-content: center; /*
+    /* color: #777; /*
+    /* font-size: 0.9em; */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.left-ad {
+    order: -1; /* Place before game content in flex order on wide screens */
+}
+.right-ad {
+    order: 1; /* Place after game content in flex order on wide screens */
+}
+
+
+/* Responsive adjustments for Game Page */
+@media screen and (max-width: 1200px) { /* When ads might not fit well on sides */
+    .game-page-layout {
+        justify-content: center;
+    }
+    .game-ads-sidebar {
+        width: 100%; /* Full width for ads when they stack */
+        min-height: 90px; /* Auto height or typical banner height */
+        height: auto;
+        margin-top: 20px;
+        order: 2; /* Ensure ads come after main content when stacked */
+    }
+    .left-ad, .right-ad { /* Reset side-specific order */
+        order: 2;
+    }
+    .game-content-wrapper {
+        max-width: 100%; /* Allow game and description to take full width */
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #game-container {
+        aspect-ratio: 16 / 10; /* May be better for mobile */
+    }
+    .game-description-area h1 {
+        font-size: 1.5em;
+    }
+    .game-description-area h2 {
+        font-size: 1.2em;
+    }
+    .game-description-area p {
+        font-size: 0.95em;
+    }
+    #play-btn {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+    .game-option-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+    .game-ads-sidebar {
+        /* Already full width from 1200px breakpoint */
+    }
+}
