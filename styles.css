@@ -1,346 +1,725 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Global Variables */
+:root {
+    --primary-bg-color: #141414;
+    --secondary-bg-color: #222222;
+    --tertiary-bg-color: #3a3a3a;
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #cccccc;
+    --accent-color: #ffcc00; /* Example accent for highlights */
+    --link-color: #4CAF50; /* Example link color */
+    --font-family: 'Poppins', sans-serif;
+    --sidebar-width: 60px; /* Slimmer sidebar */
+    --navbar-height: 70px;
+}
+
+/* Reset and Base Styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #141414;
-    color: #fff;
+    box-sizing: border-box;
 }
 
-logo {
-    line-height: 1;
+body {
+    font-family: var(--font-family);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    line-height: 1.6;
+    padding-top: var(--navbar-height); /* Space for fixed navbar */
+    padding-right: var(--sidebar-width); /* Space for fixed sidebar */
 }
 
-.logo {
-    height: 30px;
-    width: 30px;
-    margin: 20px;
-    margin-right: 5px;
-}
-
-.logo-name {
-    display: inline;
-    position: absolute;
-    margin: 19px;
-    margin-left: 0;
-}
-
-.options {
-    position: absolute;
-    margin-left: 200px;
-}
-
-.container {
-    max-width: 1200px;
-    display: inline;
-}
-
-header, nav, footer {
-    background-color: #222222;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 100;
-    height: 8%;
-}
-
-header h1, nav a, footer p {
-    color: #fff;
+a {
+    color: var(--link-color);
     text-decoration: none;
-    margin-left: 10px;
+    transition: color 0.3s ease;
 }
 
+a:hover {
+    color: var(--accent-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Navbar */
 nav {
+    background-color: var(--secondary-bg-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% - var(--sidebar-width)); /* Adjust width considering sidebar */
+    height: var(--navbar-height);
+    z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjust as needed */
-    position: sticky;
-    opacity: 0.9;
-    top: 0;
-    z-index: 101;
-    padding: 0;
+    padding: 0 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-nav a {
-    margin: 0 15px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
+.logo-area {
+    display: flex;
+    align-items: center;
+    color: var(--primary-text-color);
+}
+
+.logo-img {
+    height: 40px; /* Increased size */
+    width: 40px;
+    margin-right: 10px;
+}
+
+.logo-name-wrapper {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-main-name {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.logo-sub-name {
+    font-size: 0.9em;
+    font-weight: 300;
+    color: var(--secondary-text-color);
+}
+
+.nav-links-container {
+    display: flex;
+    gap: 25px; /* Increased gap */
+}
+
+.nav-links-container a {
+    color: var(--secondary-text-color);
+    font-weight: 500; /* Medium weight */
+    font-size: 0.95em;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-links-container a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links-container a:hover,
+.nav-links-container a.active { /* Add .active class via JS for current page */
+    color: var(--primary-text-color);
+}
+.nav-links-container a:hover::after,
+.nav-links-container a.active::after {
+    width: 100%;
+}
+
+
+/* Search */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.searchbutton {
+    background-color: transparent;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    border: none;
+    font-size: 1.2em; /* Slightly larger icon */
+    padding: 8px;
+    transition: color 0.3s ease;
+    margin-left: 10px; /* Space from nav links */
+}
+
+.searchbutton:hover {
+	color: var(--primary-text-color);
+}
+
+.search {
+    background-color: var(--tertiary-bg-color);
+    color: var(--primary-text-color);
+    outline: none;
+    border: 1px solid #555; /* Subtle border */
+    padding: 8px 12px;
+    height: 38px; /* Match button height */
+    border-radius: 20px; /* Rounded search bar */
+    transition: width 0.4s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
+    opacity: 0;
+    width: 0;
+    position: absolute;
+    right: 45px; /* Position next to the icon */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search.active {
+    width: 250px; 
+    opacity: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.search::placeholder {
+    color: #aaa;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    color: var(--primary-text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
     right: 0;
     height: 100%;
-    width: 70px;
-    background-color: #000;
+    width: var(--sidebar-width);
+    background-color: #0a0a0a; /* Slightly darker than body */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    z-index: 102;
+    padding-top: var(--navbar-height); /* Start icons below navbar */
+    z-index: 1001; /* Above navbar if overlaps needed, but ensure nav width considers sidebar */
+    box-shadow: -2px 0 8px rgba(0,0,0,0.3);
 }
 
-.icons {
+.sidebar-icons-container {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    align-items: center;
+    gap: 20px; /* Consistent gap */
+    margin-top: 30px; /* Space from top */
 }
 
 .icon {
-    margin-bottom: 50px;
-}
-
-.icon img {
-    width: 30px;
-    height: 30px;
+    color: var(--secondary-text-color);
+    font-size: 1.4em; /* Larger icons */
+    padding: 10px; /* Make clickable area larger */
+    border-radius: 8px;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.3s ease-in-out;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
 }
 
-.icon img:hover {
-    opacity: 1;
+.icon:hover {
+    color: var(--primary-text-color);
+    background-color: var(--tertiary-bg-color);
+    transform: scale(1.1);
 }
 
-.icon i {
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.3s ease-in-out;
+/* Glow Pulse Animation for Unblock Icon */
+.glow-pulse {
+    animation: glowPulse 1.5s infinite alternate;
 }
 
-.icon i:hover {
-    opacity: 1;
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+        color: var(--accent-color);
+    }
+    100% {
+        box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color);
+        color: var(--accent-color);
+    }
 }
 
-.searchbutton:hover {
-	transition-duration: 0.4s;
-	-moz-transition-duration: 0.4s;
-	-webkit-transition-duration: 0.4s;
-	-o-transition-duration: 0.4s;
-	color: grey;
+
+/* Main Content Area */
+.content-area {
+    padding: 30px 20px; /* Add padding around content */
+    margin-left: 0; /* Sidebar is on the right */
+    /* max-width: 1400px; Remove if full width desired */
+    /* margin: 0 auto; To center if max-width is used */
 }
 
-.mglass {
-	display: inline-block;
-	pointer-events: none;
-	rotate: -45deg;
-}
-
-.search-container {
-    position: absolute;
-    top: 50%;
-    right: 150px; /* Adjust the distance from the right as needed */
-    transform: translateY(-50%);
-    display: flex;
+/* Section Titles (dynamically generated by carousel_creator.js) */
+/* Styling H2 elements within the game carousels container */
+.all-game-carousels h2 {
+    font-size: 2em; /* Larger title */
+    font-weight: 600;
+    margin-bottom: 25px; /* Space below title */
+    margin-top: 40px; /* Space above title, esp. for subsequent sections */
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--tertiary-bg-color); /* Subtle separator */
+    display: flex; /* For icon alignment */
     align-items: center;
 }
-
-.searchbutton {
-    font-size: 22px;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    margin-right: 5px; /* Add margin to separate button and input */
+.all-game-carousels h2:first-child {
+    margin-top: 0;
 }
 
-.search {
-    background-color: #3a3a3a;
-    color: white;
-    outline: none;
-    border: none;
-    padding: 10px; /* Adjust the padding to make the input bigger */
-    height: 100%;
-    transition-duration: 0.4s;
-    opacity: 0;
-    overflow: hidden;
-    margin-right: 10px;
-    width: 0;
+.all-game-carousels h2 .category-icon { /* If an icon is part of the h2 */
+    margin-left: 10px;
+    font-size: 0.8em;
+    color: var(--accent-color);
 }
 
-.search.active {
-    width: 400px; /* Adjust the width of the input when it's active */
-    opacity: 1;
+
+/* Footer */
+footer {
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+    padding: 25px 20px; /* Increased padding */
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 50px; /* Space above footer */
+    width: calc(100% - var(--sidebar-width)); /* Adjust width considering sidebar */
+    position: relative; /* Ensure it's part of flow */
+    clear: both;
 }
 
-.game {
-    position: absolute;
-    top: 80px;
-    width: 50%;
-    left: calc(25% - 35px);
-    height: auto;
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-#game-container {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-    border: solid 1px #333;
-}
 
-#game-iframe {
-    width: 100%;
-    height: calc(100% - 60px);
-    border: none;
-}
-
-#game-iframe[src]:not([src=""]) {
-    background-color: white;
-}
-
-#game-image {
-    width: 200px;
-    border-radius: 10px;
-    position: absolute;
-    top: 50px;
-    left: calc(50% - 100px);
-    z-index: 1;
-}
-
-#options-bar {
-    position: absolute;
-    bottom: 0;
+/* Unblock Assistant Popup - Base Styling (can be extended by JS) */
+#unblockAssistantOverlay {
+    position: fixed;
+    top: 0;
     left: 0;
-    width: calc(100% - 20px);
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-#play-btn {
-    background-color: #4CAF50;
-    height: 40px;
-    width: 80px;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    position: absolute;
-    top: 280px;
-    left: calc(50% - 40px);
-}
-
-#fullscreen-btn, #new-page-btn {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.description{
-    text-wrap: wrap;
     width: 100%;
-    overflow-wrap: break-word;
-    word-wrap: initial;
-    hyphens: auto;
-    margin-bottom: 200px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.side1, .side2 {
-    position: absolute;
-    top: 80px;
-    width: calc(25% - 95px);
-    height: 400px; /* Match the height of the game */
-    background-color: white; /* Optional for visualization */
+#unblockAssistantOverlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.side1 {
-    left: 28px; /* Place on the left side */
+#unblockAssistantPopup {
+    background-color: var(--secondary-bg-color);
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    color: var(--primary-text-color);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.side2 {
-    right: 94px; /* Place on the right side */
-    width: calc(25% - 90px);
+#unblockAssistantPopup h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--accent-color);
 }
 
+#unblockAssistantProgressBarContainer {
+    width: 100%;
+    background-color: var(--tertiary-bg-color);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden; /* For progress bar */
+}
+
+#unblockAssistantProgressBar {
+    height: 10px;
+    background-color: var(--link-color);
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#unblockAssistantContent {
+    margin-bottom: 20px;
+    overflow-y: auto; /* Scroll for long content */
+    flex-grow: 1;
+}
+#unblockAssistantContent p, 
+#unblockAssistantContent label,
+#unblockAssistantContent div,
+#unblockAssistantContent ul,
+#unblockAssistantContent h3,
+#unblockAssistantContent h4 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+#unblockAssistantContent a {
+    color: var(--accent-color);
+}
+#unblockAssistantContent textarea,
+#unblockAssistantContent input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--tertiary-bg-color);
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+#unblockAssistantButtons {
+    display: flex;
+    justify-content: space-between; /* Or flex-end for right-aligned buttons */
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--tertiary-bg-color);
+}
+
+.unblock-assistant-btn, #unblockFinishBtn, #unblockFinishBtnSecondary { /* Target JS-added buttons too */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.unblock-assistant-btn {
+    background-color: var(--link-color);
+    color: white;
+}
+.unblock-assistant-btn:hover {
+    background-color: #3e8e41; /* Darken link color */
+    transform: translateY(-1px);
+}
+.unblock-assistant-btn.submit {
+    background-color: var(--accent-color);
+    color: var(--primary-bg-color);
+}
+.unblock-assistant-btn.submit:hover {
+    background-color: #e6b800; /* Darken accent color */
+}
+.unblock-assistant-btn.hidden, #unblockSubmitBtn.hidden {
+    display: none;
+}
+#unblockFinishBtn, #unblockFinishBtnSecondary {
+    /* JS applies inline background, so specific hover might be needed if colors vary widely */
+}
+
+
+/* Migration Popup (from script.js) */
 #migration-popup {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #333;
-    color: #fff;
-    padding: 15px 20px;
+    background: var(--tertiary-bg-color);
+    color: var(--primary-text-color);
+    padding: 20px 25px;
     border-radius: 10px;
-    font-size: 16px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1em; /* Responsive font size */
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     text-align: center;
-    z-index: 1000;
+    z-index: 3000; /* Above other elements */
+    max-width: 90%; /* Prevent overflow on small screens */
 }
 
 #migration-popup p {
-    margin: 0 0 10px;
-    font-weight: bold;
+    margin: 0 0 15px;
+    font-weight: 500;
+}
+#migration-popup p strong { /* For the "Important" text */
+    color: #ff6b6b; /* A more alarming red */
 }
 
 #migration-popup a {
-    color: #ffcc00;
-    text-decoration: none;
-}
-
-#migration-popup a:hover {
+    color: var(--accent-color);
     text-decoration: underline;
 }
 
+#migration-popup a:hover {
+    color: #fff;
+}
+
 #redirect-btn {
-    background: #ffcc00;
-    color: #222;
+    background: var(--accent-color);
+    color: var(--primary-bg-color);
     border: none;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: bold;
+    padding: 10px 18px;
+    font-size: 0.95em;
+    font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 #redirect-btn:hover {
-    background: #ffdd44;
+    background: #e6b800; /* Darken accent */
+    transform: translateY(-1px);
 }
 
+#close-popup-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 1.6em;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+}
 #close-popup-btn:hover {
-    color: #ffcc00;
+    color: var(--primary-text-color);
 }
 
-/* For screens smaller than 768px (typical for iPhones in portrait mode) */
-@media screen and (max-width: 767px) {
-    /* Adjust styles here */
+
+/* Feature Info Popup (from script.js) */
+.feature-info-popup {
+    position: fixed; /* Use fixed for popups related to fixed elements */
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 2500;
+    max-width: 280px;
+    font-size: 0.9em;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border: 1px solid var(--tertiary-bg-color);
+}
+.feature-info-popup.show {
+    opacity: 1;
+    transform: scale(1);
+}
+.feature-info-popup p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+.feature-info-popup .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+.feature-info-popup .close-btn:hover {
+    color: var(--primary-text-color);
+}
+/* Arrow for feature popup */
+.feature-info-popup::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+}
+.feature-info-popup.point-right::before { /* Points to the icon on its right */
+    left: 100%;
+    margin-top: -10px;
+    border-left-color: var(--secondary-bg-color);
+}
+.feature-info-popup:not(.point-right)::before { /* Default, points to icon on its left */
+    right: 100%;
+    margin-top: -10px;
+    border-right-color: var(--secondary-bg-color);
+}
+
+/* Legacy game display styles - review if needed for game pages */
+.game, #game-container, #game-iframe, #game-image, #options-bar, #play-btn, #fullscreen-btn, #new-page-btn, .description, .side1, .side2 {
+    /* These seem related to a specific game display page, not the home page.
+       Consider moving to a separate CSS file if they are for a different view.
+       For now, I'll leave them but comment them out for homepage clarity.
+    */
+    /* display: none; */ /* Uncomment if they interfere with homepage */
+}
+
+
+/* Responsive Design */
+
+/* Medium screens (tablets) */
+@media screen and (max-width: 992px) {
     body {
-        font-size: 5px;
+        padding-right: 0; /* Remove sidebar padding */
     }
-    
-    header {
-        /* Adjust header styles for iPhones here */
-        padding: 10px; /* Example adjustment: reduce padding */
-    }
-    
     nav {
-        /* Example adjustment: reduce font size for navigation links */
-        font-size: 5px;
+        width: 100%; /* Full width navbar */
+    }
+    .sidebar {
+        width: var(--sidebar-width); /* Keep sidebar width */
+        /* Or transform: translateX(100%); to hide it and add a toggle */
+        /* For simplicity, we keep it visible but body content flows normally */
+        z-index: 1002; /* Ensure it's above content if overlapping */
+    }
+     .content-area {
+        padding-right: calc(var(--sidebar-width) + 20px); /* Add padding to content so sidebar doesn't overlap */
+    }
+
+    .nav-links-container {
+        gap: 15px;
+    }
+    .nav-links-container a {
+        font-size: 0.9em;
+    }
+    .search.active {
+        width: 200px;
+    }
+    footer {
+        width: 100%; /* Full width footer */
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+
+/* Small screens (mobile) */
+@media screen and (max-width: 767px) {
+    :root {
+        --navbar-height: 60px;
+    }
+    body {
+        padding-top: var(--navbar-height);
+        padding-right: 0; /* No space for sidebar permanently */
+        font-size: 14px; /* Adjust base font size for mobile */
+    }
+
+    nav {
+        padding: 0 15px;
+         width: 100%;
+    }
+    
+    .logo-img {
+        height: 30px;
+        width: 30px;
+    }
+    .logo-main-name {
+        font-size: 1.2em;
+    }
+    .logo-sub-name {
+        font-size: 0.8em;
+    }
+
+    .nav-links-container {
+        display: none; /* Hide regular nav links */
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--secondary-bg-color);
+        flex-direction: column;
+        padding: 10px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        border-top: 1px solid var(--tertiary-bg-color);
+    }
+    .nav-links-container.active {
+        display: flex; /* Show when active */
+    }
+    .nav-links-container a {
+        padding: 12px 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 1em;
+    }
+    .nav-links-container a::after {
+        display: none; /* No underline for mobile items */
+    }
+
+    .search-container {
+        /* Keep search, but make it more compact or ensure it doesn't break layout */
+    }
+    .search {
+        position: fixed; /* Take it out of nav flow if it becomes active */
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        width: 100% !important; /* Override inline style from JS */
+        border-radius: 0;
+        z-index: 999; /* Below nav but above content */
+        border-left: none;
+        border-right: none;
+    }
+    .search.active { /* Ensure it takes full width when active */
+        padding: 12px 15px;
+    }
+    .searchbutton {
+        margin-left: auto; /* Push search icon to the right if nav links are hidden */
+    }
+    
+    .mobile-menu-toggle {
+        display: block; /* Show hamburger */
+        margin-left: 15px; /* Space from search */
     }
 
     .sidebar {
-        width: 60px;
+        /* Option 1: Hide sidebar */
+        /* display: none; */
+        
+        /* Option 2: Make it a bottom bar (more complex) */
+        
+        /* Option 3: Keep it, but ensure content doesn't overlap badly */
+        /* For simplicity, current setup has body padding-right: 0, so sidebar will overlay */
+        /* We can make it thinner and only show icons */
+        width: 50px; /* Even slimmer */
+        padding-top: calc(var(--navbar-height) + 10px);
+    }
+    .sidebar-icons-container {
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .icon {
+        font-size: 1.2em;
+        padding: 8px;
+    }
+
+    .content-area {
+        padding: 20px 15px;
+        padding-right: calc(50px + 15px); /* Space for slimmer sidebar */
+    }
+
+    .all-game-carousels h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    #unblockAssistantPopup {
+        width: 95%;
+        padding: 20px;
+    }
+    #unblockAssistantButtons {
+        flex-direction: column; /* Stack buttons on mobile */
+    }
+    .unblock-assistant-btn {
+        width: 100%;
+    }
+
+    footer {
+        padding: 20px 15px;
+        width: 100%; /* Full width for footer on mobile */
     }
 }

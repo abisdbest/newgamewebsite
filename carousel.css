@@ -1,124 +1,120 @@
 .all-game-carousels {
-    margin: 0 100px 0 5px;
+    margin: 0; 
 }
 
 .game-carousel-container {
     position: relative;
     width: 100%;
-    /* margin: 20px auto; */
-    overflow: hidden; /* Hide overflow */
-    border-radius: 10px;
+    overflow: hidden;
+    border-radius: 12px; 
 }
 
 .game-carousel {
     display: flex;
     overflow-x: auto;
-    scroll-behavior: smooth;
-    width: calc(100% + 10px); /* Adjust width to fit 5 items */
-    margin-left: -5px; /* Center items by adjusting margin */
-    border-radius: 10px;
+    scroll-behavior: smooth; /* Be mindful this can interact with JS scroll snapping */
+    padding: 5px 0; 
+    gap: 15px; 
+    /* scroll-snap-type: x mandatory; /* Enable CSS scroll snapping */
 }
 
 .game-item {
-    aspect-ratio: 1.5 / 1;
-    z-index: 2;
-    flex: 0 0 auto;
+    aspect-ratio: 16 / 10; 
+    flex: 0 0 calc((100% / 5) - 12px); /* (100% - 4 * 15px) / 5 */
     border-radius: 10px;
-    width: calc((100% / 5) - 10px);
-    margin: 0 5px;
     position: relative;
-    text-align: center;
-    display: flex;
+    display: flex; /* Not strictly needed if <a> fills it */
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background-color: var(--secondary-bg-color); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* scroll-snap-align: start; /* Align items to the start of the scroll container */
 }
+.game-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
 
 .game-item a {
     display: block;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 1; /* Ensure link is clickable over game-name if it's a sibling */
 }
 
 .game-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: 0.7s ease;
+    transition: transform 0.5s ease, filter 0.5s ease; 
+    border-radius: 10px; /* Ensure image corners are rounded if item has radius and overflow hidden */
 }
 
 .game-name {
     position: absolute;
-    opacity: 0;
-    bottom: 10%;
+    bottom: 0; 
     left: 0;
     width: 100%;
-    color: white;
-    padding: 5px;
-    font-size: 1.2em;
-    opacity: 0;
-    transition: opacity 0.7s ease;
+    color: var(--primary-text-color);
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%); 
+    padding: 20px 10px 10px 10px; 
+    font-size: 1.1em; 
+    font-weight: 500;
+    opacity: 1; 
+    transition: opacity 0.5s ease;
+    pointer-events: none; 
+    text-align: left;
+    z-index: 2; /* Above image but below link if link needs to cover all */
+    border-radius: 0 0 10px 10px; /* Match bottom corners if needed */
 }
 
-.game-item:hover .game-name {
-    opacity: 1;
+
+.game-item:hover img {
+    filter: brightness(60%); 
+    transform: scale(1.1); 
 }
 
-.game-item img:hover {
-    filter: brightness(40%);
-    transform: scale(1.5);
-}
-
-.game-name {
-    pointer-events: none;
-}
 
 .carousel-arrow {
     position: absolute;
-    top: 0;
-    height: 100%;
-    width: 50px;
-    /* transform: translateY(-50%); */
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px; 
+    width: 50px;  
+    background-color: rgba(20, 20, 20, 0.6); /* Use primary-bg-color with alpha */
+    color: var(--primary-text-color);
     border: none;
-    padding: 8px;
+    border-radius: 50%; 
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1.5em; /* Icon size */
     z-index: 10;
-    transition: 0.7s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; 
+    transition: opacity 0.3s ease, background-color 0.3s ease;
 }
-
-@media (hover: none) {
-    .carousel-arrow {
-        opacity: 1;
-    }
-}
-
-.carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.768);
-}
-
-.carousel-arrow img {
-    /* border: solid white 3px; */
-    border-radius: 50%;
-    width: 100%;
+.carousel-arrow i { /* Style the FontAwesome icon */
+    line-height: 1; /* Helps with vertical alignment */
 }
 
 .game-carousel-container:hover .carousel-arrow {
     opacity: 1;
 }
 
+.carousel-arrow:hover {
+    background-color: rgba(20, 20, 20, 0.8);
+}
+
 .carousel-arrow-left {
-    /* border-radius: 10px 0 0 10px; */
-    left: 0; /* Stick to the far left */
+    left: 10px;
 }
 
 .carousel-arrow-right {
-    /* border-radius: 0 10px 10px 0; */
-    right: 0; /* Stick to the far right */
+    right: 10px;
 }
 
 /* Hide scrollbar */
@@ -129,4 +125,78 @@
 .game-carousel {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* .game-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+.game-carousel::-webkit-scrollbar-track {
+    background: var(--tertiary-bg-color);
+    border-radius: 4px;
+}
+.game-carousel::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+.game-carousel::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+.game-carousel {
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #555 var(--tertiary-bg-color);
+} */
+
+/* Responsive Carousel */
+@media (max-width: 1200px) {
+    .game-item {
+        flex-basis: calc((100% / 4) - (3 * 15px / 4)); 
+    }
+}
+
+@media (max-width: 992px) {
+    .game-item {
+        flex-basis: calc((100% / 3) - (2 * 15px / 3)); 
+        aspect-ratio: 4 / 3; 
+    }
+    .game-name {
+        font-size: 1em;
+    }
+}
+
+@media (hover: none) { 
+    .carousel-arrow {
+        opacity: 0.8; 
+        background-color: rgba(20, 20, 20, 0.5);
+    }
+    .game-carousel-container:hover .carousel-arrow {
+        opacity: 0.8; 
+    }
+}
+
+@media (max-width: 767px) {
+    .game-carousel {
+        gap: 10px; 
+    }
+    .game-item {
+        flex-basis: calc((100% / 2) - (1 * 10px / 2)); 
+        aspect-ratio: 16/10; 
+    }
+    .carousel-arrow {
+        height: 40px;
+        width: 40px;
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-item {
+        flex-basis: calc(60% - (1 * 10px / 1.66)); /* Roughly 1.5 items, so one full and one partial */
+        /* scroll-snap-align: center; /* Center items on very small screens */
+        aspect-ratio: 3/2;
+    }
+    .game-name {
+        font-size: 0.9em;
+        padding: 15px 8px 8px 8px;
+    }
 }

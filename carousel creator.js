@@ -1,9 +1,11 @@
 function createCarousels(data) {
     const carouselsContainer = document.getElementById('all-game-carousels');
+    if (!carouselsContainer) {
+        console.error('Error: all-game-carousels container not found!');
+        return;
+    }
     const categories = {};
 
-    // 1. Group games by category by processing each category index across all games
-    // First, extract games into an array for convenience.
     const gamesArray = [];
     data.forEach(gameObj => {
         if (typeof gameObj === 'object' && gameObj !== null) {
@@ -18,7 +20,6 @@ function createCarousels(data) {
         }
     });
 
-    // Determine the maximum number of category entries among all games.
     let maxCategories = 0;
     gamesArray.forEach(({ details }) => {
         if (Array.isArray(details["game categories"])) {
@@ -26,7 +27,6 @@ function createCarousels(data) {
         }
     });
 
-    // Process games by category index: first category for all games, then second category, etc.
     for (let i = 0; i < maxCategories; i++) {
         gamesArray.forEach(({ name, details }) => {
             if (Array.isArray(details["game categories"]) && details["game categories"].length > i) {
@@ -34,21 +34,24 @@ function createCarousels(data) {
                 if (!categories[category]) {
                     categories[category] = [];
                 }
-                categories[category].push({
-                    name: name,
-                    image: details['game image'],
-                    link: details['game link']
-                });
+                if (!categories[category].find(g => g.name === name)) {
+                    categories[category].push({
+                        name: name,
+                        image: details['game image'],
+                        link: details['game link']
+                    });
+                }
             }
         });
     }
 
-    // 2. Create a carousel for each category
     for (const category in categories) {
         const games = categories[category];
 
-        // Create the HTML structure
-        const categoryHeader = document.createElement('h1');
+        const categorySection = document.createElement('section');
+        categorySection.classList.add('game-category-section');
+
+        const categoryHeader = document.createElement('h2');
         categoryHeader.textContent = category;
 
         const carouselContainer = document.createElement('div');
@@ -56,16 +59,17 @@ function createCarousels(data) {
 
         const leftArrow = document.createElement('button');
         leftArrow.classList.add('carousel-arrow', 'carousel-arrow-left');
-        leftArrow.innerHTML = '<img src="left arrow.svg" alt="Left Arrow">';
+        leftArrow.setAttribute('aria-label', 'Previous games');
+        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
 
         const carousel = document.createElement('div');
         carousel.classList.add('game-carousel');
 
         const rightArrow = document.createElement('button');
         rightArrow.classList.add('carousel-arrow', 'carousel-arrow-right');
-        rightArrow.innerHTML = '<img src="right arrow.svg" alt="Right Arrow">';
+        rightArrow.setAttribute('aria-label', 'Next games');
+        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
 
-        // Add game items to the carousel
         games.forEach(game => {
             const gameItem = document.createElement('div');
             gameItem.classList.add('game-item');
@@ -76,14 +80,15 @@ function createCarousels(data) {
             const gameImage = document.createElement('img');
             gameImage.src = game.image;
             gameImage.alt = game.name;
+            gameImage.loading = 'lazy';
 
             const gameName = document.createElement('span');
             gameName.classList.add('game-name');
             gameName.textContent = game.name;
 
             gameLink.appendChild(gameImage);
-            gameLink.appendChild(gameName);
             gameItem.appendChild(gameLink);
+            gameItem.appendChild(gameName);
             carousel.appendChild(gameItem);
         });
 
@@ -91,61 +96,193 @@ function createCarousels(data) {
         carouselContainer.appendChild(carousel);
         carouselContainer.appendChild(rightArrow);
 
-        carouselsContainer.appendChild(categoryHeader);
-        carouselsContainer.appendChild(carouselContainer);
+        categorySection.appendChild(categoryHeader);
+        categorySection.appendChild(carouselContainer);
+        carouselsContainer.appendChild(categorySection);
     }
-    carouselfunctionality();
+    initializeCarouselFunctionality();
 }
 
-function carouselfunctionality() {
-    const carousels = document.querySelectorAll('.game-carousel-container');
+function getItemWidthWithGap(carousel, gameItems) {
+    if (!gameItems || gameItems.length === 0) {
+        return carousel.clientWidth; // Fallback if no items
+    }
+    const firstItem = gameItems[0];
+    let itemWidth = firstItem.offsetWidth; // Includes item's padding/border if box-sizing: border-box
 
-    carousels.forEach(container => {
+    let gap = 0;
+    if (gameItems.length > 1) {
+        // Calculate the gap by looking at the start of the second item vs end of the first
+        gap = gameItems[1].offsetLeft - (firstItem.offsetLeft + itemWidth);
+    }
+    return itemWidth + gap; // Total space one item takes up before the next one starts
+}
+
+
+function calculateCarouselMetrics(carouselElement, gameItemElements) {
+    if (!carouselElement || !gameItemElements || gameItemElements.length === 0) {
+        return {
+            itemWidthWithGap: carouselElement ? carouselElement.clientWidth : 0,
+            numActuallyVisible: 1,
+            scrollDistance: carouselElement ? carouselElement.clientWidth : 0,
+            maxScroll: 0,
+            canScroll: false
+        };
+    }
+
+    const itemWidthWithGap = getItemWidthWithGap(carouselElement, gameItemElements);
+    const carouselViewWidth = carouselElement.clientWidth; // Visible width of the carousel
+
+    // Number of items that can theoretically fit (can be fractional)
+    const itemsThatCanFit = carouselViewWidth / itemWidthWithGap;
+    // Number of full items visible (at least 1)
+    const numActuallyVisible = Math.max(1, Math.floor(itemsThatCanFit));
+    
+    // Scroll by the number of full items currently visible
+    const scrollDistance = numActuallyVisible * itemWidthWithGap;
+
+    const maxScroll = carouselElement.scrollWidth - carouselViewWidth;
+    const canScroll = carouselElement.scrollWidth > carouselViewWidth + 5; // Add a small tolerance
+
+    return {
+        itemWidthWithGap,
+        numActuallyVisible,
+        scrollDistance,
+        maxScroll,
+        canScroll
+    };
+}
+
+function initializeCarouselFunctionality() {
+    const carouselContainers = document.querySelectorAll('.game-carousel-container');
+    const tolerance = 5; // Tolerance for scroll position comparisons
+
+    carouselContainers.forEach(container => {
         const leftArrow = container.querySelector('.carousel-arrow-left');
         const rightArrow = container.querySelector('.carousel-arrow-right');
         const carousel = container.querySelector('.game-carousel');
-        const gameItems = container.querySelectorAll('.game-item');
-        const numVisibleItems = 5;
-        const scrollAmount = () => {
-            const visibleItems = Math.min(gameItems.length, numVisibleItems);
-            return carousel.offsetWidth / visibleItems * (visibleItems - 1);
-        };
+        
+        // Get items once, but metrics will be calculated on demand
+        const gameItems = carousel.querySelectorAll('.game-item');
+
+        if (!leftArrow || !rightArrow || !carousel || gameItems.length === 0) {
+            if (leftArrow && rightArrow) { // Hide arrows if no items or not scrollable
+                const metrics = calculateCarouselMetrics(carousel, gameItems);
+                leftArrow.style.display = metrics.canScroll ? '' : 'none';
+                rightArrow.style.display = metrics.canScroll ? '' : 'none';
+            }
+            return;
+        }
+        
+        function updateArrowVisibility() {
+            const metrics = calculateCarouselMetrics(carousel, gameItems);
+            const displayValue = metrics.canScroll ? '' : 'none';
+            leftArrow.style.display = displayValue;
+            rightArrow.style.display = displayValue;
+        }
+        updateArrowVisibility(); // Initial check
 
         leftArrow.addEventListener('click', () => {
-            if (carousel.scrollLeft === 0) {
-                carousel.scrollLeft = carousel.scrollWidth - carousel.offsetWidth;
+            const metrics = calculateCarouselMetrics(carousel, gameItems);
+            if (!metrics.canScroll) return;
+
+            if (carousel.scrollLeft <= tolerance) { // If at or very near the beginning
+                carousel.scrollTo({ left: metrics.maxScroll, behavior: 'smooth' }); // Loop to end
             } else {
-                carousel.scrollLeft -= scrollAmount();
+                carousel.scrollTo({ left: Math.max(0, carousel.scrollLeft - metrics.scrollDistance), behavior: 'smooth' });
             }
         });
 
         rightArrow.addEventListener('click', () => {
-            const tolerance = 1; // Define a tolerance value
-            if (Math.abs(carousel.scrollLeft - (carousel.scrollWidth - carousel.offsetWidth)) <= tolerance) {
-                carousel.scrollLeft = 0;
+            const metrics = calculateCarouselMetrics(carousel, gameItems);
+            if (!metrics.canScroll) return;
+
+            if (carousel.scrollLeft >= metrics.maxScroll - tolerance) { // If at or very near the end
+                carousel.scrollTo({ left: 0, behavior: 'smooth' }); // Loop to beginning
             } else {
-                carousel.scrollLeft += scrollAmount();
+                carousel.scrollTo({ left: Math.min(metrics.maxScroll, carousel.scrollLeft + metrics.scrollDistance), behavior: 'smooth' });
             }
         });
 
-        // Auto-align carousel only after the user stops scrolling (250ms delay)
-        let isScrolling;
+        let scrollTimeout;
         carousel.addEventListener('scroll', () => {
-            window.clearTimeout(isScrolling);
-            isScrolling = setTimeout(() => {
-                const itemWidth = carousel.offsetWidth / Math.min(gameItems.length, numVisibleItems);
-                carousel.scrollLeft = Math.round(carousel.scrollLeft / itemWidth) * itemWidth;
-            }, 250);
-        });
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const metrics = calculateCarouselMetrics(carousel, gameItems);
+                if (!metrics.canScroll || metrics.itemWidthWithGap <=0) return;
+                // Snap to the nearest item boundary
+                const newScrollLeft = Math.round(carousel.scrollLeft / metrics.itemWidthWithGap) * metrics.itemWidthWithGap;
+                // Only scroll if the difference is significant enough to avoid jitter
+                if (Math.abs(carousel.scrollLeft - newScrollLeft) > 1) { 
+                    carousel.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+                }
+            }, 150); // Delay before snapping
+        }, { passive: true });
+
+        // Add this specific carousel to a list for the global resize handler
+        if (!window.allCarouselsToResize) {
+            window.allCarouselsToResize = [];
+        }
+        window.allCarouselsToResize.push(carousel);
     });
+
+    // Setup a single debounced resize handler for all carousels
+    if (!window.carouselResizeHandlerSetup) {
+        window.addEventListener('resize', debounce(() => {
+            if (window.allCarouselsToResize) {
+                window.allCarouselsToResize.forEach(carousel => {
+                    const gameItems = carousel.querySelectorAll('.game-item');
+                    const metrics = calculateCarouselMetrics(carousel, gameItems);
+                    
+                    // Update arrow visibility on resize
+                    const container = carousel.closest('.game-carousel-container');
+                    if(container) {
+                        const leftArr = container.querySelector('.carousel-arrow-left');
+                        const rightArr = container.querySelector('.carousel-arrow-right');
+                        if(leftArr && rightArr) {
+                             const displayValue = metrics.canScroll ? '' : 'none';
+                             leftArr.style.display = displayValue;
+                             rightArr.style.display = displayValue;
+                        }
+                    }
+
+                    if (!metrics.canScroll || metrics.itemWidthWithGap <= 0) return;
+                    // Re-snap to the nearest item after resize
+                    const newScrollLeft = Math.round(carousel.scrollLeft / metrics.itemWidthWithGap) * metrics.itemWidthWithGap;
+                     // Only scroll if needed, and use 'auto' behavior for immediate jump on resize
+                    if (Math.abs(carousel.scrollLeft - newScrollLeft) > 1) {
+                        carousel.scrollTo({ left: newScrollLeft, behavior: 'auto' });
+                    }
+                });
+            }
+        }, 250));
+        window.carouselResizeHandlerSetup = true;
+    }
+}
+
+// Debounce function to limit how often a function is called
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('games.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            console.log(data);
             createCarousels(data);
         })
-        .catch(error => console.error('Error loading JSON:', error));
+        .catch(error => console.error('Error loading or parsing games.json:', error));
 });

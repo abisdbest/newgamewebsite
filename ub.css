@@ -1,4 +1,4 @@
-/* unblock-assistant.css */
+/* ub.css - Styles for Unblock Assistant Feature */
 
 /* Overlay for the background */
 #unblockAssistantOverlay {
@@ -7,11 +7,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.75); /* Darker semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's on top of everything */
+    z-index: 2000; /* Ensure it's on top of other site elements */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -24,80 +24,131 @@
 
 /* The main popup box */
 #unblockAssistantPopup {
-    background-color: #fff;
+    background-color: var(--secondary-bg-color); /* Use theme variable */
     border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     width: 90%;
     max-width: 600px;
-    /* Changed: Ensure popup itself fits vertically and scrolls if needed */
-    max-height: 90vh; /* Max height is 90% of viewport height */
-    display: flex; /* Use flexbox for internal layout */
-    flex-direction: column; /* Stack children vertically */
-    padding: 30px;
+    max-height: 90vh; 
+    display: flex; 
+    flex-direction: column; 
+    padding: 25px 30px; /* Adjusted padding */
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    transform: translateY(20px);
+    font-family: var(--font-family); /* Use theme variable */
+    color: var(--primary-text-color); /* Use theme variable */
+    transform: translateY(20px) scale(0.95);
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 #unblockAssistantOverlay.active #unblockAssistantPopup {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
 }
 
 /* Header */
 #unblockAssistantPopup h2 {
-    color: #2c3e50;
+    color: var(--accent-color); /* Use theme variable */
     text-align: center;
-    margin-bottom: 25px;
-    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.6em; /* Adjusted size */
+    font-weight: 600;
+}
+#unblockAssistantPopup h3 { /* For step titles */
+    color: var(--primary-text-color);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+#unblockAssistantPopup h4 {
+    color: var(--secondary-text-color);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
-/* Content area for steps - NOW SCROLLABLE */
+
+/* Content area for steps */
 #unblockAssistantContent {
-    flex-grow: 1; /* Allows content to take available space */
-    min-height: 150px; /* Ensure a minimum height */
-    max-height: calc(90vh - 200px); /* Adjust based on header/footer height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    margin-bottom: 25px;
-    padding-right: 10px; /* Add some padding for scrollbar */
+    flex-grow: 1; 
+    min-height: 100px; 
+    max-height: calc(90vh - 220px); /* Approx header, footer, progress bar height */
+    overflow-y: auto; 
+    margin-bottom: 20px;
+    padding-right: 10px; /* Space for scrollbar */
     line-height: 1.6;
 }
+#unblockAssistantContent::-webkit-scrollbar {
+    width: 8px;
+}
+#unblockAssistantContent::-webkit-scrollbar-track {
+    background: var(--tertiary-bg-color);
+    border-radius: 4px;
+}
+#unblockAssistantContent::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
 
 #unblockAssistantContent p {
-    margin-bottom: 15px;
-    font-size: 1.05em;
+    margin-bottom: 12px;
+    font-size: 0.95em; /* Adjusted size */
+    color: var(--secondary-text-color);
+}
+#unblockAssistantContent p strong {
+    color: var(--primary-text-color);
+    font-weight: 500;
+}
+#unblockAssistantContent p em {
+    color: var(--secondary-text-color);
+    font-style: italic;
 }
 
 #unblockAssistantContent ul {
-    list-style: none;
-    padding: 0;
+    list-style: disc; /* Use standard list style */
+    padding-left: 20px; /* Indent list */
+    margin-bottom: 15px;
 }
 
 #unblockAssistantContent ul li {
-    background-color: #f5f8fa;
-    border-left: 4px solid #3498db;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-size: 0.95em;
+    /* background-color: transparent; Remove specific background */
+    /* border-left: none; Remove border */
+    padding: 2px 0; /* Minimal padding */
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
 }
+#unblockAssistantContent ul li b {
+    color: var(--primary-text-color);
+}
+
 
 /* Input fields */
 #unblockAssistantContent input[type="text"],
 #unblockAssistantContent textarea {
-    width: calc(100% - 22px); /* Account for padding */
-    padding: 10px;
+    width: 100%; 
+    padding: 10px 12px;
     margin-top: 5px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #555; /* Theme border */
     border-radius: 5px;
-    font-size: 1em;
-    font-family: inherit;
+    font-size: 0.95em;
+    font-family: var(--font-family);
     box-sizing: border-box;
+    background-color: var(--tertiary-bg-color); /* Theme input bg */
+    color: var(--primary-text-color); /* Theme input text */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+#unblockAssistantContent input[type="text"]:focus,
+#unblockAssistantContent textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(var(--accent-color), 0.3); /* Use accent color for focus */
+}
+
 
 #unblockAssistantContent textarea {
     min-height: 80px;
@@ -105,113 +156,132 @@
 }
 
 /* Radio/Checkbox styling */
-.unblock-option {
+.unblock-option { /* Used in script.js for radio button options */
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     cursor: pointer;
-    background-color: #f9f9f9;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    transition: all 0.2s ease;
+    background-color: var(--tertiary-bg-color);
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    color: var(--secondary-text-color);
 }
 
 .unblock-option:hover {
-    background-color: #f0f0f0;
-    border-color: #ccc;
+    background-color: #4a4a4a; /* Slightly lighter tertiary */
+    border-color: #666;
+}
+
+.unblock-option:has(input:checked) { /* Modern way to style based on checked state */
+    background-color: rgba(var(--link-color), 0.15); /* Use link color with alpha */
+    border-color: var(--link-color);
+    color: var(--primary-text-color);
 }
 
 .unblock-option input[type="radio"],
 .unblock-option input[type="checkbox"] {
     margin-right: 10px;
-    transform: scale(1.1); /* Slightly larger checkboxes/radios */
+    transform: scale(1.1); 
+    accent-color: var(--link-color); /* Style the check itself */
 }
 
-/* Link styling for tests */
-.test-link {
+/* Link styling for tests inside assistant */
+.test-link { /* Used in script.js for keyword test links */
     display: inline-block;
-    background-color: #28a745; /* Green for "Try this" */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
+    /* background-color: var(--link-color); */ /* JS adds inline bg, this is fallback */
+    color: var(--primary-text-color);
+    padding: 5px 10px; /* Smaller padding */
+    border-radius: 5px;
     text-decoration: none;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: background-color 0.2s ease;
+    font-weight: 500; /* Medium weight */
+    margin: 5px 0;
+    transition: opacity 0.2s ease;
+    border: 1px solid transparent; /* For consistency */
 }
-
 .test-link:hover {
-    background-color: #218838;
+    opacity: 0.85;
 }
 
 /* Navigation Buttons */
 #unblockAssistantButtons {
     display: flex;
     justify-content: space-between;
-    margin-top: 25px;
-    flex-shrink: 0; /* Prevent buttons from shrinking */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px;
+    padding-top: 15px; /* Space above buttons */
+    border-top: 1px solid var(--tertiary-bg-color); /* Separator */
+    flex-shrink: 0; 
 }
 
-#unblockAssistantButtons button {
-    background-color: #3498db;
+#unblockAssistantButtons button, 
+button#unblockFinishBtn, /* Target JS created buttons */
+button#unblockFinishBtnSecondary {
+    flex-grow: 1; /* Make buttons take equal space if desired */
+    background-color: var(--link-color);
     color: white;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
+    border-radius: 5px;
+    font-size: 1em; /* Adjusted size */
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
+    text-align: center;
 }
 
-#unblockAssistantButtons button:hover {
-    background-color: #2980b9;
+#unblockAssistantButtons button:hover:not(:disabled) {
+    background-color: #3e8e41; /* Darken link color */
     transform: translateY(-1px);
 }
 
 #unblockAssistantButtons button:disabled {
-    background-color: #cccccc;
+    background-color: var(--tertiary-bg-color);
+    color: #777;
     cursor: not-allowed;
+    transform: none;
 }
 
 #unblockAssistantButtons #unblockPrevBtn {
-    background-color: #95a5a6; /* Grey for previous */
+    background-color: #6c757d; /* Grey for previous */
 }
-
 #unblockAssistantButtons #unblockPrevBtn:hover:not(:disabled) {
-    background-color: #7f8c8d;
+    background-color: #5a6268;
 }
 
-#unblockAssistantButtons #unblockSubmitBtn {
-    background-color: #28a745; /* Green for submit */
+#unblockAssistantButtons #unblockSubmitBtn,
+button#unblockFinishBtn.submit { /* If a finish button acts as submit */
+    background-color: var(--accent-color); 
+    color: var(--primary-bg-color); /* Dark text on accent */
 }
-
-#unblockAssistantButtons #unblockSubmitBtn:hover:not(:disabled) {
-    background-color: #218838;
+#unblockAssistantButtons #unblockSubmitBtn:hover:not(:disabled),
+button#unblockFinishBtn.submit:hover:not(:disabled) {
+    background-color: #e6b800; /* Darken accent */
 }
-
 
 /* Progress bar */
 #unblockAssistantProgressBarContainer {
     width: 100%;
-    background-color: #e0e0e0;
+    background-color: var(--tertiary-bg-color);
     border-radius: 5px;
     height: 10px;
     margin-bottom: 20px;
-    flex-shrink: 0; /* Prevent progress bar from shrinking */
+    overflow: hidden; /* Ensure progress bar stays within */
+    flex-shrink: 0; 
 }
 
 #unblockAssistantProgressBar {
     height: 100%;
     width: 0%;
-    background-color: #3498db;
+    background-color: var(--link-color); /* Use theme link color */
     border-radius: 5px;
     transition: width 0.3s ease;
 }
 
 /* Spinner for loading */
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+.spinner { /* Used in script.js */
+    border: 4px solid var(--tertiary-bg-color);
+    border-top: 4px solid var(--accent-color); /* Use theme accent */
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -224,298 +294,278 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Specific step styling */
-.step-summary b {
-    color: #2c3e50;
+/* Specific step styling for review summary */
+.step-summary { /* Used in script.js */
+    background-color: rgba(var(--tertiary-bg-color), 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
 }
 .step-summary p {
-    background-color: #eaf3f9;
-    padding: 10px;
-    border-radius: 5px;
-    border-left: 3px solid #3498db;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-bottom: 8px;
+    color: var(--secondary-text-color);
+}
+.step-summary b {
+    color: var(--primary-text-color);
+    font-weight: 500;
 }
 
-/* Hidden by default */
+
+/* Hidden class utility */
 .hidden {
     display: none !important;
 }
 
-/* Media query for smaller screens, ensure it still looks good */
-@media (max-width: 768px) {
-    #unblockAssistantPopup {
-        padding: 20px;
-        width: 95%; /* Make it slightly wider on small screens */
-    }
+/* Styles for the Unblock Assistant icon glow and info popup */
+/* These were moved from styles.css to consolidate UB feature styling */
 
-    #unblockAssistantContent {
-        max-height: calc(90vh - 180px); /* Adjust max-height for smaller screens */
-    }
-
-    #unblockAssistantButtons button {
-        padding: 10px 15px;
-        font-size: 1em;
-    }
+.icon.glow-pulse i { /* Target the <i> tag inside the .icon.glow-pulse */
+    animation: ubGlowPulse 1.5s infinite alternate;
+    color: var(--accent-color); /* Initial color for glowing icon */
 }
 
-/* unblock-assistant.css */
-
-/* ... (previous CSS rules) ... */
-
-/* New CSS for the glow effect on the icon */
-.glow-pulse {
-    animation: glow-pulse 0.5s infinite alternate; /* Slower, more subtle pulse */
-    filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.5)); /* Initial light glow */
-    transition: filter 0.3s ease; /* Smooth transition if glow is removed */
-}
-
-@keyframes glow-pulse {
+@keyframes ubGlowPulse { /* Renamed to avoid conflict if styles.css had one */
     0% {
-        filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.7)) drop-shadow(0 0 12px rgba(0, 255, 255, 0.5)); /* Increased glow size and intensity */
+        text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color), 0 0 15px rgba(var(--accent-color), 0.7);
     }
-    50% {
-        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 1)) drop-shadow(0 0 22px rgba(0, 255, 255, 0.8)); /* Further increased glow size and intensity */
+    100% {
+        text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px rgba(var(--accent-color), 0.5);
     }
 }
+/* Fallback for browsers not supporting text-shadow well, or simpler glow */
+.icon.glow-pulse { 
+    /* box-shadow: 0 0 8px var(--accent-color); /* Apply to container if icon doesn't take shadow well */
+}
 
-/* unblock-assistant.css */
 
-/* ... (previous CSS rules) ... */
-
-/* CSS for the small info popup */
-.feature-info-popup {
-    position: fixed; /* Stays in place when scrolling */
-    background-color: #333; /* Dark background */
-    color: white;
-    padding: 10px 15px;
+.feature-info-popup { /* Used in script.js */
+    position: fixed; 
+    background-color: var(--secondary-bg-color); 
+    color: var(--primary-text-color);
+    padding: 12px 18px; /* Adjusted padding */
     border-radius: 8px;
     font-size: 0.9em;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1001; /* Above the unblock assistant overlay */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 2500; /* Above assistant overlay during its brief appearance */
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95) translateY(10px); /* Start slightly down */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    display: flex; /* For alignment of content and close button */
+    display: flex; 
     align-items: center;
-    gap: 8px; /* Space between text and button */
+    gap: 10px; 
+    max-width: 300px;
+    border: 1px solid var(--tertiary-bg-color);
 }
 
 .feature-info-popup.show {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
 }
 
-.feature-info-popup .close-btn {
+.feature-info-popup p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.95em;
+    color: var(--secondary-text-color);
+}
+
+.feature-info-popup .close-btn { /* From script.js */
     background: none;
     border: none;
-    color: white;
-    font-size: 1.2em;
+    color: var(--secondary-text-color);
+    font-size: 1.5em; /* Larger close button */
     cursor: pointer;
-    line-height: 1; /* Prevent extra space */
-    padding: 0;
+    line-height: 1; 
+    padding: 0 3px; /* Small padding for easier click */
+    align-self: flex-start; /* Align to top */
+    margin-top: -3px; /* Fine-tune position */
 }
 .feature-info-popup .close-btn:hover {
-    color: #ff6f61; /* Highlight on hover */
+    color: var(--primary-text-color);
 }
 
-/* Default arrow (pointing left, popup to the right of icon) */
+/* Arrow for feature popup */
 .feature-info-popup::before {
     content: '';
     position: absolute;
+    top: 50%;
     width: 0;
     height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #333; /* Arrow pointing left (color of popup background) */
-    left: -8px; /* Position to the very edge of the popup */
-    top: 50%;
-    transform: translateY(-50%);
+    border: 10px solid transparent;
+}
+.feature-info-popup.point-right::before { /* Points to icon on its right */
+    left: 100%; /* Position arrow outside to the right */
+    margin-top: -10px; /* Center vertically */
+    border-left-color: var(--secondary-bg-color); /* Arrow color matches popup */
+}
+.feature-info-popup:not(.point-right)::before { /* Default, points to icon on its left */
+    right: 100%; /* Position arrow outside to the left */
+    margin-top: -10px; /* Center vertically */
+    border-right-color: var(--secondary-bg-color); /* Arrow color matches popup */
 }
 
-/* Arrow pointing right (popup to the left of icon) */
-.feature-info-popup.point-right::before {
-    border-right: none; /* Remove left-pointing arrow */
-    border-left: 8px solid #333; /* Add right-pointing arrow */
-    left: auto; /* Remove left positioning */
-    right: -8px; /* Position to the very edge of the popup */
+
+/* Specific styles for elements within Unblock Assistant content (from original ub.css) */
+/* These are for the browse/keyword test parts primarily */
+
+.unblock-assistant-choices { /* From script.js */
+    display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
 }
+.assistant-choice-btn { /* From script.js */
+    padding: 15px; text-align: left; background-color: var(--tertiary-bg-color); border: 1px solid #555; border-radius: 8px; cursor: pointer;
+    font-size: 1.1em; line-height: 1.4; transition: background-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;
+    color: var(--primary-text-color);
+}
+.assistant-choice-btn:hover { background-color: #4a4a4a; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.assistant-choice-btn .btn-icon { font-size: 1.5em; margin-right: 10px; display: inline-block; width: 30px; } 
+.assistant-choice-btn small { font-size: 0.8em; color: var(--secondary-text-color); margin-top: 5px; }
 
-/* unblock-assistant.css */
+.browse-view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.browse-search-container { margin-bottom: 15px; }
+.browse-search-input { /* Already styled by general input[type="text"] rule, but can add specifics */
+    box-sizing: border-box;
+}
+.browse-url-list-container {
+    max-height: 275px; overflow-y: auto; border: 1px solid #555; padding: 10px; border-radius: 4px; background: var(--primary-bg-color);
+}
+.browse-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--tertiary-bg-color); }
+.browse-item:last-child { border-bottom: none; }
+.browse-item-link { text-decoration: none; color: var(--accent-color); font-weight: 500; flex-grow: 1; word-break: break-all; }
+.browse-item-link:hover { text-decoration: underline; }
+.browse-item-stats { display: flex; align-items: center; color: var(--secondary-text-color); font-size: 0.9em; white-space: nowrap; margin-left: 15px; }
+.loading-text, .error-text, .info-text { text-align: center; padding: 20px; color: var(--secondary-text-color); }
+.error-text strong, .error-text small { color: var(--danger-color); } /* Make error details stand out */
+.info-text { font-style: italic; }
 
-/* ... (previous CSS rules) ... */
+.unblock-utility-btn { /* General utility button class from script.js */
+    background-color: #6c757d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9em;
+}
+.unblock-utility-btn.small-btn { padding: 6px 10px; font-size: 0.85em; }
+.unblock-utility-btn:hover { background-color: #5a6268; }
 
-/* Styling for the Keyword Test section (updated for manual links) */
-.keyword-test-area {
-    margin-top: 20px;
+
+.keyword-test-area { /* From original ub.css for keyword tests */
+    margin-top: 15px;
     padding: 15px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--tertiary-bg-color);
     border-radius: 8px;
-    background-color: #fcfcfc;
+    background-color: rgba(var(--primary-bg-color), 0.5); /* Slightly different bg */
 }
-
-.keyword-test-area h4 {
-    margin-top: 0;
-    color: #34495e;
-    font-size: 1.2em;
-}
-
 .keyword-test-area p.instruction {
-    font-size: 0.95em;
-    color: #555;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    margin-bottom: 10px;
 }
 
-/* Styles for test links and their results */
-.test-item {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
+.test-item { /* From original ub.css for keyword tests */
+    background-color: var(--tertiary-bg-color);
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 10px;
     text-align: left;
 }
-
 .test-item .test-link-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
+    flex-wrap: wrap; 
 }
-
-.test-item .test-link-wrapper .test-link {
-    background-color: #007bff; /* Blue for the test link */
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-    white-space: nowrap; /* Prevent URL from breaking */
+.test-item .test-link-wrapper .test-link { /* This is an <a> tag */
+    /* background-color: var(--accent-color); /* JS might override, this is for consistency */
+    /* color: var(--primary-bg-color); */
+    font-weight: 500;
+    white-space: nowrap; 
     overflow: hidden;
-    text-overflow: ellipsis; /* Ellipsis for long URLs */
-    max-width: 60%; /* Limit width to allow space for button */
-    display: inline-block; /* For max-width to work */
+    text-overflow: ellipsis; 
+    max-width: calc(100% - 80px); /* Ensure space for options if on same line */
+    display: inline-block; 
 }
-
 .test-item .test-link-wrapper .test-link:hover {
-    background-color: #0056b3;
+    /* opacity: 0.85; */
 }
-
+.test-item .result-options { /* Container for radio buttons */
+    margin-top: 8px;
+}
 .test-item .result-options label {
-    display: block;
-    margin-bottom: 8px;
+    display: inline-block; /* Lay out radios horizontally */
+    margin-right: 15px;
+    margin-bottom: 5px;
     cursor: pointer;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
 }
 .test-item .result-options label input[type="radio"] {
-    margin-right: 8px;
-}
-
-.test-item .result-message {
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-.test-item .result-message.success {
-    background-color: #e6ffe6;
-    color: #28a745;
-    border: 1px solid #28a745;
-}
-
-.test-item .result-message.fail {
-    background-color: #ffe6e6;
-    color: #dc3545;
-    border: 1px solid #dc3545;
-}
-
-.test-item .result-message.pending {
-    background-color: #e0f2f7;
-    color: #007bff;
-    border: 1px solid #007bff;
-}
-
-.test-item .result-message.not-tested {
-    background-color: #f7f7f7;
-    color: #888;
-    border: 1px solid #ccc;
+    margin-right: 5px;
 }
 
 
-/* Input for the custom keyword test */
-.custom-keyword-input-container {
+.custom-keyword-input-container { /* From original ub.css */
     display: flex;
     gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     align-items: center;
 }
-
 .custom-keyword-input-container input[type="text"] {
-    flex-grow: 1; /* Take up available space */
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-    font-family: inherit;
-    box-sizing: border-box;
+     margin-bottom: 0; /* Remove bottom margin if inside this container */
 }
-
-.custom-keyword-input-container button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
+.custom-keyword-input-container button { /* This is .unblock-utility-btn */
     white-space: nowrap;
-    transition: background-color 0.2s ease;
 }
 
-.custom-keyword-input-container button:hover {
-    background-color: #2980b9;
-}
-.custom-keyword-input-container button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
 
-.custom-test-result-wrapper {
-    margin-top: 15px;
-    background-color: #eaf3f9;
-    border: 1px solid #3498db;
-    border-radius: 8px;
-    padding: 15px;
+.custom-test-result-wrapper { /* From original ub.css */
+    margin-top: 10px;
+    background-color: rgba(var(--tertiary-bg-color), 0.7);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 10px 12px;
 }
-
 .custom-test-result-wrapper p {
-    font-size: 1em;
-    margin-bottom: 10px;
+    font-size: 0.95em;
+    margin-bottom: 8px;
 }
-
 .custom-test-result-wrapper .test-link {
-    background-color: #28a745; /* Green for the test link */
+    /* background-color: var(--link-color); /* Example if it's a "good" link */
 }
 
-/* Spinner (general spinner, no specific iframe spinner anymore) */
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
-/* Hidden by default */
-.hidden {
-    display: none !important;
+/* Media query for smaller screens, ensure it still looks good */
+@media (max-width: 767px) {
+    #unblockAssistantPopup {
+        padding: 20px 20px; /* Symmetrical padding */
+        width: 95%; 
+    }
+
+    #unblockAssistantContent {
+        max-height: calc(90vh - 200px); /* Adjust max-height for smaller screens */
+        padding-right: 5px; /* Less padding for scrollbar */
+    }
+    
+    #unblockAssistantPopup h2 { font-size: 1.4em; }
+    #unblockAssistantPopup h3 { font-size: 1.2em; }
+    #unblockAssistantPopup h4 { font-size: 1em; }
+    #unblockAssistantContent p { font-size: 0.9em; }
+
+
+    #unblockAssistantButtons {
+        flex-direction: column; /* Stack buttons */
+    }
+    #unblockAssistantButtons button,
+    button#unblockFinishBtn, 
+    button#unblockFinishBtnSecondary {
+        width: 100%; /* Full width buttons when stacked */
+        padding: 12px 15px; /* Larger clickable area */
+        font-size: 0.95em;
+    }
+    .test-item .test-link-wrapper .test-link {
+        max-width: 100%; /* Allow link to take full width if it wraps */
+        margin-bottom: 5px;
+    }
+    .test-item .result-options label {
+        display: block; /* Stack radio options */
+    }
 }
