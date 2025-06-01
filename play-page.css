@@ -1,40 +1,70 @@
 /* play-page.css - Styles specific to game play pages */
 
+/* Added :root variables for easier theming and consistency */
+:root {
+    /* Define these based on your actual global styles */
+    --primary-bg-color: #121212;  /* Example: Dark theme main background */
+    --secondary-bg-color: #1e1e1e; /* Example: Dark theme secondary background */
+    --secondary-bg-color-rgb: 30, 30, 30; /* RGB equivalent of --secondary-bg-color */
+    --tertiary-bg-color: #2a2a2a;  /* Example: Dark theme tertiary background */
+    --primary-text-color: #e0e0e0; /* Example: Light text for dark themes */
+    --secondary-text-color: #b0b0b0;/* Example: Dimmer text */
+    --accent-color: #17a2b8;       /* Example: An accent color (e.g., Bootstrap 'info' cyan) */
+    --link-color: #007bff;         /* Example: Standard link blue, from original play button */
+
+    /* Game Page Specific Variables */
+    --options-bar-height: 56px;    /* Height of the options bar below the iframe */
+
+    /* Button Styling Variables */
+    --button-text-color: white;
+    --button-border-radius: 8px;
+    --button-icon-gap: 8px;
+
+    --play-button-bg-color: var(--link-color); /* Play button specific BG */
+    --play-button-hover-bg-color: #0056b3; /* Darker shade of link-color for hover */
+    --play-button-padding: 12px 24px;
+
+    --option-button-bg-color: var(--tertiary-bg-color);
+    --option-button-hover-bg-color: var(--accent-color);
+    --option-button-hover-text-color: var(--primary-bg-color); /* Text color on hover, e.g. dark text on light accent */
+    --option-button-padding: 8px 15px;
+    --option-button-border-color: rgba(255,255,255,0.15);
+    --option-button-hover-border-color: var(--accent-color);
+}
+
+
 /* Main wrapper for play page content (game + ads) */
 .play-page-content-wrapper {
     display: flex;
-    justify-content: space-between; /* Pushes ads to sides */
-    align-items: flex-start; /* Align items to the top */
-    padding: 20px; /* Padding around the entire play area */
-    gap: 20px; /* Space between ads and main content */
-    max-width: 1600px; /* Max width for very wide screens */
-    margin: 0 auto; /* Center the wrapper */
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 /* Ad container styling */
 .ad-container {
-    flex: 0 0 240px; /* Ad width, adjust as needed e.g. 160px, 200px */
-    /* min-height: 600px; /* Typical height for skyscraper ads, adjust if needed */
-    /* background-color: #2a2a2a; /* Placeholder for ad area */
+    flex: 0 0 240px;
     display: flex;
-    align-items: center; /* Vertically center ad content if it's smaller */
-    justify-content: center; /* Horizontally center ad content */
-    /* border: 1px dashed var(--tertiary-bg-color); */ /* For visualizing */
-    background-color: white;
+    align-items: center;
+    justify-content: center;
+    background-color: white; /* Keep as is if external ads require white BG */
 }
-.ad-container .adsbygoogle { /* Ensure ins tag takes space */
+.ad-container .adsbygoogle {
     width: 100%;
-    min-height: 250px; /* Give ads some minimum space to load */
+    min-height: 250px;
 }
 
 
 /* Game and Description Area (central column) */
 .game-and-description-area {
-    flex-grow: 1; /* Takes up remaining space between ads */
-    max-width: 900px; /* Max width for the game and description content */
+    flex-grow: 1;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Space between game area and description */
+    gap: 30px;
 }
 
 /* Game Area Styling */
@@ -42,105 +72,131 @@
     width: 100%;
 }
 
+/* 1. MODIFIED FOR IFRAME RATIO AND TOOLBAR POSITION */
 #game-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9; /* Common game aspect ratio, adjust as needed */
-    background-color: var(--secondary-bg-color); /* Background for the game area */
+    aspect-ratio: 16 / 9; /* This ratio now includes space for the options bar */
+    background-color: var(--secondary-bg-color);
     border-radius: 10px;
-    overflow: hidden; /* Ensures image/iframe stay within rounded corners */
+    overflow: hidden; /* Crucial for keeping children within rounded bounds */
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    display: flex; /* For centering play button and image */
+    display: flex; /* For centering play button and initial image */
     justify-content: center;
     align-items: center;
 }
 
+/* 3. MODIFIED FOR ROUNDED IMAGE */
 #game-image {
-    max-width: 70%; /* Control initial image size */
+    max-width: 70%;
     max-height: 70%;
     object-fit: contain;
-    border-radius: 8px; /* Slight rounding for the image itself */
-    z-index: 1; /* Above iframe initially */
+    border-radius: 15px; /* Significantly more rounded */
+    z-index: 1;
     transition: opacity 0.3s ease;
 }
 
+/* 1. MODIFIED FOR IFRAME RATIO AND TOOLBAR POSITION */
 #game-iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--options-bar-height)); /* Iframe stops above options bar */
     border: none;
-    background-color: #000; /* Default background for iframe before game loads */
-    z-index: 0; /* Below image and play button initially */
+    background-color: #000;
+    /* Top corners will be clipped by #game-container's overflow:hidden and border-radius */
 }
-#game-iframe[src]:not([src=""]) { /* When iframe has a source */
+#game-iframe[src]:not([src=""]) {
     z-index: 2; /* Bring iframe to front when game is playing */
 }
 
 
+/* 2. MODIFIED FOR BUTTON STYLING (Play Button) */
 #play-btn {
-    position: absolute;
-    z-index: 2; /* Above iframe and image if image is also visible */
-    background-color: var(--link-color);
-    color: white;
+    position: absolute; /* Centered by #game-container flex properties */
+    z-index: 2;
+    background-color: var(--play-button-bg-color);
+    color: var(--button-text-color);
     border: none;
-    padding: 15px 30px;
+    padding: var(--play-button-padding);
     font-size: 1.2em;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: var(--button-border-radius);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 #play-btn:hover {
-    background-color: #3e8e41; /* Darken link color */
+    background-color: var(--play-button-hover-bg-color);
     transform: scale(1.05);
 }
 
-/* Options Bar at the bottom of the game container */
+/* 1. MODIFIED FOR TOOLBAR POSITION & 2. BUTTON STYLING */
 #options-bar {
     position: absolute;
-    bottom: 0;
+    bottom: 0; /* Sits at the very bottom of #game-container */
     left: 0;
     width: 100%;
-    background-color: rgba(var(--secondary-bg-color), 0.85); /* Semi-transparent background */
-    backdrop-filter: blur(5px); /* Frosted glass effect */
+    height: var(--options-bar-height); /* Defined height */
+    background-color: rgba(var(--secondary-bg-color-rgb), 0.9);
+    backdrop-filter: blur(5px); /* Optional: frosted glass effect */
     color: var(--primary-text-color);
-    padding: 10px;
+    padding: 0 15px; /* Horizontal padding for button alignment */
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
+    justify-content: flex-end;
+    align-items: center; /* Vertically center buttons */
     gap: 10px;
     z-index: 3; /* Above game iframe */
-    border-top: 1px solid var(--tertiary-bg-color);
+    box-sizing: border-box;
+    /* border-top: 1px solid var(--tertiary-bg-color); /* Optional: if visual separation is needed */
+    /* Bottom corners will be clipped by #game-container's overflow:hidden and border-radius */
 }
 
-.game-option-btn { /* Class for fullscreen and new page buttons */
-    background-color: var(--tertiary-bg-color);
-    border: none;
+/* 2. MODIFIED FOR BUTTON STYLING (Options Bar Buttons) */
+#options-bar #fullscreen-btn,
+#options-bar #new-page-btn {
+    background-color: var(--option-button-bg-color);
     color: var(--primary-text-color);
-    padding: 8px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-flex; /* For icon and text alignment */
-    align-items: center;
-    gap: 8px;
+    border: 1px solid var(--option-button-border-color);
+    padding: var(--option-button-padding);
     font-size: 0.9em;
     font-weight: 500;
+    border-radius: 6px; /* Slightly less rounded than play button */
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    display: inline-flex; /* To align text and pseudo-element icon */
+    align-items: center;
 }
-.game-option-btn:hover {
-    background-color: var(--accent-color);
-    color: var(--primary-bg-color);
+
+#options-bar #fullscreen-btn:hover,
+#options-bar #new-page-btn:hover {
+    background-color: var(--option-button-hover-bg-color);
+    color: var(--option-button-hover-text-color);
+    border-color: var(--option-button-hover-border-color);
+    transform: translateY(-2px); /* Subtle lift effect */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
-.game-option-btn i {
-    font-size: 1.1em;
+
+/* Adding icons using Font Awesome pseudo-elements */
+#options-bar #fullscreen-btn::before,
+#options-bar #new-page-btn::before {
+    font-family: "Font Awesome 6 Free", "FontAwesome"; /* From your HTML's Font Awesome link */
+    font-weight: 900; /* For solid icons */
+    font-size: 1em; /* Relative to button font size, adjust if needed */
+    margin-right: var(--button-icon-gap);
+}
+
+#options-bar #fullscreen-btn::before {
+    content: "\f065"; /* fa-expand */
+}
+
+#options-bar #new-page-btn::before {
+    content: "\f35d"; /* fa-external-link-alt */
 }
 
 
-/* Description Area Styling */
+/* Description Area Styling - Kept as is from original, seems reasonable */
 .description {
     background-color: var(--secondary-bg-color);
     padding: 25px;
@@ -149,17 +205,15 @@
     line-height: 1.7;
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
-
-.description h1 { /* Game title within description */
+.description h1 {
     color: var(--primary-text-color);
-    font-size: 1.8em; /* Adjust as needed */
-    margin-top: 0; /* If it's the first element */
+    font-size: 1.8em;
+    margin-top: 0;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--tertiary-bg-color);
     font-weight: 600;
 }
-
 .description p {
     margin-bottom: 15px;
     font-size: 0.95em;
@@ -169,18 +223,18 @@
     font-weight: 600;
 }
 .description a {
-    color: var(--accent-color);
+    color: var(--accent-color); /* Or var(--link-color) for consistency */
     text-decoration: underline;
 }
 .description a:hover {
-    color: var(--primary-text-color);
+    color: var(--primary-text-color); /* Or a lighter shade of accent/link */
 }
 
 
 /* Responsive adjustments for play page */
 @media screen and (max-width: 1200px) {
     .ad-container {
-        flex-basis: 160px; /* Slimmer ads on smaller tablet/desktop */
+        flex-basis: 160px;
     }
     .game-and-description-area {
         max-width: 700px;
@@ -189,44 +243,54 @@
 
 @media screen and (max-width: 992px) { /* Tablet */
     .play-page-content-wrapper {
-        flex-direction: column; /* Stack elements */
-        align-items: center; /* Center the main content stack */
+        flex-direction: column;
+        align-items: center;
     }
     .ad-container {
-        flex-basis: auto; /* Allow ads to take full width or responsive width */
+        flex-basis: auto;
         width: 100%;
-        max-width: 728px; /* Common leaderboard ad size */
-        min-height: 90px; /* Common banner ad height */
+        max-width: 728px;
+        min-height: 90px;
         margin-bottom: 20px;
-        order: 1; /* Ads first or last */
+        order: 1; /* Example order, adjust as needed */
     }
     .ad-side-left { order: 1; }
     .game-and-description-area {
         order: 2;
-        width: 100%; /* Take full width in the column */
-        max-width: 100%; /* Override previous max-width */
+        width: 100%;
+        max-width: 100%;
     }
     .ad-side-right { order: 3; }
 
     #game-container {
-        aspect-ratio: 16 / 10; /* May need to adjust for tablets */
+        aspect-ratio: 16 / 10; /* Or keep 16/9, adjust based on preference for tablets */
     }
 }
 
 @media screen and (max-width: 767px) { /* Mobile */
     .play-page-content-wrapper {
-        padding: 15px; /* Less padding on mobile */
-        padding-right: calc(var(--sidebar-width) + 15px); /* Account for sidebar */
+        padding: 15px;
+        padding-right: calc(var(--sidebar-width, 0px) + 15px); /* Keep original sidebar calc, add fallback for --sidebar-width */
     }
-    /* Ad containers will already be full width from tablet styles */
-    .ad-container {
-        min-height: 50px; /* Common mobile banner height */
-        /* margin-bottom: 15px; */ /* Already set */
+    .ad-side-left, .ad-side-right {
+        display: none; /* Common to hide side ads on mobile */
     }
-    .ad-side-left { display: none; } /* Typically show only one "tower" or switch to banners */
-    .ad-side-right { display: none; } 
-    /* If you want a banner on top or bottom, you'd need different ad slots/markup */
-    /* Or, if keeping side ads, ensure they don't make content too narrow */
+
+    /* Override variables for mobile if needed */
+    :root {
+        --options-bar-height: 50px; /* Slightly smaller bar on mobile */
+        --option-button-padding: 6px 10px;
+        --button-icon-gap: 6px;
+    }
+
+    #options-bar {
+        padding: 0 10px; /* Less padding inside bar */
+        gap: 8px; /* Less gap between buttons */
+    }
+    #options-bar #fullscreen-btn,
+    #options-bar #new-page-btn {
+        font-size: 0.8em; /* Smaller text on mobile buttons */
+    }
 
     .description h1 {
         font-size: 1.5em;
@@ -234,28 +298,32 @@
     .description p {
         font-size: 0.9em;
     }
-    #options-bar {
-        padding: 8px;
-        gap: 8px;
-    }
-    .game-option-btn {
-        padding: 6px 10px;
-        font-size: 0.85em;
-    }
-    .game-option-btn i {
-        font-size: 1em;
-    }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) { /* Small Mobile */
      .play-page-content-wrapper {
-        padding-right: calc(var(--sidebar-width) + 10px); /* Account for sidebar */
+        padding-right: calc(var(--sidebar-width, 0px) + 10px);
         padding-left: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
     }
     #play-btn {
-        padding: 12px 24px;
+        padding: 10px 20px; /* Smaller play button */
         font-size: 1em;
     }
+
+    /* Optional: Icon-only buttons on very small screens (e.g., < 400px) */
+    /* This trick hides text by setting font-size to 0 on button, then resets for icon */
+    /* @media screen and (max-width: 400px) {
+        #options-bar #fullscreen-btn,
+        #options-bar #new-page-btn {
+            font-size: 0;
+            padding: var(--option-button-padding);
+        }
+        #options-bar #fullscreen-btn::before,
+        #options-bar #new-page-btn::before {
+            font-size: 1.2rem; 
+            margin-right: 0;
+        }
+    } */
 }
