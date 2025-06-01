@@ -1,0 +1,261 @@
+/* play-page.css - Styles specific to game play pages */
+
+/* Main wrapper for play page content (game + ads) */
+.play-page-content-wrapper {
+    display: flex;
+    justify-content: space-between; /* Pushes ads to sides */
+    align-items: flex-start; /* Align items to the top */
+    padding: 20px; /* Padding around the entire play area */
+    gap: 20px; /* Space between ads and main content */
+    max-width: 1600px; /* Max width for very wide screens */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+/* Ad container styling */
+.ad-container {
+    flex: 0 0 240px; /* Ad width, adjust as needed e.g. 160px, 200px */
+    /* min-height: 600px; /* Typical height for skyscraper ads, adjust if needed */
+    /* background-color: #2a2a2a; /* Placeholder for ad area */
+    display: flex;
+    align-items: center; /* Vertically center ad content if it's smaller */
+    justify-content: center; /* Horizontally center ad content */
+    /* border: 1px dashed var(--tertiary-bg-color); */ /* For visualizing */
+    background-color: white;
+}
+.ad-container .adsbygoogle { /* Ensure ins tag takes space */
+    width: 100%;
+    min-height: 250px; /* Give ads some minimum space to load */
+}
+
+
+/* Game and Description Area (central column) */
+.game-and-description-area {
+    flex-grow: 1; /* Takes up remaining space between ads */
+    max-width: 900px; /* Max width for the game and description content */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between game area and description */
+}
+
+/* Game Area Styling */
+.game-area {
+    width: 100%;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Common game aspect ratio, adjust as needed */
+    background-color: var(--secondary-bg-color); /* Background for the game area */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures image/iframe stay within rounded corners */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex; /* For centering play button and image */
+    justify-content: center;
+    align-items: center;
+}
+
+#game-image {
+    max-width: 70%; /* Control initial image size */
+    max-height: 70%;
+    object-fit: contain;
+    border-radius: 8px; /* Slight rounding for the image itself */
+    z-index: 1; /* Above iframe initially */
+    transition: opacity 0.3s ease;
+}
+
+#game-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000; /* Default background for iframe before game loads */
+    z-index: 0; /* Below image and play button initially */
+}
+#game-iframe[src]:not([src=""]) { /* When iframe has a source */
+    z-index: 2; /* Bring iframe to front when game is playing */
+}
+
+
+#play-btn {
+    position: absolute;
+    z-index: 2; /* Above iframe and image if image is also visible */
+    background-color: var(--link-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+#play-btn:hover {
+    background-color: #3e8e41; /* Darken link color */
+    transform: scale(1.05);
+}
+
+/* Options Bar at the bottom of the game container */
+#options-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(var(--secondary-bg-color), 0.85); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    color: var(--primary-text-color);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+    z-index: 3; /* Above game iframe */
+    border-top: 1px solid var(--tertiary-bg-color);
+}
+
+.game-option-btn { /* Class for fullscreen and new page buttons */
+    background-color: var(--tertiary-bg-color);
+    border: none;
+    color: var(--primary-text-color);
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex; /* For icon and text alignment */
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.game-option-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-bg-color);
+}
+.game-option-btn i {
+    font-size: 1.1em;
+}
+
+
+/* Description Area Styling */
+.description {
+    background-color: var(--secondary-bg-color);
+    padding: 25px;
+    border-radius: 10px;
+    color: var(--secondary-text-color);
+    line-height: 1.7;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.description h1 { /* Game title within description */
+    color: var(--primary-text-color);
+    font-size: 1.8em; /* Adjust as needed */
+    margin-top: 0; /* If it's the first element */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--tertiary-bg-color);
+    font-weight: 600;
+}
+
+.description p {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+.description p b {
+    color: var(--primary-text-color);
+    font-weight: 600;
+}
+.description a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+.description a:hover {
+    color: var(--primary-text-color);
+}
+
+
+/* Responsive adjustments for play page */
+@media screen and (max-width: 1200px) {
+    .ad-container {
+        flex-basis: 160px; /* Slimmer ads on smaller tablet/desktop */
+    }
+    .game-and-description-area {
+        max-width: 700px;
+    }
+}
+
+@media screen and (max-width: 992px) { /* Tablet */
+    .play-page-content-wrapper {
+        flex-direction: column; /* Stack elements */
+        align-items: center; /* Center the main content stack */
+    }
+    .ad-container {
+        flex-basis: auto; /* Allow ads to take full width or responsive width */
+        width: 100%;
+        max-width: 728px; /* Common leaderboard ad size */
+        min-height: 90px; /* Common banner ad height */
+        margin-bottom: 20px;
+        order: 1; /* Ads first or last */
+    }
+    .ad-side-left { order: 1; }
+    .game-and-description-area {
+        order: 2;
+        width: 100%; /* Take full width in the column */
+        max-width: 100%; /* Override previous max-width */
+    }
+    .ad-side-right { order: 3; }
+
+    #game-container {
+        aspect-ratio: 16 / 10; /* May need to adjust for tablets */
+    }
+}
+
+@media screen and (max-width: 767px) { /* Mobile */
+    .play-page-content-wrapper {
+        padding: 15px; /* Less padding on mobile */
+        padding-right: calc(var(--sidebar-width) + 15px); /* Account for sidebar */
+    }
+    /* Ad containers will already be full width from tablet styles */
+    .ad-container {
+        min-height: 50px; /* Common mobile banner height */
+        /* margin-bottom: 15px; */ /* Already set */
+    }
+    .ad-side-left { display: none; } /* Typically show only one "tower" or switch to banners */
+    .ad-side-right { display: none; } 
+    /* If you want a banner on top or bottom, you'd need different ad slots/markup */
+    /* Or, if keeping side ads, ensure they don't make content too narrow */
+
+    .description h1 {
+        font-size: 1.5em;
+    }
+    .description p {
+        font-size: 0.9em;
+    }
+    #options-bar {
+        padding: 8px;
+        gap: 8px;
+    }
+    .game-option-btn {
+        padding: 6px 10px;
+        font-size: 0.85em;
+    }
+    .game-option-btn i {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+     .play-page-content-wrapper {
+        padding-right: calc(var(--sidebar-width) + 10px); /* Account for sidebar */
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #play-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+    }
+}

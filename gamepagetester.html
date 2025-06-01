@@ -1,0 +1,16 @@
+<script>
+fetch('games.json')
+  .then(response => response.json())
+  .then(games => {
+    games.forEach(gameObj => {
+      const gameName = Object.keys(gameObj)[0];
+      const game = gameObj[gameName];
+      let link = game["game link"];
+      // Ensure link starts with a slash if it's a relative path
+      if (!/^https?:\/\//.test(link) && !link.startsWith('/')) {
+        link = '/' + link;
+      }
+      window.open(link, '_blank');
+    });
+  });
+</script>

@@ -11,80 +11,84 @@
 
   gtag('config', 'G-VNGZND6VMN');
 </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js#gimkit"></script>
+    <link rel="stylesheet" href="../../play-page.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play soccer random On Blooket1!</title>
     <script src="../../script.js"></script>
     <link rel="stylesheet" href="../../styles.css"> <!-- Create a separate CSS file for better organization -->
+    <link type="text/css" rel="stylesheet" href="ub.css" /> <!-- Assuming ub.css contains unblock assistant styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 </head>
 
 <body>
     <nav>
-        <a href='../../'><logo style="cursor: pointer; user-select: none;"><img class="logo" src="../../images/b-logo.webp"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo></a>
-        <div class="container options">
-            <a style="font-weight: 100;" href="../../">Games</a>
-            <a style="font-weight: 100;" href="../../tsandcs/">Terms & Conditions</a>
-            <a style="font-weight: 100;" href="../../about us/">About Us</a>
-            <a style="font-weight: 100;" href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Blooket1 Privacy Policy</a>
-            <a style="font-weight: 100;" href="../../contact us/">Contact Us</a>
-        </div>
-        
-            
-        <div class="search-container">
-            <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-            <label onclick="toggleSearch()" class="searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
+        <div class="nav-container">
+            <a href='../../' class="logo-area">
+                <img class="logo-img" src="../../images/b-logo.webp" alt="Blooket1 logo" />
+                <span class="logo-name-wrapper">
+                    <span class="logo-main-name">Blooket1</span>
+                    <span class="logo-sub-name">Games</span>
+                </span>
+            </a>
+            <div class="nav-links-container">
+                <a href="../../">Games</a>
+                <a href="tsandcs/">Terms & Conditions</a>
+                <a href="about us/">About Us</a>
+                <a href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Privacy Policy</a>
+                <a href="contact us/">Contact Us</a>
+            </div>
+            <div class="search-container">
+                <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search games...">
+                <label onclick="toggleSearch()" class="searchbutton" for="searchright"><i class="fas fa-search"></i></label>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <aside class="sidebar">
-        <div class="container">
-            <div class="icons">
-                <div class="icon"><i class="fas fa-cog" onclick="window.location += '../../settings/'"></i></div>
-                <div class="icon"><i class="fas fa-comments" onclick="window.location += '../../chat/'"></i></div>
-                <div class="icon"><i class="fas fa-info-circle" onclick="window.location += '../../info/'"></i></div>
-            </div>
+        <div class="sidebar-icons-container">
+            <div class="icon" title="Settings"><i class="fas fa-cog" onclick="window.location.href = '../../settings/'"></i></div>
+            <div class="icon" title="Chat"><i class="fas fa-comments" onclick="window.location.href = '../../chat/'"></i></div>
+            <div class="icon" title="Unblock Assistant"><i id="ubicon" class="fa-solid fa-lock-open" onclick="startUnblockAssistant()"></i></div>
+            <div class="icon" title="Info"><i class="fas fa-info-circle" onclick="window.location.href = '../../info/'"></i></div>
         </div>
     </aside>
-    <!-- side of game -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
-     crossorigin="anonymous"></script>
-    <ins class="adsbygoogle side1"
-    style="display:block"
-    data-ad-client="ca-pub-5346759304245799"
-    data-ad-slot="5440051367"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
 
-    <!-- side of game -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
-    crossorigin="anonymous"></script>
-    <ins class="adsbygoogle side2"
-    style="display:block"
-    data-ad-client="ca-pub-5346759304245799"
-    data-ad-slot="5440051367"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    <main class="play-page-content-wrapper">
+        <!-- Ad Slot 1 (Left Side) -->
+        <div class="ad-container ad-side-left">
+            <!-- side of game -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
+             crossorigin="anonymous"></script>
+            <ins class="adsbygoogle side1"
+            style="display:block"
+            data-ad-client="ca-pub-5346759304245799"
+            data-ad-slot="5440051367"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
-    <div class="game">
-<div id="game-container">
+<!-- Main Game and Description Area -->
+        <div class="game-and-description-area">
+            <div class="game-area">
+                <div id="game-container">
         <img id="game-image" src="../../images/soccerrandom.webp" alt="Game Image" height="200px">
         <iframe id="game-iframe" src=""></iframe>
         <button id="play-btn" onclick="document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/soccer random/index.html'; this.style.display = 'none'">Play</button>
         <div id="options-bar">
             <button id="fullscreen-btn" onclick="document.getElementById('play-btn').style.display = 'none'; document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/soccer random/index.html'; document.getElementById('game-iframe').requestFullscreen();">Fullscreen</button>
             <button id="new-page-btn" onclick="x = window.open(); x.document.write(`<iframe src='../../source/soccer random/index.html' style='position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'></iframe>`)">Open in New Page</button>
-        </div>
-    </div>
-    
-    <div class="description">
+</div>
+                </div>
+            </div>
+
+            <section class="description">
         <p>
             <b>Soccer Random</b><br>
             <b>Developer:</b><br>
@@ -115,16 +119,29 @@
           <p>
             Are you ready to embrace the chaos and score some outrageous goals in Soccer Random? Gather your friends, lace up your boots, and get ready for a soccer experience like no other in this hilarious and unpredictable sports game!
           </p>
-          
-    </div>
+            </section>
+        </div>
 
-        
-     
-    <br><br><br><br><br>
-    </div>
+        <!-- Ad Slot 2 (Right Side) -->
+        <div class="ad-container ad-side-right">
+            <!-- side of game -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
+            crossorigin="anonymous"></script>
+            <ins class="adsbygoogle side2"
+            style="display:block"
+            data-ad-client="ca-pub-5346759304245799"
+            data-ad-slot="5440051367"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main> <!-- .play-page-content-wrapper ends -->
     <footer>
-        <div class="container">
-            <p>2024 Blooket1.</p>
+        <div class="footer-container">
+            <p>© 2024 Blooket1. Made by dbest.</p>
+            <!-- Add more footer links or info if needed -->
         </div>
     </footer>
 
