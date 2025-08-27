@@ -286,13 +286,12 @@ footer {
     text-align: center;
     font-size: 0.9em;
     margin-top: 50px; /* Space above footer */
-    width: calc(100% - var(--sidebar-width)); /* Adjust width considering sidebar */
+    width: calc(100vw - var(--sidebar-width)); /* Adjust width considering sidebar */
     position: relative; /* Ensure it's part of flow */
     clear: both;
 }
 
 .footer-container {
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -938,4 +937,200 @@ footer {
     .game-ads-sidebar {
         /* Already full width from 1200px breakpoint */
     }
+}
+
+/* --- Back to School Announcement Popup (Extra Compact Version) --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    padding: 20px 25px; /* REVISED: Further reduced padding */
+    border-radius: 15px;
+    width: 90%;
+    max-width: 580px; /* REVISED: Further reduced max-width */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid var(--tertiary-bg-color);
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.popup-overlay.show .popup-content {
+    transform: scale(1);
+}
+
+.popup-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 1.8em; /* REVISED: Smaller */
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.popup-close-btn:hover {
+    color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+.popup-header {
+    text-align: center;
+    margin-bottom: 15px; /* REVISED: Tighter margin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* REVISED: Tighter gap */
+}
+.popup-header i {
+    font-size: 1.9em; /* REVISED: Smaller */
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 8px var(--accent-color));
+}
+
+.popup-header h2 {
+    font-size: 1.8em; /* REVISED: Smaller */
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-text-color);
+}
+
+.popup-body {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px; /* For scrollbar spacing */
+    margin-right: -10px;
+}
+/* Custom Scrollbar for popup */
+.popup-body::-webkit-scrollbar { width: 6px; }
+.popup-body::-webkit-scrollbar-track { background: var(--tertiary-bg-color); border-radius: 3px; }
+.popup-body::-webkit-scrollbar-thumb { background-color: #555; border-radius: 3px; }
+.popup-body::-webkit-scrollbar-thumb:hover { background-color: var(--accent-color); }
+
+.popup-body > p {
+    text-align: center;
+    font-size: 0.95em; /* REVISED: Smaller */
+    color: var(--secondary-text-color);
+    margin-bottom: 18px; /* REVISED: Tighter margin */
+}
+
+.feature-highlight {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px; /* REVISED: Tighter gap */
+    margin-bottom: 20px; /* REVISED: Tighter margin */
+}
+
+.feature-item {
+    background: var(--primary-bg-color);
+    padding: 15px; /* REVISED: Smaller padding */
+    border-radius: 10px;
+    border-left: 3px solid var(--accent-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-item i {
+    font-size: 1.5em; /* REVISED: Smaller */
+    margin-bottom: 8px; /* REVISED: Tighter margin */
+    color: var(--accent-color);
+    text-align: left;
+}
+
+.feature-item h3 {
+    font-size: 1.05em; /* REVISED: Smaller */
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.feature-item p {
+    font-size: 0.85em; /* REVISED: Smaller */
+    color: var(--secondary-text-color);
+    line-height: 1.5;
+}
+
+.popup-body h3 {
+    font-size: 1.2em; /* REVISED: Smaller */
+    text-align: center;
+    margin-bottom: 12px; /* REVISED: Tighter margin */
+    font-weight: 600;
+}
+
+.new-games-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px; /* REVISED: Tighter gap */
+    font-size: 0.9em; /* REVISED: Smaller */
+}
+
+.new-games-list li {
+    background-color: var(--tertiary-bg-color);
+    padding: 9px 12px; /* REVISED: Smaller padding */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.new-games-list li i {
+    color: var(--link-color);
+}
+
+.popup-footer {
+    margin-top: 20px; /* REVISED: Tighter margin */
+    text-align: center;
+}
+
+.popup-action-btn {
+    background: var(--accent-color);
+    color: var(--primary-bg-color);
+    border: none;
+    padding: 10px 30px; /* REVISED: Smaller padding */
+    font-size: 1em; /* REVISED: Smaller font */
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.popup-action-btn:hover {
+    background: #e6b800; /* Darken accent */
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments for the extra compact popup */
+@media screen and (max-width: 767px) {
+    .popup-content { padding: 15px; }
+    .popup-header h2 { font-size: 1.5em; }
+    .popup-header i { font-size: 1.6em; }
+    .feature-highlight, .new-games-list {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+    .popup-body { max-height: 65vh; }
 }

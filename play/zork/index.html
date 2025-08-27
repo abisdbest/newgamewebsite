@@ -46,7 +46,7 @@
           </span>
         </a>
         <div class="nav-links-container">
-          <a href="./">Games</a>
+          <a href="../../">Games</a>
           <a href="tsandcs/">Terms & Conditions</a>
           <a href="about us/">About Us</a>
           <a
@@ -149,7 +149,7 @@
             <div id="options-bar">
               <button
                 id="fullscreen-btn"
-                onclick="document.getElementById('play-btn').style.display = 'none'; document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/zork/index.html'; document.getElementById('game-iframe').requestFullscreen();"
+                onclick="var iframe = document.getElementById('game-iframe'); if (!iframe.getAttribute('src')) { document.getElementById('play-btn').style.display = 'none'; document.getElementById('game-image').style.display = 'none'; iframe.src = '../../source/zork/index.html'; } iframe.requestFullscreen();"
               >
                 Fullscreen
               </button>

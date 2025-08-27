@@ -1091,3 +1091,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }, 1000); // Small delay to ensure everything is rendered
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const popupOverlay = document.getElementById('announcement-popup-overlay');
+    const closeBtn = document.getElementById('close-announcement-btn');
+    const gotItBtn = document.getElementById('got-it-btn');
+    
+    // --- IMPORTANT ---
+    // Change this key for future announcements to make them appear again.
+    const announcementVersion = 'backToSchoolUpdate2025-v1';
+
+    // Function to show the popup with a fade-in and scale-up effect
+    const showPopup = () => {
+        if (popupOverlay) {
+            popupOverlay.classList.add('show');
+        }
+    };
+
+    // Function to hide the popup and set the localStorage flag
+    const hidePopup = () => {
+        if (popupOverlay) {
+            popupOverlay.classList.remove('show');
+            try {
+                localStorage.setItem('lastAnnouncementSeen', announcementVersion);
+            } catch (e) {
+                console.error('LocalStorage is not available:', e);
+            }
+        }
+    };
+
+    // --- Main Logic ---
+    // Check if the user has already seen this specific popup version
+    try {
+        if (localStorage.getItem('lastAnnouncementSeen') !== announcementVersion) {
+            // Use a small delay to let the page render before showing the popup
+            setTimeout(showPopup, 800);
+        }
+    } catch (e) {
+        console.error('LocalStorage is not available:', e);
+        // Fallback: If localStorage fails, show the popup anyway
+         setTimeout(showPopup, 800);
+    }
+
+    // --- Event Listeners ---
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hidePopup);
+    }
+    if (gotItBtn) {
+        gotItBtn.addEventListener('click', hidePopup);
+    }
+    if (popupOverlay) {
+        // Optional: Close popup if the user clicks on the dark background
+        popupOverlay.addEventListener('click', (event) => {
+            if (event.target === popupOverlay) {
+                hidePopup();
+            }
+        });
+    }
+});

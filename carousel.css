@@ -1,202 +1,129 @@
-.all-game-carousels {
-    margin: 0; 
-}
-
-.game-carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 12px; 
-}
-
+.all-game-carousels { margin: 0; }
+.game-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 12px; }
 .game-carousel {
     display: flex;
     overflow-x: auto;
-    scroll-behavior: smooth; /* Be mindful this can interact with JS scroll snapping */
+    scroll-behavior: smooth;
     padding: 5px 0; 
     gap: 15px; 
-    /* scroll-snap-type: x mandatory; /* Enable CSS scroll snapping */
+    scroll-snap-type: x mandatory;
 }
-
 .game-item {
     aspect-ratio: 16 / 10; 
-    flex: 0 0 calc((100% / 5) - 12px); /* (100% - 4 * 15px) / 5 */
-    border-radius: 10px;
+    flex: 0 0 calc((100% / 5) - 12px);
+    border-radius: 10px; /* The parent has the definitive rounded corners */
     position: relative;
-    display: flex; /* Not strictly needed if <a> fills it */
+    display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; /* This is what will clip the child elements */
     background-color: var(--secondary-bg-color); 
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* scroll-snap-align: start; /* Align items to the start of the scroll container */
+    scroll-snap-align: start;
 }
-.game-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-}
-
-
-.game-item a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Ensure link is clickable over game-name if it's a sibling */
-}
-
-.game-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease, filter 0.5s ease; 
-    border-radius: 10px; /* Ensure image corners are rounded if item has radius and overflow hidden */
-}
+.game-item:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
+.game-item a { display: block; width: 100%; height: 100%; z-index: 1; }
+.game-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.5s ease; /* No border-radius needed here either, parent clips it */ }
 
 .game-name {
     position: absolute;
-    bottom: 0; 
+    bottom: 0;
     left: 0;
     width: 100%;
+    height: 70px;
     color: var(--primary-text-color);
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%); 
-    padding: 20px 10px 10px 10px; 
-    font-size: 1.1em; 
+    background: linear-gradient(0deg, rgba(0, 0, 0, .878) 0, #0000 90%);
+    padding: 40px 10px 10px 10px; 
+    font-size: 0.7em; 
     font-weight: 500;
-    opacity: 1; 
     transition: opacity 0.5s ease;
     pointer-events: none; 
     text-align: left;
-    z-index: 2; /* Above image but below link if link needs to cover all */
-    border-radius: 0 0 10px 10px; /* Match bottom corners if needed */
+    z-index: 2;
+
+    /* --- THE FINAL FIX IS HERE --- */
+    /* We remove the border-radius from the child overlay entirely. */
+    /* The parent's `overflow: hidden` will now do the clipping, which is */
+    /* a much more reliable rendering operation for the browser. */
+    border-radius: 0; 
 }
 
+.game-item:hover img { filter: brightness(60%); }
 
-.game-item:hover img {
-    filter: brightness(60%); 
-    transform: scale(1.1); 
-}
-
-
-.carousel-arrow {
+/* --- INDICATOR STYLES --- */
+.new-game-indicator {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 50px; 
-    width: 50px;  
-    background-color: rgba(20, 20, 20, 0.6); /* Use primary-bg-color with alpha */
-    color: var(--primary-text-color);
-    border: none;
-    border-radius: 50%; 
-    cursor: pointer;
-    font-size: 1.5em; /* Icon size */
-    z-index: 10;
+    top: 8px;
+    left: 8px;
+    z-index: 3;
+    background-color: #ffc107;
+    color: #111;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 0.8em;
+    font-weight: 700;
     display: flex;
     align-items: center;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.new-game-indicator .fa-star { margin-right: 5px; }
+
+.top-right-indicators {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 3;
+    display: flex;
+    gap: 6px;
+}
+
+.favorite-btn {
+    background: rgba(20, 20, 20, 0.7);
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
     justify-content: center;
-    opacity: 0; 
-    transition: opacity 0.3s ease, background-color 0.3s ease;
+    align-items: center;
+    font-size: 16px;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
-.carousel-arrow i { /* Style the FontAwesome icon */
-    line-height: 1; /* Helps with vertical alignment */
-}
+.favorite-btn:hover { transform: scale(1.15); }
+.favorite-btn.is-favorite { color: #ff4757; }
 
-.game-carousel-container:hover .carousel-arrow {
-    opacity: 1;
+.game-stats-indicator {
+    background: rgba(20, 20, 20, 0.7);
+    color: #fff;
+    padding: 0 10px;
+    height: 34px;
+    border-radius: 8px; /* Rounded rectangle */
+    font-size: 0.8em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    /* pointer-events: none; <-- REMOVE THIS LINE */
 }
+.game-stats-indicator .fa-fire { color: #ff6b6b; margin-right: 5px; }
 
-.carousel-arrow:hover {
-    background-color: rgba(20, 20, 20, 0.8);
-}
 
-.carousel-arrow-left {
-    left: 10px;
-}
+/* --- Carousel Arrows & Scrollbar --- */
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); height: 50px; width: 50px; background-color: rgba(20, 20, 20, 0.6); color: var(--primary-text-color); border: none; border-radius: 50%; cursor: pointer; font-size: 1.5em; z-index: 10; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease, background-color 0.3s ease; }
+.carousel-arrow i { line-height: 1; }
+.game-carousel-container:hover .carousel-arrow { opacity: 1; }
+.carousel-arrow:hover { background-color: rgba(20, 20, 20, 0.8); }
+.carousel-arrow-left { left: 10px; }
+.carousel-arrow-right { right: 10px; }
+.game-carousel::-webkit-scrollbar { display: none; }
+.game-carousel { -ms-overflow-style: none; scrollbar-width: none; }
 
-.carousel-arrow-right {
-    right: 10px;
-}
-
-/* Hide scrollbar */
-.game-carousel::-webkit-scrollbar {
-    display: none;
-}
-
-.game-carousel {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* .game-carousel::-webkit-scrollbar {
-    height: 8px;
-}
-.game-carousel::-webkit-scrollbar-track {
-    background: var(--tertiary-bg-color);
-    border-radius: 4px;
-}
-.game-carousel::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 4px;
-}
-.game-carousel::-webkit-scrollbar-thumb:hover {
-    background: #777;
-}
-.game-carousel {
-    -ms-overflow-style: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #555 var(--tertiary-bg-color);
-} */
-
-/* Responsive Carousel */
-@media (max-width: 1200px) {
-    .game-item {
-        flex-basis: calc((100% / 4) - (3 * 15px / 4)); 
-    }
-}
-
-@media (max-width: 992px) {
-    .game-item {
-        flex-basis: calc((100% / 3) - (2 * 15px / 3)); 
-        aspect-ratio: 4 / 3; 
-    }
-    .game-name {
-        font-size: 1em;
-    }
-}
-
-@media (hover: none) { 
-    .carousel-arrow {
-        opacity: 0.8; 
-        background-color: rgba(20, 20, 20, 0.5);
-    }
-    .game-carousel-container:hover .carousel-arrow {
-        opacity: 0.8; 
-    }
-}
-
-@media (max-width: 767px) {
-    .game-carousel {
-        gap: 10px; 
-    }
-    .game-item {
-        flex-basis: calc((100% / 2) - (1 * 10px / 2)); 
-        aspect-ratio: 16/10; 
-    }
-    .carousel-arrow {
-        height: 40px;
-        width: 40px;
-        font-size: 1.2em;
-    }
-}
-
-@media (max-width: 480px) {
-    .game-item {
-        flex-basis: calc(60% - (1 * 10px / 1.66)); /* Roughly 1.5 items, so one full and one partial */
-        /* scroll-snap-align: center; /* Center items on very small screens */
-        aspect-ratio: 3/2;
-    }
-    .game-name {
-        font-size: 0.9em;
-        padding: 15px 8px 8px 8px;
-    }
-}
+/* --- Responsive Design --- */
+@media (max-width: 1200px) { .game-item { flex-basis: calc((100% / 4) - (3 * 15px / 4)); } }
+@media (max-width: 992px) { .game-item { flex-basis: calc((100% / 3) - (2 * 15px / 3)); aspect-ratio: 4 / 3; } .game-name { font-size: 1em; } }
+@media (hover: none) { .carousel-arrow { opacity: 0.8; background-color: rgba(20, 20, 20, 0.5); } .game-carousel-container:hover .carousel-arrow { opacity: 0.8; } }
+@media (max-width: 767px) { .game-carousel { gap: 10px; } .game-item { flex-basis: calc((100% / 2) - (1 * 10px / 2)); aspect-ratio: 16/10; } .carousel-arrow { height: 40px; width: 40px; font-size: 1.2em; } }
+@media (max-width: 480px) { .game-item { flex-basis: calc(60% - (1 * 10px / 1.66)); aspect-ratio: 3/2; } .game-name { font-size: 0.9em; padding: 15px 8px 8px 8px; } }

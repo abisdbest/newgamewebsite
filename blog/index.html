@@ -1,67 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-VNGZND6VMN');
-    </script>
-    <script src="carousel creator.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-5346759304245799">
-    <meta name="google-site-verification" content="UM7NoVkmCmkfjn_tf88CQk6c9Rf7phrwocZtMWdbF2M" />
-    <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
-    <!-- <script>eruda.init();</script> --> <!-- Eruda commented out for production -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <meta name="keywords" content="blooket1, games, fun, unblocked, educational" />
-    <title>Blooket1 Unblocked Games | Free Unblocked Games for School</title>
-    <link rel="icon" type="image/x-icon" href="images/b-logo.webp">
-    <meta name="description" content="Blooket1 offers the best unblocked games for school. Play free puzzle, action, strategy, and educational games with no filters on your school device." />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Blooket1 Unblocked Games</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="carousel.css" />
-    <link type="text/css" rel="stylesheet" href="ub.css" /> <!-- Assuming ub.css contains unblock assistant styles -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Blooket1 Unblocked Games",
-        "url": "https://blooket1.pages.dev",
-        "description": "Blooket1 offers free unblocked games for school, including puzzles, racing, and educational games that can be played even with filters.",
-        "genre": ["Unblocked-games", "Games", "Puzzle", "Action", "Strategy", "Educational", "Racing"]
-    }
-    </script>
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Modern CSS with Variables and Advanced Techniques */
 
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-header: rgba(13, 13, 13, 0.7); /* Semi-transparent for glassmorphism */
+            --bg-card: #262626;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-orange: #ff9900;
+            --accent-blue: #4da6ff;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --font-main: 'Inter', sans-serif;
+        }
+
+        /* --- Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: white;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Sticky Glassmorphism Header --- */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .logo span {
+            color: var(--accent-orange);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        .main-nav ul li a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .main-nav ul li a:hover,
+        .main-nav ul li a.active {
+            color: var(--text-primary);
+        }
+
+        /* --- Hero Section (Featured Post) --- */
+        .hero-section {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://vaultinum.com/wp-content/uploads/2025/02/0458a9f1-e149-4037-b9aa-aa4b4fb53c25_propriete-intellectuelle-code-source-protection-compressed.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content .hero-tag {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: var(--bg-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hero-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(77, 166, 255, 0.2);
+        }
+
+        /* --- Latest Posts Section --- */
+        .latest-posts-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+        }
+
+        .blog-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* For animation */
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow-color);
+        }
+
+        /* Staggered animation for cards */
+        .blog-card:nth-child(2) { animation-delay: 0.1s; }
+        .blog-card:nth-child(3) { animation-delay: 0.2s; }
+        .blog-card:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .post-tags {
+            margin-bottom: 15px;
+        }
+        .post-tags .tag {
+            display: inline-block;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+        .tag.tag-tech { background-color: rgba(77, 166, 255, 0.1); color: var(--accent-blue); }
+        .tag.tag-guides { background-color: rgba(255, 153, 0, 0.1); color: var(--accent-orange); }
+
+        .card-content h3 {
+            font-size: 1.4em;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .card-content h3 a {
+            color: var(--text-primary);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-top: auto; /* Pushes meta to the bottom */
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .post-meta svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-secondary);
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            background-color: #0d0d0d;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 15px; }
+            .main-nav ul { padding: 0; justify-content: center; flex-wrap: wrap; }
+            .blog-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
 <body>
+
     <nav>
         <div class="nav-container">
             <a href='./' class="logo-area">
-                <img class="logo-img" src="images/b-logo.webp" alt="Blooket1 logo" />
+                <img class="logo-img" src="../images/b-logo.webp" alt="Blooket1 logo" />
                 <span class="logo-name-wrapper">
                     <span class="logo-main-name">Blooket1</span>
                     <span class="logo-sub-name">Games</span>
                 </span>
             </a>
             <div class="nav-links-container">
-                <a href="./">Games</a>
-                <a href="tsandcs/">Terms & Conditions</a>
-                <a href="about us/">About Us</a>
-                <a href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Privacy Policy</a>
-                <a href="contact us/">Contact Us</a>
+                <a href="../">Games</a>
+                <a href="../tsandcs/">Terms & Conditions</a>
+                <a href="../about us/">About Us</a>
+                <a href="../https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Privacy Policy</a>
+                <a href="../contact us/">Contact Us</a>
+                <a href="../blog/">Blog</a>
             </div>
             <div class="search-container">
                 <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search games...">
@@ -73,52 +337,102 @@
         </div>
     </nav>
 
-    <aside class="sidebar">
-        <div class="sidebar-icons-container">
-            <div class="icon" title="Settings"><i class="fas fa-cog" onclick="window.location += 'settings/'"></i></div>
-            <div class="icon" title="Chat"><i class="fas fa-comments" onclick="window.location += 'chat/'"></i></div>
-            <div class="icon" title="Unblock Assistant"><i id="ubicon" class="fa-solid fa-lock-open" onclick="startUnblockAssistant()"></i></div>
-            <div class="icon" title="Info"><i class="fas fa-info-circle" onclick="window.location += 'info/'"></i></div>
-        </div>
-    </aside>
+    <main>
+        <!-- Featured Post Hero -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-tag">Site News</span>
+                <h1>The Future of Unblocked Gaming: Our New URL Tech Explained</h1>
+                <p>Dive deep into how Blooket1's innovative dynamic URL generation system works to help you access your favorite games, even with the strictest school filters.</p>
+                <a href="/blog/post-title-1.html" class="hero-button">Read The Full Story</a>
+            </div>
+        </section>
 
-    <main class="content-area">
-        <div class="all-game-carousels" id="all-game-carousels">
-            <!-- Game carousels will be dynamically inserted here by carousel creator.js -->
-            <!-- Example structure that carousel_creator.js might create:
-            <section class="game-category-section">
-                <h2>Popular Games <i class="fas fa-cogs category-icon"></i></h2>
-                <div class="game-carousel-container">
-                    ...
+        <!-- Latest Posts Grid -->
+        <section class="latest-posts-section">
+            <div class="container">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="blog-grid">
+                    <!-- Card 2 -->
+                    <article class="blog-card">
+                        <a href="/blog/post-title-2.html" class="card-image">
+                            <img src="https://vaultinum.com/wp-content/uploads/2025/02/0458a9f1-e149-4037-b9aa-aa4b4fb53c25_propriete-intellectuelle-code-source-protection-compressed.jpg" alt="Games on a screen">
+                        </a>
+                        <div class="card-content">
+                            <div class="post-tags">
+                                <span class="tag tag-guides">Game Guides</span>
+                            </div>
+                            <h3><a href="/blog/post-title-2.html">Top 5 Games for a Quick School Break</a></h3>
+                            <div class="post-meta">
+                                <span>
+                                    <!-- Embedded SVG Icon -->
+                                    <svg viewBox="0 0 24 24"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"></path></svg>
+                                    <time datetime="2024-03-08">Mar 8, 2024</time>
+                                </span>
+                                <span>
+                                    <!-- Embedded SVG Icon -->
+                                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                    Jane Gamer
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="blog-card">
+                        <a href="/blog/post-title-3.html" class="card-image">
+                            <img src="https://vaultinum.com/wp-content/uploads/2025/02/0458a9f1-e149-4037-b9aa-aa4b4fb53c25_propriete-intellectuelle-code-source-protection-compressed.jpg" alt="Code on a screen">
+                        </a>
+                        <div class="card-content">
+                            <div class="post-tags">
+                                <span class="tag tag-tech">Tech</span>
+                                <span class="tag">Updates</span>
+                            </div>
+                            <h3><a href="/blog/post-title-3.html">Site Update: New Games Added & Features</a></h3>
+                             <div class="post-meta">
+                                <span>
+                                    <svg viewBox="0 0 24 24"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"></path></svg>
+                                    <time datetime="2024-03-05">Mar 5, 2024</time>
+                                </span>
+                                <span>
+                                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                    Blooket1 Team
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="blog-card">
+                        <a href="/blog/post-title-4.html" class="card-image">
+                            <img src="https://vaultinum.com/wp-content/uploads/2025/02/0458a9f1-e149-4037-b9aa-aa4b4fb53c25_propriete-intellectuelle-code-source-protection-compressed.jpg" alt="A network diagram">
+                        </a>
+                        <div class="card-content">
+                           <div class="post-tags">
+                                <span class="tag tag-tech">Tech</span>
+                            </div>
+                            <h3><a href="/blog/post-title-4.html">Understanding School Web Filters</a></h3>
+                             <div class="post-meta">
+                                <span>
+                                    <svg viewBox="0 0 24 24"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"></path></svg>
+                                    <time datetime="2024-03-02">Mar 2, 2024</time>
+                                </span>
+                                <span>
+                                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                    Tech Savvy
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
                 </div>
-            </section>
-            -->
-        </div>
+            </div>
+        </section>
     </main>
-    
-    <div id="unblockAssistantOverlay">
-        <div id="unblockAssistantPopup">
-            <h2>Unblock Assistant</h2>
-            <div id="unblockAssistantProgressBarContainer">
-                <div id="unblockAssistantProgressBar"></div>
-            </div>
-            <div id="unblockAssistantContent">
-                <!-- Content will be loaded here by JavaScript -->
-            </div>
-            <div id="unblockAssistantButtons">
-                <button id="unblockPrevBtn" class="unblock-assistant-btn">← Previous</button>
-                <button id="unblockNextBtn" class="unblock-assistant-btn">Next →</button>
-                <button id="unblockSubmitBtn" class="hidden unblock-assistant-btn submit">Send Report</button>
-            </div>
-        </div>
-    </div>
 
-    <footer>
-        <div class="footer-container">
-            <p>© 2024 Blooket1. Made by dbest.</p>
-            <!-- Add more footer links or info if needed -->
-        </div>
+    <footer class="site-footer">
+        <p>© 2024 Blooket1. Made by dBest. All Rights Reserved.</p>
     </footer>
-    <script src="script.js"></script>
+
 </body>
 </html>

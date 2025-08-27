@@ -1,13 +1,105 @@
 [
     {
-        "g switch 3": {
-            "game image": "images/g switch 3.webp",
-            "game link": "play/g switch 3",
+        "snow rider 3d": {
+            "game image": "images/snowrider.webp",
+            "game link": "play/snow rider 3d",
             "game categories": [
-                "Popular Games",
-                "2 Player Games",
-                "Retro Games"
-            ]
+                "Addictive Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "monkey mart": {
+            "game image": "images/monkey mart.webp",
+            "game link": "play/monkey mart",
+            "game categories": [
+                "Addictive Games",
+                "Idle Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "minecraft": {
+            "game image": "images/minecraft.webp",
+            "game link": "play/minecraft",
+            "game categories": [
+                "Addictive Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "temple run 2": {
+            "game image": "images/temple run 2.webp",
+            "game link": "play/temple run 2",
+            "game categories": [
+                "Addictive Games"
+            ],
+            "date added": "2025-02-04"
+        }
+    },
+    {
+        "Escape Road": {
+            "game image": "images/escape road.webp",
+            "game link": "play/escape road/",
+            "game categories": [
+                "Popular Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "subway surfers": {
+            "game image": "images/subwaysurfers.webp",
+            "game link": "play/subway surfers",
+            "game categories": [
+                "Addictive Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "block blast": {
+            "game image": "images/block blast.webp",
+            "game link": "play/block blast",
+            "game categories": [
+                "Puzzle Games",
+                "Addictive Games"
+            ],
+            "date added": "2024-12-19"
+        }
+    },
+    {
+        "mariokart wii": {
+            "game image": "images/mariokart wii.webp",
+            "game link": "play/mariokart wii/",
+            "game categories": [
+                "Car / Racing Games"
+            ],
+            "date added": "2024-07-02"
+        }
+    },
+    {
+        "zigzag": {
+            "game image": "images/zigzag.webp",
+            "game link": "play/zigzag",
+            "game categories": [
+                "Addictive Games"
+            ],
+            "date added": "2024-03-05"
+        }
+    },
+    {
+        "capybara clicker": {
+            "game image": "images/capybara clicker.webp",
+            "game link": "play/capybara clicker",
+            "game categories": [
+                "Addictive Games",
+                "Idle Games"
+            ],
+            "date added": "2025-08-27"
         }
     },
     {
@@ -17,76 +109,31 @@
             "game categories": [
                 "Puzzle Games",
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
-        "snow rider 3d": {
-            "game image": "images/snowrider.webp",
-            "game link": "play/snow rider 3d",
+        "ragdoll archers": {
+            "game image": "images/ragdoll archers.webp",
+            "game link": "play/ragdoll archers",
             "game categories": [
-                "Popular Games",
-                "Addictive Games"
-            ]
+                "Addictive Games",
+                "Shooting Games"
+            ],
+            "date added": "2025-08-27"
         }
     },
     {
-        "monkey mart": {
-            "game image": "images/monkey mart.webp",
-            "game link": "play/monkey mart",
+        "hobo": {
+            "game image": "images/hobo.webp",
+            "game link": "play/hobo",
             "game categories": [
-                "Popular Games",
-                "Addictive Games"
-            ]
-        }
-    },
-    {
-        "minecraft": {
-            "game image": "images/minecraft.webp",
-            "game link": "play/minecraft",
-            "game categories": [
-                "Popular Games",
-                "Addictive Games"
-            ]
-        }
-    },
-    {
-        "temple run 2": {
-            "game image": "images/temple run 2.webp",
-            "game link": "play/temple run 2",
-            "game categories": [
-                "Popular Games"
-            ]
-        }
-    },
-    {
-        "Escape Road": {
-            "game image": "images/escape road.webp",
-            "game link": "play/escape road/",
-            "game categories": [
-                "Popular Games"
-            ]
-        }
-    },
-    {
-        "subway surfers": {
-            "game image": "images/subwaysurfers.webp",
-            "game link": "play/subway surfers",
-            "game categories": [
-                "Popular Games",
-                "Addictive Games"
-            ]
-        }
-    },
-    {
-        "block blast": {
-            "game image": "images/block blast.webp",
-            "game link": "play/block blast",
-            "game categories": [
-                "Popular Games",
-                "Puzzle Games",
-                "Addictive Games"
-            ]
+                "Retro Games",
+                "Shooting Games",
+                "Flash Games"
+            ],
+            "date added": "2025-08-27"
         }
     },
     {
@@ -94,10 +141,21 @@
             "game image": "images/getaway shootout.webp",
             "game link": "play/getaway shootout/",
             "game categories": [
-                "Popular Games",
                 "2 Player Games",
                 "Shooting Games"
-            ]
+            ],
+            "date added": "2024-04-02"
+        }
+    },
+    {
+        "idle dice": {
+            "game image": "images/idle dice.webp",
+            "game link": "play/idle dice",
+            "game categories": [
+                "Addictive Games",
+                "Idle Games"
+            ],
+            "date added": "2025-08-27"
         }
     },
     {
@@ -105,29 +163,56 @@
             "game image": "images/alienhominid.webp",
             "game link": "play/alien hominid",
             "game categories": [
-                "Popular Games",
-                "Shooting Games"
-            ]
+                "Shooting Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
-        "mariokart wii": {
-            "game image": "images/mariokart wii.webp",
-            "game link": "play/mariokart wii/",
+        "space waves": {
+            "game image": "images/space waves.webp",
+            "game link": "play/space waves",
             "game categories": [
-                "Popular Games",
-                "Car / Racing Games"
-            ]
+                "Addictive Games",          
+                "Retro Games"
+            ],
+            "date added": "2025-08-27"
         }
     },
     {
-        "zigzag": {
-            "game image": "images/zigzag.webp",
-            "game link": "play/zigzag",
+        "wake up the box": {
+            "game image": "images/wake up the box.webp",
+            "game link": "play/wake up the box",
             "game categories": [
-                "Popular Games",
-                "Addictive Games"
-            ]
+                "Retro Games",
+                "Puzzle Games",
+                "Flash Games"
+            ],
+            "date added": "2025-08-27"
+        }
+    },
+    {
+        "mr mine": {
+            "game image": "images/mr mine.webp",
+            "game link": "play/mr mine",
+            "game categories": [
+                "Addictive Games",
+                "Idle Games"
+            ],
+            "date added": "2025-08-27"
+        }
+    },
+    {
+        "g switch 3": {
+            "game image": "images/g switch 3.webp",
+            "game link": "play/g switch 3",
+            "game categories": [
+                "2 Player Games",
+                "Flash Games",
+                "Retro Games"
+            ],
+            "date added": "2025-01-22"
         }
     },
     {
@@ -136,7 +221,8 @@
             "game link": "play/koalas to the max/",
             "game categories": [
                 "Popular Games"
-            ]
+            ],
+            "date added": "2024-05-14"
         }
     },
     {
@@ -144,9 +230,9 @@
             "game image": "images/paperio.webp",
             "game link": "play/paperio",
             "game categories": [
-                "Popular Games",
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-08"
         }
     },
     {
@@ -154,9 +240,9 @@
             "game image": "images/cubes 2048.webp",
             "game link": "play/cubes 2048",
             "game categories": [
-                "Popular Games",
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-06"
         }
     },
     {
@@ -164,9 +250,9 @@
             "game image": "images/soccerrandom.webp",
             "game link": "play/soccer random",
             "game categories": [
-                "Popular Games",
                 "2 Player Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -174,10 +260,10 @@
             "game image": "images/eggycar.webp",
             "game link": "play/eggy car",
             "game categories": [
-                "Popular Games",
                 "Car / Racing Games",
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-11"
         }
     },
     {
@@ -185,9 +271,9 @@
             "game image": "images/boxingrandom.webp",
             "game link": "play/boxing random",
             "game categories": [
-                "Popular Games",
                 "2 Player Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -195,9 +281,10 @@
             "game image": "images/cookieclicker.webp",
             "game link": "play/cookie clicker",
             "game categories": [
-                "Popular Games",
+                "Idle Games",
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -205,9 +292,9 @@
             "game image": "images/basketrandom.webp",
             "game link": "play/basket random",
             "game categories": [
-                "Popular Games",
                 "2 Player Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -215,9 +302,9 @@
             "game image": "images/volleyrandom.webp",
             "game link": "play/volley random",
             "game categories": [
-                "Popular Games",
                 "2 Player Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -225,11 +312,11 @@
             "game image": "images/doodlejump.webp",
             "game link": "play/doodle jump",
             "game categories": [
-                "Popular Games",
                 "Shooting Games",
                 "Retro Games",
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -239,7 +326,8 @@
             "game categories": [
                 "2 Player Games",
                 "Shooting Games"
-            ]
+            ],
+            "date added": "2024-06-05"
         }
     },
     {
@@ -249,7 +337,8 @@
             "game categories": [
                 "2 Player Games",
                 "Car / Racing Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -260,7 +349,8 @@
                 "2 Player Games",
                 "Car / Racing Games",
                 "Shooting Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -269,8 +359,10 @@
             "game link": "play/fireboy and watergirl",
             "game categories": [
                 "2 Player Games",
+                "Flash Games",
                 "Puzzle Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -279,7 +371,8 @@
             "game link": "play/hex gl",
             "game categories": [
                 "Car / Racing Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -288,7 +381,8 @@
             "game link": "play/moto x3m pool party",
             "game categories": [
                 "Car / Racing Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -297,7 +391,8 @@
             "game link": "play/moto x3m spooky land",
             "game categories": [
                 "Car / Racing Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -305,8 +400,10 @@
             "game image": "images/happywheels.webp",
             "game link": "play/happy wheels",
             "game categories": [
-                "Car / Racing Games"
-            ]
+                "Car / Racing Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -315,7 +412,8 @@
             "game link": "play/traffic racer",
             "game categories": [
                 "Car / Racing Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -324,7 +422,8 @@
             "game link": "play/pixel battle royale/",
             "game categories": [
                 "Shooting Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -333,7 +432,8 @@
             "game link": "play/war brokers",
             "game categories": [
                 "Shooting Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -341,8 +441,10 @@
             "game image": "images/raftwars.webp",
             "game link": "play/raft wars",
             "game categories": [
-                "Shooting Games"
-            ]
+                "Shooting Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -351,7 +453,8 @@
             "game link": "play/there is no game/",
             "game categories": [
                 "Escape Room Games"
-            ]
+            ],
+            "date added": "2024-05-13"
         }
     },
     {
@@ -359,8 +462,10 @@
             "game image": "images/escape the bathroom.webp",
             "game link": "play/escape the bathroom/",
             "game categories": [
-                "Escape Room Games"
-            ]
+                "Escape Room Games",
+                "Flash Games"
+            ],
+            "date added": "2024-05-15"
         }
     },
     {
@@ -368,8 +473,10 @@
             "game image": "images/escape the car.webp",
             "game link": "play/escape the car/",
             "game categories": [
-                "Escape Room Games"
-            ]
+                "Escape Room Games",
+                "Flash Games"
+            ],
+            "date added": "2024-05-15"
         }
     },
     {
@@ -377,8 +484,10 @@
             "game image": "images/dont escape.webp",
             "game link": "play/dont escape/",
             "game categories": [
-                "Escape Room Games"
-            ]
+                "Escape Room Games",
+                "Flash Games"
+            ],
+            "date added": "2024-05-15"
         }
     },
     {
@@ -386,8 +495,10 @@
             "game image": "images/dont escape 2.webp",
             "game link": "play/dont escape 2/",
             "game categories": [
-                "Escape Room Games"
-            ]
+                "Escape Room Games",
+                "Flash Games"
+            ],
+            "date added": "2024-05-15"
         }
     },
     {
@@ -395,8 +506,10 @@
             "game image": "images/dont escape 3.webp",
             "game link": "play/dont escape 3/",
             "game categories": [
-                "Escape Room Games"
-            ]
+                "Escape Room Games",
+                "Flash Games"
+            ],
+            "date added": "2024-05-15"
         }
     },
     {
@@ -404,8 +517,10 @@
             "game image": "images/theimpossiblequiz.webp",
             "game link": "play/impossible quiz",
             "game categories": [
-                "Puzzle Games"
-            ]
+                "Puzzle Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -413,8 +528,10 @@
             "game image": "images/theimpossiblequiz2.webp",
             "game link": "play/impossible quiz 2",
             "game categories": [
-                "Puzzle Games"
-            ]
+                "Puzzle Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -424,7 +541,8 @@
             "game categories": [
                 "Puzzle Games",
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -433,7 +551,8 @@
             "game link": "play/hextris",
             "game categories": [
                 "Puzzle Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -441,8 +560,10 @@
             "game image": "images/btd3.webp",
             "game link": "play/bloons tower defence 3",
             "game categories": [
-                "Puzzle Games"
-            ]
+                "Puzzle Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -450,8 +571,10 @@
             "game image": "images/cuttherope.webp",
             "game link": "play/cut the rope",
             "game categories": [
-                "Puzzle Games"
-            ]
+                "Puzzle Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -460,7 +583,8 @@
             "game link": "play/mem tile",
             "game categories": [
                 "Puzzle Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -470,7 +594,8 @@
             "game categories": [
                 "Puzzle Games",
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -479,7 +604,8 @@
             "game link": "play/spider solitare",
             "game categories": [
                 "Puzzle Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -488,7 +614,8 @@
             "game link": "play/tetris",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -497,7 +624,8 @@
             "game link": "play/pac-man",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -506,7 +634,8 @@
             "game link": "play/pin ball",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -515,7 +644,8 @@
             "game link": "play/pong",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -524,7 +654,8 @@
             "game link": "play/dino game",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -533,7 +664,8 @@
             "game link": "play/hard mario",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -542,7 +674,8 @@
             "game link": "play/flappy bird",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -551,7 +684,8 @@
             "game link": "play/crossy road",
             "game categories": [
                 "Retro Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -559,8 +693,10 @@
             "game image": "images/canabalt.webp",
             "game link": "play/canabalt",
             "game categories": [
-                "Retro Games"
-            ]
+                "Retro Games",
+                "Flash Games"
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -570,7 +706,8 @@
             "game categories": [
                 "Retro Games",
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -580,7 +717,8 @@
             "game categories": [
                 "Retro Games",
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -589,7 +727,8 @@
             "game link": "play/slope",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -598,7 +737,8 @@
             "game link": "play/ice dodo",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -607,7 +747,8 @@
             "game link": "play/bottle flip 3d/",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-05-03"
         }
     },
     {
@@ -616,7 +757,8 @@
             "game link": "play/universal paperclip",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2025-02-04"
         }
     },
     {
@@ -625,7 +767,8 @@
             "game link": "play/getting over it",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -634,7 +777,8 @@
             "game link": "play/tower building",
             "game categories": [
                 "Addictive Games"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -643,7 +787,8 @@
             "game link": "play/simpleproxy",
             "game categories": [
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -652,7 +797,8 @@
             "game link": "play/html editor",
             "game categories": [
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -661,7 +807,8 @@
             "game link": "play/python editor",
             "game categories": [
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -670,7 +817,8 @@
             "game link": "play/sparx",
             "game categories": [
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     },
     {
@@ -679,7 +827,8 @@
             "game link": "play/ask the stars",
             "game categories": [
                 "Tools"
-            ]
+            ],
+            "date added": "2024-03-05"
         }
     }
 ]
