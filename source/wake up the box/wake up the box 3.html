@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruffle HTML Example</title>
+
+  <!-- Include Ruffle JavaScript file from the provided CDN link -->
+  <script src="https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.1.0-nightly.2024.2.17/ruffle.min.js#blooket"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example of using Ruffle through the JavaScript API -->
+  <div id="container">
+  </div>
+
+  <script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.addEventListener("load", (event) => {
+      // Create a Ruffle player instance
+      const ruffle = window.RufflePlayer.newest();
+      const player = ruffle.createPlayer();
+
+      // Attach the player to an HTML container element
+      const container = document.getElementById("container");
+      container.appendChild(player);
+
+      // Load an SWF file using the JavaScript API
+      player.load("wake up the box 3.swf");
+
+      player.style.width = "100%";
+      player.style.height = "100vh";
+    });
+  </script>
+
+</body>
+</html>

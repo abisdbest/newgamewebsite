@@ -1,0 +1,1 @@
+translations["portuguese"] = translations["brazilian"];

@@ -1,0 +1,46 @@
+{
+  "json":[
+    {
+      "name": "text",
+      "url": "text.json"
+    },
+    {
+      "name": "changelog",
+      "url": "changelog.json"
+    }
+  ],
+  "font":[
+    {
+      "name": "regular",
+      "url": "regular_0.png",
+      "data": "regular.fnt"
+    }
+  ],
+  "atlas":[
+    {
+      "name": "ui",
+      "urlData": "ui.json",
+      "urlImg": "ui.png"
+    },
+    {
+      "name": "ingame",
+      "urlData": "ingame.json",
+      "urlImg": "ingame.png"
+    }
+  ],
+  "image":[
+    {
+      "name": "bg",
+      "url":  "bg/background.png"
+    },
+    {
+      "name": "cmg",
+      "url":  "bg/WebH5Games-800x600.png"
+    },
+    {
+      "name": "tileable",
+      "url":  "bg/tileable.jpg"
+    }
+  ],
+  "sound":[]
+}

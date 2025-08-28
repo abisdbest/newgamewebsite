@@ -1,0 +1,96 @@
+/* General Page Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-image: url('background.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f0f0f0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    padding: 2rem 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 5px #000;
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3.5rem;
+    color: #ff4500; /* Orangey-Red */
+    letter-spacing: 3px;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #cccccc;
+}
+
+/* Main Content Area */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+}
+
+/* Game Selection Menu */
+.game-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 2rem;
+}
+
+/* Individual Game Icons */
+.game-icon {
+    background-color: rgba(30, 30, 30, 0.7);
+    border: 3px solid #555;
+    border-radius: 5px;
+    padding: 0.8rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.game-icon:hover {
+    transform: translateY(-5px);
+    border-color: #ff4500;
+    background-color: rgba(50, 50, 50, 0.8);
+}
+
+.game-icon img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border: 2px solid #222;
+    border-radius: 3px;
+    margin-bottom: 0.7rem;
+    display: block;
+}
+
+.game-icon span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+}
+
+/* Footer */
+footer {
+    padding: 1rem;
+    margin-top: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 0.9rem;
+    color: #888;
+}
