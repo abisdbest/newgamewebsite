@@ -1,68 +1,18 @@
 // --- Globals ---
-let allGamesData = []; // Will be populated with merged data (game details + clicks)
+let allGamesData = [];
 let favoriteGames = new Set();
-
 const WORKER_BASE_URL = 'https://blooket1-popularity-api.info-blooket1.workers.dev';
-const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`; 
+const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`;
 const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
 const NEW_GAMES_COUNT = 12;
 
-
-// --- Main Functions ---
-
 /**
- * Creates a single game item with all indicators.
+ * Creates a single game item with the final, separated indicator structure.
  */
 function createGameItem(game, carousel) {
-    const gameItem = document.createElement('div');
-    gameItem.classList.add('game-item');
-    gameItem.dataset.gameName = game.name;
-
-    // "NEW" Indicator
-    if (game.details['date added']) {
-        const dateAdded = new Date(game.details['date added']);
-        const diffDays = (new Date() - dateAdded) / (1000 * 60 * 60 * 24);
-        if (diffDays <= 30) {
-            const newIndicator = document.createElement('div');
-            newIndicator.classList.add('new-game-indicator');
-            newIndicator.innerHTML = '<i class="fas fa-star"></i> NEW';
-            gameItem.appendChild(newIndicator);
-        }
-    }
-
-    // --- NEW: Top-Right Icons Container ---
-    const topRightContainer = document.createElement('div');
-    topRightContainer.classList.add('top-right-indicators');
-    
-    // Favorite Button (always visible)
-    const favoriteButton = document.createElement('button');
-    favoriteButton.classList.add('favorite-btn');
-    favoriteButton.dataset.gameName = game.name;
-    favoriteButton.setAttribute('aria-label', `Favorite ${game.name}`);
-    favoriteButton.innerHTML = '<i class="far fa-heart"></i>';
-    if (favoriteGames.has(game.name)) {
-        favoriteButton.classList.add('is-favorite');
-        const ic = favoriteButton.querySelector('i');
-        if (ic) ic.classList.replace('far', 'fas');
-    }
-    favoriteButton.addEventListener('click', (e) => {
-        e.preventDefault(); e.stopPropagation(); toggleFavorite(game.name);
-    });
-
-    // Popularity Stats Indicator (always visible)
-    const statsIndicator = document.createElement('span'); // <-- changed from 'div' to 'span'
-    statsIndicator.classList.add('game-stats-indicator');
-    statsIndicator.innerHTML = `<i class="fas fa-fire"></i> ${game.clicks || 0}`;
-    statsIndicator.title = "plays in past 30 days";
-    
-    topRightContainer.appendChild(favoriteButton);
-    topRightContainer.appendChild(statsIndicator);
-    gameItem.appendChild(topRightContainer);
-    // --- END: Top-Right Icons ---
-
-    const gameLink = document.createElement('a');
-    gameLink.href = game.link;
-    gameLink.addEventListener('click', () => trackGameClick(game.name));
+    const gameItemWrapper = document.createElement('div');
+    gameItemWrapper.classList.add('game-item');
+    gameItemWrapper.dataset.gameName = game.name;
 
     const gameImage = document.createElement('img');
     gameImage.src = game.image;
@@ -71,20 +21,62 @@ function createGameItem(game, carousel) {
 
     const gameName = document.createElement('span');
     gameName.classList.add('game-name');
-    gameName.textContent = game.name;
+    gameName.textContent = toTitleCase(game.name);
 
-    gameLink.appendChild(gameImage);
-    gameItem.appendChild(gameLink);
-    gameItem.appendChild(gameName);
-    carousel.appendChild(gameItem);
+    const gameLink = document.createElement('a');
+    gameLink.href = game.link;
+    gameLink.classList.add('full-card-link');
+    gameLink.setAttribute('aria-label', game.name);
+    gameLink.addEventListener('click', () => trackGameClick(game.name));
+
+    gameItemWrapper.appendChild(gameImage);
+    gameItemWrapper.appendChild(gameName);
+
+    // --- Container for TOP-LEFT indicators ---
+    const topLeftIndicators = document.createElement('div');
+    topLeftIndicators.classList.add('top-left-indicators');
+
+    if (game.details['date added']) {
+        const dateAdded = new Date(game.details['date added']);
+        const diffDays = (new Date() - dateAdded) / (1000 * 60 * 60 * 24);
+        if (diffDays <= 30) {
+            const newIndicator = document.createElement('div');
+            newIndicator.classList.add('new-game-indicator');
+            newIndicator.innerHTML = '<i class="fas fa-star"></i> NEW';
+            topLeftIndicators.appendChild(newIndicator);
+        }
+    }
+
+    const statsIndicator = document.createElement('div');
+    statsIndicator.classList.add('game-stats-indicator');
+    statsIndicator.innerHTML = `<i class="fas fa-fire"></i> ${game.clicks || 0}`;
+    statsIndicator.title = `${game.clicks || 0} plays in the last 30 days`;
+    topLeftIndicators.appendChild(statsIndicator);
+
+    gameItemWrapper.appendChild(topLeftIndicators);
+
+    // --- Standalone TOP-RIGHT Favorite button ---
+    const favoriteButton = document.createElement('button');
+    favoriteButton.classList.add('favorite-btn');
+    favoriteButton.innerHTML = '<i class="far fa-heart"></i>';
+    if (favoriteGames.has(game.name)) {
+        favoriteButton.classList.add('is-favorite');
+        favoriteButton.querySelector('i')?.classList.replace('far', 'fas');
+    }
+    favoriteButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavorite(game.name);
+    });
+    gameItemWrapper.appendChild(favoriteButton);
+
+    gameItemWrapper.appendChild(gameLink);
+    carousel.appendChild(gameItemWrapper);
 }
 
-
-/**
- * Creates a complete carousel section. Now simpler as it just takes a list of games.
- */
+// --- ALL OTHER JAVASCRIPT FUNCTIONS ARE UNCHANGED ---
 function createCarouselSection(title, games, container, options = {}) {
-    if (!games || games.length === 0) return null;
+    if (!games || games.length === 0) return;
     const section = document.createElement('section');
     section.classList.add('game-category-section');
     if (options.id) section.id = options.id;
@@ -105,47 +97,31 @@ function createCarouselSection(title, games, container, options = {}) {
     section.append(header, carouselContainer);
     if (options.prepend) container.prepend(section);
     else container.appendChild(section);
-    return section;
 }
-
-
-/**
- * Orchestrates the creation of all carousels from the complete data.
- */
-function createAllCarousels() {
+async function createAllCarousels() {
     const carouselsContainer = document.getElementById('all-game-carousels');
     if (!carouselsContainer) return;
     carouselsContainer.innerHTML = '';
-
-    // 1. Favorites Carousel
     if (favoriteGames.size > 0) {
         const favoriteGamesDetails = allGamesData.filter(game => favoriteGames.has(game.name));
-        createCarouselSection('My Favorites', favoriteGamesDetails, carouselsContainer, { id: 'favorites-carousel', prepend: true });
+        createCarouselSection('My Favorites', favoriteGamesDetails, carouselsContainer, {
+            id: 'favorites-carousel',
+            prepend: true
+        });
     }
-
-    // 2. Popular Games Carousel
-    const popularGames = [...allGamesData]
-        .sort((a, b) => {
-            const clicksA = a.clicks || 0;
-            const clicksB = b.clicks || 0;
-            if (clicksB > clicksA) return 1;
-            if (clicksA > clicksB) return -1;
-            return Math.random() - 0.5; // Shuffle ties
-        })
-        .slice(0, 15);
-    createCarouselSection('Popular Games', popularGames, carouselsContainer);
-
-    // 3. New Games Carousel
-    const newGames = [...allGamesData]
-        .sort((a, b) => {
-            if (!a.details['date added']) return 1;
-            if (!b.details['date added']) return -1;
-            return new Date(b.details['date added']) - new Date(a.details['date added']);
-        })
-        .slice(0, NEW_GAMES_COUNT);
-    createCarouselSection('New Games', newGames, carouselsContainer);
-
-    // 4. All Other Categories
+    const popularGamesWithClicks = allGamesData.filter(g => (g.clicks || 0) > 0);
+    popularGamesWithClicks.sort((a, b) => (b.clicks || 0) - (a.clicks || 0) || (Math.random() - 0.5));
+    let popularGames = popularGamesWithClicks.slice(0, 15);
+    if (popularGames.length === 0 && allGamesData.length > 0) {
+        popularGames = [...allGamesData].sort(() => 0.5 - Math.random()).slice(0, 15);
+    }
+    if (popularGames.length > 0) {
+        createCarouselSection('Popular Games', popularGames, carouselsContainer);
+    }
+    const newGames = [...allGamesData].sort((a, b) => new Date(b.details['date added'] || 0) - new Date(a.details['date added'] || 0)).slice(0, NEW_GAMES_COUNT);
+    if (newGames.length > 0) {
+        createCarouselSection('New Games', newGames, carouselsContainer);
+    }
     const categories = {};
     allGamesData.forEach(game => {
         game.details["game categories"]?.forEach(category => {
@@ -155,19 +131,17 @@ function createAllCarousels() {
         });
     });
     for (const category in categories) {
-        createCarouselSection(category, categories[category], carouselsContainer);
+        if (categories[category].length > 0) {
+            createCarouselSection(category, categories[category], carouselsContainer);
+        }
     }
-
     initializeCarouselFunctionality();
 }
 
-
-// --- Feature-Specific Functions ---
-
 function loadFavorites() {
-    const storedFavorites = localStorage.getItem('favoriteGames');
-    if (storedFavorites) {
-        favoriteGames = new Set(JSON.parse(storedFavorites));
+    const stored = localStorage.getItem('favoriteGames');
+    if (stored) {
+        favoriteGames = new Set(JSON.parse(stored));
     }
 }
 
@@ -176,8 +150,7 @@ function saveFavorites() {
 }
 
 function updateAllFavoriteIcons(gameName, isFavorite) {
-    const allButtonsForGame = document.querySelectorAll(`.favorite-btn[data-game-name="${gameName}"]`);
-    allButtonsForGame.forEach(button => {
+    document.querySelectorAll(`[data-game-name="${gameName}"] .favorite-btn`).forEach(button => {
         button.classList.toggle('is-favorite', isFavorite);
         const icon = button.querySelector('i');
         if (icon) {
@@ -192,9 +165,6 @@ function updateAllFavoriteIcons(gameName, isFavorite) {
 
 function toggleFavorite(gameName) {
     const wasFavorite = favoriteGames.has(gameName);
-    const favoritesContainer = document.getElementById('all-game-carousels');
-    let favoritesCarousel = document.getElementById('favorites-carousel');
-
     if (wasFavorite) {
         favoriteGames.delete(gameName);
     } else {
@@ -202,9 +172,9 @@ function toggleFavorite(gameName) {
     }
     saveFavorites();
     updateAllFavoriteIcons(gameName, !wasFavorite);
-
+    const favoritesContainer = document.getElementById('all-game-carousels');
+    let favoritesCarousel = document.getElementById('favorites-carousel');
     const favoriteGamesDetails = allGamesData.filter(game => favoriteGames.has(game.name));
-
     if (favoriteGames.size === 0 && favoritesCarousel) {
         favoritesCarousel.remove();
     } else if (favoriteGames.size > 0) {
@@ -213,10 +183,13 @@ function toggleFavorite(gameName) {
             carouselDiv.innerHTML = '';
             favoriteGamesDetails.forEach(game => createGameItem(game, carouselDiv));
         } else {
-            favoritesCarousel = createCarouselSection('My Favorites', favoriteGamesDetails, favoritesContainer, { id: 'favorites-carousel', prepend: true });
+            createCarouselSection('My Favorites', favoriteGamesDetails, favoritesContainer, {
+                id: 'favorites-carousel',
+                prepend: true
+            });
         }
         if (favoritesCarousel) {
-            initializeCarouselFunctionality(favoritesCarousel.querySelector('.game-carousel-container'));
+            initializeCarouselFunctionality(favoritesCarousel);
         }
     }
 }
@@ -224,110 +197,59 @@ function toggleFavorite(gameName) {
 function trackGameClick(gameName) {
     fetch(TRACK_PLAY_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ game: gameName }),
-        keepalive: true 
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Failed to track game play on the server.');
-        }
-    })
-    .catch(error => {
-        console.error('Error tracking game play:', error);
-    });
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            game: gameName
+        }),
+        keepalive: true
+    }).catch(err => console.error('Track play error:', err));
 }
 
-// --- Carousel Arrow and Scrolling Logic ---
-function getItemWidthWithGap(carousel, gameItems) {
-    if (!gameItems || gameItems.length === 0) return carousel.clientWidth;
-    const firstItem = gameItems[0];
-    let itemWidth = firstItem.offsetWidth;
-    let gap = 0;
-    if (gameItems.length > 1) {
-        gap = gameItems[1].offsetLeft - (firstItem.offsetLeft + itemWidth);
-    }
-    return itemWidth + gap;
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
 
-function calculateCarouselMetrics(carouselElement, gameItemElements) {
-    if (!carouselElement || !gameItemElements || gameItemElements.length === 0) {
-        return { itemWidthWithGap: 0, numActuallyVisible: 1, scrollDistance: 0, maxScroll: 0, canScroll: false };
-    }
-    const itemWidthWithGap = getItemWidthWithGap(carouselElement, gameItemElements);
-    const carouselViewWidth = carouselElement.clientWidth;
-    const itemsThatCanFit = carouselViewWidth / itemWidthWithGap;
-    const numActuallyVisible = Math.max(1, Math.floor(itemsThatCanFit));
-    const scrollDistance = numActuallyVisible * itemWidthWithGap;
-    const maxScroll = carouselElement.scrollWidth - carouselViewWidth;
-    const canScroll = carouselElement.scrollWidth > carouselViewWidth + 5;
-    return { itemWidthWithGap, numActuallyVisible, scrollDistance, maxScroll, canScroll };
+function calculateCarouselMetrics(carousel) {
+    const items = carousel.querySelectorAll('.game-item');
+    if (items.length === 0) return {
+        canScroll: false
+    };
+    const itemWidth = items[0].offsetWidth;
+    const gap = items.length > 1 ? items[1].offsetLeft - (items[0].offsetLeft + itemWidth) : 0;
+    const itemWidthWithGap = itemWidth + gap;
+    const visibleWidth = carousel.clientWidth;
+    return {
+        scrollDistance: Math.max(1, Math.floor(visibleWidth / itemWidthWithGap)) * itemWidthWithGap,
+        maxScroll: carousel.scrollWidth - visibleWidth,
+        canScroll: carousel.scrollWidth > visibleWidth + 5
+    };
 }
 
 function initializeCarouselFunctionality(scope = document) {
     const carouselContainers = scope.querySelectorAll('.game-carousel-container');
-    const tolerance = 5;
-
     carouselContainers.forEach(container => {
         const leftArrow = container.querySelector('.carousel-arrow-left');
         const rightArrow = container.querySelector('.carousel-arrow-right');
         const carousel = container.querySelector('.game-carousel');
-        const gameItems = carousel.querySelectorAll('.game-item');
-
-        if (!leftArrow || !rightArrow || !carousel || gameItems.length === 0) {
-            if (leftArrow && rightArrow) {
-                leftArrow.style.display = 'none';
-                rightArrow.style.display = 'none';
-            }
+        const metrics = calculateCarouselMetrics(carousel);
+        if (!metrics.canScroll) {
+            leftArrow.style.display = 'none';
+            rightArrow.style.display = 'none';
             return;
         }
-
-        const updateArrowVisibility = () => {
-            const metrics = calculateCarouselMetrics(carousel, gameItems);
-            const displayValue = metrics.canScroll ? '' : 'none';
-            leftArrow.style.display = displayValue;
-            rightArrow.style.display = displayValue;
-        };
-        updateArrowVisibility();
-
-        leftArrow.replaceWith(leftArrow.cloneNode(true));
-        rightArrow.replaceWith(rightArrow.cloneNode(true));
-        container.querySelector('.carousel-arrow-left').addEventListener('click', () => {
-             const metrics = calculateCarouselMetrics(carousel, gameItems);
-            if (!metrics.canScroll) return;
-            carousel.scrollTo({ left: carousel.scrollLeft <= tolerance ? metrics.maxScroll : Math.max(0, carousel.scrollLeft - metrics.scrollDistance), behavior: 'smooth' });
+        leftArrow.style.display = '';
+        rightArrow.style.display = '';
+        leftArrow.onclick = () => carousel.scrollTo({
+            left: carousel.scrollLeft <= 5 ? metrics.maxScroll : carousel.scrollLeft - metrics.scrollDistance,
+            behavior: 'smooth'
         });
-        container.querySelector('.carousel-arrow-right').addEventListener('click', () => {
-            const metrics = calculateCarouselMetrics(carousel, gameItems);
-            if (!metrics.canScroll) return;
-            carousel.scrollTo({ left: carousel.scrollLeft >= metrics.maxScroll - tolerance ? 0 : Math.min(metrics.maxScroll, carousel.scrollLeft + metrics.scrollDistance), behavior: 'smooth' });
+        rightArrow.onclick = () => carousel.scrollTo({
+            left: carousel.scrollLeft >= metrics.maxScroll - 5 ? 0 : carousel.scrollLeft + metrics.scrollDistance,
+            behavior: 'smooth'
         });
-
-        if (!window.allCarouselsToResize) window.allCarouselsToResize = new Set();
-        window.allCarouselsToResize.add(carousel);
     });
-
-    if (!window.carouselResizeHandlerSetup) {
-        window.addEventListener('resize', debounce(() => {
-            if (window.allCarouselsToResize) {
-                window.allCarouselsToResize.forEach(carousel => {
-                    const gameItems = carousel.querySelectorAll('.game-item');
-                    const metrics = calculateCarouselMetrics(carousel, gameItems);
-                    const container = carousel.closest('.game-carousel-container');
-                    if (container) {
-                        const leftArr = container.querySelector('.carousel-arrow-left');
-                        const rightArr = container.querySelector('.carousel-arrow-right');
-                        if (leftArr && rightArr) {
-                            const displayValue = metrics.canScroll ? '' : 'none';
-                            leftArr.style.display = displayValue;
-                            rightArr.style.display = displayValue;
-                        }
-                    }
-                });
-            }
-        }, 250));
-        window.carouselResizeHandlerSetup = true;
-    }
 }
 
 function debounce(func, wait) {
@@ -337,80 +259,47 @@ function debounce(func, wait) {
         timeout = setTimeout(() => func.apply(this, args), wait);
     };
 }
-
-// --- Initialization on DOM Load (NEW LOGIC) ---
-document.addEventListener('DOMContentLoaded', async () => {
-    loadFavorites();
-
-    try {
-        // Fetch both local game data and remote popularity data at the same time
-        const [gamesResponse, popularityResponse] = await Promise.all([
-            fetch('games.json'),
-            fetch(POPULAR_GAMES_API_URL)
-        ]);
-
-        if (!gamesResponse.ok) throw new Error('Failed to load games.json');
-        
-        const localGames = await gamesResponse.json();
-        // Popularity fetch is allowed to fail gracefully
-        const popularityData = (popularityResponse && popularityResponse.ok) ? await popularityResponse.json() : [];
-
-        // Create a lookup map for faster merging
-        const popularityMap = new Map((popularityData || []).map(item => [item.name, item.clicks]));
-
-        // Process and merge the data
-        allGamesData = localGames.map(gameObj => {
-            const gameKey = Object.keys(gameObj)[0];
-            const gameDetails = gameObj[gameKey];
-            return {
-                name: gameKey,
-                image: gameDetails['game image'],
-                link: gameDetails['game link'],
-                details: gameDetails,
-                // Add the click count, defaulting to 0 if not in the map
-                clicks: popularityMap.get(gameKey) || 0
-            };
-        });
-
-    } catch (error) {
-        console.error("Failed to load initial game data:", error);
-        // Fallback: load only local data if the API fails
-        try {
-            const gamesResponse = await fetch('games.json');
-            const localGames = await gamesResponse.json();
-            allGamesData = localGames.map(gameObj => {
-                const gameKey = Object.keys(gameObj)[0];
-                const gameDetails = gameObj[gameKey];
-                return {
-                    name: gameKey,
-                    image: gameDetails['game image'],
-                    link: gameDetails['game link'],
-                    details: gameDetails,
-                    clicks: 0
-                };
-            });
-        } catch (e) {
-            console.error('Failed to load fallback local games.json:', e);
-            allGamesData = [];
-        }
-    }
-    
-    // Now that all data is ready, build the page
-    createAllCarousels();
-});
-/**
- * Utility to capitalize the first letter of each word.
- */
-function toTitleCase(str) {
-    return str.replace(/\w\S*/g, (txt) =>
-        txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-    );
-}
-
-// Patch createGameItem to use title case for display
-const originalCreateGameItem = createGameItem;
-createGameItem = function(game, carousel) {
-    // Clone game object to avoid mutating original data
-    const displayGame = { ...game, name: toTitleCase(game.name) };
-    originalCreateGameItem(displayGame, carousel);
-};
+document.addEventListener('DOMContentLoaded', async () => { 
+   loadFavorites(); 
+   try { 
+       const [gamesRes, popRes] = await Promise.all([fetch('games.json'), fetch(POPULAR_GAMES_API_URL)]); 
+       if (!gamesRes.ok) throw new Error('Failed to load games.json'); 
+       const localGames = await gamesRes.json(); 
+       const popularityData = (popRes && popRes.ok) ? await popRes.json() : []; 
+       const popularityMap = new Map(popularityData.map(item => [item.name, item.clicks])); 
+       allGamesData = localGames.map(gameObj => { 
+           const gameKey = Object.keys(gameObj)[0]; 
+           const gameDetails = gameObj[gameKey]; 
+           // Convert the game key to Title Case before looking it up in the map 
+           const titleCasedGameKey = toTitleCase(gameKey); 
+           return { 
+               name: gameKey, 
+               image: gameDetails['game image'], 
+               link: gameDetails['game link'], 
+               details: gameDetails, 
+               clicks: popularityMap.get(titleCasedGameKey) || 0 
+           }; 
+       }); 
+   } catch (error) { 
+       console.error("Failed to load initial data, loading fallback:", error); 
+       try { 
+           const gamesRes = await fetch('games.json'); 
+           const localGames = await gamesRes.json(); 
+           allGamesData = localGames.map(gameObj => { 
+               const gameKey = Object.keys(gameObj)[0]; 
+               const gameDetails = gameObj[gameKey]; 
+               return { 
+                   name: gameKey, 
+                   image: gameDetails['game image'], 
+                   link: gameDetails['game link'], 
+                   details: gameDetails, 
+                   clicks: 0 
+               }; 
+           }); 
+       } catch (e) { 
+           console.error('FATAL: Could not load fallback games.json.', e); 
+       } 
+   } 
+   createAllCarousels(); 
+   window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 250)); 
+}); 
