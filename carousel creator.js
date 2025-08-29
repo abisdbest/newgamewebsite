@@ -302,4 +302,5 @@ document.addEventListener('DOMContentLoaded', async () => {
    } 
    createAllCarousels(); 
    window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 250)); 
+
 }); 
