@@ -270,16 +270,15 @@ document.addEventListener('DOMContentLoaded', async () => {
        allGamesData = localGames.map(gameObj => { 
            const gameKey = Object.keys(gameObj)[0]; 
            const gameDetails = gameObj[gameKey]; 
-           // Convert the game key to Title Case before looking it up in the map 
-           const titleCasedGameKey = toTitleCase(gameKey); 
+           // Use the lowercase version of the game key to look it up in the map
            return { 
                name: gameKey, 
                image: gameDetails['game image'], 
                link: gameDetails['game link'], 
                details: gameDetails, 
-               clicks: popularityMap.get(titleCasedGameKey) || 0 
+               clicks: popularityMap.get(gameKey.toLowerCase()) || 0 // <-- FIX IS HERE
            }; 
-       }); 
+       });
    } catch (error) { 
        console.error("Failed to load initial data, loading fallback:", error); 
        try { 
@@ -304,3 +303,4 @@ document.addEventListener('DOMContentLoaded', async () => {
    window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 250)); 
 
 }); 
+
