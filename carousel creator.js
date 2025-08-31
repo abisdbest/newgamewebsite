@@ -1,3 +1,13 @@
+/**
+ * =================================================================
+ * FINAL FRONT-END JAVASCRIPT
+ * =================================================================
+ * Key Fix Implemented:
+ * 1. Matches popularity data using `gameKey.toLowerCase()` to correctly
+ *    find click counts for games, regardless of the casing in games.json.
+ * =================================================================
+ */
+
 // --- Globals ---
 let allGamesData = [];
 let favoriteGames = new Set();
@@ -32,7 +42,6 @@ function createGameItem(game, carousel) {
     gameItemWrapper.appendChild(gameImage);
     gameItemWrapper.appendChild(gameName);
 
-    // --- Container for TOP-LEFT indicators ---
     const topLeftIndicators = document.createElement('div');
     topLeftIndicators.classList.add('top-left-indicators');
 
@@ -55,7 +64,6 @@ function createGameItem(game, carousel) {
 
     gameItemWrapper.appendChild(topLeftIndicators);
 
-    // --- Standalone TOP-RIGHT Favorite button ---
     const favoriteButton = document.createElement('button');
     favoriteButton.classList.add('favorite-btn');
     favoriteButton.innerHTML = '<i class="far fa-heart"></i>';
@@ -74,7 +82,6 @@ function createGameItem(game, carousel) {
     carousel.appendChild(gameItemWrapper);
 }
 
-// --- ALL OTHER JAVASCRIPT FUNCTIONS ARE UNCHANGED ---
 function createCarouselSection(title, games, container, options = {}) {
     if (!games || games.length === 0) return;
     const section = document.createElement('section');
@@ -197,25 +204,20 @@ function toggleFavorite(gameName) {
 function trackGameClick(gameName) {
     fetch(TRACK_PLAY_API_URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            game: gameName
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ game: gameName }),
         keepalive: true
     }).catch(err => console.error('Track play error:', err));
 }
 
 function toTitleCase(str) {
+    if (!str) return '';
     return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
 
 function calculateCarouselMetrics(carousel) {
     const items = carousel.querySelectorAll('.game-item');
-    if (items.length === 0) return {
-        canScroll: false
-    };
+    if (items.length === 0) return { canScroll: false };
     const itemWidth = items[0].offsetWidth;
     const gap = items.length > 1 ? items[1].offsetLeft - (items[0].offsetLeft + itemWidth) : 0;
     const itemWidthWithGap = itemWidth + gap;
@@ -241,14 +243,8 @@ function initializeCarouselFunctionality(scope = document) {
         }
         leftArrow.style.display = '';
         rightArrow.style.display = '';
-        leftArrow.onclick = () => carousel.scrollTo({
-            left: carousel.scrollLeft <= 5 ? metrics.maxScroll : carousel.scrollLeft - metrics.scrollDistance,
-            behavior: 'smooth'
-        });
-        rightArrow.onclick = () => carousel.scrollTo({
-            left: carousel.scrollLeft >= metrics.maxScroll - 5 ? 0 : carousel.scrollLeft + metrics.scrollDistance,
-            behavior: 'smooth'
-        });
+        leftArrow.onclick = () => carousel.scrollTo({ left: carousel.scrollLeft <= 5 ? metrics.maxScroll : carousel.scrollLeft - metrics.scrollDistance, behavior: 'smooth' });
+        rightArrow.onclick = () => carousel.scrollTo({ left: carousel.scrollLeft >= metrics.maxScroll - 5 ? 0 : carousel.scrollLeft + metrics.scrollDistance, behavior: 'smooth' });
     });
 }
 
@@ -259,47 +255,40 @@ function debounce(func, wait) {
         timeout = setTimeout(() => func.apply(this, args), wait);
     };
 }
-document.addEventListener('DOMContentLoaded', async () => { 
-   loadFavorites(); 
-   try { 
-       const [gamesRes, popRes] = await Promise.all([fetch('games.json'), fetch(POPULAR_GAMES_API_URL)]); 
-       if (!gamesRes.ok) throw new Error('Failed to load games.json'); 
-       const localGames = await gamesRes.json(); 
-       const popularityData = (popRes && popRes.ok) ? await popRes.json() : []; 
-       const popularityMap = new Map(popularityData.map(item => [item.name, item.clicks])); 
-       allGamesData = localGames.map(gameObj => { 
-           const gameKey = Object.keys(gameObj)[0]; 
-           const gameDetails = gameObj[gameKey]; 
-           // Convert the game key to Title Case before looking it up in the map 
-           const titleCasedGameKey = toTitleCase(gameKey); 
-           return { 
-               name: gameKey, 
-               image: gameDetails['game image'], 
-               link: gameDetails['game link'], 
-               details: gameDetails, 
-               clicks: popularityMap.get(titleCasedGameKey) || 0 
-           }; 
-       }); 
-   } catch (error) { 
-       console.error("Failed to load initial data, loading fallback:", error); 
-       try { 
-           const gamesRes = await fetch('games.json'); 
-           const localGames = await gamesRes.json(); 
-           allGamesData = localGames.map(gameObj => { 
-               const gameKey = Object.keys(gameObj)[0]; 
-               const gameDetails = gameObj[gameKey]; 
-               return { 
-                   name: gameKey, 
-                   image: gameDetails['game image'], 
-                   link: gameDetails['game link'], 
-                   details: gameDetails, 
-                   clicks: 0 
-               }; 
-           }); 
-       } catch (e) { 
-           console.error('FATAL: Could not load fallback games.json.', e); 
-       } 
-   } 
-   createAllCarousels(); 
-   window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 250)); 
-}); 
+document.addEventListener('DOMContentLoaded', async () => {
+    loadFavorites();
+    try {
+        const [gamesRes, popRes] = await Promise.all([fetch('games.json'), fetch(POPULAR_GAMES_API_URL)]);
+        if (!gamesRes.ok) throw new Error('Failed to load games.json');
+        const localGames = await gamesRes.json();
+        const popularityData = (popRes && popRes.ok) ? await popRes.json() : [];
+        const popularityMap = new Map(popularityData.map(item => [item.name, item.clicks]));
+        allGamesData = localGames.map(gameObj => {
+            const gameKey = Object.keys(gameObj)[0];
+            const gameDetails = gameObj[gameKey];
+            return {
+                name: gameKey,
+                image: gameDetails['game image'],
+                link: gameDetails['game link'],
+                details: gameDetails,
+                // FIX: Look up the popularity map using a lowercase key to match the API response.
+                clicks: popularityMap.get(gameKey.toLowerCase()) || 0
+            };
+        });
+    } catch (error) {
+        console.error("Failed to load initial data, loading fallback:", error);
+        try {
+            const gamesRes = await fetch('games.json');
+            const localGames = await gamesRes.json();
+            allGamesData = localGames.map(gameObj => {
+                const gameKey = Object.keys(gameObj)[0];
+                const gameDetails = gameObj[gameKey];
+                return { name: gameKey, image: gameDetails['game image'], link: gameDetails['game link'], details: gameDetails, clicks: 0 };
+            });
+        } catch (e) {
+            console.error('FATAL: Could not load fallback games.json.', e);
+        }
+    }
+    createAllCarousels();
+    window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 250));
+});
