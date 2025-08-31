@@ -883,42 +883,7 @@ function displayBrowseItems(items) {
     };
 
     // --- CSS Styles (can be moved to a .css file) ---
-    const styles = `
-        .unblock-assistant-choices { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .assistant-choice-btn { 
-            padding: 15px; text-align: left; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;
-            font-size: 1.1em; line-height: 1.4; transition: background-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;
-        }
-        .assistant-choice-btn:hover { background-color: #e9e9e9; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .assistant-choice-btn .btn-icon { font-size: 1.5em; margin-right: 10px; display: inline-block; width: 30px; } /* For emoji/icon alignment */
-        .assistant-choice-btn small { font-size: 0.8em; color: #555; margin-top: 5px; }
-
-        .browse-view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .browse-search-container { margin-bottom: 15px; }
-        .browse-search-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em;}
-        .browse-url-list-container { max-height: 275px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 4px; background: #f9f9f9; }
-        .browse-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-        .browse-item:last-child { border-bottom: none; }
-        .browse-item-link { text-decoration: none; color: #007bff; font-weight: 500; flex-grow: 1; word-break: break-all; }
-        .browse-item-link:hover { text-decoration: underline; }
-        .browse-item-stats { display: flex; align-items: center; color: #555; font-size: 0.9em; white-space: nowrap; margin-left: 15px; }
-        .loading-text, .error-text, .info-text { text-align: center; padding: 20px; color: #777; }
-        .error-text { color: red; }
-        .unblock-utility-btn { background-color: #6c757d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9em; }
-        .unblock-utility-btn.small-btn { padding: 6px 10px; font-size: 0.85em; }
-        .unblock-utility-btn:hover { background-color: #5a6268; }
-        .test-link { display: inline-block; padding: 6px 10px; color: white; border-radius: 4px; text-decoration: none; margin: 5px 0; }
-        .test-link:hover { opacity: 0.9; }
-        .unblock-option { display: block; margin: 8px 0; padding: 8px; border: 1px solid #eee; border-radius: 4px; cursor: pointer; }
-        .unblock-option:has(input:checked) { background-color: #e6f7ff; border-color: #91d5ff; }
-        .unblock-option input[type="radio"] { margin-right: 8px; }
-        .custom-keyword-input-container { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-        .custom-keyword-input-container input[type="text"] { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        .spinner { width: 40px; height: 40px; margin: 20px auto; border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #unblockAssistantButtons button { margin-left: 5px; margin-right: 5px;} /* Basic spacing for bottom buttons */
-        #unblockFinishBtn, #unblockFinishBtnSecondary { display: block; margin: 10px auto; } /* Center finish/close buttons */
-    `;
+    const styles = ``;
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
     styleSheet.innerText = styles;
