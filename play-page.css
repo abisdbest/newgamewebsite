@@ -48,13 +48,30 @@
 .ad-container {
     flex: 0 0 240px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: white; /* Keep as is if external ads require white BG */
+    justify-content: flex-start;
+    min-height: 250px;
+    contain: layout;
+    background: transparent;
+}
+.ad-container::before {
+    content: "ADVERTISEMENT";
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--secondary-text-color, #888888);
+    opacity: 0.6;
+    text-align: center;
+    margin-bottom: 6px;
+    width: 100%;
 }
 .ad-container .adsbygoogle {
     width: 100%;
     min-height: 250px;
+    contain: layout;
 }
 
 
@@ -155,7 +172,9 @@
 
 /* 2. MODIFIED FOR BUTTON STYLING (Options Bar Buttons) */
 #options-bar #fullscreen-btn,
-#options-bar #new-page-btn {
+#options-bar #new-page-btn,
+#options-bar #reload-btn,
+#options-bar #cloak-btn {
     background-color: var(--option-button-bg-color);
     color: var(--primary-text-color);
     border: 1px solid var(--option-button-border-color);
@@ -170,17 +189,21 @@
 }
 
 #options-bar #fullscreen-btn:hover,
-#options-bar #new-page-btn:hover {
+#options-bar #new-page-btn:hover,
+#options-bar #reload-btn:hover,
+#options-bar #cloak-btn:hover {
     background-color: var(--option-button-hover-bg-color);
     color: var(--option-button-hover-text-color);
     border-color: var(--option-button-hover-border-color);
     transform: translateY(-2px); /* Subtle lift effect */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 14px var(--accent-glow, rgba(23, 162, 184, 0.35));
 }
 
 /* Adding icons using Font Awesome pseudo-elements */
 #options-bar #fullscreen-btn::before,
-#options-bar #new-page-btn::before {
+#options-bar #new-page-btn::before,
+#options-bar #reload-btn::before,
+#options-bar #cloak-btn::before {
     font-family: "Font Awesome 6 Free", "FontAwesome"; /* From your HTML's Font Awesome link */
     font-weight: 900; /* For solid icons */
     font-size: 1em; /* Relative to button font size, adjust if needed */
@@ -191,8 +214,13 @@
     content: "\f065"; /* fa-expand */
 }
 
-#options-bar #new-page-btn::before {
-    content: "\f35d"; /* fa-external-link-alt */
+#options-bar #new-page-btn::before,
+#options-bar #cloak-btn::before {
+    content: "\f21b"; /* fa-user-secret / cloak */
+}
+
+#options-bar #reload-btn::before {
+    content: "\f2f1"; /* fa-rotate-right */
 }
 
 

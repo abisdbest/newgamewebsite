@@ -1,834 +1,1224 @@
 [
-    {
-        "snow rider 3d": {
-            "game image": "images/snowrider.webp",
-            "game link": "play/snow rider 3d",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "monkey mart": {
-            "game image": "images/monkey mart.webp",
-            "game link": "play/monkey mart",
-            "game categories": [
-                "Addictive Games",
-                "Idle Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "minecraft": {
-            "game image": "images/minecraft.webp",
-            "game link": "play/minecraft",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "temple run 2": {
-            "game image": "images/temple run 2.webp",
-            "game link": "play/temple run 2",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2025-02-04"
-        }
-    },
-    {
-        "Escape Road": {
-            "game image": "images/escape road.webp",
-            "game link": "play/escape road/",
-            "game categories": [
-                "Popular Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "subway surfers": {
-            "game image": "images/subwaysurfers.webp",
-            "game link": "play/subway surfers",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "block blast": {
-            "game image": "images/block blast.webp",
-            "game link": "play/block blast",
-            "game categories": [
-                "Puzzle Games",
-                "Addictive Games"
-            ],
-            "date added": "2024-12-19"
-        }
-    },
-    {
-        "mariokart wii": {
-            "game image": "images/mariokart wii.webp",
-            "game link": "play/mariokart wii/",
-            "game categories": [
-                "Car / Racing Games"
-            ],
-            "date added": "2024-07-02"
-        }
-    },
-    {
-        "zigzag": {
-            "game image": "images/zigzag.webp",
-            "game link": "play/zigzag",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "capybara clicker": {
-            "game image": "images/capybara clicker.webp",
-            "game link": "play/capybara clicker",
-            "game categories": [
-                "Addictive Games",
-                "Idle Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "2048": {
-            "game image": "images/2048.webp",
-            "game link": "play/2048",
-            "game categories": [
-                "Puzzle Games",
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "ragdoll archers": {
-            "game image": "images/ragdoll archers.webp",
-            "game link": "play/ragdoll archers",
-            "game categories": [
-                "Addictive Games",
-                "Shooting Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "hobo": {
-            "game image": "images/hobo.webp",
-            "game link": "play/hobo",
-            "game categories": [
-                "Retro Games",
-                "Shooting Games",
-                "Flash Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "getaway shootout": {
-            "game image": "images/getaway shootout.webp",
-            "game link": "play/getaway shootout/",
-            "game categories": [
-                "2 Player Games",
-                "Shooting Games"
-            ],
-            "date added": "2024-04-02"
-        }
-    },
-    {
-        "idle dice": {
-            "game image": "images/idle dice.webp",
-            "game link": "play/idle dice",
-            "game categories": [
-                "Addictive Games",
-                "Idle Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "alien hominid": {
-            "game image": "images/alienhominid.webp",
-            "game link": "play/alien hominid",
-            "game categories": [
-                "Shooting Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "space waves": {
-            "game image": "images/space waves.webp",
-            "game link": "play/space waves",
-            "game categories": [
-                "Addictive Games",          
-                "Retro Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "wake up the box": {
-            "game image": "images/wake up the box.webp",
-            "game link": "play/wake up the box",
-            "game categories": [
-                "Retro Games",
-                "Puzzle Games",
-                "Flash Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "mr mine": {
-            "game image": "images/mr mine.webp",
-            "game link": "play/mr mine",
-            "game categories": [
-                "Addictive Games",
-                "Idle Games"
-            ],
-            "date added": "2025-08-27"
-        }
-    },
-    {
-        "g switch 3": {
-            "game image": "images/g switch 3.webp",
-            "game link": "play/g switch 3",
-            "game categories": [
-                "2 Player Games",
-                "Flash Games",
-                "Retro Games"
-            ],
-            "date added": "2025-01-22"
-        }
-    },
-    {
-        "koalas to the max": {
-            "game image": "images/koalas to the max.webp",
-            "game link": "play/koalas to the max/",
-            "game categories": [
-                "Popular Games"
-            ],
-            "date added": "2024-05-14"
-        }
-    },
-    {
-        "paperio": {
-            "game image": "images/paperio.webp",
-            "game link": "play/paperio",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-08"
-        }
-    },
-    {
-        "cubes 2048": {
-            "game image": "images/cubes 2048.webp",
-            "game link": "play/cubes 2048",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-06"
-        }
-    },
-    {
-        "soccer random": {
-            "game image": "images/soccerrandom.webp",
-            "game link": "play/soccer random",
-            "game categories": [
-                "2 Player Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "eggy car": {
-            "game image": "images/eggycar.webp",
-            "game link": "play/eggy car",
-            "game categories": [
-                "Car / Racing Games",
-                "Addictive Games"
-            ],
-            "date added": "2024-03-11"
-        }
-    },
-    {
-        "boxing random": {
-            "game image": "images/boxingrandom.webp",
-            "game link": "play/boxing random",
-            "game categories": [
-                "2 Player Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "cookie clicker": {
-            "game image": "images/cookieclicker.webp",
-            "game link": "play/cookie clicker",
-            "game categories": [
-                "Idle Games",
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "basket random": {
-            "game image": "images/basketrandom.webp",
-            "game link": "play/basket random",
-            "game categories": [
-                "2 Player Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "volley random": {
-            "game image": "images/volleyrandom.webp",
-            "game link": "play/volley random",
-            "game categories": [
-                "2 Player Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "doodle jump": {
-            "game image": "images/doodlejump.webp",
-            "game link": "play/doodle jump",
-            "game categories": [
-                "Shooting Games",
-                "Retro Games",
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "rooftop snipers": {
-            "game image": "images/rooftop snipers.webp",
-            "game link": "play/rooftop snipers",
-            "game categories": [
-                "2 Player Games",
-                "Shooting Games"
-            ],
-            "date added": "2024-06-05"
-        }
-    },
-    {
-        "rocket league": {
-            "game image": "images/rocketleague.webp",
-            "game link": "play/rocket league",
-            "game categories": [
-                "2 Player Games",
-                "Car / Racing Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "tank game": {
-            "game image": "images/tankgame.webp",
-            "game link": "play/tank game",
-            "game categories": [
-                "2 Player Games",
-                "Car / Racing Games",
-                "Shooting Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "fireboy and watergirl": {
-            "game image": "images/fireboyandwatergirl.webp",
-            "game link": "play/fireboy and watergirl",
-            "game categories": [
-                "2 Player Games",
-                "Flash Games",
-                "Puzzle Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "hex gl": {
-            "game image": "images/hexgl.webp",
-            "game link": "play/hex gl",
-            "game categories": [
-                "Car / Racing Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "moto x3m pool party": {
-            "game image": "images/motox3mpoolparty.webp",
-            "game link": "play/moto x3m pool party",
-            "game categories": [
-                "Car / Racing Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "moto x3m spooky land": {
-            "game image": "images/motox3mspookyland.webp",
-            "game link": "play/moto x3m spooky land",
-            "game categories": [
-                "Car / Racing Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "happy wheels": {
-            "game image": "images/happywheels.webp",
-            "game link": "play/happy wheels",
-            "game categories": [
-                "Car / Racing Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "traffic racer": {
-            "game image": "images/trafficracer.webp",
-            "game link": "play/traffic racer",
-            "game categories": [
-                "Car / Racing Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "pixel battle royale": {
-            "game image": "images/pixelbattleroyale.webp",
-            "game link": "play/pixel battle royale/",
-            "game categories": [
-                "Shooting Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "war brokers": {
-            "game image": "images/warbrokers.webp",
-            "game link": "play/war brokers",
-            "game categories": [
-                "Shooting Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "raft wars": {
-            "game image": "images/raftwars.webp",
-            "game link": "play/raft wars",
-            "game categories": [
-                "Shooting Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "there is no game": {
-            "game image": "images/there is no game.webp",
-            "game link": "play/there is no game/",
-            "game categories": [
-                "Escape Room Games"
-            ],
-            "date added": "2024-05-13"
-        }
-    },
-    {
-        "escape the bathroom": {
-            "game image": "images/escape the bathroom.webp",
-            "game link": "play/escape the bathroom/",
-            "game categories": [
-                "Escape Room Games",
-                "Flash Games"
-            ],
-            "date added": "2024-05-15"
-        }
-    },
-    {
-        "escape the car": {
-            "game image": "images/escape the car.webp",
-            "game link": "play/escape the car/",
-            "game categories": [
-                "Escape Room Games",
-                "Flash Games"
-            ],
-            "date added": "2024-05-15"
-        }
-    },
-    {
-        "dont escape": {
-            "game image": "images/dont escape.webp",
-            "game link": "play/dont escape/",
-            "game categories": [
-                "Escape Room Games",
-                "Flash Games"
-            ],
-            "date added": "2024-05-15"
-        }
-    },
-    {
-        "dont escape 2": {
-            "game image": "images/dont escape 2.webp",
-            "game link": "play/dont escape 2/",
-            "game categories": [
-                "Escape Room Games",
-                "Flash Games"
-            ],
-            "date added": "2024-05-15"
-        }
-    },
-    {
-        "dont escape 3": {
-            "game image": "images/dont escape 3.webp",
-            "game link": "play/dont escape 3/",
-            "game categories": [
-                "Escape Room Games",
-                "Flash Games"
-            ],
-            "date added": "2024-05-15"
-        }
-    },
-    {
-        "impossible quiz": {
-            "game image": "images/theimpossiblequiz.webp",
-            "game link": "play/impossible quiz",
-            "game categories": [
-                "Puzzle Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "impossible quiz 2": {
-            "game image": "images/theimpossiblequiz2.webp",
-            "game link": "play/impossible quiz 2",
-            "game categories": [
-                "Puzzle Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "zork": {
-            "game image": "images/zork.webp",
-            "game link": "play/zork",
-            "game categories": [
-                "Puzzle Games",
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "Hextris": {
-            "game image": "images/hextris.webp",
-            "game link": "play/hextris",
-            "game categories": [
-                "Puzzle Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "bloons td 3": {
-            "game image": "images/btd3.webp",
-            "game link": "play/bloons tower defence 3",
-            "game categories": [
-                "Puzzle Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "cut the rope": {
-            "game image": "images/cuttherope.webp",
-            "game link": "play/cut the rope",
-            "game categories": [
-                "Puzzle Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "mem tile": {
-            "game image": "images/memtile.webp",
-            "game link": "play/mem tile",
-            "game categories": [
-                "Puzzle Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "mine sweeper": {
-            "game image": "images/minesweeper.webp",
-            "game link": "play/mine sweeper",
-            "game categories": [
-                "Puzzle Games",
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "spider solitare": {
-            "game image": "images/spidersolitare.webp",
-            "game link": "play/spider solitare",
-            "game categories": [
-                "Puzzle Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "tetris": {
-            "game image": "images/tetris.webp",
-            "game link": "play/tetris",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "pac-man": {
-            "game image": "images/pacman.webp",
-            "game link": "play/pac-man",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "pin ball": {
-            "game image": "images/pinball.webp",
-            "game link": "play/pin ball",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "pong": {
-            "game image": "images/pong.webp",
-            "game link": "play/pong",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "dino game": {
-            "game image": "images/dinogame.webp",
-            "game link": "play/dino game",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "hard mario": {
-            "game image": "images/mario.webp",
-            "game link": "play/hard mario",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "flappy bird": {
-            "game image": "images/flappybird.webp",
-            "game link": "play/flappy bird",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "crossy road": {
-            "game image": "images/crossyroad.webp",
-            "game link": "play/crossy road",
-            "game categories": [
-                "Retro Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "canabalt": {
-            "game image": "images/canabalt.webp",
-            "game link": "play/canabalt",
-            "game categories": [
-                "Retro Games",
-                "Flash Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "gbajs": {
-            "game image": "images/gba.webp",
-            "game link": "play/gbajs",
-            "game categories": [
-                "Retro Games",
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "theclashman2": {
-            "game image": "images/theclashman2.webp",
-            "game link": "play/theclashman2",
-            "game categories": [
-                "Retro Games",
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "slope": {
-            "game image": "images/slope.webp",
-            "game link": "play/slope",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "ice dodo": {
-            "game image": "images/ice-dodo.webp",
-            "game link": "play/ice dodo",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "bottle flip 3d": {
-            "game image": "images/bottle flip 3d.webp",
-            "game link": "play/bottle flip 3d/",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-05-03"
-        }
-    },
-    {
-        "universal paperclip": {
-            "game image": "images/universal paperclip.webp",
-            "game link": "play/universal paperclip",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2025-02-04"
-        }
-    },
-    {
-        "getting over it": {
-            "game image": "images/gettingoverit.webp",
-            "game link": "play/getting over it",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "tower building": {
-            "game image": "images/towerbuilding.webp",
-            "game link": "play/tower building",
-            "game categories": [
-                "Addictive Games"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "simpleproxy": {
-            "game image": "images/proxy.webp",
-            "game link": "play/simpleproxy",
-            "game categories": [
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "html editor": {
-            "game image": "images/htmleditor.webp",
-            "game link": "play/html editor",
-            "game categories": [
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "python editor": {
-            "game image": "images/pythoneditor.webp",
-            "game link": "play/python editor",
-            "game categories": [
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "sparx": {
-            "game image": "images/sparx.webp",
-            "game link": "play/sparx",
-            "game categories": [
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
-    },
-    {
-        "ask the stars": {
-            "game image": "images/askthestars.webp",
-            "game link": "play/ask the stars",
-            "game categories": [
-                "Tools"
-            ],
-            "date added": "2024-03-05"
-        }
+  {
+    "snow rider 3d": {
+      "game image": "images/snowrider.webp",
+      "game link": "play/snow rider 3d/",
+      "game categories": [
+        "Driving",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Ride your sled down steep snowy mountains while dodging trees, snowmen, and giant boulders in this fast-paced 3D winter racer."
     }
+  },
+  {
+    "monkey mart": {
+      "game image": "images/monkey mart.webp",
+      "game link": "play/monkey mart/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Manage and expand your own monkey supermarket by planting crops, stocking shelves, and hiring animal helpers."
+    }
+  },
+  {
+    "minecraft": {
+      "game image": "images/minecraft.webp",
+      "game link": "play/minecraft/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Build, explore, and survive in an infinite blocky sandbox world filled with endless creative possibilities."
+    }
+  },
+  {
+    "temple run 2": {
+      "game image": "images/temple run 2.webp",
+      "game link": "play/temple run 2/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Navigate hazardous cliffs, zip lines, and mines as you escape with the cursed idol in this thrilling endless runner."
+    }
+  },
+  {
+    "escape road": {
+      "game image": "images/escape road.webp",
+      "game link": "play/escape road/",
+      "game categories": [
+        "Driving",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Outrun the relentless police pursuit through busy city streets with sharp turns and evasive driving."
+    }
+  },
+  {
+    "subway surfers": {
+      "game image": "images/subwaysurfers.webp",
+      "game link": "play/subway surfers/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Dash along train tracks, dodge oncoming trains, and surf on hoverboards to escape the grumpy inspector."
+    }
+  },
+  {
+    "block blast": {
+      "game image": "images/block blast.webp",
+      "game link": "play/block blast/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Fit colorful block puzzle pieces onto the grid and clear rows and columns in this satisfying brain teaser."
+    }
+  },
+  {
+    "mariokart wii": {
+      "game image": "images/mariokart wii.webp",
+      "game link": "play/mariokart wii/",
+      "game categories": [
+        "Driving",
+        "Retro Games",
+        "Sports"
+      ],
+      "date added": "2024-03-05",
+      "description": "Race iconic Nintendo characters across classic tracks using wild power-ups and drifts to claim first place."
+    }
+  },
+  {
+    "zigzag": {
+      "game image": "images/zigzag.webp",
+      "game link": "play/zigzag/",
+      "game categories": [
+        "Addictive Games",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Stay on the precarious wall and make sharp zigzag turns at the perfect moment in this reflex-testing runner."
+    }
+  },
+  {
+    "capybara clicker": {
+      "game image": "images/capybara clicker.webp",
+      "game link": "play/capybara clicker/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Click to generate billions of adorable capybaras and purchase wacky upgrades to boost your capybara empire."
+    }
+  },
+  {
+    "2048": {
+      "game image": "images/2048.webp",
+      "game link": "play/2048/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Slide numbered tiles on a 4x4 grid and merge matching numbers until you reach the legendary 2048 tile."
+    }
+  },
+  {
+    "ragdoll archers": {
+      "game image": "images/ragdoll archers.webp",
+      "game link": "play/ragdoll archers/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Aim and fire arrows using ragdoll physics to eliminate enemy archers and upgrade your medieval arsenal."
+    }
+  },
+  {
+    "hobo": {
+      "game image": "images/hobo.webp",
+      "game link": "play/hobo/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Brawl through comical urban street encounters with outrageous fighting moves in this classic Flash beat-em-up."
+    }
+  },
+  {
+    "getaway shootout": {
+      "game image": "images/getaway shootout.webp",
+      "game link": "play/getaway shootout/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Race and jump to the getaway vehicle using quirky physics weapons in chaotic 2-player brawls."
+    }
+  },
+  {
+    "idle dice": {
+      "game image": "images/idle dice.webp",
+      "game link": "play/idle dice/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Roll dice to earn points, unlock special combo cards, and prestige for astronomical multipliers."
+    }
+  },
+  {
+    "alien hominid": {
+      "game image": "images/alienhominid.webp",
+      "game link": "play/alien hominid/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Blast through secret agents and reclaim your UFO in this legendary hand-drawn Flash side-scroller."
+    }
+  },
+  {
+    "space waves": {
+      "game image": "images/space waves.webp",
+      "game link": "play/space waves/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Guide an arrow through intense zigzag neon obstacles in a rhythmic test of timing and concentration."
+    }
+  },
+  {
+    "wake up the box": {
+      "game image": "images/wake up the box.webp",
+      "game link": "play/wake up the box/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Attach wooden shapes to trigger physics chain reactions and wake up the sleepy box."
+    }
+  },
+  {
+    "mr mine": {
+      "game image": "images/mr mine.webp",
+      "game link": "play/mr mine/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Drill deep into the earth to discover precious minerals, ancient treasures, and alien mysteries."
+    }
+  },
+  {
+    "g switch 3": {
+      "game image": "images/g switch 3.webp",
+      "game link": "play/g switch 3/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Invert gravity at breakneck speeds across multi-lane sci-fi tracks alone or with up to 8 players."
+    }
+  },
+  {
+    "koalas to the max": {
+      "game image": "images/koalas to the max.webp",
+      "game link": "play/koalas to the max/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Hover over circles to split them into smaller dots and reveal hidden artistic koala illustrations."
+    }
+  },
+  {
+    "paperio": {
+      "game image": "images/paperio.webp",
+      "game link": "play/paperio/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Claim territory by drawing closed loops while cutting off opponents before they slice your trail."
+    }
+  },
+  {
+    "cubes 2048": {
+      "game image": "images/cubes 2048.webp",
+      "game link": "play/cubes 2048/",
+      "game categories": [
+        "Action",
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Slither around a multiplayer arena eating smaller numbered cubes to grow your giant 2048 snake."
+    }
+  },
+  {
+    "soccer random": {
+      "game image": "images/soccerrandom.webp",
+      "game link": "play/soccer random/",
+      "game categories": [
+        "Sports",
+        "2-Player",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Score goals with one-button ragdoll physics players in hilarious, randomly shifting weather and fields."
+    }
+  },
+  {
+    "eggy car": {
+      "game image": "images/eggycar.webp",
+      "game link": "play/eggy car/",
+      "game categories": [
+        "Driving",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Drive over bumpy hills with gentle throttle control to transport a delicate egg without cracking it."
+    }
+  },
+  {
+    "boxing random": {
+      "game image": "images/boxingrandom.webp",
+      "game link": "play/boxing random/",
+      "game categories": [
+        "Sports",
+        "2-Player",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Deliver wild punches with ragdoll physics boxers across randomized arenas and round conditions."
+    }
+  },
+  {
+    "cookie clicker": {
+      "game image": "images/cookieclicker.webp",
+      "game link": "play/cookie clicker/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Bake trillions of cookies by tapping and purchasing grandmas, factories, and cosmic cookie portals."
+    }
+  },
+  {
+    "basket random": {
+      "game image": "images/basketrandom.webp",
+      "game link": "play/basket random/",
+      "game categories": [
+        "Sports",
+        "2-Player",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Dunk basketballs with floppy ragdoll athletes in wacky court environments with unpredictably bouncy balls."
+    }
+  },
+  {
+    "volley random": {
+      "game image": "images/volleyrandom.webp",
+      "game link": "play/volley random/",
+      "game categories": [
+        "Sports",
+        "2-Player",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Spike the volleyball across the net using funny ragdoll timing in sun, snow, and rain."
+    }
+  },
+  {
+    "doodle jump": {
+      "game image": "images/doodlejump.webp",
+      "game link": "play/doodle jump/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Bounce higher and higher up graph-paper platforms using springs, jetpacks, and nose-blasters."
+    }
+  },
+  {
+    "rooftop snipers": {
+      "game image": "images/rooftop snipers.webp",
+      "game link": "play/rooftop snipers/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Knock your opponent off the roof with perfectly timed sniper shots in chaotic two-button duels."
+    }
+  },
+  {
+    "rocket league": {
+      "game image": "images/rocketleague.webp",
+      "game link": "play/rocket league/",
+      "game categories": [
+        "Sports",
+        "Driving",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Boost, flip, and aerial your rocket-powered car to smash a giant soccer ball into the net."
+    }
+  },
+  {
+    "tank game": {
+      "game image": "images/tankgame.webp",
+      "game link": "play/tank game/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Maneuver your tank through maze-like battlegrounds and bounce shells off walls to take down rivals."
+    }
+  },
+  {
+    "fireboy and watergirl": {
+      "game image": "images/fireboyandwatergirl.webp",
+      "game link": "play/fireboy and watergirl/",
+      "game categories": [
+        "Puzzle",
+        "2-Player",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Cooperate with a friend to solve elemental puzzles and escape ancient temples with gems."
+    }
+  },
+  {
+    "hex gl": {
+      "game image": "images/hexgl.webp",
+      "game link": "play/hex gl/",
+      "game categories": [
+        "Driving",
+        "Action"
+      ],
+      "date added": "2024-03-05",
+      "description": "Pilot a futuristic anti-gravity craft through high-speed sci-fi tracks in this stunning HTML5 homage to Wipeout."
+    }
+  },
+  {
+    "moto x3m pool party": {
+      "game image": "images/motox3mpoolparty.webp",
+      "game link": "play/moto x3m pool party/",
+      "game categories": [
+        "Driving",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Speed through insane water park obstacle courses with backflips and frontflips on your stunt motorbike."
+    }
+  },
+  {
+    "moto x3m spooky land": {
+      "game image": "images/motox3mspookyland.webp",
+      "game link": "play/moto x3m spooky land/",
+      "game categories": [
+        "Driving",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Tackle haunted stunt tracks filled with bony traps, toxic acid pools, and spooky loop-de-loops."
+    }
+  },
+  {
+    "happy wheels": {
+      "game image": "images/happywheels.webp",
+      "game link": "play/happy wheels/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Survive lethal obstacle-strewn courses in ragdoll wheeled vehicles with comedic physics."
+    }
+  },
+  {
+    "traffic racer": {
+      "game image": "images/trafficracer.webp",
+      "game link": "play/traffic racer/",
+      "game categories": [
+        "Driving",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Weave through heavy highway traffic at top speed to earn cash and buy high-performance supercars."
+    }
+  },
+  {
+    "pixel battle royale": {
+      "game image": "images/pixelbattleroyale.webp",
+      "game link": "play/pixel battle royale/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Parachute into a blocky combat arena, scavenge weapons, and be the last pixel survivor standing."
+    }
+  },
+  {
+    "war brokers": {
+      "game image": "images/warbrokers.webp",
+      "game link": "play/war brokers/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Fight in open-map tactical military firefights with military vehicles, helicopters, and heavy firepower."
+    }
+  },
+  {
+    "raft wars": {
+      "game image": "images/raftwars.webp",
+      "game link": "play/raft wars/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Defend your raft and buried gold with tennis ball launchers in turn-based trajectory combat."
+    }
+  },
+  {
+    "there is no game": {
+      "game image": "images/there is no game.webp",
+      "game link": "play/there is no game/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Disobey the narrator in a clever, fourth-wall-breaking point-and-click puzzle adventure."
+    }
+  },
+  {
+    "escape the bathroom": {
+      "game image": "images/escape the bathroom.webp",
+      "game link": "play/escape the bathroom/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2024-03-05",
+      "description": "Search every tile and fixture for hidden objects to crack the code and escape the locked bathroom."
+    }
+  },
+  {
+    "escape the car": {
+      "game image": "images/escape the car.webp",
+      "game link": "play/escape the car/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2024-03-05",
+      "description": "Inspect the glovebox, trunk, and dashboard to solve clever puzzles and break out of the vehicle."
+    }
+  },
+  {
+    "dont escape": {
+      "game image": "images/dont escape.webp",
+      "game link": "play/dont escape/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Barricade yourself securely inside before nightfall to protect the outside world from your werewolf curse."
+    }
+  },
+  {
+    "dont escape 2": {
+      "game image": "images/dont escape 2.webp",
+      "game link": "play/dont escape 2/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Reinforce your hideout against an approaching zombie horde by gathering supplies and making tough choices."
+    }
+  },
+  {
+    "dont escape 3": {
+      "game image": "images/dont escape 3.webp",
+      "game link": "play/dont escape 3/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Awaken aboard an empty spaceship on a collision course and discover what happened before time runs out."
+    }
+  },
+  {
+    "impossible quiz": {
+      "game image": "images/theimpossiblequiz.webp",
+      "game link": "play/impossible quiz/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Answer deceptively tricky riddle questions and avoid traps in the most infamous quiz on the internet."
+    }
+  },
+  {
+    "impossible quiz 2": {
+      "game image": "images/theimpossiblequiz2.webp",
+      "game link": "play/impossible quiz 2/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Test your sanity with even more absurd questions, bomb timers, and outside-the-box answers."
+    }
+  },
+  {
+    "zork": {
+      "game image": "images/zork.webp",
+      "game link": "play/zork/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Explore the Great Underground Empire in this legendary interactive text-adventure pioneer."
+    }
+  },
+  {
+    "hextris": {
+      "game image": "images/hextris.webp",
+      "game link": "play/hextris/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Rotate a central hexagon to catch falling colored blocks and clear matching groups of three."
+    }
+  },
+  {
+    "bloons td 3": {
+      "game image": "images/btd3.webp",
+      "game link": "play/bloons tower defence 3/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Place dart monkeys, tack shooters, and super monkeys along the track to pop incoming waves of bloons."
+    }
+  },
+  {
+    "cut the rope": {
+      "game image": "images/cuttherope.webp",
+      "game link": "play/cut the rope/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Slice ropes and manipulate bubbles and spikes to feed candy to the hungry little monster Om Nom."
+    }
+  },
+  {
+    "mem tile": {
+      "game image": "images/memtile.webp",
+      "game link": "play/mem tile/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2024-03-05",
+      "description": "Challenge your short-term memory by flipping and matching pairs of hidden tiles across multiple levels."
+    }
+  },
+  {
+    "mine sweeper": {
+      "game image": "images/minesweeper.webp",
+      "game link": "play/mine sweeper/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Uncover grid squares using logical deduction to reveal numbers and flag all hidden explosive mines."
+    }
+  },
+  {
+    "spider solitare": {
+      "game image": "images/spidersolitare.webp",
+      "game link": "play/spider solitare/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Arrange cards in descending order from King to Ace to clear the tableau in this classic card game."
+    }
+  },
+  {
+    "tetris": {
+      "game image": "images/tetris.webp",
+      "game link": "play/tetris/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Rotate and stack falling tetromino shapes to clear horizontal lines in the timeless arcade sensation."
+    }
+  },
+  {
+    "pac-man": {
+      "game image": "images/pacman.webp",
+      "game link": "play/pac-man/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Chomp dots and fruit throughout the maze while dodging Blinky, Pinky, Inky, and Clyde."
+    }
+  },
+  {
+    "pin ball": {
+      "game image": "images/pinball.webp",
+      "game link": "play/pin ball/",
+      "game categories": [
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Keep the silver ball in play with responsive flippers and hit bumpers for massive arcade high scores."
+    }
+  },
+  {
+    "pong": {
+      "game image": "images/pong.webp",
+      "game link": "play/pong/",
+      "game categories": [
+        "Retro Games",
+        "Sports",
+        "2-Player"
+      ],
+      "date added": "2024-03-05",
+      "description": "Volley the pixel ball back and forth with paddle controls in the grandfather of video games."
+    }
+  },
+  {
+    "dino game": {
+      "game image": "images/dinogame.webp",
+      "game link": "play/dino game/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Leap over cacti and duck beneath pterodactyls in Google's iconic endless prehistoric offline runner."
+    }
+  },
+  {
+    "hard mario": {
+      "game image": "images/mario.webp",
+      "game link": "play/hard mario/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Tackle notoriously punishing, precision-jump platforming levels inspired by Super Mario kaizo hacks."
+    }
+  },
+  {
+    "flappy bird": {
+      "game image": "images/flappybird.webp",
+      "game link": "play/flappy bird/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Flap your wings with pixel-perfect taps to navigate between narrow green pipes without crashing."
+    }
+  },
+  {
+    "crossy road": {
+      "game image": "images/crossyroad.webp",
+      "game link": "play/crossy road/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Hop across busy freeways, train rails, and raging rivers without getting hit or swept away."
+    }
+  },
+  {
+    "canabalt": {
+      "game image": "images/canabalt.webp",
+      "game link": "play/canabalt/",
+      "game categories": [
+        "Action",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Sprint across crumbling skyscraper rooftops in the pioneering cinematic monochrome endless runner."
+    }
+  },
+  {
+    "gbajs": {
+      "game image": "images/gba.webp",
+      "game link": "play/gbajs/",
+      "game categories": [
+        "Retro Games",
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "Full-featured JavaScript Game Boy Advance emulator to play handheld retro classics in your browser."
+    }
+  },
+  {
+    "theclashman2": {
+      "game image": "images/theclashman2.webp",
+      "game link": "play/theclashman2/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Guide your hero through retro action platforming levels filled with enemies and hidden collectibles."
+    }
+  },
+  {
+    "slope": {
+      "game image": "images/slope.webp",
+      "game link": "play/slope/",
+      "game categories": [
+        "Action",
+        "Driving",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Roll an accelerating neon ball down a steep, twisting 3D slope dodging obstacles at blinding speeds."
+    }
+  },
+  {
+    "ice dodo": {
+      "game image": "images/ice-dodo.webp",
+      "game link": "play/ice dodo/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Glide across slippery ice tracks and navigate gravity-defying gaps in this intense 3D platform runner."
+    }
+  },
+  {
+    "bottle flip 3d": {
+      "game image": "images/bottle flip 3d.webp",
+      "game link": "play/bottle flip 3d/",
+      "game categories": [
+        "Addictive Games",
+        "Puzzle"
+      ],
+      "date added": "2024-03-05",
+      "description": "Flip a water bottle onto tables, chairs, and shelves to reach the finish line without dropping it."
+    }
+  },
+  {
+    "universal paperclip": {
+      "game image": "images/universal paperclip.webp",
+      "game link": "play/universal paperclip/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Grow an autonomous AI that starts by making paperclips and ends up converting the entire cosmos."
+    }
+  },
+  {
+    "getting over it": {
+      "game image": "images/gettingoverit.webp",
+      "game link": "play/getting over it - scratch/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Scale a surreal mountain using only a sledgehammer and a cauldron in this notorious test of patience."
+    }
+  },
+  {
+    "tower building": {
+      "game image": "images/towerbuilding.webp",
+      "game link": "play/tower building/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2024-03-05",
+      "description": "Drop swaying building floors precisely on top of each other to construct the tallest skyscraper."
+    }
+  },
+  {
+    "simpleproxy": {
+      "game image": "images/proxy.webp",
+      "game link": "play/simpleproxy/",
+      "game categories": [
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "Lightweight web proxy utility allowing seamless, private browsing through educational networks."
+    }
+  },
+  {
+    "html editor": {
+      "game image": "images/htmleditor.webp",
+      "game link": "play/html editor/",
+      "game categories": [
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "Real-time interactive code sandbox to write, preview, and test HTML, CSS, and JavaScript snippets."
+    }
+  },
+  {
+    "python editor": {
+      "game image": "images/pythoneditor.webp",
+      "game link": "play/python editor/",
+      "game categories": [
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "In-browser Python development environment to execute Python scripts and practice programming."
+    }
+  },
+  {
+    "sparx": {
+      "game image": "images/sparx.webp",
+      "game link": "play/sparx helper/",
+      "game categories": [
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "Helper and reference utility designed to assist with Sparx math questions and homework practice."
+    }
+  },
+  {
+    "ask the stars": {
+      "game image": "images/askthestars.webp",
+      "game link": "play/ask the stars/",
+      "game categories": [
+        "Puzzle",
+        "Tools"
+      ],
+      "date added": "2024-03-05",
+      "description": "Consult the celestial horoscope and cosmos for starry insights, daily fortune, and wisdom."
+    }
+  },
+  {
+    "geometry dash": {
+      "game image": "images/geodash.webp",
+      "game link": "play/geometry dash/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Jump, fly, and flip your way through rhythm-based geometric obstacles synchronized to pulsating electronic music."
+    }
+  },
+  {
+    "duck life 4": {
+      "game image": "images/ducklife4.webp",
+      "game link": "play/duck life 4/",
+      "game categories": [
+        "Action",
+        "Sports",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Train your customized duck in running, swimming, flying, and climbing to defeat rivals and win the grand racing tournament."
+    }
+  },
+  {
+    "gswitch": {
+      "game image": "images/g-switch.webp",
+      "game link": "play/gswitch/",
+      "game categories": [
+        "Action",
+        "Addictive Games",
+        "2-Player"
+      ],
+      "date added": "2026-09-01",
+      "description": "The original gravity-flipping runner where you defy gravity to sprint across ceiling and floor without falling."
+    }
+  },
+  {
+    "doodle jump 2": {
+      "game image": "images/doodle jump 2.webp",
+      "game link": "play/doodle jump 2/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Bounce to incredible new heights across vibrant themes with fresh power-ups, monsters, and bouncy platforms."
+    }
+  },
+  {
+    "escape the closet": {
+      "game image": "images/escape the closet.webp",
+      "game link": "play/escape the closet/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2026-09-01",
+      "description": "Uncover hidden compartments, keys, and subtle clues trapped inside a cramped closet to regain your freedom."
+    }
+  },
+  {
+    "escape the freezer": {
+      "game image": "images/escape the freezer.webp",
+      "game link": "play/escape the freezer/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2026-09-01",
+      "description": "Solve chilly riddles and melt icy locks before the freezing sub-zero temperatures overcome you."
+    }
+  },
+  {
+    "escape the phone booth": {
+      "game image": "images/escape the phone booth.webp",
+      "game link": "play/escape the phone booth/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2026-09-01",
+      "description": "Decode telephone dial tones, coin slots, and directory secrets to escape a mysterious locked glass booth."
+    }
+  },
+  {
+    "escape the shack": {
+      "game image": "images/escape the shack.webp",
+      "game link": "play/escape the shack/",
+      "game categories": [
+        "Puzzle"
+      ],
+      "date added": "2026-09-01",
+      "description": "Investigate rustic tools, floorboards, and padlocks to find a way out of a secluded wooden woodland shack."
+    }
+  },
+  {
+    "solitare": {
+      "game image": "images/solitare.webp",
+      "game link": "play/solitare/",
+      "game categories": [
+        "Puzzle",
+        "Retro Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Classic Klondike card solitaire where you build suit foundations from Ace to King using strategic moves."
+    }
+  },
+  {
+    "star wars": {
+      "game image": "images/starwars.webp",
+      "game link": "play/star wars/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Pilot your X-wing through space skirmishes, evade TIE fighters, and destroy the Death Star trench."
+    }
+  },
+  {
+    "stick jet challenge": {
+      "game image": "images/stickjetchallenge.webp",
+      "game link": "play/stick jet challenge/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Strap on a high-powered stickman jetpack and throttle through deadly spinning saw blades and laser barriers."
+    }
+  },
+  {
+    "tunnel glider": {
+      "game image": "images/tunnelglider.webp",
+      "game link": "play/tunnel glider/",
+      "game categories": [
+        "Action",
+        "Driving",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Glide at hyper-speed through an endless 3D neon tubular tunnel evading incoming obstacle sectors."
+    }
+  },
+  {
+    "github repo viewer": {
+      "game image": "images/githubrepoeditor.webp",
+      "game link": "play/github repo viewer/",
+      "game categories": [
+        "Tools"
+      ],
+      "date added": "2026-09-01",
+      "description": "Browse, inspect, and edit code repositories directly from GitHub in a clean, lightweight web interface."
+    }
+  },
+  {
+    "retro bowl": {
+      "game image": "images/retrobowl.webp",
+      "game link": "play/retro bowl/",
+      "game categories": [
+        "Sports",
+        "Retro Games",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Manage an American football franchise, call plays, throw touchdown passes, and win the ultimate championship trophy."
+    }
+  },
+  {
+    "brawl stars": {
+      "game image": "images/brawlstars.webp",
+      "game link": "play/brawl stars/",
+      "game categories": [
+        "Action",
+        "2-Player",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Battle in action-packed multiplayer arenas with unique brawler abilities, super attacks, and fast team showdowns."
+    }
+  },
+  {
+    "slither io": {
+      "game image": "images/slitherio.webp",
+      "game link": "play/slither io/",
+      "game categories": [
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Slither around consuming glowing orbs, trap larger rival worms, and grow into the longest serpent on the server."
+    }
+  },
+  {
+    "fidget spinner": {
+      "game image": "images/fidgetspinner.webp",
+      "game link": "play/fidget spinner/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Spin colorful fidget toys at supersonic RPMs to unlock new bearings, skins, and record-shattering spin times."
+    }
+  },
+  {
+    "italian brainrot clicker": {
+      "game image": "images/italianbrainrotclicker.webp",
+      "game link": "play/italian brainrot clicker/",
+      "game categories": [
+        "Clicker",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Click to generate hilarious meme pasta and unlock chaotic viral upgrades in this wild comedic clicker."
+    }
+  },
+  {
+    "pixel shooter": {
+      "game image": "images/pixelshooter.webp",
+      "game link": "play/pixel shooter/",
+      "game categories": [
+        "Action",
+        "2-Player"
+      ],
+      "date added": "2026-09-01",
+      "description": "Engage in fast-paced 2D retro gun duels with pixelated weaponry across platforms and destructible crates."
+    }
+  },
+  {
+    "robot man": {
+      "game image": "images/robotman.webp",
+      "game link": "play/robot man/",
+      "game categories": [
+        "Action",
+        "Retro Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Guide your mechanized robot hero through hazardous factory sectors armed with laser cannons and thrusters."
+    }
+  },
+  {
+    "the dot game": {
+      "game image": "images/thedotgame.webp",
+      "game link": "play/the dot game/",
+      "game categories": [
+        "Puzzle",
+        "Addictive Games"
+      ],
+      "date added": "2026-09-01",
+      "description": "Connect matching colored dots across minimal grid puzzles without overlapping any connecting paths."
+    }
+  }
 ]

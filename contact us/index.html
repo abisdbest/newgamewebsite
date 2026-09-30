@@ -1,61 +1,503 @@
-support@blooket1.com<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VNGZND6VMN');
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-5346759304245799">
+    <meta name="google-site-verification" content="UM7NoVkmCmkfjn_tf88CQk6c9Rf7phrwocZtMWdbF2M">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="blooket1, games, fun, unblocked, educational" />
-    <title>Blooket1 Games | The ultimate game website</title>
-    <link rel="icon" type="image/x-icon" href="../images/b-logo.png">
-    <script src="../lightslider.js"></script>
-    <meta name="description" content="Blooket1 is your go-to website for unblocked games and tools. For educational use only." />
-    <link rel="stylesheet" href="../styles.css"> <!-- Create a separate CSS file for better organization -->
+    <meta name="keywords" content="contact blooket1, blooket1 support, request a game, dmca takedown, copyright inquiry" />
+    <title>Contact Us &amp; Game Requests | Blooket1 Games</title>
+    <link rel="icon" type="image/x-icon" href="../images/b-logo.webp">
+    <meta name="description" content="Contact the Blooket1 team, submit game requests, bug reports, or DMCA copyright takedown notices." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
-    <script src="//cdn.jsdelivr.net/npm/eruda#gimkit"></script>
-    <script>eruda.init();</script>
-    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#222222","text":"#ffffff","border":"#b5e1a0"},"button":{"background":"#b5e1a0","text":"#000000"}},"position":"bottom-right","content":{"link":"terms and conditions","message":"By clicking I agree you agree to the terms and conditions of Blooket1 and allow personal data and cookies to be stored.","button":"I agree","href":"tsandcs"}})});</script>
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        .contact-container {
+            max-width: 980px;
+            margin: 40px auto 80px auto;
+            padding: 0 24px;
+        }
+
+        .back-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background-color: var(--secondary-bg-color);
+            color: var(--primary-text-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid #333;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: var(--tertiary-bg-color);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateX(-3px);
+        }
+
+        .contact-hero {
+            background: linear-gradient(135deg, #1f1f1f 0%, #161616 100%);
+            border: 1px solid #2e2e2e;
+            border-radius: 16px;
+            padding: 36px 32px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .contact-hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .contact-hero p {
+            color: #a8a8a8;
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .contact-card {
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.2s ease;
+        }
+
+        .contact-card:hover {
+            border-color: #3d3d3d;
+        }
+
+        .contact-card h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #282828;
+            padding-bottom: 12px;
+        }
+
+        .contact-card h2 i {
+            color: var(--accent-color);
+        }
+
+        .contact-card p {
+            color: #cccccc;
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .email-copy-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #252525;
+            border: 1px solid #3d3d3d;
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin: 10px 0 20px 0;
+            max-width: 100%;
+        }
+
+        .email-copy-box span {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--link-color);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #43a047;
+            transform: scale(1.05);
+        }
+
+        /* Form Styles */
+        .game-request-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #242424;
+            border: 1px solid #383838;
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #ffcc00;
+            color: #111111;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.45);
+        }
+
+        .alert-success {
+            display: none;
+            background-color: rgba(76, 175, 80, 0.15);
+            border: 1px solid #4CAF50;
+            color: #c8e6c9;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .dmca-box {
+            background: rgba(255, 152, 0, 0.06);
+            border-left: 4px solid #ff9800;
+            padding: 18px 22px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+        }
+
+        .dmca-box ul {
+            margin: 10px 0 0 20px;
+            color: #dddddd;
+            font-size: 0.94rem;
+        }
+
+        .dmca-box li {
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 0 16px;
+                margin-top: 20px;
+            }
+            .game-request-form {
+                grid-template-columns: 1fr;
+            }
+            .contact-hero {
+                padding: 26px 18px;
+            }
+            .contact-hero h1 {
+                font-size: 1.8rem;
+            }
+            .contact-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav>
-        <logo onclick="window.location += '../'" style="cursor: pointer; user-select: none;"><img class="logo" src="../images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo>
-        <div class="container options">
-            <a href="../">Games</a>
-            <a href="../test stuff/">Test Stuff</a>
-        </div>
-        
-            
-        <div class="search-container">
-            <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-            <label onclick="toggleSearch()" class="searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
+        <div class="nav-container">
+            <a href="../" class="logo-area">
+                <img class="logo-img" src="../images/b-logo.webp" alt="Blooket1 logo" />
+                <span class="logo-name-wrapper">
+                    <span class="logo-main-name">Blooket1</span>
+                    <span class="logo-sub-name">Games</span>
+                </span>
+            </a>
+            <div class="nav-links-container">
+                <a href="../">Games</a>
+                <a href="../tsandcs/">Terms &amp; Conditions</a>
+                <a href="../about us/">About Us</a>
+                <a href="../privacy/">Privacy Policy</a>
+                <a href="./" class="active">Contact Us</a>
+                <a href="../blog/">Blog</a>
+            </div>
+            <div class="search-container">
+                <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search games...">
+                <label onclick="toggleSearch()" class="searchbutton" for="searchright" aria-label="Search"><i class="fas fa-search"></i></label>
+            </div>
         </div>
     </nav>
 
+    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="container">
-            <div class="icons">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="icon"><i class="fas fa-comments"></i></div>
-                <div class="icon"><i class="fas fa-info-circle"></i></div>
+        <div class="sidebar-icons-container">
+            <div class="icon" title="Games">
+                <a href="../" style="color: inherit;"><i class="fas fa-gamepad"></i></a>
+            </div>
+            <div class="icon" title="Chat">
+                <a href="../chat/" style="color: inherit;"><i class="fas fa-comments"></i></a>
+            </div>
+            <div class="icon" title="About Us">
+                <a href="../about us/" style="color: inherit;"><i class="fas fa-info-circle"></i></a>
+            </div>
+            <div class="icon" title="Contact Us">
+                <a href="./" style="color: inherit;"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </aside>
-    <div style="margin-left: 20px; width: 90%;">
-        <h1>Welcome to Blooket1 - Your Ultimate Gaming Destination</h1>
-        <p>If you would like to contact us about our privacy policy please contact <input style="background-color: transparent; color: blue; border: none; outline: none;" type="text" onclick="this.select(); document.execCommand('Copy');" class="form-control" value="support@blooket1.com"></p>
-    </div>
-    </p>
-    </div>
-    <br><br><br><br><br>
 
+    <!-- Main Content -->
+    <main class="contact-container">
+        <div class="back-nav-bar">
+            <a href="../" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Games</a>
+            <a href="../privacy/" class="back-btn"><i class="fas fa-shield-halved"></i> Privacy Policy</a>
+        </div>
+
+        <header class="contact-hero">
+            <h1>Contact <span>Blooket1</span></h1>
+            <p>Have questions, ideas for new games, bug reports, or legal inquiries? We're here to help.</p>
+        </header>
+
+        <div class="contact-grid">
+            <!-- 1. Direct Email Card -->
+            <section class="contact-card">
+                <h2><i class="fas fa-envelope-open-text"></i> Official Support &amp; General Inquiries</h2>
+                <p>For general support, feedback, partnerships, or issues accessing games on your device or network, reach out directly to our team:</p>
+                <div class="email-copy-box">
+                    <span id="supportEmail">support@blooket1.com</span>
+                    <button class="copy-btn" onclick="copyEmail()"><i class="fas fa-copy"></i> Copy</button>
+                    <a href="mailto:support@blooket1.com" class="copy-btn" style="background: #2a2a2a; border: 1px solid #444;"><i class="fas fa-paper-plane"></i> Email Now</a>
+                </div>
+                <p><small style="color: #999;"><i class="fas fa-clock"></i> We typically respond within 24 to 48 business hours.</small></p>
+            </section>
+
+            <!-- 2. DMCA Takedown Notice Instructions -->
+            <section class="contact-card">
+                <h2><i class="fas fa-gavel"></i> DMCA &amp; Copyright Takedown Notices</h2>
+                <p>Blooket1 respects the intellectual property rights of game developers, publishers, and artists. In accordance with the Digital Millennium Copyright Act (17 U.S.C. § 512(c)), we will swiftly process and respond to notices of alleged copyright infringement.</p>
+                
+                <div class="dmca-box">
+                    <p><strong>To file a valid DMCA Notice, please email support@blooket1.com with the subject line <code>[DMCA Takedown Request] &lt;Game Name&gt;</code> and include:</strong></p>
+                    <ul>
+                        <li>A description of the copyrighted work that you claim has been infringed.</li>
+                        <li>The exact URL on Blooket1 (e.g. <code>https://blooket1.pages.dev/play/.../</code>) where the allegedly infringing material is located.</li>
+                        <li>Your contact information: full name, organization (if applicable), mailing address, phone number, and official email address.</li>
+                        <li>A statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law.</li>
+                        <li>A statement by you, made under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on the owner's behalf.</li>
+                        <li>An electronic or physical signature of the person authorized to act on behalf of the copyright owner.</li>
+                    </ul>
+                </div>
+                <p>Upon receipt of a valid and complete DMCA notice, we will act expeditiously to remove or disable access to the infringing material within 24–48 hours.</p>
+            </section>
+
+            <!-- 3. Game Request Form -->
+            <section class="contact-card">
+                <h2><i class="fas fa-gamepad"></i> Request a Game or Feature</h2>
+                <p>Is your favorite unblocked game missing from Blooket1? Submit your game suggestion below and our team will review and optimize it for the site!</p>
+
+                <form class="game-request-form" id="gameRequestForm" onsubmit="handleGameRequest(event)">
+                    <div class="form-group">
+                        <label for="reqName">Your Name / Nickname</label>
+                        <input type="text" id="reqName" class="form-control" placeholder="e.g. Alex" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reqEmail">Your Email (optional, for update notifications)</label>
+                        <input type="email" id="reqEmail" class="form-control" placeholder="alex@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reqGameTitle">Game Name *</label>
+                        <input type="text" id="reqGameTitle" class="form-control" placeholder="e.g. Drift Boss, Run 3, Bitlife" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reqGameCategory">Category</label>
+                        <select id="reqGameCategory" class="form-control">
+                            <option value="Action">Action</option>
+                            <option value="Puzzle">Puzzle</option>
+                            <option value="Racing">Racing</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Idle / Clicker">Idle / Clicker</option>
+                            <option value="Retro / Classic">Retro / Classic</option>
+                            <option value="Multiplayer">Multiplayer</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label for="reqGameSource">Game Source / Link (optional)</label>
+                        <input type="url" id="reqGameSource" class="form-control" placeholder="https://github.com/... or game developer site">
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label for="reqNotes">Additional Notes / Why you want this game</label>
+                        <textarea id="reqNotes" class="form-control" placeholder="Tell us what makes this game awesome or any special version details..."></textarea>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit Game Request</button>
+                    </div>
+                </form>
+
+                <div class="alert-success" id="requestSuccess">
+                    <i class="fas fa-check-circle"></i> <strong>Awesome!</strong> Your game request has been received. Our team will review it for the next site update!
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>   2024 Blooket1. Made by dbest.</p>
+        <div class="container" style="text-align: center; padding: 25px 0;">
+            <p>&copy; 2026 Blooket1. Made by dbest. All rights reserved.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; color: #888;">
+                <a href="../tsandcs/" style="color: #aaa; margin: 0 10px;">Terms &amp; Conditions</a> |
+                <a href="../privacy/" style="color: #aaa; margin: 0 10px;">Privacy Policy</a> |
+                <a href="../about us/" style="color: #aaa; margin: 0 10px;">About Us</a> |
+                <a href="./" style="color: var(--accent-color); margin: 0 10px;">Contact Us</a>
+            </p>
         </div>
     </footer>
+
+    <script>
+        function toggleSearch() {
+            const searchInput = document.getElementById('searchright');
+            if (searchInput) {
+                searchInput.classList.toggle('active');
+                if (searchInput.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            }
+        }
+
+        function copyEmail() {
+            const email = document.getElementById('supportEmail').textContent;
+            navigator.clipboard.writeText(email).then(() => {
+                alert('Support email copied to clipboard: ' + email);
+            }).catch(() => {
+                const tempInput = document.createElement('input');
+                tempInput.value = email;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('Support email copied to clipboard: ' + email);
+            });
+        }
+
+        function handleGameRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('reqName').value;
+            const email = document.getElementById('reqEmail').value;
+            const gameTitle = document.getElementById('reqGameTitle').value;
+            const category = document.getElementById('reqGameCategory').value;
+            const source = document.getElementById('reqGameSource').value;
+            const notes = document.getElementById('reqNotes').value;
+
+            // Save request to localStorage so it persists locally
+            try {
+                const requests = JSON.parse(localStorage.getItem('blooket1_game_requests') || '[]');
+                requests.push({
+                    name,
+                    email,
+                    gameTitle,
+                    category,
+                    source,
+                    notes,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('blooket1_game_requests', JSON.stringify(requests));
+            } catch (err) {
+                console.warn('LocalStorage error:', err);
+            }
+
+            document.getElementById('gameRequestForm').reset();
+            const successBox = document.getElementById('requestSuccess');
+            successBox.style.display = 'block';
+            setTimeout(() => {
+                successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+    </script>
 </body>
 
 </html>

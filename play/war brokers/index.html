@@ -17,7 +17,7 @@
     <title>Play war brokers On Blooket1!</title>
     <script src="../../script.js"></script>
     <link rel="stylesheet" href="../../styles.css"> <!-- Create a separate CSS file for better organization -->
-    <link type="text/css" rel="stylesheet" href="ub.css" /> <!-- Assuming ub.css contains unblock assistant styles -->
+    <link type="text/css" rel="stylesheet" href="../../ub.css" /> <!-- Assuming ub.css contains unblock assistant styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 </head>
 
@@ -33,10 +33,10 @@
             </a>
             <div class="nav-links-container">
                 <a href="../../">Games</a>
-                <a href="tsandcs/">Terms & Conditions</a>
-                <a href="about us/">About Us</a>
+                <a href="../../tsandcs/">Terms & Conditions</a>
+                <a href="../../about us/">About Us</a>
                 <a href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a">Privacy Policy</a>
-                <a href="contact us/">Contact Us</a>
+                <a href="../../contact us/">Contact Us</a>
             </div>
             <div class="search-container">
                 <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search games...">
@@ -82,13 +82,52 @@
         <iframe id="game-iframe" src=""></iframe>
         <button id="play-btn" onclick="document.getElementById('game-image').style.display = 'none'; document.getElementById('game-iframe').src = '../../source/war brokers/index.html'; this.style.display = 'none'">Play</button>
         <div id="options-bar">
-            <button id="fullscreen-btn" onclick="var iframe = document.getElementById('game-iframe'); if (!iframe.getAttribute('src')) { document.getElementById('play-btn').style.display = 'none'; document.getElementById('game-image').style.display = 'none'; iframe.src = '../../source/war brokers/index.html'; } iframe.requestFullscreen();">Fullscreen</button>
-            <button id="new-page-btn" onclick="x = window.open(); x.document.write(`<iframe src='../../source/war brokers/index.html' style='position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'></iframe>`)">Open in New Page</button>
-</div>
+              <button
+                id="fullscreen-btn"
+                onclick="var iframe = document.getElementById('game-iframe'); if (!iframe.getAttribute('src')) { document.getElementById('play-btn').style.display = 'none'; document.getElementById('game-image').style.display = 'none'; iframe.src = '../../source/war brokers/index.html'; } iframe.requestFullscreen();"
+              >
+                Fullscreen
+              </button>
+              <button
+                id="reload-btn"
+                onclick="var iframe = document.getElementById('game-iframe'); if (iframe.getAttribute('src')) { iframe.src = iframe.src; }"
+              >
+                Reload
+              </button>
+              <button
+                id="cloak-btn"
+                onclick="var win = window.open('about:blank', '_blank'); if (win) { win.document.write('<base href=\'' + window.location.href + '\'><title>Classes</title><link rel=\'icon\' href=\'https://ssl.gstatic.com/classroom/favicon.png\'><iframe src=\'../../source/war brokers/index.html\' style=\'position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;\'></iframe>'); win.document.close(); }"
+              >
+                Stealth Cloak
+              </button>
+            </div>
                 </div>
             </div>
 
-            <section class="description"></section>
+            <section class="description">
+          <p>
+            <b>Controls:</b><br />
+            WASD to move, Mouse to aim and shoot, R to reload, Space to jump, C to crouch, 1-3 to swap weapons, E or Enter to enter/exit vehicles.
+          </p>
+          <p>
+            <b>Publisher:</b><br />
+            Trebuchet Entertainment
+          </p>
+          <p>
+            <b>Year of Release:</b><br />
+            2018
+          </p>
+
+          <h1>War Brokers: Tactical Multiplayer FPS</h1>
+
+          <p>
+            War Brokers is an intense open-arena first-person shooter featuring diverse military vehicles, mission objectives, and customizable combat classes.
+          </p>
+
+          <p>
+            Jump into Battle Royale, Team Deathmatch, or Missile Launch modes. Drive tanks, pilot attack helicopters, and coordinate with teammates to control key tactical points across expansive maps.
+          </p>
+        </section>
       </div>
 
       <!-- Ad Slot 2 (Right Side) -->
@@ -114,7 +153,7 @@
     </main>
     <footer>
       <div class="footer-container">
-        <p>© 2024 Blooket1. Made by dbest.</p>
+        <p>© 2026 Blooket1. Made by dbest.</p>
         <!-- Add more footer links or info if needed -->
       </div>
     </footer>

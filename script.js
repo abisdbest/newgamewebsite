@@ -38,15 +38,336 @@
 //   }
 // });
 
+// =================================================================
+// BLOOKET1 - UX, STEALTH CLOAKING, PANIC KEY & THEME ENGINE
+// =================================================================
+
+const TAB_CLOAK_PRESETS = {
+    default: {
+        id: 'default',
+        name: 'Default Blooket1',
+        title: 'Blooket1 Unblocked Games | Free Unblocked Games for School',
+        icon: 'images/b-logo.webp',
+        badge: 'Default'
+    },
+    classroom: {
+        id: 'classroom',
+        name: 'Google Classroom',
+        title: 'Classes',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%231e8e3e' d='M40 8H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V12c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23f9ab00' d='M40 6H8C5.8 6 4 7.8 4 10v28c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V10c0-2.2-1.8-4-4-4zm-2 30H10V12h28v24z'/%3E%3Cpath fill='%23ffffff' d='M24 17c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 13c-3.7 0-10 1.9-10 5.5V37h20v-1.5c0-3.6-6.3-5.5-10-5.5z'/%3E%3C/svg%3E",
+        badge: 'Popular'
+    },
+    drive: {
+        id: 'drive',
+        name: 'Google Drive',
+        title: 'My Drive - Google Drive',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath fill='%230066da' d='m6.6 66.85 3.85 6.65c.8 1.4 1.9 2.5 3.2 3.3l12.3-21.3H6.6c0 1.5.4 3 1.2 4.35z'/%3E%3Cpath fill='%2300ac47' d='M43.65 25 29.35 0c-1.3.8-2.4 1.9-3.2 3.3L1.2 45.45c-.8 1.35-1.2 2.85-1.2 4.35h25.95z'/%3E%3Cpath fill='%23ea4335' d='m73.55 76.8c1.3-.8 2.4-1.9 3.2-3.3l1.6-2.75 7.75-13.45c.8-1.35 1.2-2.85 1.2-4.35H61.35l6.5 11.25z'/%3E%3Cpath fill='%2300832d' d='M58 25H26L13.7 46.3h48.6z'/%3E%3Cpath fill='%232684fc' d='m43.65 25 14.3-25c-1.3-.8-2.8-1.2-4.3-1.2H33.65c-1.5 0-3 .4-4.3 1.2z'/%3E%3Cpath fill='%23ffba00' d='M73.55 76.8H26l12.3-21.3h41.55z'/%3E%3C/svg%3E",
+        badge: 'Stealth'
+    },
+    docs: {
+        id: 'docs',
+        name: 'Google Docs',
+        title: 'Google Docs',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285f4' d='M31 4H11c-2.2 0-4 1.8-4 4v32c0 2.2 1.8 4 4 4h26c2.2 0 4-1.8 4-4V14L31 4z'/%3E%3Cpath fill='%23a1c2fa' d='M31 4v10h10z'/%3E%3Cpath fill='%23ffffff' d='M15 22h18v2H15zm0 6h18v2H15zm0 6h12v2H15z'/%3E%3C/svg%3E",
+        badge: 'Docs'
+    },
+    canvas: {
+        id: 'canvas',
+        name: 'Canvas LMS',
+        title: 'Dashboard',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23e13f2b'/%3E%3Ccircle cx='50' cy='22' r='7' fill='%23ffffff'/%3E%3Ccircle cx='74' cy='36' r='7' fill='%23ffffff'/%3E%3Ccircle cx='74' cy='64' r='7' fill='%23ffffff'/%3E%3Ccircle cx='50' cy='78' r='7' fill='%23ffffff'/%3E%3Ccircle cx='26' cy='64' r='7' fill='%23ffffff'/%3E%3Ccircle cx='26' cy='36' r='7' fill='%23ffffff'/%3E%3C/svg%3E",
+        badge: 'LMS'
+    },
+    desmos: {
+        id: 'desmos',
+        name: 'Desmos Calculator',
+        title: 'Desmos | Graphing Calculator',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23197b4b'/%3E%3Cpath d='M20 75 Q 40 15, 60 50 T 85 20' stroke='%23ffffff' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3C/svg%3E",
+        badge: 'Math'
+    }
+};
+
+const THEMES = [
+    {
+        id: 'obsidian',
+        name: 'Dark Obsidian',
+        desc: 'Midnight carbon with gold accents',
+        colors: ['#0d0e12', '#171821', '#ffcc00']
+    },
+    {
+        id: 'cyber-neon',
+        name: 'Cyber Neon',
+        desc: 'Futuristic navy with neon cyan & magenta',
+        colors: ['#060814', '#0e122b', '#00f2fe']
+    },
+    {
+        id: 'midnight-purple',
+        name: 'Midnight Purple',
+        desc: 'Cosmic violet with electric lavender glow',
+        colors: ['#0b0716', '#160e2e', '#c084fc']
+    },
+    {
+        id: 'emerald',
+        name: 'Emerald Matrix',
+        desc: 'Dark forest slate with jade green glow',
+        colors: ['#06140e', '#0b241a', '#10b981']
+    }
+];
+
+// --- Immediate Self-Executing Cloak & Theme Loader ---
+(function initStealthCloakAndTheme() {
+    try {
+        const savedTheme = localStorage.getItem('blooket1_theme') || 'obsidian';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        const savedCloak = localStorage.getItem('blooket1_tab_cloak');
+        if (savedCloak && TAB_CLOAK_PRESETS[savedCloak]) {
+            const preset = TAB_CLOAK_PRESETS[savedCloak];
+            document.title = preset.title;
+            let favicon = document.querySelector("link[rel*='icon']");
+            if (!favicon) {
+                favicon = document.createElement('link');
+                favicon.rel = 'icon';
+                document.head.appendChild(favicon);
+            }
+            favicon.href = preset.icon;
+        }
+    } catch (e) {
+        console.warn('Initial cloak/theme error:', e);
+    }
+})();
+
 function toggleSearch() {
-    var searchInput = document.getElementById('searchright');
+    const searchInput = document.getElementById('searchright');
+    if (!searchInput) return;
     searchInput.classList.toggle('active');
+    if (searchInput.classList.contains('active')) {
+        searchInput.focus();
+    }
 }
 
-// if (window.location.hostname === 'blooket1.com') {
-//   alert('Sorry, blooket1.com is not ready for public use yet. Please use blooket1.pages.dev. Thank you!');
-//   window.location.href = 'https://blooket1.pages.dev';
-// }
+function applyTabCloak(presetKey) {
+    const preset = TAB_CLOAK_PRESETS[presetKey] || TAB_CLOAK_PRESETS.default;
+    document.title = preset.title;
+
+    let favicon = document.querySelector("link[rel*='icon']");
+    if (!favicon) {
+        favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        document.head.appendChild(favicon);
+    }
+    favicon.href = preset.icon;
+
+    try {
+        localStorage.setItem('blooket1_tab_cloak', presetKey);
+    } catch (e) {}
+
+    renderCloakOptions();
+}
+
+function applyTheme(themeId) {
+    document.documentElement.setAttribute('data-theme', themeId);
+    try {
+        localStorage.setItem('blooket1_theme', themeId);
+    } catch (e) {}
+    renderThemeOptions();
+}
+
+function getStoredPanicKey() {
+    try {
+        return localStorage.getItem('blooket1_panic_key') || '`';
+    } catch (e) {
+        return '`';
+    }
+}
+
+function setStoredPanicKey(key) {
+    try {
+        localStorage.setItem('blooket1_panic_key', key);
+    } catch (e) {}
+    updatePanicKeyUI();
+}
+
+let isListeningForPanicKey = false;
+
+function updatePanicKeyUI() {
+    const display = document.getElementById('currentPanicKeyDisplay');
+    const badge = document.getElementById('panicListeningStatus');
+    const key = getStoredPanicKey();
+    if (display) {
+        display.textContent = key === ' ' ? 'Space' : key;
+    }
+    if (badge) {
+        badge.style.display = isListeningForPanicKey ? 'inline-block' : 'none';
+    }
+}
+
+function startListeningForPanicKey() {
+    isListeningForPanicKey = true;
+    updatePanicKeyUI();
+}
+
+function stopListeningForPanicKey() {
+    isListeningForPanicKey = false;
+    updatePanicKeyUI();
+}
+
+// Global Panic Key Listener
+window.addEventListener('keydown', (e) => {
+    if (isListeningForPanicKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.key !== 'Escape') {
+            setStoredPanicKey(e.key);
+        }
+        stopListeningForPanicKey();
+        return;
+    }
+
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) {
+        return;
+    }
+
+    const panicKey = getStoredPanicKey();
+    if (e.key === panicKey || (panicKey === '`' && (e.key === '`' || e.code === 'Backquote')) || (panicKey === ']' && (e.key === ']' || e.code === 'BracketRight'))) {
+        e.preventDefault();
+        window.location.replace('https://classroom.google.com');
+    }
+});
+
+function renderCloakOptions() {
+    const grid = document.getElementById('cloakOptionsGrid');
+    if (!grid) return;
+    const activeCloak = localStorage.getItem('blooket1_tab_cloak') || 'default';
+
+    grid.innerHTML = '';
+    Object.values(TAB_CLOAK_PRESETS).forEach(preset => {
+        const card = document.createElement('div');
+        card.className = `cloak-card ${preset.id === activeCloak ? 'active' : ''}`;
+        card.onclick = () => applyTabCloak(preset.id);
+
+        card.innerHTML = `
+            <img src="${preset.icon}" alt="${preset.name}" class="cloak-icon" />
+            <div class="cloak-info">
+                <span class="cloak-name">${preset.name}</span>
+                <span class="cloak-title-preview">&ldquo;${preset.title}&rdquo;</span>
+            </div>
+            ${preset.id === activeCloak ? '<span class="cloak-badge-active"><i class="fas fa-check"></i> Active</span>' : `<span class="cloak-badge-type">${preset.badge}</span>`}
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function renderThemeOptions() {
+    const grid = document.getElementById('themeOptionsGrid');
+    if (!grid) return;
+    const activeTheme = localStorage.getItem('blooket1_theme') || 'obsidian';
+
+    grid.innerHTML = '';
+    THEMES.forEach(theme => {
+        const card = document.createElement('div');
+        card.className = `theme-card ${theme.id === activeTheme ? 'active' : ''}`;
+        card.onclick = () => applyTheme(theme.id);
+
+        const swatches = theme.colors.map(c => `<span class="theme-swatch" style="background-color: ${c};"></span>`).join('');
+
+        card.innerHTML = `
+            <div class="theme-card-top">
+                <span class="theme-name">${theme.name}</span>
+                <div class="theme-swatches">${swatches}</div>
+            </div>
+            <p class="theme-desc">${theme.desc}</p>
+            ${theme.id === activeTheme ? '<span class="theme-badge-active"><i class="fas fa-check"></i> Applied</span>' : ''}
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function openSettingsModal() {
+    const overlay = document.getElementById('settingsModalOverlay');
+    if (!overlay) return;
+    renderCloakOptions();
+    renderThemeOptions();
+    updatePanicKeyUI();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSettingsModal() {
+    const overlay = document.getElementById('settingsModalOverlay');
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    stopListeningForPanicKey();
+}
+
+// Setup Settings Modal Events & AdSense Compliance on DOM Ready
+document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('closeSettingsBtn');
+    if (closeBtn) closeBtn.onclick = closeSettingsModal;
+
+    const overlay = document.getElementById('settingsModalOverlay');
+    if (overlay) {
+        overlay.onclick = (e) => {
+            if (e.target === overlay) closeSettingsModal();
+        };
+    }
+
+    const changeKeyBtn = document.getElementById('changePanicKeyBtn');
+    if (changeKeyBtn) {
+        changeKeyBtn.onclick = startListeningForPanicKey;
+    }
+
+    const resetKeyBtn = document.getElementById('resetPanicKeyBtn');
+    if (resetKeyBtn) {
+        resetKeyBtn.onclick = () => {
+            setStoredPanicKey('`');
+            stopListeningForPanicKey();
+        };
+    }
+
+    const testKeyBtn = document.getElementById('testPanicKeyBtn');
+    if (testKeyBtn) {
+        testKeyBtn.onclick = () => {
+            if (confirm('Test Panic Key? This will redirect this tab to Google Classroom.')) {
+                window.location.replace('https://classroom.google.com');
+            }
+        };
+    }
+
+    // Mobile Navbar Menu Toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinksContainer = document.querySelector('.nav-links-container');
+    if (mobileMenuToggle && navLinksContainer) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+            navLinksContainer.classList.toggle('open');
+        });
+    }
+
+    // Google AdSense Policy Compliance & CLS Prevention
+    document.querySelectorAll('.ad-container, .game-ads-sidebar, .ad-slot, ins.adsbygoogle').forEach(adSlot => {
+        // Enforce CLS Prevention: set containment
+        adSlot.style.contain = 'layout';
+        if (!adSlot.style.minHeight && !adSlot.classList.contains('ad-banner')) {
+            adSlot.style.minHeight = '250px';
+        }
+
+        // Add subtle advertisement label if not already present
+        const parent = adSlot.parentElement;
+        if (parent && !parent.querySelector('.ad-compliance-label') && !adSlot.querySelector('.ad-compliance-label')) {
+            const label = document.createElement('div');
+            label.className = 'ad-compliance-label';
+            label.textContent = 'ADVERTISEMENT';
+            adSlot.insertBefore(label, adSlot.firstChild);
+        }
+    });
+});
+
+window.openSettingsModal = openSettingsModal;
+window.closeSettingsModal = closeSettingsModal;
 
 // unblock-assistant.js
 

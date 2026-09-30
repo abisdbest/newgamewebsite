@@ -1,0 +1,5 @@
+# Cloudflare Pages Redirects & Rewrites
+/privacy    /privacy/index.html    200
+/terms      /tsandcs/index.html    301
+/contact    /contact%20us/index.html    301
+/about      /about%20us/index.html    301

@@ -2,67 +2,329 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VNGZND6VMN');
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5346759304245799"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-5346759304245799">
+    <meta name="google-site-verification" content="UM7NoVkmCmkfjn_tf88CQk6c9Rf7phrwocZtMWdbF2M">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="blooket1, games, fun, unblocked, educational" />
-    <title>Blooket1 Games | The ultimate game website</title>
-    <link rel="icon" type="image/x-icon" href="../images/b-logo.png">
-    <script src="../lightslider.js"></script>
-    <meta name="description" content="Blooket1 is your go-to website for unblocked games and tools. For educational use only." />
-    <link rel="stylesheet" href="../styles.css"> <!-- Create a separate CSS file for better organization -->
+    <meta name="keywords" content="blooket1, games, unblocked games, about blooket1, educational games" />
+    <title>About Us | Blooket1 Games</title>
+    <link rel="icon" type="image/x-icon" href="../images/b-logo.webp">
+    <meta name="description" content="Learn about Blooket1 - your premier platform for unblocked educational, puzzle, and action games created by dbest." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
-    <script src="//cdn.jsdelivr.net/npm/eruda#gimkit"></script>
-    <script>eruda.init();</script>
-    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#222222","text":"#ffffff","border":"#b5e1a0"},"button":{"background":"#b5e1a0","text":"#000000"}},"position":"bottom-right","content":{"link":"terms and conditions","message":"By clicking I agree you agree to the terms and conditions of Blooket1 and allow personal data and cookies to be stored.","button":"I agree","href":"tsandcs"}})});</script>
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        .page-container {
+            max-width: 960px;
+            margin: 40px auto 80px auto;
+            padding: 0 24px;
+        }
+
+        .back-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background-color: var(--secondary-bg-color);
+            color: var(--primary-text-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid #333;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: var(--tertiary-bg-color);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateX(-3px);
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #222222 0%, #151515 100%);
+            border: 1px solid #2e2e2e;
+            border-radius: 16px;
+            padding: 40px 32px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .about-hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .about-hero p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-card {
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            line-height: 1.75;
+            transition: border-color 0.2s ease;
+        }
+
+        .content-card:hover {
+            border-color: #3d3d3d;
+        }
+
+        .content-card h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #282828;
+            padding-bottom: 10px;
+        }
+
+        .content-card h2 i {
+            color: var(--link-color);
+            font-size: 1.2rem;
+        }
+
+        .content-card p {
+            color: #cccccc;
+            margin-bottom: 12px;
+            font-size: 0.98rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .feature-box {
+            background: #222222;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        .feature-box i {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .feature-box p {
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .callout-box {
+            background-color: rgba(76, 175, 80, 0.08);
+            border-left: 4px solid var(--link-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 18px 0;
+        }
+
+        .callout-box p {
+            color: #e0e0e0;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 0 16px;
+                margin-top: 20px;
+            }
+            .about-hero {
+                padding: 28px 20px;
+            }
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav>
-        <logo onclick="window.location += '../'" style="cursor: pointer; user-select: none;"><img class="logo" src="../images/b-logo.png"></img><b><span class="logo-name">Blooket1<br>Games</span></b></logo>
-        <div class="container options">
-            <a href="../">Games</a>
-            <a href="../test stuff/">Test Stuff</a>
-        </div>
-        
-            
-        <div class="search-container">
-            <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-            <label onclick="toggleSearch()" class="searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
+        <div class="nav-container">
+            <a href="../" class="logo-area">
+                <img class="logo-img" src="../images/b-logo.webp" alt="Blooket1 logo" />
+                <span class="logo-name-wrapper">
+                    <span class="logo-main-name">Blooket1</span>
+                    <span class="logo-sub-name">Games</span>
+                </span>
+            </a>
+            <div class="nav-links-container">
+                <a href="../">Games</a>
+                <a href="../tsandcs/">Terms &amp; Conditions</a>
+                <a href="./" class="active">About Us</a>
+                <a href="../privacy/">Privacy Policy</a>
+                <a href="../contact us/">Contact Us</a>
+                <a href="../blog/">Blog</a>
+            </div>
+            <div class="search-container">
+                <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search games...">
+                <label onclick="toggleSearch()" class="searchbutton" for="searchright" aria-label="Search"><i class="fas fa-search"></i></label>
+            </div>
         </div>
     </nav>
 
+    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="container">
-            <div class="icons">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="icon"><i class="fas fa-comments"></i></div>
-                <div class="icon"><i class="fas fa-info-circle"></i></div>
+        <div class="sidebar-icons-container">
+            <div class="icon" title="Games">
+                <a href="../" style="color: inherit;"><i class="fas fa-gamepad"></i></a>
+            </div>
+            <div class="icon" title="Chat">
+                <a href="../chat/" style="color: inherit;"><i class="fas fa-comments"></i></a>
+            </div>
+            <div class="icon" title="About Us">
+                <a href="./" style="color: inherit;"><i class="fas fa-info-circle"></i></a>
+            </div>
+            <div class="icon" title="Contact Us">
+                <a href="../contact us/" style="color: inherit;"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </aside>
-    <div style="margin-left: 20px; width: 90%;">
-        <h1>Welcome to Blooket1 - Your Ultimate Gaming Destination</h1>
-        <p>Blooket1 is your go-to destination for a wide range of exciting and engaging online games. Whether you're into strategy, puzzles, or action-packed adventures, we have something for everyone!</p>
-        <h2>About Blooket1</h2>
-        <p>Blooket1 was made by dbest. It is for public use for people to generally use if they need something to do in their spare time or just to cool down a bit.</p>
-        <h2>Special Thanks</h2>
-        <p>We would like to extend our heartfelt gratitude to Falafel 🧆 🥙for his invaluable support in publicizing my website and assisting in bug fixes. His dedication and collaboration has played a significant role in enhancing the overall user experience for our community.</p>
-        <h2>Get Started</h2>
-        <p>Ready to dive into the world of gaming excitement? Visit Blooket1 today and start your adventure!</p>
-        <p>Thank you for choosing Blooket1 as your gaming destination. We look forward to providing you with endless hours of entertainment!</p>
-    </div>
-    </p>
-    </div>
-    <br><br><br><br><br>
 
+    <!-- Main Content -->
+    <main class="page-container">
+        <div class="back-nav-bar">
+            <a href="../" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Games</a>
+            <a href="../contact us/" class="back-btn"><i class="fas fa-envelope"></i> Contact Us</a>
+        </div>
+
+        <header class="about-hero">
+            <h1>About <span>Blooket1</span></h1>
+            <p>The ultimate hub for free, unblocked browser entertainment and educational gaming experiences.</p>
+        </header>
+
+        <section class="content-card">
+            <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+            <p>Blooket1 was created by <strong>dbest</strong> to provide a fast, reliable, and free platform where students and gamers can unwind, challenge their puzzle-solving skills, and enjoy high-quality web games without intrusive roadblocks or heavy downloads.</p>
+            <p>Whether you're looking for high-octane racing, mind-bending puzzles, nostalgic retro classics, or relaxing idle clickers, Blooket1 curates and optimizes the best HTML5 titles to run seamlessly across all devices and school networks.</p>
+        </section>
+
+        <section class="content-card">
+            <h2><i class="fas fa-rocket"></i> What Makes Blooket1 Different</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Instant Play</h3>
+                    <p>No downloads, no installations, and no account barriers. Jump directly into any of our 90+ games with one click.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safe &amp; Educational</h3>
+                    <p>Designed for student break time and educational environments, strictly adhering to safety and content standards.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-floppy-disk"></i>
+                    <h3>Local Saves</h3>
+                    <p>Your game high scores, saved progress, and favorited titles are preserved safely in your browser via HTML5 LocalStorage.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-mobile-screen"></i>
+                    <h3>Fully Responsive</h3>
+                    <p>Optimized for Chromebooks, desktop PCs, laptops, and tablets alike with low latency and snappy performance.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2><i class="fas fa-heart"></i> Special Thanks &amp; Community Credits</h2>
+            <p>Blooket1 would not be what it is today without the support of our vibrant community.</p>
+            <div class="callout-box">
+                <p>We extend our warmest heartfelt gratitude to <strong>Falafel &#129368; &#129385;</strong> for invaluable support in publicizing Blooket1, helping identify bugs, and assisting with technical improvements that elevate the experience for thousands of daily players.</p>
+            </div>
+            <p>We also want to thank all the open-source developers, Scratch creators, and HTML5 game authors whose creativity makes browser gaming thrive.</p>
+        </section>
+
+        <section class="content-card">
+            <h2><i class="fas fa-paper-plane"></i> Get in Touch</h2>
+            <p>Have a game recommendation, bug report, or DMCA inquiry? We love hearing from our players and partners!</p>
+            <p>Reach out to us anytime at <a href="mailto:support@blooket1.com" style="color: var(--accent-color); font-weight: 600;">support@blooket1.com</a> or visit our <a href="../contact us/" style="color: var(--link-color); font-weight: 500;">Contact Us page</a>.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>   2024 Blooket1. Made by dbest.</p>
+        <div class="container" style="text-align: center; padding: 25px 0;">
+            <p>&copy; 2026 Blooket1. Made by dbest. All rights reserved.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; color: #888;">
+                <a href="../tsandcs/" style="color: #aaa; margin: 0 10px;">Terms &amp; Conditions</a> |
+                <a href="../privacy/" style="color: #aaa; margin: 0 10px;">Privacy Policy</a> |
+                <a href="./" style="color: var(--accent-color); margin: 0 10px;">About Us</a> |
+                <a href="../contact us/" style="color: #aaa; margin: 0 10px;">Contact Us</a>
+            </p>
         </div>
     </footer>
+
+    <script>
+        function toggleSearch() {
+            const searchInput = document.getElementById('searchright');
+            if (searchInput) {
+                searchInput.classList.toggle('active');
+                if (searchInput.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -93,10 +93,7 @@
           <a href="./">Games</a>
           <a href="tsandcs/">Terms & Conditions</a>
           <a href="about us/">About Us</a>
-          <a
-            href="https://www.termsfeed.com/live/7621dcc6-8741-45d5-b56e-7f50f702bd6a"
-            >Privacy Policy</a
-          >
+          <a href="privacy/">Privacy Policy</a>
           <a href="contact us/">Contact Us</a>
           <a href="blog/">Blog</a>
         </div>
@@ -124,11 +121,11 @@
 
     <aside class="sidebar">
       <div class="sidebar-icons-container">
-        <div class="icon" title="Settings">
-          <i class="fas fa-cog" onclick="window.location += 'settings/'"></i>
+        <div class="icon" title="Settings" id="sidebar-settings-btn" onclick="openSettingsModal()">
+          <i class="fas fa-cog"></i>
         </div>
         <div class="icon" title="Chat">
-          <i class="fas fa-comments" onclick="window.location += 'chat/'"></i>
+          <i class="fas fa-comments" onclick="window.location.href='chat/'"></i>
         </div>
         <div class="icon" title="Unblock Assistant">
           <i
@@ -137,16 +134,53 @@
             onclick="startUnblockAssistant()"
           ></i>
         </div>
-        <div class="icon" title="Info">
+        <div class="icon" title="About & Info">
           <i
             class="fas fa-info-circle"
-            onclick="window.location += 'info/'"
+            onclick="window.location.href='about us/'"
           ></i>
         </div>
       </div>
     </aside>
 
     <main class="content-area">
+      <!-- Category Filter Pills Bar -->
+      <div class="category-filters-container" id="category-filters-container">
+        <div class="category-pills" id="category-pills">
+          <button class="category-pill active" data-category="all"><i class="fas fa-th-large"></i> All Games</button>
+          <button class="category-pill" data-category="popular"><i class="fas fa-fire"></i> Popular</button>
+          <button class="category-pill" data-category="new"><i class="fas fa-star"></i> New</button>
+          <button class="category-pill" data-category="retro"><i class="fas fa-gamepad"></i> Retro</button>
+          <button class="category-pill" data-category="action"><i class="fas fa-bolt"></i> Action</button>
+          <button class="category-pill" data-category="puzzle"><i class="fas fa-puzzle-piece"></i> Puzzle</button>
+          <button class="category-pill" data-category="driving"><i class="fas fa-car"></i> Driving & Sports</button>
+          <button class="category-pill" data-category="clicker"><i class="fas fa-cookie-bite"></i> Clicker & Idle</button>
+          <button class="category-pill" data-category="tools"><i class="fas fa-wrench"></i> Tools</button>
+          <button class="category-pill" data-category="favorites"><i class="fas fa-heart"></i> Favorites</button>
+        </div>
+      </div>
+
+      <!-- Dedicated Live Search Results Section -->
+      <section id="search-results-section" class="search-results-section" style="display: none;">
+        <div class="search-results-header">
+          <div class="search-results-title-group">
+            <h2 id="search-results-title">Search Results</h2>
+            <span id="search-results-count" class="search-results-count">0 games found</span>
+          </div>
+          <button id="clear-search-btn" class="clear-search-btn" aria-label="Clear Search">
+            <i class="fas fa-times"></i> Clear Search
+          </button>
+        </div>
+        <div id="search-results-grid" class="search-results-grid">
+          <!-- Dynamically populated game cards -->
+        </div>
+        <div id="search-no-results" class="search-no-results" style="display: none;">
+          <i class="fas fa-ghost"></i>
+          <h3>No games found</h3>
+          <p>Try searching for a different keyword or click a category above!</p>
+        </div>
+      </section>
+
       <div class="all-game-carousels" id="all-game-carousels">
         <!-- Game carousels will be dynamically inserted here by carousel creator.js -->
         <!-- Example structure that carousel_creator.js might create:
@@ -257,10 +291,81 @@
 
     <footer>
       <div class="footer-container">
-        <p>© 2024 Blooket1. Made by dbest.</p>
-        <!-- Add more footer links or info if needed -->
+        <p>© 2026 Blooket1. Made by dbest.</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: #888;">
+          <a href="tsandcs/" style="color: #aaa; margin: 0 10px;">Terms &amp; Conditions</a> |
+          <a href="privacy/" style="color: #aaa; margin: 0 10px;">Privacy Policy</a> |
+          <a href="about us/" style="color: #aaa; margin: 0 10px;">About Us</a> |
+          <a href="contact us/" style="color: #aaa; margin: 0 10px;">Contact Us</a>
+        </p>
       </div>
     </footer>
+    <!-- Settings & Stealth Cloaking Modal -->
+    <div id="settingsModalOverlay" class="settings-modal-overlay">
+      <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+        <div class="settings-modal-header">
+          <div class="settings-title-wrap">
+            <i class="fas fa-sliders-h settings-header-icon"></i>
+            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
+          </div>
+          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
+        </div>
+
+        <div class="settings-modal-body">
+          <!-- Section 1: Tab Cloaking -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-mask section-icon"></i>
+              <div>
+                <h3>Tab Cloaking (Disguise)</h3>
+                <p>Change this tab's name and favicon so it appears as school or productivity work.</p>
+              </div>
+            </div>
+            <div class="cloak-options-grid" id="cloakOptionsGrid">
+              <!-- Rendered presets -->
+            </div>
+          </div>
+
+          <!-- Section 2: Panic Key -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-shield-alt section-icon"></i>
+              <div>
+                <h3>Panic Key (Boss Key)</h3>
+                <p>Press this single key at any moment to immediately escape to Google Classroom.</p>
+              </div>
+            </div>
+            <div class="panic-key-card">
+              <div class="panic-key-status">
+                <span class="panic-label">Current Panic Key:</span>
+                <kbd id="currentPanicKeyDisplay">`</kbd>
+                <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
+              </div>
+              <div class="panic-btn-group">
+                <button id="changePanicKeyBtn" class="settings-action-btn"><i class="fas fa-keyboard"></i> Change Key</button>
+                <button id="testPanicKeyBtn" class="settings-action-btn secondary"><i class="fas fa-external-link-alt"></i> Test Panic</button>
+                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (`)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Theme Switcher -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-palette section-icon"></i>
+              <div>
+                <h3>Theme Switcher</h3>
+                <p>Personalize your experience with dark cyberpunk aesthetics and vivid glows.</p>
+              </div>
+            </div>
+            <div class="theme-options-grid" id="themeOptionsGrid">
+              <!-- Rendered themes -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
