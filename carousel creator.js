@@ -138,57 +138,44 @@ function createGameItem(game, container, options = {}) {
     gameItemWrapper.classList.add('game-item');
     gameItemWrapper.dataset.gameName = game.name;
 
+    // Dedicated Thumbnail Wrapper
+    const thumbWrap = document.createElement('div');
+    thumbWrap.classList.add('game-thumb-wrap');
+
     const gameImage = document.createElement('img');
     gameImage.src = game.image;
     gameImage.alt = game.name;
     gameImage.loading = 'lazy';
+    thumbWrap.appendChild(gameImage);
 
-    const gameName = document.createElement('span');
-    gameName.classList.add('game-name');
-    if (options.highlightQuery) {
-        gameName.innerHTML = highlightText(toTitleCase(game.name), options.highlightQuery);
-    } else {
-        gameName.textContent = toTitleCase(game.name);
-    }
-
-    const gameLink = document.createElement('a');
-    gameLink.href = game.link;
-    gameLink.classList.add('full-card-link');
-    gameLink.setAttribute('aria-label', `Play ${game.name}`);
-    gameLink.addEventListener('click', () => trackGameClick(game.name));
-
-    gameItemWrapper.appendChild(gameImage);
-    gameItemWrapper.appendChild(gameName);
-
-    const topLeftIndicators = document.createElement('div');
-    topLeftIndicators.classList.add('top-left-indicators');
-
-    // Check if new (added in last 45 days)
-    if (game.details && game.details['date added']) {
+    // Subtle Micro-Badge (Only if genuinely new or top trending hot)
+    const isRetroBowl = game.name && game.name.toLowerCase().includes('retro bowl');
+    if (!options.hideNewBadge && !isRetroBowl && game.details && game.details['date added']) {
         const dateAdded = new Date(game.details['date added']);
         const diffDays = (new Date() - dateAdded) / (1000 * 60 * 60 * 24);
-        if (diffDays <= 45) {
-            const newIndicator = document.createElement('div');
-            newIndicator.classList.add('new-game-indicator');
-            newIndicator.innerHTML = '<i class="fas fa-star"></i> NEW';
-            topLeftIndicators.appendChild(newIndicator);
+        if (diffDays <= 30) {
+            const newBadge = document.createElement('span');
+            newBadge.classList.add('badge-micro', 'badge-new');
+            newBadge.textContent = 'NEW';
+            thumbWrap.appendChild(newBadge);
         }
+    } else if (!isRetroBowl && (game.clicks || 0) >= 12000) {
+        const hotBadge = document.createElement('span');
+        hotBadge.classList.add('badge-micro', 'badge-hot');
+        hotBadge.textContent = 'HOT';
+        thumbWrap.appendChild(hotBadge);
     }
 
-    // Popularity stats indicator
-    const statsIndicator = document.createElement('div');
-    statsIndicator.classList.add('game-stats-indicator');
-    const formattedClicks = Number(game.clicks || 0).toLocaleString();
-    statsIndicator.innerHTML = `<i class="fas fa-fire"></i> ${formattedClicks}`;
-    statsIndicator.title = `${formattedClicks} plays in the last 30 days`;
-    topLeftIndicators.appendChild(statsIndicator);
+    // Interactive Hover Play Overlay
+    const playOverlay = document.createElement('div');
+    playOverlay.classList.add('play-hover-overlay');
+    playOverlay.innerHTML = '<div class="play-hover-circle"><i class="fas fa-play"></i></div>';
+    thumbWrap.appendChild(playOverlay);
 
-    gameItemWrapper.appendChild(topLeftIndicators);
-
-    // Favorite button
+    // Minimalist Favorite button
     const favoriteButton = document.createElement('button');
     favoriteButton.classList.add('favorite-btn');
-    favoriteButton.setAttribute('aria-label', 'Toggle favorite');
+    favoriteButton.setAttribute('aria-label', `Favorite ${game.name}`);
     favoriteButton.innerHTML = '<i class="far fa-heart"></i>';
     if (favoriteGames.has(game.name)) {
         favoriteButton.classList.add('is-favorite');
@@ -199,9 +186,37 @@ function createGameItem(game, container, options = {}) {
         e.stopPropagation();
         toggleFavorite(game.name);
     });
-    gameItemWrapper.appendChild(favoriteButton);
+    thumbWrap.appendChild(favoriteButton);
 
+    // Clean Card Info Area (100% WCAG AAA Legibility)
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('game-card-info');
+
+    const gameName = document.createElement('span');
+    gameName.classList.add('game-name');
+    if (options.highlightQuery) {
+        gameName.innerHTML = highlightText(toTitleCase(game.name), options.highlightQuery);
+    } else {
+        gameName.textContent = toTitleCase(game.name);
+    }
+    cardInfo.appendChild(gameName);
+
+    const gameMeta = document.createElement('span');
+    gameMeta.classList.add('game-submeta');
+    const primaryCategory = (game.details?.["game categories"]?.[0]) || 'Arcade';
+    gameMeta.textContent = primaryCategory;
+    cardInfo.appendChild(gameMeta);
+
+    const gameLink = document.createElement('a');
+    gameLink.href = game.link;
+    gameLink.classList.add('full-card-link');
+    gameLink.setAttribute('aria-label', `Play ${game.name}`);
+    gameLink.addEventListener('click', () => trackGameClick(game.name));
+
+    gameItemWrapper.appendChild(thumbWrap);
+    gameItemWrapper.appendChild(cardInfo);
     gameItemWrapper.appendChild(gameLink);
+
     container.appendChild(gameItemWrapper);
     return gameItemWrapper;
 }
@@ -240,7 +255,7 @@ function createCarouselSection(title, games, container, options = {}) {
     rightArrow.setAttribute('aria-label', 'Scroll right');
     rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
     
-    games.forEach(game => createGameItem(game, carousel));
+    games.forEach(game => createGameItem(game, carousel, options));
     
     carouselContainer.append(leftArrow, carousel, rightArrow);
     section.append(header, carouselContainer);
@@ -263,7 +278,7 @@ async function createAllCarousels() {
     // 1. Favorites carousel
     if (favoriteGames.size > 0) {
         const favoriteGamesDetails = allGamesData.filter(game => favoriteGames.has(game.name));
-        createCarouselSection('My Favorites', favoriteGamesDetails, carouselsContainer, {
+        createCarouselSection('Favorites', favoriteGamesDetails, carouselsContainer, {
             id: 'favorites-carousel',
             categorySlug: 'favorites',
             prepend: true
@@ -273,27 +288,31 @@ async function createAllCarousels() {
     // 2. Popular Games (sorted descending by plays)
     const popularGamesWithClicks = [...allGamesData].filter(g => (g.clicks || 0) > 0);
     popularGamesWithClicks.sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
-    let popularGames = popularGamesWithClicks.slice(0, 16);
+    let popularGames = popularGamesWithClicks.slice(0, 14);
     if (popularGames.length === 0 && allGamesData.length > 0) {
-        popularGames = [...allGamesData].slice(0, 16);
+        popularGames = [...allGamesData].slice(0, 14);
     }
     if (popularGames.length > 0) {
-        createCarouselSection('🔥 Popular Games', popularGames, carouselsContainer, {
+        createCarouselSection('Popular Games', popularGames, carouselsContainer, {
             id: 'category-popular',
             categorySlug: 'popular'
         });
     }
 
-    // 3. New Games
-    const newGames = [...allGamesData].sort((a, b) => {
-        const dateA = new Date(a.details?.['date added'] || 0);
-        const dateB = new Date(b.details?.['date added'] || 0);
-        return dateB - dateA;
-    }).slice(0, NEW_GAMES_COUNT);
+    // 3. New Releases (De-duplicated against popular games)
+    const popularNames = new Set(popularGames.map(g => g.name.toLowerCase()));
+    const newGames = [...allGamesData]
+        .filter(g => !popularNames.has(g.name.toLowerCase()) && g.name.toLowerCase() !== 'geometry dash')
+        .sort((a, b) => {
+            const dateA = new Date(a.details?.['date added'] || 0);
+            const dateB = new Date(b.details?.['date added'] || 0);
+            return dateB - dateA;
+        }).slice(0, NEW_GAMES_COUNT);
     if (newGames.length > 0) {
-        createCarouselSection('⭐ New Games', newGames, carouselsContainer, {
+        createCarouselSection('New Releases', newGames, carouselsContainer, {
             id: 'category-new',
-            categorySlug: 'new'
+            categorySlug: 'new',
+            hideNewBadge: true
         });
     }
 
@@ -742,6 +761,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Render Carousels
     createAllCarousels();
+
+    // Random Game Button Handler
+    const randomBtn = document.getElementById('header-random-btn');
+    if (randomBtn) {
+        randomBtn.addEventListener('click', () => {
+            if (allGamesData.length > 0) {
+                const rand = allGamesData[Math.floor(Math.random() * allGamesData.length)];
+                window.location.href = rand.link;
+            }
+        });
+    }
+
+    // Quick Search Shortcut ('/' or Ctrl+K)
+    window.addEventListener('keydown', (e) => {
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+        if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {
+            e.preventDefault();
+            const searchInput = document.getElementById('searchright');
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.select();
+            }
+        }
+    });
 
     // Listen to resize for carousel arrow checks
     window.addEventListener('resize', debounce(() => initializeCarouselFunctionality(), 200));
