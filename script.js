@@ -1437,3 +1437,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// =================================================================
+// CRAZYGAMES-ALIGNED EXPANDABLE SIDEBAR INTERACTION
+// =================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const sidebar = document.getElementById('cg-sidebar');
+
+    function toggleSidebar() {
+        const isExpanded = document.body.classList.toggle('sidebar-expanded');
+        if (sidebar) {
+            sidebar.classList.toggle('expanded', isExpanded);
+        }
+        if (sidebarToggleBtn) {
+            sidebarToggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        }
+    }
+
+    function closeSidebar() {
+        document.body.classList.remove('sidebar-expanded');
+        if (sidebar) {
+            sidebar.classList.remove('expanded');
+        }
+        if (sidebarToggleBtn) {
+            sidebarToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSidebar();
+        });
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.body.classList.contains('sidebar-expanded')) {
+            closeSidebar();
+        }
+    });
+
+    // Close when clicking nav items on small viewports
+    if (sidebar) {
+        sidebar.querySelectorAll('.cg-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    }
+});

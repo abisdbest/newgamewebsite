@@ -75,100 +75,166 @@
   </head>
 
   <body>
-    <div class="app-layout">
-      <!-- Fixed Left Navigation Drawer -->
-      <aside class="app-sidebar">
-        <div class="sidebar-header">
-          <a href="./" class="brand-logo" aria-label="Blooket1 Home">
-            <div class="logo-mark"><i class="fas fa-gamepad"></i></div>
-            <div class="logo-text">
-              <span class="logo-title">blooket<span class="logo-accent">1</span></span>
-              <span class="logo-tag">ARCADE</span>
-            </div>
-          </a>
+    <!-- CrazyGames-Aligned Full-Width Header -->
+    <header class="cg-header">
+      <div class="cg-header-left">
+        <button id="sidebar-toggle-btn" class="cg-hamburger-btn" aria-label="Toggle Navigation" title="Toggle Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a href="./" class="cg-logo-area" aria-label="Blooket1 Home">
+          <img class="cg-logo-img" src="images/b-logo.webp" alt="Blooket1 logo" />
+          <div class="cg-logo-text">
+            <span class="cg-logo-main">blooket<span class="cg-logo-accent">1</span></span>
+            <span class="cg-logo-sub">Games</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="cg-header-center">
+        <div class="cg-search-bar">
+          <input
+            id="searchright"
+            type="search"
+            class="cg-search-input"
+            placeholder="Search games and categories"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <kbd class="search-kbd">/</kbd>
+          <button class="cg-search-submit" aria-label="Search">
+            <i class="fas fa-magnifying-glass"></i>
+          </button>
         </div>
+      </div>
 
-        <nav class="sidebar-nav">
-          <div class="nav-group-label">Explore</div>
-          <a href="#featured-section" class="nav-item active">
-            <i class="fas fa-compass"></i>
-            <span>Home</span>
-          </a>
-          <a href="#category-popular" class="nav-item">
-            <i class="fas fa-fire"></i>
-            <span>Popular Games</span>
-          </a>
-          <a href="#category-new" class="nav-item">
-            <i class="fas fa-bolt"></i>
-            <span>New Releases</span>
-          </a>
-          <a href="#favorites-carousel" class="nav-item">
-            <i class="fas fa-heart"></i>
-            <span>My Favorites</span>
-          </a>
-
-          <div class="nav-group-label">Platform</div>
-          <button class="nav-item" onclick="openSettingsModal('cloak')">
-            <i class="fas fa-mask"></i>
-            <span>Tab Cloaking</span>
+      <div class="cg-header-right">
+        <button class="cg-icon-btn" title="2 Player Games" onclick="window.location.hash='#category-2-player'">
+          <i class="fas fa-user-group"></i>
+        </button>
+        <button class="cg-icon-btn" title="My Favorites" onclick="window.location.hash='#favorites-carousel'">
+          <i class="fas fa-bookmark"></i>
+        </button>
+        <div class="cg-bell-wrapper">
+          <button class="cg-icon-btn" title="Notifications & Updates">
+            <i class="fas fa-bell"></i>
           </button>
-          <button class="nav-item" onclick="startUnblockAssistant()">
-            <i class="fas fa-shield-halved"></i>
-            <span>Unblock Assistant</span>
-          </button>
-          <a href="chat/" class="nav-item">
-            <i class="fas fa-comments"></i>
-            <span>Community Chat</span>
-          </a>
-          <button class="nav-item" onclick="openSettingsModal()">
-            <i class="fas fa-sliders-h"></i>
-            <span>Preferences</span>
-          </button>
-        </nav>
-
-        <div class="sidebar-footer">
-          <div class="sidebar-status-card">
-            <div class="status-row">
-              <span class="status-dot"></span>
-              <span class="status-label">Network Active</span>
-            </div>
-            <div class="status-sub">Chromebook Shield Active</div>
-          </div>
+          <span class="cg-badge-dot">1</span>
         </div>
-      </aside>
+        <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings & Cloaking">
+          <i class="fas fa-sliders-h"></i>
+          <span>Settings</span>
+        </button>
+      </div>
+    </header>
 
-      <!-- Main Application Container -->
-      <div class="app-main-wrapper">
-        <!-- Top App Bar -->
-        <header class="app-header">
-          <div class="header-search-wrap">
-            <div class="search-command-bar">
-              <i class="fas fa-search search-prefix-icon"></i>
-              <input
-                id="searchright"
-                type="search"
-                class="search-input"
-                placeholder="Search games, genres, or keywords..."
-                autocomplete="off"
-                spellcheck="false"
-              />
-              <kbd class="search-kbd">/</kbd>
-            </div>
-          </div>
+    <!-- Overlay Backdrop for Expandable Sidebar -->
+    <div id="sidebar-backdrop" class="cg-sidebar-backdrop"></div>
 
-          <div class="header-right">
-            <button id="header-random-btn" class="header-btn" title="Play Random Game">
-              <i class="fas fa-dice"></i>
-              <span>Random Game</span>
-            </button>
-            <button id="header-settings-btn" class="header-icon-btn" onclick="openSettingsModal()" title="Settings &amp; Cloaking">
-              <i class="fas fa-sliders-h"></i>
-            </button>
-          </div>
-        </header>
+    <!-- Expandable Left Sidebar (Perfect Mirror of CrazyGames: 58px Collapsed -> 232px Expanded) -->
+    <aside id="cg-sidebar" class="cg-sidebar" aria-label="Main Navigation">
+      <div class="cg-nav-list">
+        <!-- Top Quick Navigation -->
+        <a href="#featured-section" class="cg-nav-item active" data-tooltip="Home">
+          <span class="cg-nav-icon"><i class="fas fa-house"></i></span>
+          <span class="cg-nav-label">Home</span>
+        </a>
+        <a href="#recent-games" class="cg-nav-item" data-tooltip="Recently Played">
+          <span class="cg-nav-icon"><i class="fas fa-clock"></i></span>
+          <span class="cg-nav-label">Recently Played</span>
+        </a>
+        <a href="#category-new" class="cg-nav-item" data-tooltip="New Games">
+          <span class="cg-nav-icon"><i class="fas fa-rotate"></i></span>
+          <span class="cg-nav-label">New Games</span>
+        </a>
+        <a href="#category-popular" class="cg-nav-item" data-tooltip="Trending">
+          <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
+          <span class="cg-nav-label">Trending</span>
+        </a>
+        <a href="#category-updated" class="cg-nav-item" data-tooltip="Updated">
+          <span class="cg-nav-icon"><i class="fas fa-bolt"></i></span>
+          <span class="cg-nav-label">Updated</span>
+        </a>
 
-        <!-- Main Content Canvas -->
-        <main class="content-canvas">
+        <div class="cg-nav-divider"></div>
+
+        <!-- Social & Multiplayer -->
+        <a href="#category-2-player" class="cg-nav-item" data-tooltip="2 Player">
+          <span class="cg-nav-icon"><i class="fas fa-user-group"></i></span>
+          <span class="cg-nav-label">2 Player</span>
+        </a>
+        <a href="#category-top" class="cg-nav-item" data-tooltip="Top Rated">
+          <span class="cg-nav-icon"><i class="fas fa-trophy"></i></span>
+          <span class="cg-nav-label">Top Rated</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <!-- Game Categories -->
+        <a href="#category-action" class="cg-nav-item" data-tooltip="Action">
+          <span class="cg-nav-icon"><i class="fas fa-bolt-lightning"></i></span>
+          <span class="cg-nav-label">Action</span>
+        </a>
+        <a href="#category-adventure" class="cg-nav-item" data-tooltip="Adventure">
+          <span class="cg-nav-icon"><i class="fas fa-compass"></i></span>
+          <span class="cg-nav-label">Adventure</span>
+        </a>
+        <a href="#category-arcade" class="cg-nav-item" data-tooltip="Arcade">
+          <span class="cg-nav-icon"><i class="fas fa-gamepad"></i></span>
+          <span class="cg-nav-label">Arcade</span>
+        </a>
+        <a href="#category-driving" class="cg-nav-item" data-tooltip="Driving &amp; Car">
+          <span class="cg-nav-icon"><i class="fas fa-car"></i></span>
+          <span class="cg-nav-label">Driving</span>
+        </a>
+        <a href="#category-puzzle" class="cg-nav-item" data-tooltip="Puzzle">
+          <span class="cg-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
+          <span class="cg-nav-label">Puzzle</span>
+        </a>
+        <a href="#category-shooting" class="cg-nav-item" data-tooltip="Shooting">
+          <span class="cg-nav-icon"><i class="fas fa-crosshairs"></i></span>
+          <span class="cg-nav-label">Shooting</span>
+        </a>
+        <a href="#category-sports" class="cg-nav-item" data-tooltip="Sports">
+          <span class="cg-nav-icon"><i class="fas fa-futbol"></i></span>
+          <span class="cg-nav-label">Sports</span>
+        </a>
+        <a href="#category-strategy" class="cg-nav-item" data-tooltip="Strategy &amp; Chess">
+          <span class="cg-nav-icon"><i class="fas fa-chess"></i></span>
+          <span class="cg-nav-label">Strategy</span>
+        </a>
+        <a href="#category-clicker" class="cg-nav-item" data-tooltip="Clicker &amp; Idle">
+          <span class="cg-nav-icon"><i class="fas fa-hand-pointer"></i></span>
+          <span class="cg-nav-label">Clicker</span>
+        </a>
+        <a href="#category-tools" class="cg-nav-item" data-tooltip="Tools &amp; Utilities">
+          <span class="cg-nav-icon"><i class="fas fa-wrench"></i></span>
+          <span class="cg-nav-label">Tools</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <!-- School & Platform Tools -->
+        <button class="cg-nav-item" onclick="openSettingsModal('cloak')" data-tooltip="Tab Cloaking">
+          <span class="cg-nav-icon"><i class="fas fa-mask"></i></span>
+          <span class="cg-nav-label">Tab Cloaking</span>
+        </button>
+        <button class="cg-nav-item" onclick="startUnblockAssistant()" data-tooltip="Unblock Shield">
+          <span class="cg-nav-icon"><i class="fas fa-shield-halved"></i></span>
+          <span class="cg-nav-label">Unblock Assistant</span>
+        </button>
+        <a href="chat/" class="cg-nav-item" data-tooltip="Community Chat">
+          <span class="cg-nav-icon"><i class="fas fa-comments"></i></span>
+          <span class="cg-nav-label">Community Chat</span>
+        </a>
+        <button class="cg-nav-item" onclick="openSettingsModal()" data-tooltip="Preferences">
+          <span class="cg-nav-icon"><i class="fas fa-sliders-h"></i></span>
+          <span class="cg-nav-label">Preferences</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Canvas (Aligned with Header & Sidebar) -->
+    <main class="cg-main-canvas" id="main-content">
           <!-- Featured Hero Showcase (Cinematic Game Banner) -->
           <section class="hero-showcase" id="featured-section">
             <div class="hero-card">
@@ -293,8 +359,6 @@
             </div>
           </footer>
         </main>
-      </div>
-    </div>
 
     <!-- Unblock Assistant Overlay -->
     <div id="unblockAssistantOverlay">
