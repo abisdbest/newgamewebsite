@@ -60,11 +60,10 @@ function generateRetroDitherTextures() {
         console.warn('Dither texture generation failed, using CSS fallback', err);
     }
 }
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    generateRetroDitherTextures();
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', generateRetroDitherTextures);
-    } else {
-        generateRetroDitherTextures();
     }
 }
 
@@ -198,6 +197,8 @@ function createGameItem(game, container, options = {}) {
     const gameItemWrapper = document.createElement('div');
     gameItemWrapper.classList.add('game-item');
     gameItemWrapper.dataset.gameName = game.name;
+    const zIndex = (typeof options.index === 'number') ? (options.index + 1) : 1;
+    gameItemWrapper.style.zIndex = zIndex;
 
     // Dedicated Full-Bleed Thumbnail Wrapper
     const thumbWrap = document.createElement('div');
@@ -338,7 +339,7 @@ function createCarouselSection(title, games, container, options = {}) {
     rightArrow.setAttribute('aria-label', 'Scroll right');
     rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
     
-    games.forEach(game => createGameItem(game, carousel, options));
+    games.forEach((game, idx) => createGameItem(game, carousel, { ...options, index: idx }));
     
     carouselContainer.append(leftArrow, carousel, rightArrow);
     section.append(headerWrap, carouselContainer);
@@ -518,7 +519,7 @@ function toggleFavorite(gameName) {
         if (favoritesCarousel) {
             const carouselDiv = favoritesCarousel.querySelector('.game-carousel');
             carouselDiv.innerHTML = '';
-            favoriteGamesDetails.forEach(game => createGameItem(game, carouselDiv));
+            favoriteGamesDetails.forEach((game, idx) => createGameItem(game, carouselDiv, { index: idx }));
         } else if (favoritesContainer) {
             createCarouselSection('My Favorites', favoriteGamesDetails, favoritesContainer, {
                 id: 'favorites-carousel',
@@ -667,8 +668,8 @@ function handleLiveSearch(query) {
         if (noResults) noResults.style.display = 'block';
     } else {
         if (noResults) noResults.style.display = 'none';
-        matchedGames.forEach(game => {
-            createGameItem(game, searchGrid, { highlightQuery: query.trim() });
+        matchedGames.forEach((game, idx) => {
+            createGameItem(game, searchGrid, { highlightQuery: query.trim(), index: idx });
         });
     }
 }

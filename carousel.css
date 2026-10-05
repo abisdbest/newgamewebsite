@@ -90,7 +90,7 @@
   flex-direction: column;
   border-radius: 0;
   border: none;
-  background: #111115;
+  background: transparent;
   box-shadow: none !important;
   scroll-snap-align: start;
   cursor: pointer;
@@ -103,7 +103,7 @@
 }
 
 /* Dithered blend of the overlapping edges of adjacent game images */
-.game-item:not(:first-child) .game-thumb-wrap img {
+.game-item:not(:first-child) .game-thumb-wrap {
   -webkit-mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
   -webkit-mask-position: 0 0, 24px 0;
   -webkit-mask-size: 24px 24px, calc(100% - 24px) 100%;
@@ -121,9 +121,9 @@
   top: 0;
   bottom: 0;
   width: 24px;
-  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.55) 50%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.5) 50%, transparent 100%);
   pointer-events: none;
-  z-index: 4;
+  z-index: 5;
 }
 
 .game-item:first-child .game-seam-darken {
@@ -132,7 +132,7 @@
 
 .game-item:hover {
   filter: brightness(1.08);
-  z-index: 6;
+  z-index: 99 !important;
 }
 
 .game-thumb-wrap {
@@ -141,7 +141,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 0;
-  background: #111115;
+  background: transparent;
 }
 
 .game-thumb-wrap img {
