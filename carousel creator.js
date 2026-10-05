@@ -36,55 +36,26 @@ const BAYER_8X8 = [
 function generateRetroDitherTextures() {
     try {
         if (typeof document === 'undefined') return;
-        // 1. Dither Seam between cards (24px wide x 24px high with 3px retro pixel blocks)
-        // Darkened in the center of the overlap where the two adjacent game images meet
-        const seamCanvas = document.createElement('canvas');
-        seamCanvas.width = 24;
-        seamCanvas.height = 24;
-        const seamCtx = seamCanvas.getContext('2d');
-        seamCtx.imageSmoothingEnabled = false;
+        // 1. Bayer 8x8 Dither Mask Ramp for blending the overlapping edges of adjacent images
+        // Ramped horizontally across the 24px overlap strip (8 cols x 3px), infinitely repeating vertically
+        const rampCanvas = document.createElement('canvas');
+        rampCanvas.width = 24;
+        rampCanvas.height = 24;
+        const rampCtx = rampCanvas.getContext('2d');
+        rampCtx.imageSmoothingEnabled = false;
 
         for (let row = 0; row < 8; row++) {
             for (let col = 0; col < 8; col++) {
+                const threshold = (col + 0.5) / 8.0;
                 const b = BAYER_8X8[row][col] / 64.0;
-                // Distance from seam center (col 3.5 is exact center between two images)
-                const dist = Math.abs(col - 3.5) / 4.0;
-                // Density peaks at 96% in the center and tapers off towards both edges
-                const density = Math.pow(Math.max(0, 1.0 - dist), 1.25) * 0.96;
-                if (density > b) {
-                    // Darkened in the center
-                    const alpha = Math.min(1.0, 0.70 + 0.30 * (1.0 - dist));
-                    seamCtx.fillStyle = `rgba(14, 14, 18, ${alpha})`;
-                    seamCtx.fillRect(col * 3, row * 3, 3, 3);
+                if (threshold > b) {
+                    rampCtx.fillStyle = '#ffffff';
+                    rampCtx.fillRect(col * 3, row * 3, 3, 3);
                 }
             }
         }
-        const seamDataUrl = seamCanvas.toDataURL('image/png');
-
-        // 2. Card Bottom Text Scrim (24px wide x 48px high with 3px retro pixel blocks)
-        // Dithers from transparent at top to darkened base at bottom
-        const scrimCanvas = document.createElement('canvas');
-        scrimCanvas.width = 24;
-        scrimCanvas.height = 48;
-        const scrimCtx = scrimCanvas.getContext('2d');
-        scrimCtx.imageSmoothingEnabled = false;
-
-        for (let row = 0; row < 16; row++) {
-            const progress = Math.max(0, (row - 3) / 12.0);
-            const ramp = Math.pow(progress, 1.35);
-            for (let col = 0; col < 8; col++) {
-                const b = BAYER_8X8[row % 8][col] / 64.0;
-                if (ramp > b) {
-                    const alpha = Math.min(1.0, 0.50 + 0.50 * progress);
-                    scrimCtx.fillStyle = `rgba(14, 14, 18, ${alpha})`;
-                    scrimCtx.fillRect(col * 3, row * 3, 3, 3);
-                }
-            }
-        }
-        const scrimDataUrl = scrimCanvas.toDataURL('image/png');
-
-        document.documentElement.style.setProperty('--dither-seam-url', `url("${seamDataUrl}")`);
-        document.documentElement.style.setProperty('--dither-scrim-url', `url("${scrimDataUrl}")`);
+        const rampDataUrl = rampCanvas.toDataURL('image/png');
+        document.documentElement.style.setProperty('--dither-ramp-url', `url("${rampDataUrl}")`);
     } catch (err) {
         console.warn('Dither texture generation failed, using CSS fallback', err);
     }
@@ -238,10 +209,15 @@ function createGameItem(game, container, options = {}) {
     gameImage.loading = 'lazy';
     thumbWrap.appendChild(gameImage);
 
-    // Authentic 8x8 Retro Dither Scrim (Blends image into darkened base)
-    const ditherScrim = document.createElement('div');
-    ditherScrim.classList.add('game-dither-scrim');
-    thumbWrap.appendChild(ditherScrim);
+    // Smooth Dark Fade Scrim from the bottom (no dither, pure dark fade)
+    const bottomFade = document.createElement('div');
+    bottomFade.classList.add('game-bottom-fade');
+    thumbWrap.appendChild(bottomFade);
+
+    // Seam Darkening Overlay for overlapping adjacent cards
+    const seamDarken = document.createElement('div');
+    seamDarken.classList.add('game-seam-darken');
+    thumbWrap.appendChild(seamDarken);
 
     // Subtle Micro-Badge (NEW / HOT)
     const isRetroBowl = game.name && game.name.toLowerCase().includes('retro bowl');

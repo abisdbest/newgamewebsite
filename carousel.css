@@ -8,25 +8,25 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 22px;
 }
 
 .game-category-section {
   position: relative;
   scroll-margin-top: 100px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .game-category-section h2 {
   font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.015em;
   color: #f1f5f9;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .game-carousel-container {
@@ -59,15 +59,15 @@
 
 /* --- Category Header Wrap (Matching Wireframe Title + Subtitle Bar) --- */
 .category-header-wrap {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
 }
 
 .category-title {
   font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.015em;
@@ -75,16 +75,16 @@
 }
 
 .category-subtitle {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted, #71717a);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
-/* --- 6-Across Game Card with Full-Bleed Image & 8x8 Dither Overlap Seam --- */
+/* --- 6-Across Game Cards with Bayer 8x8 Dither Edge Blending --- */
 .game-item {
-  flex: 0 0 16.666667%;
-  width: 16.666667%;
+  flex: 0 0 calc((100% + 5 * 24px) / 6);
+  width: calc((100% + 5 * 24px) / 6);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -98,23 +98,35 @@
   transition: filter 0.18s ease;
 }
 
-/* 8x8 Retro Style Dither Seam caused by slight overlapping of each 2 images next to each other, darkened in center */
-.game-item::after {
-  content: '';
+.game-item:not(:first-child) {
+  margin-left: -24px;
+}
+
+/* Dithered blend of the overlapping edges of adjacent game images */
+.game-item:not(:first-child) .game-thumb-wrap img {
+  -webkit-mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
+  -webkit-mask-position: 0 0, 24px 0;
+  -webkit-mask-size: 24px 24px, calc(100% - 24px) 100%;
+  -webkit-mask-repeat: repeat-y, no-repeat;
+  mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
+  mask-position: 0 0, 24px 0;
+  mask-size: 24px 24px, calc(100% - 24px) 100%;
+  mask-repeat: repeat-y, no-repeat;
+}
+
+/* Overlap seam subtle darkening in the middle of the blend */
+.game-seam-darken {
   position: absolute;
-  right: -12px;
+  left: 0;
   top: 0;
   bottom: 0;
   width: 24px;
-  background-image: var(--dither-seam-url);
-  background-repeat: repeat-y;
-  background-size: 24px 24px;
-  image-rendering: pixelated;
+  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.55) 50%, transparent 100%);
   pointer-events: none;
-  z-index: 5;
+  z-index: 4;
 }
 
-.game-item:last-child::after {
+.game-item:first-child .game-seam-darken {
   display: none;
 }
 
@@ -145,20 +157,16 @@
   filter: brightness(0.92);
 }
 
-/* Authentic 8x8 Retro Style Dither Scrim (Overlays Image Bottom) */
-.game-dither-scrim {
+/* Smooth Dark Fade from the bottom (no dither, pure gradient fade) */
+.game-bottom-fade {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 58%;
-  background-image: var(--dither-scrim-url);
-  background-repeat: repeat-x;
-  background-position: bottom;
-  background-size: 32px 64px;
-  image-rendering: pixelated;
+  height: 54%;
+  background: linear-gradient(to top, rgba(14, 14, 18, 0.95) 0%, rgba(14, 14, 18, 0.55) 45%, transparent 100%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Card Text Overlay ON TOP of the image (as drawn in wireframe) */
@@ -366,25 +374,28 @@ mark.search-highlight {
   border-bottom: 2px solid var(--accent-color, #f97316);
 }
 
-/* Responsive Breakpoints - Flush touching cards */
-@media (max-width: 1280px) {
+/* Responsive Breakpoints - Overlapping dithered cards */
+@media (max-width: 1300px) {
   .game-item {
-    flex: 0 0 20%;
-    width: 20%;
+    flex: 0 0 calc((100% + 4 * 24px) / 5);
+    width: calc((100% + 4 * 24px) / 5);
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .game-item {
-    flex: 0 0 25%;
-    width: 25%;
+    flex: 0 0 calc((100% + 3 * 24px) / 4);
+    width: calc((100% + 3 * 24px) / 4);
   }
 }
 
 @media (max-width: 768px) {
   .game-item {
-    flex: 0 0 33.333333%;
-    width: 33.333333%;
+    flex: 0 0 calc((100% + 2 * 20px) / 3);
+    width: calc((100% + 2 * 20px) / 3);
+  }
+  .game-item:not(:first-child) {
+    margin-left: -20px;
   }
   .carousel-arrow {
     display: none !important;
@@ -393,7 +404,10 @@ mark.search-highlight {
 
 @media (max-width: 480px) {
   .game-item {
-    flex: 0 0 50%;
-    width: 50%;
+    flex: 0 0 calc((100% + 16px) / 2);
+    width: calc((100% + 16px) / 2);
+  }
+  .game-item:not(:first-child) {
+    margin-left: -16px;
   }
 }

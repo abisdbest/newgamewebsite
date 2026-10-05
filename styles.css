@@ -163,22 +163,30 @@ img {
   display: flex;
   align-items: center;
   height: 100%;
-  padding-left: 12px;
+  padding-left: 0;
 }
 
-/* Original Blooket1 Logo Area - Far Left Element matching Wireframe */
+/* Original Blooket1 Logo Area - B logo aligns with sidebar rail, text after it */
 .cg-logo-area {
   display: flex;
   align-items: center;
-  gap: 10px;
+  height: 100%;
   text-decoration: none;
-  padding: 0 16px 0 0;
   cursor: pointer;
 }
 
+.cg-logo-icon-wrap {
+  width: var(--sidebar-collapsed-width);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .cg-logo-img {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   transition: transform 0.2s ease;
 }
@@ -191,11 +199,13 @@ img {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+  padding-left: 6px;
+  padding-right: 16px;
 }
 
 .cg-logo-main {
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.02em;
@@ -206,11 +216,10 @@ img {
 }
 
 .cg-logo-sub {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 500;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.6px;
 }
 
 /* Center Search Pill Bar */
@@ -591,6 +600,38 @@ body.sidebar-expanded .cg-panel-toggle-label,
   pointer-events: auto;
 }
 
+/* Sidebar Hover Preview when Collapsed (CrazyGames Style Preview) */
+body:not(.sidebar-expanded) .cg-sidebar:hover {
+  width: var(--sidebar-expanded-width);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.18);
+  background: var(--bg-cg-sidebar);
+}
+
+body:not(.sidebar-expanded) .cg-sidebar:hover .cg-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+body:not(.sidebar-expanded) .cg-sidebar:hover .cg-nav-heading {
+  opacity: 1;
+}
+
+body:not(.sidebar-expanded) .cg-sidebar:hover .cg-panel-toggle-label {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body:not(.sidebar-expanded) .cg-sidebar:hover .panel-divider-line {
+  transform: translateX(6px);
+}
+
+/* Hide tooltips when sidebar is hovered or expanded since full text labels are displayed */
+.cg-sidebar:hover .cg-nav-item[data-tooltip]::after,
+body.sidebar-expanded .cg-nav-item[data-tooltip]::after {
+  display: none !important;
+}
+
 /* =================================================================
  * MAIN CONTENT CANVAS (GRID-ALIGNED WITH HEADER & SIDEBAR)
  * ================================================================= */
@@ -598,29 +639,29 @@ body.sidebar-expanded .cg-panel-toggle-label,
   margin-top: var(--header-height);
   margin-left: var(--sidebar-collapsed-width);
   min-height: calc(100vh - var(--header-height));
-  padding: 8px 12px 24px 12px;
+  padding: 16px 24px 36px 24px;
   transition: padding 0.22s ease;
   flex: 1;
   min-width: 0;
 }
 
 /* =================================================================
- * HERO SHOWCASE SECTION (COMPACT WIREFRAME SPEC)
+ * HERO SHOWCASE SECTION (MUCH BIGGER, FULL BACKGROUND ART, DARKENED LEFT & BOTTOM)
  * ================================================================= */
 .hero-showcase {
-  margin-bottom: 8px;
+  margin-bottom: 22px;
 }
 
 .hero-card {
   position: relative;
-  min-height: 175px;
-  border-radius: 8px;
+  min-height: 330px;
+  border-radius: 12px;
   overflow: hidden;
   display: flex;
-  align-items: center;
-  padding: 16px 20px;
+  align-items: flex-end;
+  padding: 32px 36px;
   border: 1.5px solid rgba(255, 255, 255, 0.16);
-  background-color: #131317;
+  background-color: #121216;
   cursor: pointer;
   box-shadow: none !important;
   transition: border-color 0.2s ease;
@@ -633,13 +674,13 @@ body.sidebar-expanded .cg-panel-toggle-label,
 /* Wireframe Top-Right No1 Badge */
 .hero-no1-badge {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 16px;
+  right: 18px;
   z-index: 5;
   background: rgba(18, 18, 22, 0.95);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  padding: 2px 9px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  padding: 4px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -648,31 +689,32 @@ body.sidebar-expanded .cg-panel-toggle-label,
 
 .hero-no1-badge span {
   font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.02em;
 }
 
+/* Game image covers full hero background */
 .hero-bg-art {
   position: absolute;
-  top: 10px;
-  right: 20px;
-  bottom: 10px;
-  width: 48%;
-  background-size: contain;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center right;
   background-repeat: no-repeat;
-  background-position: right center;
-  opacity: 0.92;
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.4) 15%, black 40%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.4) 15%, black 40%);
+  opacity: 0.95;
   pointer-events: none;
 }
 
+/* Darkened for the left and bottom */
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #131317 0%, #131317 48%, rgba(19, 19, 23, 0.7) 72%, transparent 100%);
+  background: 
+    linear-gradient(to right, rgba(14, 14, 18, 0.96) 0%, rgba(14, 14, 18, 0.82) 38%, rgba(14, 14, 18, 0.25) 70%, transparent 100%),
+    linear-gradient(to top, rgba(14, 14, 18, 0.98) 0%, rgba(14, 14, 18, 0.75) 45%, transparent 80%);
   pointer-events: none;
 }
 
@@ -681,44 +723,44 @@ body.sidebar-expanded .cg-panel-toggle-label,
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 520px;
-  gap: 3px;
+  justify-content: flex-end;
+  max-width: 540px;
+  gap: 8px;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 7px;
-  border-radius: 4px;
-  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--accent-color);
   background: var(--accent-soft);
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  border: 1px solid rgba(249, 115, 22, 0.35);
   width: fit-content;
   margin-bottom: 2px;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: 1.55rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   color: #ffffff;
-  line-height: 1.15;
-  margin-bottom: 3px;
+  line-height: 1.1;
+  margin: 0;
 }
 
 .hero-desc {
-  font-size: 11.5px;
-  line-height: 1.35;
-  color: #a1a1aa;
-  margin-bottom: 6px;
-  max-width: 480px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #d4d4d8;
+  margin: 0;
+  max-width: 500px;
 }
 
 .hero-meta {
@@ -727,22 +769,22 @@ body.sidebar-expanded .cg-panel-toggle-label,
 
 .hero-actions {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
-  margin-top: 2px;
+  margin-top: 8px;
 }
 
 .hero-play-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: var(--accent-color);
   color: #ffffff;
-  height: 30px;
-  padding: 0 14px;
-  border-radius: 6px;
-  font-size: 11.5px;
-  font-weight: 600;
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: none !important;
   transition: background 0.18s ease;
@@ -755,14 +797,14 @@ body.sidebar-expanded .cg-panel-toggle-label,
 .hero-fav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: #f1f5f9;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 6px;
-  font-size: 11.5px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: none !important;
@@ -770,8 +812,8 @@ body.sidebar-expanded .cg-panel-toggle-label,
 }
 
 .hero-fav-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 /* =================================================================
@@ -784,13 +826,13 @@ body.sidebar-expanded .cg-panel-toggle-label,
   background: rgba(16, 16, 18, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 4px 0 6px 0;
-  margin-bottom: 8px;
+  padding: 6px 0 10px 0;
+  margin-bottom: 18px;
 }
 
 .category-pills {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 2px 0;
@@ -804,10 +846,10 @@ body.sidebar-expanded .cg-panel-toggle-label,
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
-  padding: 0 12px;
-  height: 28px;
-  border-radius: 6px;
-  font-size: 11.5px;
+  padding: 0 14px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 12.5px;
   font-weight: 500;
   font-family: var(--font-sans);
   display: inline-flex;
