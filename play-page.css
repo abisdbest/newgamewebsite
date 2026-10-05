@@ -1,4 +1,8 @@
-/* play-page.css - Styles specific to game play pages */
+/* play-page.css - Styles specific to game play pages - NO SHADOWS */
+*, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
 
 /* Added :root variables for easier theming and consistency */
 :root {

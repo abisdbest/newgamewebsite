@@ -1,4 +1,8 @@
-/* ub.css - Styles for Unblock Assistant Feature */
+/* ub.css - Styles for Unblock Assistant Feature - NO SHADOWS */
+*, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
 
 /* Overlay for the background */
 #unblockAssistantOverlay {

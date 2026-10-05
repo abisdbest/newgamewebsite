@@ -36,58 +36,51 @@ const BAYER_8X8 = [
 function generateRetroDitherTextures() {
     try {
         if (typeof document === 'undefined') return;
-        // 1. Dither Seam between cards (16px wide x 32px high, repeating vertically)
-        // Darkened pixels nearer the center of the dither seam
+        // 1. Dither Seam between cards (24px wide x 24px high with 3px retro pixel blocks)
+        // Darkened in the center of the overlap where the two adjacent game images meet
         const seamCanvas = document.createElement('canvas');
-        seamCanvas.width = 16;
-        seamCanvas.height = 32;
+        seamCanvas.width = 24;
+        seamCanvas.height = 24;
         const seamCtx = seamCanvas.getContext('2d');
-        const seamImgData = seamCtx.createImageData(16, 32);
+        seamCtx.imageSmoothingEnabled = false;
 
-        for (let y = 0; y < 32; y++) {
-            for (let x = 0; x < 16; x++) {
-                const b = BAYER_8X8[y % 8][x % 8] / 64.0;
-                const dist = Math.abs(x - 7.5) / 8.0;
-                const density = Math.pow(Math.max(0, 1.0 - dist), 1.35) * 0.95;
-                const idx = (y * 16 + x) * 4;
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const b = BAYER_8X8[row][col] / 64.0;
+                // Distance from seam center (col 3.5 is exact center between two images)
+                const dist = Math.abs(col - 3.5) / 4.0;
+                // Density peaks at 96% in the center and tapers off towards both edges
+                const density = Math.pow(Math.max(0, 1.0 - dist), 1.25) * 0.96;
                 if (density > b) {
-                    seamImgData.data[idx] = 16;
-                    seamImgData.data[idx + 1] = 16;
-                    seamImgData.data[idx + 2] = 18;
-                    seamImgData.data[idx + 3] = Math.round(255 * (0.55 + 0.45 * (1.0 - dist)));
-                } else {
-                    seamImgData.data[idx + 3] = 0;
+                    // Darkened in the center
+                    const alpha = Math.min(1.0, 0.70 + 0.30 * (1.0 - dist));
+                    seamCtx.fillStyle = `rgba(14, 14, 18, ${alpha})`;
+                    seamCtx.fillRect(col * 3, row * 3, 3, 3);
                 }
             }
         }
-        seamCtx.putImageData(seamImgData, 0, 0);
         const seamDataUrl = seamCanvas.toDataURL('image/png');
 
-        // 2. Card Bottom Text Scrim (32px wide x 64px high, repeating horizontally)
-        // Dithers from transparent at top to solid carbon dark at bottom
+        // 2. Card Bottom Text Scrim (24px wide x 48px high with 3px retro pixel blocks)
+        // Dithers from transparent at top to darkened base at bottom
         const scrimCanvas = document.createElement('canvas');
-        scrimCanvas.width = 32;
-        scrimCanvas.height = 64;
+        scrimCanvas.width = 24;
+        scrimCanvas.height = 48;
         const scrimCtx = scrimCanvas.getContext('2d');
-        const scrimImgData = scrimCtx.createImageData(32, 64);
+        scrimCtx.imageSmoothingEnabled = false;
 
-        for (let y = 0; y < 64; y++) {
-            const progress = Math.max(0, (y - 10) / 54.0);
+        for (let row = 0; row < 16; row++) {
+            const progress = Math.max(0, (row - 3) / 12.0);
             const ramp = Math.pow(progress, 1.35);
-            for (let x = 0; x < 32; x++) {
-                const b = BAYER_8X8[y % 8][x % 8] / 64.0;
-                const idx = (y * 32 + x) * 4;
+            for (let col = 0; col < 8; col++) {
+                const b = BAYER_8X8[row % 8][col] / 64.0;
                 if (ramp > b) {
-                    scrimImgData.data[idx] = 16;
-                    scrimImgData.data[idx + 1] = 16;
-                    scrimImgData.data[idx + 2] = 18;
-                    scrimImgData.data[idx + 3] = Math.round(255 * Math.min(1.0, 0.45 + 0.55 * progress));
-                } else {
-                    scrimImgData.data[idx + 3] = 0;
+                    const alpha = Math.min(1.0, 0.50 + 0.50 * progress);
+                    scrimCtx.fillStyle = `rgba(14, 14, 18, ${alpha})`;
+                    scrimCtx.fillRect(col * 3, row * 3, 3, 3);
                 }
             }
         }
-        scrimCtx.putImageData(scrimImgData, 0, 0);
         const scrimDataUrl = scrimCanvas.toDataURL('image/png');
 
         document.documentElement.style.setProperty('--dither-seam-url', `url("${seamDataUrl}")`);
