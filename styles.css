@@ -551,6 +551,69 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* Sidebar Wireframe Bottom Status Card */
+.cg-sidebar-bottom-wrap {
+  margin-top: auto;
+  padding: 8px 6px 14px 6px;
+}
+
+.cg-shield-card-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.cg-shield-card-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.shield-indicator-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  margin: 0 auto;
+}
+
+.shield-text-wrap {
+  display: none;
+  flex-direction: column;
+  line-height: 1.15;
+  text-align: left;
+}
+
+body.sidebar-expanded .shield-text-wrap,
+.cg-sidebar.expanded .shield-text-wrap {
+  display: flex;
+}
+
+body.sidebar-expanded .shield-indicator-dot,
+.cg-sidebar.expanded .shield-indicator-dot {
+  margin: 0;
+}
+
+.shield-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.shield-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
 /* =================================================================
  * MAIN CONTENT CANVAS (GRID-ALIGNED WITH HEADER & SIDEBAR)
  * ================================================================= */
@@ -582,6 +645,38 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   border: 1px solid var(--border-subtle);
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.75);
   background-color: #16161a;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-card:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(249, 115, 22, 0.2);
+}
+
+/* Wireframe Top-Right No1 Badge */
+.hero-no1-badge {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  z-index: 5;
+  background: rgba(18, 18, 22, 0.9);
+  border: 2px solid var(--accent-color, #f97316);
+  border-radius: 10px;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hero-no1-badge span {
+  font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
 .hero-bg-art {

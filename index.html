@@ -108,14 +108,14 @@
       </div>
 
       <div class="cg-header-right">
-        <button class="cg-icon-btn" title="2 Player Games" onclick="window.location.hash='#category-2-player'">
-          <i class="fas fa-user-group"></i>
+        <button id="header-random-btn" class="cg-icon-btn" title="Random Game" onclick="window.blooketGames ? window.blooketGames.playRandomGame() : null">
+          <i class="fas fa-dice"></i>
         </button>
         <button class="cg-icon-btn" title="My Favorites" onclick="window.location.hash='#favorites-carousel'">
           <i class="fas fa-bookmark"></i>
         </button>
         <div class="cg-bell-wrapper">
-          <button class="cg-icon-btn" title="Notifications & Updates">
+          <button class="cg-icon-btn" title="Notifications & Updates" onclick="openSettingsModal()">
             <i class="fas fa-bell"></i>
           </button>
           <span class="cg-badge-dot">1</span>
@@ -130,63 +130,35 @@
     <!-- Overlay Backdrop for Expandable Sidebar -->
     <div id="sidebar-backdrop" class="cg-sidebar-backdrop"></div>
 
-    <!-- Expandable Left Sidebar (Perfect Mirror of CrazyGames: 58px Collapsed -> 232px Expanded) -->
+    <!-- Left Sidebar (Wireframe Grouping: Top Site Stuff, 7 Categories + "...", Bottom Shield Card) -->
     <aside id="cg-sidebar" class="cg-sidebar" aria-label="Main Navigation">
       <div class="cg-nav-list">
-        <!-- Top Quick Navigation -->
+        <!-- Top Section: Site Actual Stuff (Home, Trending, Community Chat) -->
         <a href="#featured-section" class="cg-nav-item active" data-tooltip="Home">
           <span class="cg-nav-icon"><i class="fas fa-house"></i></span>
           <span class="cg-nav-label">Home</span>
-        </a>
-        <a href="#recent-games" class="cg-nav-item" data-tooltip="Recently Played">
-          <span class="cg-nav-icon"><i class="fas fa-clock"></i></span>
-          <span class="cg-nav-label">Recently Played</span>
-        </a>
-        <a href="#category-new" class="cg-nav-item" data-tooltip="New Games">
-          <span class="cg-nav-icon"><i class="fas fa-rotate"></i></span>
-          <span class="cg-nav-label">New Games</span>
         </a>
         <a href="#category-popular" class="cg-nav-item" data-tooltip="Trending">
           <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
           <span class="cg-nav-label">Trending</span>
         </a>
-        <a href="#category-updated" class="cg-nav-item" data-tooltip="Updated">
-          <span class="cg-nav-icon"><i class="fas fa-bolt"></i></span>
-          <span class="cg-nav-label">Updated</span>
+        <a href="chat/" class="cg-nav-item" data-tooltip="Community Chat">
+          <span class="cg-nav-icon"><i class="fas fa-comments"></i></span>
+          <span class="cg-nav-label">Community Chat</span>
         </a>
 
         <div class="cg-nav-divider"></div>
 
-        <!-- Social & Multiplayer -->
-        <a href="#category-2-player" class="cg-nav-item" data-tooltip="2 Player">
-          <span class="cg-nav-icon"><i class="fas fa-user-group"></i></span>
-          <span class="cg-nav-label">2 Player</span>
-        </a>
-        <a href="#category-top" class="cg-nav-item" data-tooltip="Top Rated">
-          <span class="cg-nav-icon"><i class="fas fa-trophy"></i></span>
-          <span class="cg-nav-label">Top Rated</span>
-        </a>
-
-        <div class="cg-nav-divider"></div>
-
-        <!-- Game Categories -->
+        <!-- Middle Section: 7 Core Categories + "..." Button -->
         <a href="#category-action" class="cg-nav-item" data-tooltip="Action">
-          <span class="cg-nav-icon"><i class="fas fa-bolt-lightning"></i></span>
+          <span class="cg-nav-icon"><i class="fas fa-bolt"></i></span>
           <span class="cg-nav-label">Action</span>
         </a>
-        <a href="#category-adventure" class="cg-nav-item" data-tooltip="Adventure">
-          <span class="cg-nav-icon"><i class="fas fa-compass"></i></span>
-          <span class="cg-nav-label">Adventure</span>
-        </a>
-        <a href="#category-arcade" class="cg-nav-item" data-tooltip="Arcade">
-          <span class="cg-nav-icon"><i class="fas fa-gamepad"></i></span>
-          <span class="cg-nav-label">Arcade</span>
-        </a>
-        <a href="#category-driving" class="cg-nav-item" data-tooltip="Driving &amp; Car">
+        <a href="#category-driving" class="cg-nav-item" data-tooltip="Driving &amp; Cars">
           <span class="cg-nav-icon"><i class="fas fa-car"></i></span>
           <span class="cg-nav-label">Driving</span>
         </a>
-        <a href="#category-puzzle" class="cg-nav-item" data-tooltip="Puzzle">
+        <a href="#category-puzzle" class="cg-nav-item" data-tooltip="Puzzle &amp; Logic">
           <span class="cg-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
           <span class="cg-nav-label">Puzzle</span>
         </a>
@@ -198,46 +170,46 @@
           <span class="cg-nav-icon"><i class="fas fa-futbol"></i></span>
           <span class="cg-nav-label">Sports</span>
         </a>
-        <a href="#category-strategy" class="cg-nav-item" data-tooltip="Strategy &amp; Chess">
-          <span class="cg-nav-icon"><i class="fas fa-chess"></i></span>
-          <span class="cg-nav-label">Strategy</span>
+        <a href="#category-2-player" class="cg-nav-item" data-tooltip="2 Player">
+          <span class="cg-nav-icon"><i class="fas fa-user-group"></i></span>
+          <span class="cg-nav-label">2 Player</span>
         </a>
-        <a href="#category-clicker" class="cg-nav-item" data-tooltip="Clicker &amp; Idle">
-          <span class="cg-nav-icon"><i class="fas fa-hand-pointer"></i></span>
-          <span class="cg-nav-label">Clicker</span>
+        <a href="#category-retro" class="cg-nav-item" data-tooltip="Retro &amp; Arcade">
+          <span class="cg-nav-icon"><i class="fas fa-gamepad"></i></span>
+          <span class="cg-nav-label">Retro</span>
         </a>
-        <a href="#category-tools" class="cg-nav-item" data-tooltip="Tools &amp; Utilities">
-          <span class="cg-nav-icon"><i class="fas fa-wrench"></i></span>
-          <span class="cg-nav-label">Tools</span>
-        </a>
+
+        <!-- "..." (Ellipsis) Button to see all categories / toggle drawer -->
+        <button id="sidebar-dots-btn" class="cg-nav-item" data-tooltip="All Categories" onclick="document.body.classList.toggle('sidebar-expanded'); document.getElementById('cg-sidebar').classList.toggle('expanded');">
+          <span class="cg-nav-icon"><i class="fas fa-ellipsis"></i></span>
+          <span class="cg-nav-label">All Categories</span>
+        </button>
 
         <div class="cg-nav-divider"></div>
 
-        <!-- School & Platform Tools -->
-        <button class="cg-nav-item" onclick="openSettingsModal('cloak')" data-tooltip="Tab Cloaking">
-          <span class="cg-nav-icon"><i class="fas fa-mask"></i></span>
-          <span class="cg-nav-label">Tab Cloaking</span>
-        </button>
-        <button class="cg-nav-item" onclick="startUnblockAssistant()" data-tooltip="Unblock Shield">
-          <span class="cg-nav-icon"><i class="fas fa-shield-halved"></i></span>
-          <span class="cg-nav-label">Unblock Assistant</span>
-        </button>
-        <a href="chat/" class="cg-nav-item" data-tooltip="Community Chat">
-          <span class="cg-nav-icon"><i class="fas fa-comments"></i></span>
-          <span class="cg-nav-label">Community Chat</span>
-        </a>
-        <button class="cg-nav-item" onclick="openSettingsModal()" data-tooltip="Preferences">
-          <span class="cg-nav-icon"><i class="fas fa-sliders-h"></i></span>
-          <span class="cg-nav-label">Preferences</span>
-        </button>
+        <!-- Wireframe Bottom Status Card -->
+        <div class="cg-sidebar-bottom-wrap">
+          <button class="cg-shield-card-btn" onclick="startUnblockAssistant()" title="Chromebook Shield Active">
+            <div class="shield-indicator-dot"></div>
+            <div class="shield-text-wrap">
+              <span class="shield-title">Shield Active</span>
+              <span class="shield-sub">Unblock Ready</span>
+            </div>
+          </button>
+        </div>
       </div>
     </aside>
 
     <!-- Main Content Canvas (Aligned with Header & Sidebar) -->
     <main class="cg-main-canvas" id="main-content">
-          <!-- Featured Hero Showcase (Cinematic Game Banner) -->
+          <!-- Featured Hero Showcase (Cinematic Game Banner with Wireframe No1 Badge) -->
           <section class="hero-showcase" id="featured-section">
-            <div class="hero-card">
+            <div class="hero-card" onclick="window.location.href='play/retro bowl/'">
+              <!-- Wireframe Top-Right No1 Badge -->
+              <div class="hero-no1-badge" title="Ranked #1 on Blooket1">
+                <span>No1</span>
+              </div>
+
               <div class="hero-bg-art" style="background-image: url('images/retrobowl.webp');"></div>
               <div class="hero-scrim"></div>
               <div class="hero-content">
@@ -254,7 +226,7 @@
                   <span class="hero-pill"><i class="fas fa-bolt"></i> Instant WebGL</span>
                   <span class="hero-pill"><i class="fas fa-users"></i> 12,800+ Players</span>
                 </div>
-                <div class="hero-actions">
+                <div class="hero-actions" onclick="event.stopPropagation()">
                   <a href="play/retro bowl/" class="hero-play-btn">
                     <i class="fas fa-play"></i> Play Now
                   </a>

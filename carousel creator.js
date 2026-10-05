@@ -19,6 +19,91 @@ const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`;
 const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
 const NEW_GAMES_COUNT = 12;
 
+// =================================================================
+// AUTHENTIC 8X8 RETRO BAYER DITHERING ENGINE
+// =================================================================
+const BAYER_8X8 = [
+    [ 0, 32,  8, 40,  2, 34, 10, 42],
+    [48, 16, 56, 24, 50, 18, 58, 26],
+    [12, 44,  4, 36, 14, 46,  6, 38],
+    [60, 28, 52, 20, 62, 30, 54, 22],
+    [ 3, 35, 11, 43,  1, 33,  9, 41],
+    [51, 19, 59, 27, 49, 17, 57, 25],
+    [15, 47,  7, 39, 13, 45,  5, 37],
+    [63, 31, 55, 23, 61, 29, 53, 21]
+];
+
+function generateRetroDitherTextures() {
+    try {
+        if (typeof document === 'undefined') return;
+        // 1. Dither Seam between cards (16px wide x 32px high, repeating vertically)
+        // Darkened pixels nearer the center of the dither seam
+        const seamCanvas = document.createElement('canvas');
+        seamCanvas.width = 16;
+        seamCanvas.height = 32;
+        const seamCtx = seamCanvas.getContext('2d');
+        const seamImgData = seamCtx.createImageData(16, 32);
+
+        for (let y = 0; y < 32; y++) {
+            for (let x = 0; x < 16; x++) {
+                const b = BAYER_8X8[y % 8][x % 8] / 64.0;
+                const dist = Math.abs(x - 7.5) / 8.0;
+                const density = Math.pow(Math.max(0, 1.0 - dist), 1.35) * 0.95;
+                const idx = (y * 16 + x) * 4;
+                if (density > b) {
+                    seamImgData.data[idx] = 16;
+                    seamImgData.data[idx + 1] = 16;
+                    seamImgData.data[idx + 2] = 18;
+                    seamImgData.data[idx + 3] = Math.round(255 * (0.55 + 0.45 * (1.0 - dist)));
+                } else {
+                    seamImgData.data[idx + 3] = 0;
+                }
+            }
+        }
+        seamCtx.putImageData(seamImgData, 0, 0);
+        const seamDataUrl = seamCanvas.toDataURL('image/png');
+
+        // 2. Card Bottom Text Scrim (32px wide x 64px high, repeating horizontally)
+        // Dithers from transparent at top to solid carbon dark at bottom
+        const scrimCanvas = document.createElement('canvas');
+        scrimCanvas.width = 32;
+        scrimCanvas.height = 64;
+        const scrimCtx = scrimCanvas.getContext('2d');
+        const scrimImgData = scrimCtx.createImageData(32, 64);
+
+        for (let y = 0; y < 64; y++) {
+            const progress = Math.max(0, (y - 10) / 54.0);
+            const ramp = Math.pow(progress, 1.35);
+            for (let x = 0; x < 32; x++) {
+                const b = BAYER_8X8[y % 8][x % 8] / 64.0;
+                const idx = (y * 32 + x) * 4;
+                if (ramp > b) {
+                    scrimImgData.data[idx] = 16;
+                    scrimImgData.data[idx + 1] = 16;
+                    scrimImgData.data[idx + 2] = 18;
+                    scrimImgData.data[idx + 3] = Math.round(255 * Math.min(1.0, 0.45 + 0.55 * progress));
+                } else {
+                    scrimImgData.data[idx + 3] = 0;
+                }
+            }
+        }
+        scrimCtx.putImageData(scrimImgData, 0, 0);
+        const scrimDataUrl = scrimCanvas.toDataURL('image/png');
+
+        document.documentElement.style.setProperty('--dither-seam-url', `url("${seamDataUrl}")`);
+        document.documentElement.style.setProperty('--dither-scrim-url', `url("${scrimDataUrl}")`);
+    } catch (err) {
+        console.warn('Dither texture generation failed, using CSS fallback', err);
+    }
+}
+if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', generateRetroDitherTextures);
+    } else {
+        generateRetroDitherTextures();
+    }
+}
+
 // Realistic, attractive fallback play counts (last 30 days)
 const FALLBACK_POPULARITY = {
     'slope': 14250,
@@ -130,15 +215,27 @@ function toTitleCase(str) {
     return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
 
+const CATEGORY_SUBTITLES = {
+    'Popular Games': 'The most played games right now on Blooket1',
+    'New Releases': 'Freshly added titles ready to play instantly',
+    'Favorites': 'Your personally saved game collection',
+    'Action Games': 'High-octane combat, reflex, and physics challenges',
+    'Driving & Racing': 'Speed down highways, stunt tracks, and obstacle courses',
+    'Puzzle & Logic': 'Challenging brainteasers, physics puzzles, and tests',
+    'Retro & Arcade': 'Timeless 8-bit, 16-bit, and browser arcade classics',
+    'Clicker & Idle': 'Addictive incremental, simulation, and idle games',
+    'Tools & Utilities': 'Calculators, proxies, code editors, and school utilities'
+};
+
 /**
- * Creates a single game item with thumbnail, indicators, badges and favorite button.
+ * Creates a single game item (Full image coverage + 8x8 retro dither + text on top)
  */
 function createGameItem(game, container, options = {}) {
     const gameItemWrapper = document.createElement('div');
     gameItemWrapper.classList.add('game-item');
     gameItemWrapper.dataset.gameName = game.name;
 
-    // Dedicated Thumbnail Wrapper
+    // Dedicated Full-Bleed Thumbnail Wrapper
     const thumbWrap = document.createElement('div');
     thumbWrap.classList.add('game-thumb-wrap');
 
@@ -148,7 +245,12 @@ function createGameItem(game, container, options = {}) {
     gameImage.loading = 'lazy';
     thumbWrap.appendChild(gameImage);
 
-    // Subtle Micro-Badge (Only if genuinely new or top trending hot)
+    // Authentic 8x8 Retro Dither Scrim (Blends image into darkened base)
+    const ditherScrim = document.createElement('div');
+    ditherScrim.classList.add('game-dither-scrim');
+    thumbWrap.appendChild(ditherScrim);
+
+    // Subtle Micro-Badge (NEW / HOT)
     const isRetroBowl = game.name && game.name.toLowerCase().includes('retro bowl');
     if (!options.hideNewBadge && !isRetroBowl && game.details && game.details['date added']) {
         const dateAdded = new Date(game.details['date added']);
@@ -188,9 +290,9 @@ function createGameItem(game, container, options = {}) {
     });
     thumbWrap.appendChild(favoriteButton);
 
-    // Clean Card Info Area (100% WCAG AAA Legibility)
-    const cardInfo = document.createElement('div');
-    cardInfo.classList.add('game-card-info');
+    // Text Overlay ON TOP of the image (as drawn in wireframe & requested by user)
+    const cardOverlay = document.createElement('div');
+    cardOverlay.classList.add('game-card-overlay');
 
     const gameName = document.createElement('span');
     gameName.classList.add('game-name');
@@ -199,13 +301,15 @@ function createGameItem(game, container, options = {}) {
     } else {
         gameName.textContent = toTitleCase(game.name);
     }
-    cardInfo.appendChild(gameName);
+    cardOverlay.appendChild(gameName);
 
     const gameMeta = document.createElement('span');
     gameMeta.classList.add('game-submeta');
     const primaryCategory = (game.details?.["game categories"]?.[0]) || 'Arcade';
     gameMeta.textContent = primaryCategory;
-    cardInfo.appendChild(gameMeta);
+    cardOverlay.appendChild(gameMeta);
+
+    thumbWrap.appendChild(cardOverlay);
 
     const gameLink = document.createElement('a');
     gameLink.href = game.link;
@@ -214,7 +318,6 @@ function createGameItem(game, container, options = {}) {
     gameLink.addEventListener('click', () => trackGameClick(game.name));
 
     gameItemWrapper.appendChild(thumbWrap);
-    gameItemWrapper.appendChild(cardInfo);
     gameItemWrapper.appendChild(gameLink);
 
     container.appendChild(gameItemWrapper);
@@ -222,7 +325,7 @@ function createGameItem(game, container, options = {}) {
 }
 
 /**
- * Creates a carousel section for a game category
+ * Creates a carousel section for a game category (matching wireframe title + subtitle bar)
  */
 function createCarouselSection(title, games, container, options = {}) {
     if (!games || games.length === 0) return;
@@ -236,8 +339,19 @@ function createCarouselSection(title, games, container, options = {}) {
         section.dataset.categorySlug = options.categorySlug;
     }
 
+    // Category Header Group (Title + Subtitle Bar matching wireframe)
+    const headerWrap = document.createElement('div');
+    headerWrap.classList.add('category-header-wrap');
+
     const header = document.createElement('h2');
+    header.classList.add('category-title');
     header.textContent = title;
+
+    const sub = document.createElement('p');
+    sub.classList.add('category-subtitle');
+    sub.textContent = CATEGORY_SUBTITLES[title] || options.subtitle || 'Explore verified games in this category';
+
+    headerWrap.append(header, sub);
     
     const carouselContainer = document.createElement('div');
     carouselContainer.classList.add('game-carousel-container');
@@ -258,7 +372,7 @@ function createCarouselSection(title, games, container, options = {}) {
     games.forEach(game => createGameItem(game, carousel, options));
     
     carouselContainer.append(leftArrow, carousel, rightArrow);
-    section.append(header, carouselContainer);
+    section.append(headerWrap, carouselContainer);
     
     if (options.prepend) {
         container.prepend(section);
