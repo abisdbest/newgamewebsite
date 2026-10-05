@@ -69,8 +69,8 @@
 
 .game-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--accent-color, #6366f1);
-  border-color: var(--accent-color, #6366f1);
+  box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--accent-color, #f97316);
+  border-color: var(--accent-color, #f97316);
 }
 
 .game-thumb-wrap {
@@ -78,7 +78,7 @@
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #090c14;
+  background: #141417;
 }
 
 .game-thumb-wrap img {
@@ -270,8 +270,8 @@
 }
 
 .carousel-arrow:hover {
-  background: rgba(30, 41, 59, 0.95);
-  border-color: var(--accent-color, #6366f1);
+  background: #24242c;
+  border-color: var(--accent-color, #f97316);
   color: #ffffff;
   transform: scale(1.1);
 }
@@ -286,12 +286,12 @@
 
 /* Search Highlighting */
 mark.search-highlight {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(249, 115, 22, 0.3);
   color: #ffffff;
   font-weight: 700;
   padding: 0 2px;
   border-radius: 3px;
-  border-bottom: 2px solid var(--accent-color, #6366f1);
+  border-bottom: 2px solid var(--accent-color, #f97316);
 }
 
 /* Responsive Breakpoints */

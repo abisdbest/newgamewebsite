@@ -1,27 +1,28 @@
 /* =================================================================
- * BLOOKET1 - ENTERPRISE MODERN GAMING PLATFORM DESIGN SYSTEM
- * Multibillion-Dollar Clean Aesthetics (Steam / Poki / Linear grade)
+ * BLOOKET1 - AUTHENTIC BRAND DESIGN SYSTEM
+ * Orange, Black & Grey Shades matching the classic Blooket Logo
  * ================================================================= */
 
 :root {
-  /* Surface Tokens */
-  --bg-base: #07090e;
-  --bg-surface: #0e121c;
-  --bg-sidebar: #0a0d15;
-  --bg-card: #131826;
-  --bg-card-hover: #1b2134;
-  --bg-glass: rgba(10, 13, 21, 0.85);
+  /* Surface Tokens - Deep Carbon Blacks & Clean Neutral Charcoal Greys */
+  --bg-base: #101012;
+  --bg-surface: #17171a;
+  --bg-sidebar: #131316;
+  --bg-card: #1b1b20;
+  --bg-card-hover: #24242c;
+  --bg-glass: rgba(16, 16, 18, 0.9);
 
   /* Typography Colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 
-  /* Accent & Brand Colors */
-  --accent-color: #6366f1; /* Electric Indigo */
-  --accent-hover: #4f46e5;
-  --accent-glow: rgba(99, 102, 241, 0.35);
-  --accent-soft: rgba(99, 102, 241, 0.12);
+  /* Accent & Brand Colors - Blooket Signature Warm Orange */
+  --accent-color: #f97316; /* Blooket Warm Orange */
+  --accent-hover: #ea580c;
+  --accent-glow: rgba(249, 115, 22, 0.35);
+  --accent-soft: rgba(249, 115, 22, 0.14);
+  --accent-gold: #f59e0b;
 
   /* Border Tokens */
   --border-subtle: rgba(255, 255, 255, 0.08);
@@ -31,11 +32,10 @@
   --header-height: 56px;
   --sidebar-collapsed-width: 58px;
   --sidebar-expanded-width: 232px;
-  --bg-cg-header: #121324;
-  --bg-cg-sidebar: #121324;
-  --bg-cg-search: #1b1c31;
-  --bg-cg-search-hover: #22243d;
-  --accent-gold: #ffcc00;
+  --bg-cg-header: #131316;
+  --bg-cg-sidebar: #131316;
+  --bg-cg-search: #1c1c22;
+  --bg-cg-search-hover: #25252e;
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -172,7 +172,7 @@ img {
   justify-content: center;
   background: transparent;
   border: none;
-  color: #a5b4fc;
+  color: var(--text-secondary);
   font-size: 18px;
   cursor: pointer;
   transition: all 0.18s ease;
@@ -256,7 +256,7 @@ img {
 }
 
 .cg-search-bar:focus-within {
-  background: #232542;
+  background: #23232c;
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
@@ -465,7 +465,7 @@ body.sidebar-expanded .cg-sidebar,
 
 .cg-nav-item.active {
   color: #ffffff;
-  background: rgba(99, 102, 241, 0.15);
+  background: var(--accent-soft);
   font-weight: 600;
 }
 
@@ -477,7 +477,7 @@ body.sidebar-expanded .cg-sidebar,
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: #a5b4fc;
+  color: var(--text-secondary);
   transition: color 0.15s ease;
 }
 
@@ -533,7 +533,7 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   position: fixed;
   left: calc(var(--sidebar-collapsed-width) + 10px);
   padding: 6px 12px;
-  background: #1e2036;
+  background: #1e1e24;
   color: #ffffff;
   font-size: 12px;
   font-weight: 500;
@@ -580,8 +580,8 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   align-items: center;
   padding: 44px 48px;
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.65);
-  background-color: #0b0e17;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.75);
+  background-color: #16161a;
 }
 
 .hero-bg-art {
@@ -603,7 +603,7 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #07090e 0%, #07090e 45%, rgba(7, 9, 14, 0.75) 70%, transparent 100%);
+  background: linear-gradient(90deg, var(--bg-base) 0%, var(--bg-base) 45%, rgba(16, 16, 18, 0.75) 70%, transparent 100%);
   pointer-events: none;
 }
 
@@ -628,7 +628,7 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   text-transform: uppercase;
   color: var(--accent-color);
   background: var(--accent-soft);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(249, 115, 22, 0.3);
   width: fit-content;
   margin-bottom: 14px;
 }
@@ -687,14 +687,14 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   font-size: 14.5px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 14px var(--accent-glow);
   transition: all 0.2s ease;
 }
 
 .hero-play-btn:hover {
   background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.45);
 }
 
 .hero-fav-btn {
@@ -725,7 +725,7 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
   position: sticky;
   top: var(--header-height);
   z-index: 800;
-  background: rgba(7, 9, 14, 0.94);
+  background: rgba(16, 16, 18, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 10px 0 16px 0;
@@ -767,11 +767,11 @@ body:not(.sidebar-expanded) .cg-nav-item[data-tooltip]:hover::after {
 }
 
 .category-pill.active {
-  background: rgba(99, 102, 241, 0.16);
-  color: #c7d2fe;
+  background: var(--accent-soft);
+  color: #ffedd5;
   font-weight: 600;
-  border-color: rgba(99, 102, 241, 0.45);
-  box-shadow: 0 0 14px rgba(99, 102, 241, 0.2);
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 14px rgba(249, 115, 22, 0.25);
 }
 
 /* =================================================================
