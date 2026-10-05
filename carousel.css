@@ -81,10 +81,10 @@
   line-height: 1.25;
 }
 
-/* --- 6-Across Game Cards with Bayer 8x8 Dither Edge Blending --- */
+/* --- 6-Across Game Cards with Organic Stochastic Retro Dither Edge Blending --- */
 .game-item {
-  flex: 0 0 calc((100% + 5 * 24px) / 6);
-  width: calc((100% + 5 * 24px) / 6);
+  flex: 0 0 calc((100% + 5 * 30px) / 6);
+  width: calc((100% + 5 * 30px) / 6);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -95,22 +95,22 @@
   scroll-snap-align: start;
   cursor: pointer;
   overflow: visible;
-  transition: filter 0.18s ease;
+  transition: none; /* Container dimensions never resize */
 }
 
 .game-item:not(:first-child) {
-  margin-left: -24px;
+  margin-left: -30px;
 }
 
-/* Dithered blend of the overlapping edges of adjacent game images */
+/* Organic non-repeating stochastic dithered blend of adjacent game images */
 .game-item:not(:first-child) .game-thumb-wrap {
   -webkit-mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
-  -webkit-mask-position: 0 0, 24px 0;
-  -webkit-mask-size: 24px 24px, calc(100% - 24px) 100%;
+  -webkit-mask-position: 0 0, 30px 0;
+  -webkit-mask-size: 30px 240px, calc(100% - 30px) 100%;
   -webkit-mask-repeat: repeat-y, no-repeat;
   mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
-  mask-position: 0 0, 24px 0;
-  mask-size: 24px 24px, calc(100% - 24px) 100%;
+  mask-position: 0 0, 30px 0;
+  mask-size: 30px 240px, calc(100% - 30px) 100%;
   mask-repeat: repeat-y, no-repeat;
 }
 
@@ -120,8 +120,8 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 24px;
-  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.5) 50%, transparent 100%);
+  width: 30px;
+  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.45) 50%, transparent 100%);
   pointer-events: none;
   z-index: 5;
 }
@@ -130,9 +130,9 @@
   display: none;
 }
 
+/* Card container size and stacking order stay rock-solid on hover */
 .game-item:hover {
-  filter: brightness(1.08);
-  z-index: 99 !important;
+  /* Natural incremental stacking order preserved so dither seams are never broken */
 }
 
 .game-thumb-wrap {
@@ -149,12 +149,13 @@
   height: 100%;
   object-fit: cover;
   border-radius: 0;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
 }
 
+/* Image zooms in slightly on hover without changing card size or disrupting the dither */
 .game-item:hover .game-thumb-wrap img {
-  transform: scale(1.06);
-  filter: brightness(0.92);
+  transform: scale(1.08);
+  filter: brightness(1.08);
 }
 
 /* Smooth Dark Fade from the bottom (no dither, pure gradient fade) */
@@ -176,11 +177,19 @@
   right: 0;
   bottom: 0;
   padding: 8px 10px 10px 10px;
-  z-index: 3;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   gap: 2px;
   pointer-events: none;
+}
+
+.game-item:not(:first-child) .game-card-overlay {
+  padding-left: 34px;
+}
+
+.game-item:first-child .game-card-overlay {
+  padding-left: 12px;
 }
 
 .game-name {

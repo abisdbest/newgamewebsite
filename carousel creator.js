@@ -20,41 +20,47 @@ const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
 const NEW_GAMES_COUNT = 12;
 
 // =================================================================
-// AUTHENTIC 8X8 RETRO BAYER DITHERING ENGINE
+// AUTHENTIC RETRO STOCHASTIC BLUE-NOISE DITHERING ENGINE
 // =================================================================
-const BAYER_8X8 = [
-    [ 0, 32,  8, 40,  2, 34, 10, 42],
-    [48, 16, 56, 24, 50, 18, 58, 26],
-    [12, 44,  4, 36, 14, 46,  6, 38],
-    [60, 28, 52, 20, 62, 30, 54, 22],
-    [ 3, 35, 11, 43,  1, 33,  9, 41],
-    [51, 19, 59, 27, 49, 17, 57, 25],
-    [15, 47,  7, 39, 13, 45,  5, 37],
-    [63, 31, 55, 23, 61, 29, 53, 21]
-];
-
 function generateRetroDitherTextures() {
     try {
         if (typeof document === 'undefined') return;
-        // 1. Bayer 8x8 Dither Mask Ramp for blending the overlapping edges of adjacent images
-        // Ramped horizontally across the 24px overlap strip (8 cols x 3px), infinitely repeating vertically
-        const rampCanvas = document.createElement('canvas');
-        rampCanvas.width = 24;
-        rampCanvas.height = 24;
-        const rampCtx = rampCanvas.getContext('2d');
-        rampCtx.imageSmoothingEnabled = false;
+        // Non-repeating vertical stochastic stipple mask (30px width x 240px height)
+        // 10 columns x 80 rows of chunky 3px retro pixel blocks
+        // Uses smoothstep probability distribution for seamless organic edge blending
+        const seamWidth = 30;
+        const canvasHeight = 240;
+        const pixelSize = 3;
+        const cols = Math.floor(seamWidth / pixelSize); // 10 columns
+        const rows = Math.floor(canvasHeight / pixelSize); // 80 rows
 
-        for (let row = 0; row < 8; row++) {
-            for (let col = 0; col < 8; col++) {
-                const threshold = (col + 0.5) / 8.0;
-                const b = BAYER_8X8[row][col] / 64.0;
-                if (threshold > b) {
-                    rampCtx.fillStyle = '#ffffff';
-                    rampCtx.fillRect(col * 3, row * 3, 3, 3);
+        const canvas = document.createElement('canvas');
+        canvas.width = cols * pixelSize;
+        canvas.height = rows * pixelSize;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        // Seeded high-quality PRNG for stable, beautifully dispersed stipple texture
+        let seed = 424242;
+        function prng() {
+            seed = (seed * 1664525 + 1013904223) % 4294967296;
+            return seed / 4294967296;
+        }
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const x = (c + 0.5) / cols;
+                // Smoothstep S-curve for gentle, natural organic falloff at edges
+                const threshold = x * x * (3 - 2 * x);
+                const rand = prng();
+                if (threshold > rand) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
                 }
             }
         }
-        const rampDataUrl = rampCanvas.toDataURL('image/png');
+
+        const rampDataUrl = canvas.toDataURL('image/png');
         document.documentElement.style.setProperty('--dither-ramp-url', `url("${rampDataUrl}")`);
     } catch (err) {
         console.warn('Dither texture generation failed, using CSS fallback', err);
