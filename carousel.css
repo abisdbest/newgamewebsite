@@ -102,32 +102,21 @@
   margin-left: -30px;
 }
 
-/* Organic non-repeating stochastic dithered blend of adjacent game images */
+/* 100% Procedural stochastic dithered blend of adjacent game images */
 .game-item:not(:first-child) .game-thumb-wrap {
-  -webkit-mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
+  -webkit-mask-image: var(--card-dither-mask, var(--dither-ramp-url)), linear-gradient(#fff, #fff);
   -webkit-mask-position: 0 0, 30px 0;
   -webkit-mask-size: 30px 240px, calc(100% - 30px) 100%;
   -webkit-mask-repeat: repeat-y, no-repeat;
-  mask-image: var(--dither-ramp-url), linear-gradient(#fff, #fff);
+  mask-image: var(--card-dither-mask, var(--dither-ramp-url)), linear-gradient(#fff, #fff);
   mask-position: 0 0, 30px 0;
   mask-size: 30px 240px, calc(100% - 30px) 100%;
   mask-repeat: repeat-y, no-repeat;
 }
 
-/* Overlap seam subtle darkening in the middle of the blend */
+/* Overlap seam darkening removed per user request (pure image-to-image dither blend) */
 .game-seam-darken {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 30px;
-  background: linear-gradient(to right, transparent 0%, rgba(14, 14, 18, 0.45) 50%, transparent 100%);
-  pointer-events: none;
-  z-index: 5;
-}
-
-.game-item:first-child .game-seam-darken {
-  display: none;
+  display: none !important;
 }
 
 /* Card container size and stacking order stay rock-solid on hover */

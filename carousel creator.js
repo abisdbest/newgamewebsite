@@ -22,15 +22,13 @@ const NEW_GAMES_COUNT = 12;
 // =================================================================
 // AUTHENTIC RETRO STOCHASTIC BLUE-NOISE DITHERING ENGINE
 // =================================================================
-function generateRetroDitherTextures() {
+/**
+ * Generates a 100% unique procedural organic dither mask data URL for each card seam.
+ * Pure procedural stochastic stippling using smoothstep probability distribution.
+ */
+function createProceduralDitherMask(seamWidth = 30, canvasHeight = 240, pixelSize = 3) {
     try {
-        if (typeof document === 'undefined') return;
-        // Non-repeating vertical stochastic stipple mask (30px width x 240px height)
-        // 10 columns x 80 rows of chunky 3px retro pixel blocks
-        // Uses smoothstep probability distribution for seamless organic edge blending
-        const seamWidth = 30;
-        const canvasHeight = 240;
-        const pixelSize = 3;
+        if (typeof document === 'undefined') return '';
         const cols = Math.floor(seamWidth / pixelSize); // 10 columns
         const rows = Math.floor(canvasHeight / pixelSize); // 80 rows
 
@@ -40,28 +38,30 @@ function generateRetroDitherTextures() {
         const ctx = canvas.getContext('2d');
         ctx.imageSmoothingEnabled = false;
 
-        // Seeded high-quality PRNG for stable, beautifully dispersed stipple texture
-        let seed = 424242;
-        function prng() {
-            seed = (seed * 1664525 + 1013904223) % 4294967296;
-            return seed / 4294967296;
-        }
-
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
                 const x = (c + 0.5) / cols;
-                // Smoothstep S-curve for gentle, natural organic falloff at edges
+                // Organic smoothstep probability curve
                 const threshold = x * x * (3 - 2 * x);
-                const rand = prng();
-                if (threshold > rand) {
+                if (threshold > Math.random()) {
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
                 }
             }
         }
+        return canvas.toDataURL('image/png');
+    } catch (err) {
+        return '';
+    }
+}
 
-        const rampDataUrl = canvas.toDataURL('image/png');
-        document.documentElement.style.setProperty('--dither-ramp-url', `url("${rampDataUrl}")`);
+function generateRetroDitherTextures() {
+    try {
+        if (typeof document === 'undefined') return;
+        const rampDataUrl = createProceduralDitherMask();
+        if (rampDataUrl) {
+            document.documentElement.style.setProperty('--dither-ramp-url', `url("${rampDataUrl}")`);
+        }
     } catch (err) {
         console.warn('Dither texture generation failed, using CSS fallback', err);
     }
@@ -210,6 +210,14 @@ function createGameItem(game, container, options = {}) {
     const thumbWrap = document.createElement('div');
     thumbWrap.classList.add('game-thumb-wrap');
 
+    // Unique procedural dither mask for this specific card seam
+    if (typeof options.index === 'number' && options.index > 0) {
+        const proceduralMask = createProceduralDitherMask();
+        if (proceduralMask) {
+            thumbWrap.style.setProperty('--card-dither-mask', `url("${proceduralMask}")`);
+        }
+    }
+
     const gameImage = document.createElement('img');
     gameImage.src = game.image;
     gameImage.alt = game.name;
@@ -220,11 +228,6 @@ function createGameItem(game, container, options = {}) {
     const bottomFade = document.createElement('div');
     bottomFade.classList.add('game-bottom-fade');
     thumbWrap.appendChild(bottomFade);
-
-    // Seam Darkening Overlay for overlapping adjacent cards
-    const seamDarken = document.createElement('div');
-    seamDarken.classList.add('game-seam-darken');
-    thumbWrap.appendChild(seamDarken);
 
     // Subtle Micro-Badge (NEW / HOT)
     const isRetroBowl = game.name && game.name.toLowerCase().includes('retro bowl');
