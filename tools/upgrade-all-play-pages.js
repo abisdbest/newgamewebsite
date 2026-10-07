@@ -1,4 +1,249 @@
-<!DOCTYPE html>
+const fs = require('fs');
+const path = require('path');
+
+const games = JSON.parse(fs.readFileSync('games.json', 'utf8'));
+const sourceDirs = fs.readdirSync('source');
+
+const CATEGORY_MAP = {
+  'Action': { title: 'Action', slug: 'action' },
+  'Addictive Games': { title: 'Addictive', slug: 'addictive' },
+  'Driving': { title: 'Driving', slug: 'driving' },
+  'Puzzle': { title: 'Puzzle', slug: 'puzzle' },
+  'Sports': { title: 'Sports', slug: 'sports' },
+  '2-Player': { title: '2 Player', slug: '2-player' },
+  'Retro Games': { title: 'Retro', slug: 'retro' },
+  'Clicker': { title: 'Clicker', slug: 'clicker' },
+  'Tools': { title: 'Tools', slug: 'tools' }
+};
+
+function toTitleCase(str) {
+  if (!str) return '';
+  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function resolveSourcePath(gameKey, existingHtml) {
+  if (existingHtml) {
+    const mData = existingHtml.match(/data-src=["']([^"']+)["']/);
+    if (mData && mData[1] && !mData[1].includes('about:blank')) return mData[1];
+
+    const mOnclick = existingHtml.match(/src\s*=\s*['"](\.\.\/\.\.\/source\/[^'"]+)['"]/);
+    if (mOnclick && mOnclick[1]) return mOnclick[1];
+
+    const mIframe = existingHtml.match(/<iframe[^>]+src=["'](\.\.\/\.\.\/source\/[^"']+)["']/);
+    if (mIframe && mIframe[1]) return mIframe[1];
+  }
+
+  // Direct source folder check
+  if (fs.existsSync(path.join('source', gameKey, 'index.html'))) {
+    return `../../source/${gameKey}/index.html`;
+  }
+  // Case-insensitive match
+  const found = sourceDirs.find(d => d.toLowerCase() === gameKey.toLowerCase());
+  if (found && fs.existsSync(path.join('source', found, 'index.html'))) {
+    return `../../source/${found}/index.html`;
+  }
+  return `../../source/${gameKey}/index.html`;
+}
+
+function determineControls(gameKey, categories) {
+  const k = gameKey.toLowerCase();
+  const cats = (categories || []).map(c => c.toLowerCase());
+
+  if (cats.includes('clicker') || cats.includes('tools') || k.includes('chess') || k.includes('clicker') || k.includes('paperclip')) {
+    return {
+      dpad: 'none',
+      buttons: '',
+      controlsText: 'Use Left Mouse Button to click, upgrade, and interact with the game.',
+      keycaps: `<span class="keycap keycap-wide"><i class="fas fa-computer-mouse"></i> Left Click</span>`
+    };
+  }
+
+  if (cats.includes('driving') || k.includes('racer') || k.includes('mad grand prix') || k.includes('polytrack')) {
+    return {
+      dpad: 'arrows',
+      buttons: 'Space:Handbrake',
+      controlsText: 'Arrow keys or WASD to accelerate, steer, and brake. Spacebar for handbrake / drift.',
+      keycaps: `
+        <span class="keycap keycap-up"><i class="fas fa-arrow-up"></i></span>
+        <span class="keycap keycap-left"><i class="fas fa-arrow-left"></i></span>
+        <span class="keycap keycap-down"><i class="fas fa-arrow-down"></i></span>
+        <span class="keycap keycap-right"><i class="fas fa-arrow-right"></i></span>
+        <span class="keycap keycap-space">Space</span>
+      `
+    };
+  }
+
+  if (k.includes('golf') || k.includes('flappy') || k.includes('dino') || k.includes('tube jumpers')) {
+    return {
+      dpad: 'none',
+      buttons: 'Space:Action',
+      controlsText: 'Press Spacebar, Up Arrow, or Click to perform actions and jump.',
+      keycaps: `
+        <span class="keycap keycap-space">Space</span>
+        <span class="keycap keycap-wide"><i class="fas fa-computer-mouse"></i> Click</span>
+      `
+    };
+  }
+
+  if (cats.includes('sports') || cats.includes('2-player') || cats.includes('action')) {
+    return {
+      dpad: 'arrows',
+      buttons: 'Space:Action,KeyZ:Z',
+      controlsText: 'Use Arrow keys or WASD to move. Use Spacebar, Z, or Mouse for special actions and shooting.',
+      keycaps: `
+        <span class="keycap keycap-up"><i class="fas fa-arrow-up"></i></span>
+        <span class="keycap keycap-left"><i class="fas fa-arrow-left"></i></span>
+        <span class="keycap keycap-down"><i class="fas fa-arrow-down"></i></span>
+        <span class="keycap keycap-right"><i class="fas fa-arrow-right"></i></span>
+        <span class="keycap keycap-space">Space</span>
+      `
+    };
+  }
+
+  return {
+    dpad: 'arrows',
+    buttons: 'Space:Action',
+    controlsText: 'Use Arrow keys, WASD, or Mouse to control your character and navigate.',
+    keycaps: `
+      <span class="keycap keycap-up"><i class="fas fa-arrow-up"></i></span>
+      <span class="keycap keycap-left"><i class="fas fa-arrow-left"></i></span>
+      <span class="keycap keycap-down"><i class="fas fa-arrow-down"></i></span>
+      <span class="keycap keycap-right"><i class="fas fa-arrow-right"></i></span>
+      <span class="keycap keycap-space">Space</span>
+    `
+  };
+}
+
+function extractLegacyContent(existingHtml, gameTitle, baseDescription) {
+  if (!existingHtml) return null;
+
+  // Check if there is an existing description block
+  const mDesc = existingHtml.match(/<section class="description">([\s\S]*?)<\/section>/);
+  if (mDesc && mDesc[1]) {
+    let clean = mDesc[1].trim();
+    // remove duplicate h1 or game title headers if present
+    clean = clean.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+    clean = clean.replace(/<b>Game Image<\/b>/gi, '');
+    if (clean.length > 100) return clean;
+  }
+
+  // Check if there is an existing play-about-body
+  const mAbout = existingHtml.match(/<div class="play-about-body"[^>]*>([\s\S]*?)<\/div>\s*<\/article>/);
+  if (mAbout && mAbout[1]) {
+    let clean = mAbout[1].trim();
+    // Strip existing ads if embedded so we can place cleanly
+    clean = clean.replace(/<div class="ad-unit[\s\S]*?<\/div>/gi, '');
+    if (clean.length > 100) return clean;
+  }
+
+  return null;
+}
+
+function generateAboutContent(gameTitle, baseDescription, legacyHtml, primaryCatTitle) {
+  if (legacyHtml) {
+    // If legacy content exists, insert inArticle ad cleanly after first paragraph
+    const pEnd = legacyHtml.indexOf('</p>');
+    if (pEnd !== -1) {
+      const before = legacyHtml.substring(0, pEnd + 4);
+      const after = legacyHtml.substring(pEnd + 4);
+      return `
+        ${before}
+        <div class="ad-unit ad-unit-inarticle">
+          <span class="ad-label">Advertisement</span>
+          <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
+        </div>
+        ${after}
+      `;
+    }
+    return `
+      ${legacyHtml}
+      <div class="ad-unit ad-unit-inarticle">
+        <span class="ad-label">Advertisement</span>
+        <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
+      </div>
+    `;
+  }
+
+  // Generate high quality, SEO-optimized body
+  return `
+    <p>
+      ${escapeHtml(baseDescription)}
+    </p>
+
+    <div class="ad-unit ad-unit-inarticle">
+      <span class="ad-label">Advertisement</span>
+      <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
+    </div>
+
+    <p>
+      Experience smooth gameplay, responsive controls, and engaging challenges directly in your browser. Whether you are playing on a school Chromebook, desktop PC, or mobile device, ${escapeHtml(gameTitle)} runs seamlessly with zero installation required.
+    </p>
+
+    <h3>How to Play ${escapeHtml(gameTitle)}</h3>
+    <ol>
+      <li>Press the <b>Play Now</b> button to start the game instantly.</li>
+      <li>Use your keyboard, mouse, or touch controls to navigate and complete objectives.</li>
+      <li>Master the game mechanics, avoid hazards, and aim for the highest score or fastest completion time.</li>
+    </ol>
+
+    <h3>Tips &amp; Strategies</h3>
+    <ul>
+      <li>Practice the core controls in early levels to build muscle memory.</li>
+      <li>Stay focused and anticipate upcoming obstacles ahead of time.</li>
+      <li>Use Theater Mode or Fullscreen mode for an immersive, distraction-free gaming session.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <p><b>Is ${escapeHtml(gameTitle)} free to play?</b><br />Yes, it is 100% free to play directly online on Blooket1 with no downloads or account needed.</p>
+    <p><b>Does it work on school Chromebooks?</b><br />Yes, ${escapeHtml(gameTitle)} is fully optimized to run smoothly on Chromebooks and restricted school Wi-Fi networks.</p>
+    <p><b>Will my progress be saved?</b><br />Game progress and settings are stored locally in your browser cache.</p>
+  `;
+}
+
+function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
+  const title = toTitleCase(gameKey);
+  const categories = gameObj['game categories'] || ['Action'];
+  const baseDesc = gameObj.description || `Play ${title} unblocked online for free on Blooket1.`;
+  const imageRel = gameObj['game image'] || `images/${gameKey}.webp`;
+  const gameLink = gameObj['game link'] || `play/${gameKey}/`;
+  
+  // Filter primary category
+  const nonAddictive = categories.filter(c => c !== 'Addictive Games' && c !== 'Popular Games');
+  const rawPrimary = nonAddictive[0] || categories[0] || 'Action';
+  const catConfig = CATEGORY_MAP[rawPrimary] || { title: rawPrimary, slug: rawPrimary.toLowerCase().replace(/[^a-z0-9]+/g, '-') };
+  const primaryCatTitle = catConfig.title;
+  const primaryCatSlug = catConfig.slug;
+
+  const sourceSrc = resolveSourcePath(gameKey, existingHtml);
+  const controls = determineControls(gameKey, categories);
+  const legacyContent = extractLegacyContent(existingHtml, title, baseDesc);
+  const aboutBody = generateAboutContent(title, baseDesc, legacyContent, primaryCatTitle);
+
+  // Category tags HTML
+  const categoryChipsHtml = categories.map(c => {
+    const cfg = CATEGORY_MAP[c] || { title: c, slug: c.toLowerCase().replace(/[^a-z0-9]+/g, '-') };
+    return `<a class="player-chip" href="../../category/${cfg.slug}/">${escapeHtml(cfg.title)}</a>`;
+  }).join('\n                  ');
+
+  const factChipsHtml = categories.map(c => {
+    const cfg = CATEGORY_MAP[c] || { title: c, slug: c.toLowerCase().replace(/[^a-z0-9]+/g, '-') };
+    return `<a href="../../category/${cfg.slug}/">${escapeHtml(cfg.title)}</a>`;
+  }).join('\n                    ');
+
+  // JSON-LD genre array
+  const genreJson = JSON.stringify(categories);
+
+  return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
@@ -21,19 +266,19 @@
     <meta name="google-adsense-account" content="ca-pub-5346759304245799" />
     <meta name="theme-color" content="#0b0c13" />
 
-    <title>Escape The Shack - Play Free Online Unblocked | Blooket1</title>
+    <title>${escapeHtml(title)} - Play Free Online Unblocked | Blooket1</title>
     <meta
       name="description"
-      content="Investigate rustic tools, floorboards, and padlocks to find a way out of a secluded wooden woodland shack. Play Escape The Shack unblocked for free on Blooket1. No downloads, works on Chromebooks."
+      content="${escapeHtml(baseDesc)} Play ${escapeHtml(title)} unblocked for free on Blooket1. No downloads, works on Chromebooks."
     />
-    <link rel="canonical" href="https://blooket1.com/play/escape%20the%20shack/" />
+    <link rel="canonical" href="https://blooket1.com/${encodeURI(gameLink)}" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Blooket1" />
-    <meta property="og:title" content="Escape The Shack - Play Free Online Unblocked" />
-    <meta property="og:description" content="Investigate rustic tools, floorboards, and padlocks to find a way out of a secluded wooden woodland shack." />
-    <meta property="og:url" content="https://blooket1.com/play/escape%20the%20shack/" />
-    <meta property="og:image" content="https://blooket1.com/images/escape%20the%20shack.webp" />
+    <meta property="og:title" content="${escapeHtml(title)} - Play Free Online Unblocked" />
+    <meta property="og:description" content="${escapeHtml(baseDesc)}" />
+    <meta property="og:url" content="https://blooket1.com/${encodeURI(gameLink)}" />
+    <meta property="og:image" content="https://blooket1.com/${encodeURI(imageRel)}" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" type="image/x-icon" href="../../images/b-logo.webp" />
@@ -41,7 +286,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
-    <link rel="preload" as="image" href="../../images/escape the shack.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="../../${escapeHtml(imageRel)}" fetchpriority="high" />
     <link rel="stylesheet" href="../../styles.css" />
     <link rel="stylesheet" href="../../carousel.css" />
     <link rel="stylesheet" href="../../ub.css" />
@@ -53,11 +298,11 @@
         {
           "@context": "https://schema.org",
           "@type": "VideoGame",
-          "name": "Escape The Shack",
-          "url": "https://blooket1.com/play/escape%20the%20shack/",
-          "image": "https://blooket1.com/images/escape%20the%20shack.webp",
-          "description": "Investigate rustic tools, floorboards, and padlocks to find a way out of a secluded wooden woodland shack.",
-          "genre": ["Puzzle"],
+          "name": "${escapeHtml(title)}",
+          "url": "https://blooket1.com/${encodeURI(gameLink)}",
+          "image": "https://blooket1.com/${encodeURI(imageRel)}",
+          "description": "${escapeHtml(baseDesc)}",
+          "genre": ${genreJson},
           "gamePlatform": "Web browser",
           "applicationCategory": "Game",
           "operatingSystem": "Any",
@@ -68,8 +313,8 @@
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://blooket1.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Puzzle", "item": "https://blooket1.com/category/puzzle/" },
-            { "@type": "ListItem", "position": 3, "name": "Escape The Shack" }
+            { "@type": "ListItem", "position": 2, "name": "${escapeHtml(primaryCatTitle)}", "item": "https://blooket1.com/category/${primaryCatSlug}/" },
+            { "@type": "ListItem", "position": 3, "name": "${escapeHtml(title)}" }
           ]
         }
       ]
@@ -78,10 +323,10 @@
 
   <body
     class="play-page"
-    data-game="escape the shack"
-    data-src="../../source/escape the shack/index.html"
-    data-dpad="arrows"
-    data-buttons="Space:Action"
+    data-game="${escapeHtml(gameKey)}"
+    data-src="${escapeHtml(sourceSrc)}"
+    data-dpad="${controls.dpad}"
+    data-buttons="${controls.buttons}"
   >
     <header class="cg-header">
       <div class="cg-header-left">
@@ -225,19 +470,19 @@
       <nav class="play-breadcrumbs" aria-label="Breadcrumb">
         <a href="../../">Home</a>
         <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        <a href="../../category/puzzle/">Puzzle</a>
+        <a href="../../category/${primaryCatSlug}/">${escapeHtml(primaryCatTitle)}</a>
         <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        <span aria-current="page">Escape The Shack</span>
+        <span aria-current="page">${escapeHtml(title)}</span>
       </nav>
 
       <div class="play-layout">
         <section class="player-shell" id="player-shell" aria-label="Game player">
           <div class="player-stage" id="player-stage">
             <div class="player-cover" id="player-cover">
-              <img class="player-cover-bg" src="../../images/escape the shack.webp" alt="" aria-hidden="true" />
+              <img class="player-cover-bg" src="../../${escapeHtml(imageRel)}" alt="" aria-hidden="true" />
               <div class="player-cover-content">
-                <img class="player-cover-thumb" src="../../images/escape the shack.webp" alt="Escape The Shack" width="300" height="200" fetchpriority="high" />
-                <p class="player-cover-title">Escape The Shack</p>
+                <img class="player-cover-thumb" src="../../${escapeHtml(imageRel)}" alt="${escapeHtml(title)}" width="300" height="200" fetchpriority="high" />
+                <p class="player-cover-title">${escapeHtml(title)}</p>
                 <button type="button" class="player-play-btn" id="play-btn">
                   <i class="fas fa-play"></i><span>Play now</span>
                 </button>
@@ -247,7 +492,7 @@
 
             <iframe
               id="game-iframe"
-              title="Escape The Shack"
+              title="${escapeHtml(title)}"
               allow="autoplay; fullscreen; gamepad; clipboard-write"
               allowfullscreen
             ></iframe>
@@ -275,11 +520,11 @@
 
           <div class="player-toolbar">
             <div class="player-id">
-              <img class="player-id-icon" src="../../images/escape the shack.webp" alt="" width="48" height="48" />
+              <img class="player-id-icon" src="../../${escapeHtml(imageRel)}" alt="" width="48" height="48" />
               <div class="player-id-text">
-                <h1 class="player-title">Escape The Shack</h1>
+                <h1 class="player-title">${escapeHtml(title)}</h1>
                 <div class="player-meta">
-                  <a class="player-chip" href="../../category/puzzle/">Puzzle</a>
+                  ${categoryChipsHtml}
                   <span class="player-plays" id="player-plays" hidden></span>
                 </div>
               </div>
@@ -335,69 +580,19 @@
 
           <div class="play-info-grid">
             <article class="play-card play-about">
-              <h2 class="play-about-title">Escape The Shack</h2>
+              <h2 class="play-about-title">${escapeHtml(title)}</h2>
               <div class="play-about-body" id="play-about-body">
-                
-        <p>
-            <b>Controls:</b><br>
-            Use arrow keys to move tiles in the desired direction.
-          </p>
-        <div class="ad-unit ad-unit-inarticle">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-        </div>
-        
-          <p>
-            <b>Publisher:</b><br>
-            escape the shack was created by Gabriele Cirulli.
-          </p>
-          <p>
-            <b>Year of Release:</b><br>
-            2014
-          </p>
-          
-          
-          
-          <p>
-            escape the shack is a popular and addictive puzzle game that took the gaming world by storm upon its release in 2014. Created by Gabriele Cirulli, the game's simple yet challenging mechanics have captivated players worldwide.
-          </p>
-          
-          <p>
-            The objective of escape the shack is to reach the titular number by combining matching tiles. The game is played on a 4x4 grid, and players use arrow keys to slide the tiles in their chosen direction.
-          </p>
-          
-          <p>
-            When two tiles with the same number collide, they merge into one, and a new tile with a doubled value appears on the board. The challenge intensifies as players aim to reach the elusive escape the shack tile.
-          </p>
-          
-          <p>
-            Strategic planning and careful movement are essential to prevent the grid from filling up and ending the game prematurely. With its minimalist design and straightforward controls, escape the shack offers a compelling and enjoyable gaming experience for puzzle enthusiasts.
-          </p>
-          
-          <p>
-            escape the shack's success can be attributed to its perfect blend of simplicity and complexity. The game's addictiveness lies in the constant pursuit of achieving higher tile values and beating one's previous score.
-          </p>
-          
-          <p>
-            Whether played casually or competitively, escape the shack remains a timeless classic in the realm of puzzle games. Challenge your mind and embark on the journey to escape the shack – a game that continues to entertain and engage players with its deceptively simple yet challenging gameplay.
-          </p>
-      
+                ${aboutBody}
               </div>
             </article>
 
             <aside class="play-card play-facts">
               <h2 class="play-card-title"><i class="fas fa-keyboard"></i> Controls</h2>
               <p class="play-controls-text">
-                Use Arrow keys, WASD, or Mouse to control your character and navigate.
+                ${escapeHtml(controls.controlsText)}
               </p>
               <div class="play-keycaps" aria-hidden="true">
-                
-      <span class="keycap keycap-up"><i class="fas fa-arrow-up"></i></span>
-      <span class="keycap keycap-left"><i class="fas fa-arrow-left"></i></span>
-      <span class="keycap keycap-down"><i class="fas fa-arrow-down"></i></span>
-      <span class="keycap keycap-right"><i class="fas fa-arrow-right"></i></span>
-      <span class="keycap keycap-space">Space</span>
-    
+                ${controls.keycaps}
               </div>
 
               <h2 class="play-card-title"><i class="fas fa-circle-info"></i> Game info</h2>
@@ -407,7 +602,7 @@
                 <div>
                   <dt>Categories</dt>
                   <dd class="play-facts-chips">
-                    <a href="../../category/puzzle/">Puzzle</a>
+                    ${factChipsHtml}
                   </dd>
                 </div>
               </dl>
@@ -523,13 +718,13 @@
             <div class="panic-key-card">
               <div class="panic-key-status">
                 <span class="panic-label">Current Panic Key:</span>
-                <kbd id="currentPanicKeyDisplay">`</kbd>
+                <kbd id="currentPanicKeyDisplay">\`</kbd>
                 <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
               </div>
               <div class="panic-btn-group">
                 <button id="changePanicKeyBtn" class="settings-action-btn"><i class="fas fa-keyboard"></i> Change Key</button>
                 <button id="testPanicKeyBtn" class="settings-action-btn secondary"><i class="fas fa-external-link-alt"></i> Test Panic</button>
-                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (`)</button>
+                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (\`)</button>
               </div>
             </div>
           </div>
@@ -551,3 +746,48 @@
     <script src="../../script.js"></script>
   </body>
 </html>
+`;
+}
+
+// Main execution
+let updatedCount = 0;
+let preservedCount = 0;
+
+for (const entry of games) {
+  const gameKey = Object.keys(entry)[0];
+  const gameObj = entry[gameKey];
+  const link = gameObj['game link'];
+
+  // Skip standalone tools that do not live in play/
+  if (gameKey === 'soundboard' || !link.startsWith('play/')) {
+    continue;
+  }
+
+  // Preserve the gold standard manual craft of duck life 4 if already present
+  // But duck life 4 is our gold standard template
+  const playDir = path.resolve(link);
+  if (!fs.existsSync(playDir)) {
+    fs.mkdirSync(playDir, { recursive: true });
+  }
+
+  const targetFile = path.join(playDir, 'index.html');
+  let existingHtml = '';
+  if (fs.existsSync(targetFile)) {
+    existingHtml = fs.readFileSync(targetFile, 'utf8');
+  }
+
+  // If it is duck life 4, keep the exact hand-crafted one intact!
+  if (gameKey === 'duck life 4') {
+    preservedCount++;
+    console.log('[PRESERVED GOLD STANDARD] play/duck life 4/index.html');
+    continue;
+  }
+
+  const newHtml = generatePlayPageHtml(gameKey, gameObj, existingHtml);
+  fs.writeFileSync(targetFile, newHtml, 'utf8');
+  updatedCount++;
+}
+
+console.log(`\nUpgrade completed!`);
+console.log(`Updated play pages: ${updatedCount}`);
+console.log(`Preserved gold standard: ${preservedCount}`);
