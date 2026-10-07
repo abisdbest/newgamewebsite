@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blooket1 - New Games Staging & Preview Hub</title>
+  <link rel="icon" type="image/x-icon" href="../images/b-logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo-group">
+      <img src="../images/b-logo.webp" alt="Blooket1 Logo">
+      <h1>New Games Staging Hub</h1>
+      <span class="badge">Preview & Verification</span>
+    </div>
+    <div class="header-actions">
+      <div class="stat-pill"><i class="fa-solid fa-circle-check" style="color: var(--success); margin-right: 6px;"></i><strong id="header-ready-count">28</strong> Ready to Test</div>
+      <div class="stat-pill"><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning); margin-right: 6px;"></i><strong id="header-incomplete-count">1</strong> Incomplete Downloads</div>
+      <a href="../" class="btn-icon"><i class="fa-solid fa-house"></i> Main Site</a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-controls">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-input" placeholder="Search cleaned games..." autocomplete="off">
+        </div>
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="ready">
+            <i class="fa-solid fa-play"></i> Ready Games <span class="tab-count" id="ready-count">28</span>
+          </button>
+          <button class="tab-btn" data-tab="incomplete">
+            <i class="fa-solid fa-file-circle-exclamation"></i> Incomplete <span class="tab-count" id="incomplete-count">1</span>
+          </button>
+        </div>
+      </div>
+      <div class="game-list" id="game-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </aside>
+
+    <!-- Stage (Player View) -->
+    <main class="stage" id="stage-player">
+      <!-- Toolbar -->
+      <div class="stage-toolbar">
+        <div class="stage-game-info">
+          <div class="stage-title" id="stage-title">Loading...</div>
+          <div class="stage-chips">
+            <span class="stage-chip" id="chip-category">Category</span>
+            <span class="stage-chip" id="chip-engine">Engine</span>
+            <span class="stage-chip" id="chip-size">Size</span>
+          </div>
+        </div>
+
+        <div class="stage-actions">
+          <!-- Aspect ratio switcher -->
+          <button class="btn-icon aspect-btn active" data-ratio="fill" title="Fill available space"><i class="fa-solid fa-expand"></i> Fill</button>
+          <button class="btn-icon aspect-btn" data-ratio="ratio-16-9" title="16:9 Landscape">16:9</button>
+          <button class="btn-icon aspect-btn" data-ratio="ratio-4-3" title="4:3 Arcade">4:3</button>
+          <button class="btn-icon aspect-btn" data-ratio="ratio-mobile" title="Mobile Portrait"><i class="fa-solid fa-mobile-screen"></i></button>
+          
+          <button class="btn-icon" id="reload-btn" title="Reload Game"><i class="fa-solid fa-rotate-right"></i> Reload</button>
+          <a class="btn-icon" id="new-tab-btn" target="_blank" title="Open in separate tab"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Tab</a>
+          <button class="btn-icon primary" id="fullscreen-btn" title="Fullscreen Play"><i class="fa-solid fa-maximize"></i> Fullscreen</button>
+        </div>
+      </div>
+
+      <!-- Viewport / Iframe Stage -->
+      <div class="viewport-area">
+        <div class="frame-wrapper fill" id="frame-wrapper">
+          <iframe id="game-frame" class="game-iframe" allow="autoplay; fullscreen; gamepad; focus-without-user-activation *" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Footer Testing & Promotion Info -->
+      <div class="stage-footer">
+        <div class="control-info">
+          <i class="fa-solid fa-keyboard"></i>
+          <div>
+            <div style="font-weight: 700; color: #fff;">Controls & Overview:</div>
+            <div id="control-text" style="font-size: 0.8rem;">Click to activate</div>
+            <div id="desc-text" style="font-size: 0.78rem; color: #64748b; margin-top: 2px;">Description</div>
+          </div>
+        </div>
+
+        <div class="verification-group">
+          <span style="font-weight: 700; color: #fff;">Status:</span>
+          <select id="verif-select" class="verif-select">
+            <option value="untested">⚪ Not Tested Yet</option>
+            <option value="passed">🟢 Verified & Working Great</option>
+            <option value="bug">🟡 Minor Bug / Needs Tuning</option>
+            <option value="broken">🔴 Broken / Problematic</option>
+          </select>
+        </div>
+
+        <div class="promote-box">
+          <span style="color: var(--text-muted); font-size: 0.8rem;">Promote to Site:</span>
+          <span class="code-pill" id="code-cmd">node tools/promote-game.js &lt;id&gt;</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Incomplete Downloads Audit View (Initially Hidden) -->
+    <main class="stage" id="audit-view" style="display: none;">
+      <div class="audit-container">
+        <div class="audit-card">
+          <h2 style="font-size: 1.3rem; margin-bottom: 8px;"><i class="fa-solid fa-clipboard-check" style="color: var(--warning); margin-right: 8px;"></i>Downloads Audit & Health Report</h2>
+          <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.9rem;">
+            Out of all downloaded packages, 28 games have been fully assembled and verified! Only 1 game (Kingdom Rush) remains incomplete due to Kongregate's proprietary ActionScript 3 site-lock preloader.
+          </p>
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>Game</th>
+                <th>Source Archive</th>
+                <th>Status</th>
+                <th>Issue / Diagnostic</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody id="audit-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="preview.js"></script>
+</body>
+</html>

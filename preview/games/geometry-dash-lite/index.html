@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Geometry Dash Lite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #gameContainer {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.5s ease-out;
+    }
+    .logo {
+      max-width: 320px;
+      width: 80%;
+      height: auto;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 4px 12px rgba(0, 200, 255, 0.4));
+    }
+    .progress-box {
+      width: 300px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #00e5ff;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00e5ff, #00ff88);
+      transition: width 0.2s ease-out;
+    }
+    .status-text {
+      margin-top: 12px;
+      color: #00e5ff;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer"></div>
+  <div id="loader">
+    <img class="logo" src="image/loading.png" alt="Geometry Dash Lite">
+    <div class="progress-box">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="status-text" id="statusText">Loading... 0%</div>
+  </div>
+
+  <script src="Build/UnityLoader.js"></script>
+  <script>
+    var pBar = document.getElementById("progressBar");
+    var pText = document.getElementById("statusText");
+    var loader = document.getElementById("loader");
+
+    function UnityProgress(gameInstance, progress) {
+      if (!gameInstance.Module) return;
+      var pct = Math.min(100, Math.round(progress * 100));
+      pBar.style.width = pct + "%";
+      pText.innerText = "Loading... " + pct + "%";
+
+      if (progress >= 1) {
+        pText.innerText = "Starting Game...";
+        setTimeout(function() {
+          loader.style.opacity = "0";
+          setTimeout(function() {
+            loader.style.display = "none";
+          }, 500);
+        }, 1000);
+      }
+    }
+
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/GeometryDashLite.json", {
+      onProgress: UnityProgress,
+      Module: {
+        onRuntimeInitialized: function() {
+          console.log("Geometry Dash Lite WebGL Initialized!");
+        }
+      }
+    });
+  </script>
+</body>
+</html>

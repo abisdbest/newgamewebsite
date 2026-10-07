@@ -1,0 +1,1 @@
+import{R as t}from"../chunks/control.c2cf8273.js";import{L as u}from"../chunks/layout.eb19d6ff.js";function r(e,o){return new t(e,o.toString())}new TextEncoder;function n(){throw r(302,"/")}const i=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{u as component,i as universal};

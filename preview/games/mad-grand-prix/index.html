@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Mad Grand Prix</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #unity-container { width: 100vw; height: 100vh; position: absolute; }
+    #unity-canvas { width: 100%; height: 100%; }
+  </style>
+  <script>
+    // Block any external site-lock / ad redirects
+    const _origOpen = window.open;
+    window.open = function(url, target, features) {
+      if (typeof url === 'string' && (url.includes('8games.net') || url.includes('site-lock') || url.includes('igru.net'))) {
+        console.warn('Blocked site-lock popup:', url);
+        return null;
+      }
+      return _origOpen.call(window, url, target, features);
+    };
+
+    let gameUnityInstance = null;
+    let crazySDKObjName = 'CrazyGames.CrazySDK';
+
+    const dummyInitObj = {
+      gameLink: window.location.href,
+      locale: 'en-US',
+      userInfo: { countryCode: 'US' },
+      countryCode: 'US',
+      browser: 'Chrome',
+      Software: 'Chrome'
+    };
+
+    function sendToUnity(method, param) {
+      if (gameUnityInstance && crazySDKObjName) {
+        try {
+          if (param !== undefined) {
+            gameUnityInstance.SendMessage(crazySDKObjName, method, param);
+          } else {
+            gameUnityInstance.SendMessage(crazySDKObjName, method);
+          }
+        } catch (e) {
+          console.warn('[Crazygames Bridge] SendMessage error:', method, e);
+        }
+      }
+    }
+
+    // CrazyGames SDK Stub
+    window.Crazygames = {
+      init: function(opts) {
+        console.log('[Crazygames Stub] Initialized with:', opts);
+        if (opts && opts.crazySDKObjectName) {
+          crazySDKObjName = opts.crazySDKObjectName;
+        }
+        setTimeout(function() {
+          sendToUnity('InitCallback', JSON.stringify(dummyInitObj));
+        }, 100);
+      },
+      requestAd: function(type, cbs) {
+        console.log('[Crazygames Stub] Ad requested:', type);
+        if (cbs && typeof cbs.adStarted === 'function') {
+          try { cbs.adStarted(); } catch (e) {}
+        }
+
+        const adStartedEvent = JSON.stringify({ name: 'adStarted', type: 'adStarted' });
+        const adFinishedEvent = JSON.stringify({ name: 'adFinished', type: 'adFinished' });
+        const adCompletedEvent = JSON.stringify({ name: 'adCompleted', type: 'adCompleted' });
+
+        sendToUnity('AdEvent', adStartedEvent);
+
+        setTimeout(function() {
+          if (cbs && typeof cbs.adFinished === 'function') {
+            try { cbs.adFinished(); } catch (e) {}
+          }
+          if (cbs && typeof cbs.adCompleted === 'function') {
+            try { cbs.adCompleted(); } catch (e) {}
+          }
+
+          sendToUnity('AdEvent', adFinishedEvent);
+          if (type === 'rewarded') {
+            sendToUnity('AdEvent', adCompletedEvent);
+          }
+
+          window.dispatchEvent(new CustomEvent('adFinished'));
+          document.dispatchEvent(new CustomEvent('adFinished'));
+        }, 80);
+      },
+      requestBanners: function() {},
+      gameplayStart: function() {},
+      gameplayStop: function() {},
+      happytime: function() {},
+      screenshotReceived: function() {},
+      requestInviteUrl: function() {},
+      addInitCallback: function(cb) {
+        if (typeof cb === 'function') {
+          setTimeout(function() {
+            try { cb(dummyInitObj); } catch(e) {}
+          }, 50);
+        }
+      }
+    };
+  </script>
+  <script src="Build/WebGL.loader.js"></script>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas"></canvas>
+  </div>
+  <script>
+    async function initGame() {
+      var parts = [
+        "Build/0ce8e323829ee21725846566fb5ea9b4.data.part1",
+        "Build/0ce8e323829ee21725846566fb5ea9b4.data.part2",
+        "Build/0ce8e323829ee21725846566fb5ea9b4.data.part3"
+      ];
+
+      console.log('[Mad Grand Prix] Fetching data parts in parallel...');
+      var responses = await Promise.all(parts.map(function(p) {
+        return fetch(p).then(function(res) {
+          if (!res.ok) throw new Error('Failed to load part: ' + p);
+          return res.arrayBuffer();
+        });
+      }));
+
+      var combinedBlob = new Blob(responses, { type: 'application/octet-stream' });
+      var dataBlobUrl = URL.createObjectURL(combinedBlob);
+      console.log('[Mad Grand Prix] Reassembled data blob size:', combinedBlob.size);
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: dataBlobUrl,
+        frameworkUrl: "Build/30bc90973849f35bfef47e4a2aa9a871.js",
+        codeUrl: "Build/55c2772a42d1448a308a2546924d9aad.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "8Games",
+        productName: "Mad Grand Prix",
+        productVersion: "1.0"
+      }).then(function(instance) {
+        gameUnityInstance = instance;
+        window.unityInstance = instance;
+        console.log('[Mad Grand Prix] Unity instance initialized successfully.');
+      }).catch(function(err) {
+        console.error('[Mad Grand Prix] Unity init error:', err);
+      });
+    }
+
+    initGame().catch(function(err) {
+      console.error('[Mad Grand Prix] Startup error:', err);
+    });
+  </script>
+</body>
+</html>

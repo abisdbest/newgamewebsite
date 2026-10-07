@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kingdom Rush</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+    #ruffle-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+    ruffle-player { width: 100% !important; height: 100% !important; }
+  </style>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle@nightly"></script>
+</head>
+<body>
+  <div id="ruffle-container"></div>
+  <script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.addEventListener("DOMContentLoaded", () => {
+      const ruffle = window.RufflePlayer.newest();
+      const player = ruffle.createPlayer();
+      const container = document.getElementById("ruffle-container");
+      container.appendChild(player);
+      player.load({
+        url: "kingdom-rush.swf",
+        parameters: "",
+        autoplay: "auto",
+        backgroundColor: "#000000",
+        letterbox: "on"
+      });
+    });
+  </script>
+</body>
+</html>

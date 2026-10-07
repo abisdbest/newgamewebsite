@@ -1,0 +1,1 @@
+function n(r){let t=Math.floor(r/6e4),o=Math.floor((r-t*6e4)/1e3),f=r%1e3;return e(t)+":"+e(o)+":"+i(f)}function i(r){return r>=10?r>=100?""+r:"0"+r:"00"+r}function e(r){return r>=10?""+r:"0"+r}export{n as f};

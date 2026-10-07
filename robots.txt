@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blooket1.pages.dev/sitemap.xml
 Sitemap: https://blooket1.com/sitemap.xml

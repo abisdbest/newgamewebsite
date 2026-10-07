@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Supreme Duelist Stickman 2</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #gameContainer { width: 100vw; height: 100vh; }
+  </style>
+  <script>
+    let gameInstance = null;
+    let crazySDKObjName = 'CrazySDK';
+
+    var dummyInitObj = {
+      gameLink: window.location.href,
+      rafvertizingUrl: "",
+      useTestAds: false,
+      userInfo: { country: "US" },
+      locale: "en-US",
+      systemInfo: {
+        country: "US",
+        browser: { name: "Chrome", version: "120" },
+        os: { name: "Windows", version: "10" },
+        device: { type: "desktop" }
+      }
+    };
+
+    function sendToUnity(method, param) {
+      function doSend() {
+        if (gameInstance && crazySDKObjName) {
+          try {
+            if (param !== undefined) {
+              gameInstance.SendMessage(crazySDKObjName, method, param);
+            } else {
+              gameInstance.SendMessage(crazySDKObjName, method);
+            }
+          } catch (e) {
+            console.warn('[CrazySDK Bridge] SendMessage error:', method, e);
+          }
+        }
+      }
+      if (!gameInstance) {
+        setTimeout(doSend, 300);
+      } else {
+        doSend();
+      }
+    }
+
+    window.Crazygames = {
+      init: function(options) {
+        console.log('[Crazygames] init called with options:', options);
+        if (options && options.crazySDKObjectName) {
+          crazySDKObjName = options.crazySDKObjectName;
+        }
+        setTimeout(function() {
+          sendToUnity('InitCallback', JSON.stringify(dummyInitObj));
+        }, 100);
+        return Promise.resolve();
+      },
+      addInitCallback: function(cb) {
+        console.log('[Crazygames] addInitCallback registered');
+        if (typeof cb === 'function') {
+          setTimeout(function() {
+            try { cb(dummyInitObj); } catch(e) { console.warn(e); }
+          }, 50);
+        }
+      },
+      requestAd: function(type, callbacks) {
+        console.log('[Crazygames] requestAd called:', type);
+        if (callbacks && typeof callbacks.adStarted === 'function') {
+          try { callbacks.adStarted(); } catch (e) {}
+        }
+        const adStartedEvent = JSON.stringify({ name: 'adStarted', type: 'adStarted' });
+        const adFinishedEvent = JSON.stringify({ name: 'adFinished', type: 'adFinished' });
+        const adCompletedEvent = JSON.stringify({ name: 'adCompleted', type: 'adCompleted' });
+
+        sendToUnity('AdEvent', adStartedEvent);
+        sendToUnity('AdStarted');
+
+        setTimeout(function() {
+          if (callbacks && typeof callbacks.adFinished === 'function') {
+            try { callbacks.adFinished(); } catch (e) {}
+          }
+          if (callbacks && typeof callbacks.adCompleted === 'function') {
+            try { callbacks.adCompleted(); } catch (e) {}
+          }
+          sendToUnity('AdEvent', adFinishedEvent);
+          sendToUnity('AdFinished');
+          if (type === 'rewarded') {
+            sendToUnity('AdEvent', adCompletedEvent);
+            sendToUnity('completedAdRequest');
+          }
+          window.dispatchEvent(new CustomEvent('adFinished'));
+        }, 80);
+        return Promise.resolve();
+      },
+      requestBanners: function() { return Promise.resolve(); },
+      clearAllBanners: function() {},
+      gameplayStart: function() { console.log('[Crazygames] gameplayStart'); },
+      gameplayStop: function() { console.log('[Crazygames] gameplayStop'); },
+      happytime: function() { console.log('[Crazygames] happytime'); },
+      happyTime: function() { console.log('[Crazygames] happyTime'); },
+      requestInviteUrl: function() {},
+      sdk: {
+        init: function() { return Promise.resolve(); },
+        requestAd: function() { return Promise.resolve(); },
+        gameplayStart: function() {},
+        gameplayStop: function() {},
+        happyTime: function() {}
+      }
+    };
+
+    window.Crazygames = new Proxy(window.Crazygames, {
+      get: function(target, prop) {
+        if (prop in target) return target[prop];
+        return function(...args) {
+          console.log('[Crazygames fallback]', prop, args);
+          for (var i = 0; i < args.length; i++) {
+            if (typeof args[i] === 'function') {
+              try { args[i](dummyInitObj); } catch(e) {}
+            }
+          }
+          return Promise.resolve();
+        };
+      }
+    });
+    window.CrazyGames = window.Crazygames;
+  </script>
+  <script src="Build/UnityLoader-v3.js"></script>
+  <script>
+    gameInstance = UnityLoader.instantiate("gameContainer", "Build/StreamingAssets.json");
+    window.gameInstance = gameInstance;
+    window.unityInstance = gameInstance;
+  </script>
+</head>
+<body>
+  <div id="gameContainer"></div>
+</body>
+</html>

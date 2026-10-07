@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>MR RACER - Car Racing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #unity-container { width: 100vw; height: 100vh; position: absolute; }
+    #unity-canvas { width: 100%; height: 100%; }
+  </style>
+
+  <script>
+    // Offline Yandex / YaGames SDK mock to bridge Unity lifecycle events
+    window.YaGames = {
+      init: function() {
+        return Promise.resolve({
+          features: {
+            LoadingAPI: {
+              ready: function() { console.log('[YaGames] LoadingAPI.ready'); }
+            }
+          },
+          adv: {
+            showFullscreenAdv: function(opt) {
+              if (opt && opt.callbacks) {
+                if (opt.callbacks.onOpen) opt.callbacks.onOpen();
+                if (opt.callbacks.onClose) opt.callbacks.onClose(true);
+              }
+            },
+            showRewardedVideo: function(opt) {
+              if (opt && opt.callbacks) {
+                if (opt.callbacks.onOpen) opt.callbacks.onOpen();
+                if (opt.callbacks.onRewarded) opt.callbacks.onRewarded();
+                if (opt.callbacks.onClose) opt.callbacks.onClose(true);
+              }
+            }
+          },
+          auth: {
+            openAuthDialog: function() { return Promise.resolve(); }
+          },
+          getPlayer: function() {
+            return Promise.resolve({
+              getMode: function() { return 'lite'; },
+              getUniqueID: function() { return 'guest_1'; },
+              getName: function() { return 'Racer'; },
+              getPhoto: function() { return ''; },
+              getData: function() { return Promise.resolve({}); },
+              setData: function() { return Promise.resolve(); }
+            });
+          },
+          getPayments: function() {
+            return Promise.resolve({
+              getCatalog: function() { return Promise.resolve([]); },
+              getPurchases: function() { return Promise.resolve([]); }
+            });
+          },
+          feedback: {
+            canReview: function() { return Promise.resolve({ value: false }); }
+          },
+          environment: {
+            i18n: { lang: 'en' }
+          }
+        });
+      }
+    };
+  </script>
+  <script src="main.js"></script>
+  <script src="Build/Build_1.0.loader.js"></script>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas"></canvas>
+  </div>
+  <script>
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "Build/Build_1.0.data",
+      frameworkUrl: "Build/Build_1.0.framework.js",
+      codeUrl: "Build/Build_1.0.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "MR RACER",
+      productName: "MR RACER",
+      productVersion: "1.0"
+    }).then(function(unityInstance) {
+      window.unityInstance = unityInstance;
+      console.log("MR RACER Unity instantiated, initializing SDK bridge...");
+      if (typeof initSDK === 'function') {
+        initSDK();
+      } else if (typeof InitializeLandingScreen === 'function') {
+        InitializeLandingScreen();
+      }
+    }).catch(function(err) {
+      console.error("MR RACER error:", err);
+    });
+  </script>
+</body>
+</html>

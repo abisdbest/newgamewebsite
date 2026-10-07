@@ -349,6 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Google AdSense Policy Compliance & CLS Prevention
     document.querySelectorAll('.ad-container, .game-ads-sidebar, .ad-slot, ins.adsbygoogle').forEach(adSlot => {
+        // New play-page slots (.ad-unit) are already sized + labelled in play.css
+        if (adSlot.closest('.ad-unit')) return;
+
         // Enforce CLS Prevention: set containment
         adSlot.style.contain = 'layout';
         if (!adSlot.style.minHeight && !adSlot.classList.contains('ad-banner')) {
@@ -356,12 +359,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Add subtle advertisement label if not already present
+        // (never inside <ins>: AdSense requires it to be empty)
         const parent = adSlot.parentElement;
         if (parent && !parent.querySelector('.ad-compliance-label') && !adSlot.querySelector('.ad-compliance-label')) {
             const label = document.createElement('div');
             label.className = 'ad-compliance-label';
             label.textContent = 'ADVERTISEMENT';
-            adSlot.insertBefore(label, adSlot.firstChild);
+            if (adSlot.tagName === 'INS') parent.insertBefore(label, adSlot);
+            else adSlot.insertBefore(label, adSlot.firstChild);
         }
     });
 });

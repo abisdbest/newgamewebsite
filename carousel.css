@@ -1,411 +1,398 @@
 /* =================================================================
- * BLOOKET1 - ENTERPRISE CAROUSEL & GAME CARD DESIGN SYSTEM
- * Multibillion-Dollar Standard (Steam / Poki / Apple Arcade)
+ * BLOOKET1 - GAME RAILS & CARDS
+ * Rounded, spaced cards that pop on hover (scale + accent ring +
+ * meta reveal). Transform/opacity only; off-screen rails skipped
+ * via content-visibility. No masks, no blurs, no shadows.
  * ================================================================= */
 
 .all-game-carousels {
-  margin: 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 26px;
 }
 
 .game-category-section {
+  --gap: 12px;
+  --cols: 6;
   position: relative;
-  scroll-margin-top: 100px;
-  margin-bottom: 4px;
+  scroll-margin-top: calc(var(--header-height, 60px) + 8px);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 250px;
+  /* content-visibility clips paint at the box edge: pad so arrows + hover pop stay visible */
+  padding: 0 var(--content-pad, 24px);
+  margin: 0 calc(var(--content-pad, 24px) * -1);
 }
 
-.game-category-section h2 {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: #f1f5f9;
-  margin: 0;
+/* --- Section header: title (+ icon) and "View all" --- */
+.category-header-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 4px;
+  min-height: 32px;
 }
 
-.game-carousel-container {
-  position: relative;
-  width: 100%;
-  border: 1.5px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-  background: #0d0d10;
-  padding: 0;
-  overflow: visible;
-  box-shadow: none !important;
+.category-title,
+.game-category-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
 }
+
+.category-title i {
+  font-size: 0.85em;
+  color: var(--accent-color);
+}
+
+.category-subtitle, .category-count { display: none; }
+
+.category-title-link { color: inherit; transition: color 0.15s ease; }
+.category-title-link::after {
+  content: "\203A";
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--text-muted);
+  transition: transform 0.2s var(--ease-out, ease), color 0.15s ease;
+}
+.category-title-link:hover { color: var(--accent-color); }
+.category-title-link:hover::after { color: var(--accent-color); transform: translateX(3px); }
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.view-all-btn i { font-size: 11px; transition: transform 0.25s var(--ease-out, ease); }
+.view-all-btn:hover { background: var(--bg-elevated); color: #fff; }
+.is-expanded .view-all-btn i { transform: rotate(90deg); }
+
+/* --- Rail --- */
+.game-carousel-container { position: relative; }
 
 .game-carousel {
   display: flex;
+  gap: var(--gap);
   overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 0;
-  margin: 0;
-  gap: 0;
-  border-radius: 6.5px;
+  overflow-y: hidden;
+  /* Room for the hover pop; cancelled out by negative margins */
+  padding: 10px 8px 12px;
+  margin: 0 -8px -6px;
+  scroll-padding-inline: 8px;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.game-carousel::-webkit-scrollbar {
-  display: none;
-}
+.game-carousel::-webkit-scrollbar { display: none; }
 
-/* --- Category Header Wrap (Matching Wireframe Title + Subtitle Bar) --- */
-.category-header-wrap {
-  margin-bottom: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.category-title {
-  font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-}
-
-.category-subtitle {
-  font-size: 12px;
-  color: var(--text-muted, #71717a);
-  font-weight: 500;
-  line-height: 1.25;
-}
-
-/* --- 6-Across Game Cards with Organic Stochastic Retro Dither Edge Blending --- */
+/* N full cards + a peek of the next one */
 .game-item {
-  flex: 0 0 calc((100% + 5 * 30px) / 6);
-  width: calc((100% + 5 * 30px) / 6);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none !important;
+  flex: 0 0 calc((100% - var(--gap) * var(--cols)) / (var(--cols) + 0.35));
   scroll-snap-align: start;
+  border-radius: var(--radius-md, 12px);
+  background: var(--bg-card);
   cursor: pointer;
-  overflow: visible;
-  transition: none; /* Container dimensions never resize */
+  transform: translateZ(0);
+  transition: transform 0.28s var(--ease-spring, ease);
 }
 
-.game-item:not(:first-child) {
-  margin-left: -30px;
-}
-
-/* 100% Procedural stochastic dithered blend of adjacent game images */
-.game-item:not(:first-child) .game-thumb-wrap {
-  -webkit-mask-image: var(--card-dither-mask, var(--dither-ramp-url)), linear-gradient(#fff, #fff);
-  -webkit-mask-position: 0 0, 30px 0;
-  -webkit-mask-size: 30px 240px, calc(100% - 30px) 100%;
-  -webkit-mask-repeat: repeat-y, no-repeat;
-  mask-image: var(--card-dither-mask, var(--dither-ramp-url)), linear-gradient(#fff, #fff);
-  mask-position: 0 0, 30px 0;
-  mask-size: 30px 240px, calc(100% - 30px) 100%;
-  mask-repeat: repeat-y, no-repeat;
-}
-
-/* Overlap seam darkening removed per user request (pure image-to-image dither blend) */
-.game-seam-darken {
-  display: none !important;
-}
-
-/* Card container size and stacking order stay rock-solid on hover */
 .game-item:hover {
-  /* Natural incremental stacking order preserved so dither seams are never broken */
+  transform: translateY(-4px) scale(1.05);
+  z-index: 3;
 }
+
+.game-item:active { transform: translateY(-2px) scale(1.02); }
 
 .game-thumb-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  border-radius: 0;
-  background: transparent;
+  border-radius: inherit;
+  background: var(--bg-card);
 }
 
 .game-thumb-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
-/* Image zooms in slightly on hover without changing card size or disrupting the dither */
-.game-item:hover .game-thumb-wrap img {
-  transform: scale(1.08);
-  filter: brightness(1.08);
-}
+.game-thumb-wrap img.is-loaded { opacity: 1; }
 
-/* Smooth Dark Fade from the bottom (no dither, pure gradient fade) */
-.game-bottom-fade {
+/* Accent ring on hover/focus */
+.game-item::after {
+  content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 54%;
-  background: linear-gradient(to top, rgba(14, 14, 18, 0.95) 0%, rgba(14, 14, 18, 0.55) 45%, transparent 100%);
+  inset: 0;
+  border-radius: inherit;
+  border: 2.5px solid var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.15s ease;
   pointer-events: none;
-  z-index: 3;
+  z-index: 6;
 }
 
-/* Card Text Overlay ON TOP of the image (as drawn in wireframe) */
+.game-item:hover::after,
+.game-item:focus-within::after { opacity: 1; }
+
+/* Bottom info: gradient + title; meta row slides in on hover */
 .game-card-overlay {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 8px 10px 10px 10px;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  inset: auto 0 0 0;
+  z-index: 3;
+  padding: 26px 12px 10px;
+  background: linear-gradient(0deg, rgba(8, 9, 15, 0.92) 0%, rgba(8, 9, 15, 0.55) 55%, transparent 100%);
   pointer-events: none;
-}
-
-.game-item:not(:first-child) .game-card-overlay {
-  padding-left: 34px;
-}
-
-.game-item:first-child .game-card-overlay {
-  padding-left: 12px;
 }
 
 .game-name {
-  font-family: var(--font-sans, 'Inter', sans-serif);
-  font-size: 13px;
-  font-weight: 700;
+  display: block;
+  font-size: 14.5px;
+  font-weight: 900;
   letter-spacing: -0.01em;
-  color: #ffffff;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
-.game-submeta {
-  font-size: 11px;
-  color: #d4d4d8;
-  font-weight: 500;
-  white-space: nowrap;
+.game-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
+  transition: max-height 0.25s var(--ease-out, ease), opacity 0.2s ease, margin 0.25s var(--ease-out, ease);
 }
+
+.game-item:hover .game-meta { max-height: 24px; opacity: 1; margin-top: 6px; }
+
+.game-chip {
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+}
+
+.game-plays {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d4d6e6;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.game-plays i { font-size: 8px; }
+.game-submeta, .game-bottom-fade, .play-hover-overlay { display: none; }
 
 .full-card-link {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 4;
+  border-radius: inherit;
   outline: none;
 }
 
-.full-card-link:focus-visible {
-  outline: 2px solid var(--accent-color, #f97316);
-  outline-offset: -2px;
-}
-
-/* Play Hover Overlay */
-.play-hover-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(7, 9, 15, 0.3);
-  opacity: 0;
-  transition: opacity 0.22s ease;
-  z-index: 4;
-  pointer-events: none;
-}
-
-.play-hover-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  color: #090a0f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  padding-left: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transform: scale(0.82);
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.game-item:hover .play-hover-overlay {
-  opacity: 1;
-}
-
-.game-item:hover .play-hover-circle {
-  transform: scale(1);
-}
-
-/* Micro Badges */
+/* Badges */
 .badge-micro {
   position: absolute;
-  top: 9px;
-  left: 9px;
-  z-index: 6;
-  padding: 3px 7px;
-  border-radius: 5px;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
   pointer-events: none;
-  line-height: 1.2;
 }
 
-.badge-micro.badge-new {
-  background: rgba(16, 185, 129, 0.2);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  color: #34d399;
-  backdrop-filter: blur(8px);
+.badge-micro i { font-size: 10px; }
+.badge-micro.badge-new { background: #22d48f; color: #04160e; }
+.badge-micro.badge-hot { background: var(--accent-color); color: #fff; }
+
+.badge-rank {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 9, 15, 0.82);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  pointer-events: none;
 }
 
-.badge-micro.badge-hot {
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  color: #f87171;
-  backdrop-filter: blur(8px);
-}
+.badge-rank.is-top-1 { background: #ffc23d; color: #2a1c02; }
+.badge-rank.is-top-2 { background: #dfe3ee; color: #1b1e2b; }
+.badge-rank.is-top-3 { background: #e39a5b; color: #2a1406; }
 
-/* Minimalist Favorite Button */
+/* Favorite */
 .favorite-btn {
   position: absolute;
-  top: 9px;
-  right: 9px;
-  width: 28px;
-  height: 28px;
-  z-index: 6;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  z-index: 7;
   border-radius: 50%;
-  color: #cbd5e1;
+  border: none;
+  background: rgba(8, 9, 15, 0.82);
+  color: #fff;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
   opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease, background 0.2s ease;
-  pointer-events: auto;
+  transform: scale(0.8);
+  transition: opacity 0.15s ease, transform 0.25s var(--ease-spring, ease), color 0.15s ease;
 }
 
 .game-item:hover .favorite-btn,
-.favorite-btn.is-favorite {
-  opacity: 1;
-}
+.favorite-btn:focus-visible,
+.favorite-btn.is-favorite { opacity: 1; transform: scale(1); }
 
-.favorite-btn:hover {
-  background: rgba(30, 41, 59, 0.95);
-  color: #ef4444;
-  transform: scale(1.1);
-  border-color: rgba(239, 68, 68, 0.4);
-}
+.favorite-btn:hover { transform: scale(1.12); color: #ff4d6a; }
+.favorite-btn.is-favorite { color: #ff4d6a; }
 
-.favorite-btn.is-favorite {
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.35);
-}
-
-/* Circular Carousel Navigation Arrows (Overlapping on Borders matching Wireframe) */
+/* --- Arrows: round, on the rail edges, appear on hover --- */
 .carousel-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  background: #141418;
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  top: calc(50% + 2px);
+  width: 42px;
+  height: 42px;
+  margin-top: -21px;
   border-radius: 50%;
-  color: #ffffff;
-  font-size: 11px;
+  border: none;
+  background: #fff;
+  color: #0b0c13;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  box-shadow: none !important;
-  transition: all 0.15s ease;
-  opacity: 0.92;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.18s ease, transform 0.22s var(--ease-spring, ease), background-color 0.15s ease;
 }
 
-.game-carousel-container:hover .carousel-arrow {
-  opacity: 1;
+.game-carousel-container:hover .carousel-arrow:not([disabled]) { opacity: 1; transform: scale(1); }
+.carousel-arrow:hover { background: var(--accent-color); color: #fff; }
+.carousel-arrow[disabled] { opacity: 0 !important; pointer-events: none; }
+
+.carousel-arrow-left { left: -21px; }
+.carousel-arrow-right { right: -21px; }
+
+/* --- "View all" expanded grid --- */
+.is-expanded .game-carousel {
+  flex-wrap: wrap;
+  row-gap: 18px;
+  overflow: visible;
+  scroll-snap-type: none;
 }
 
-.carousel-arrow:hover {
-  background: #24242d;
-  border-color: var(--accent-color, #f97316);
-  color: var(--accent-color, #f97316);
+.is-expanded .game-item { flex-basis: calc((100% - var(--gap) * (var(--cols) - 1)) / var(--cols)); }
+.is-expanded .carousel-arrow { display: none; }
+
+/* --- Search results grid --- */
+.search-results-grid .game-item { flex: none; width: auto; }
+
+mark.search-highlight { background: transparent; color: var(--accent-color); }
+
+/* --- Skeleton loading --- */
+.skeleton-section { display: flex; flex-direction: column; gap: 14px; }
+
+.skeleton-title,
+.skeleton-row i {
+  background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-card-hover) 50%, var(--bg-card) 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
 }
 
-.carousel-arrow-left {
-  left: -14px;
+.skeleton-title { width: 180px; height: 22px; border-radius: 8px; }
+
+.skeleton-row { display: flex; gap: 12px; overflow: hidden; }
+
+.skeleton-row i {
+  flex: 0 0 calc((100% - 72px) / 6.35);
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
 }
 
-.carousel-arrow-right {
-  right: -14px;
+@keyframes skeletonShimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
 }
 
-/* Search Highlighting */
-mark.search-highlight {
-  background: rgba(249, 115, 22, 0.3);
-  color: #ffffff;
-  font-weight: 700;
-  padding: 0 2px;
-  border-radius: 3px;
-  border-bottom: 2px solid var(--accent-color, #f97316);
-}
-
-/* Responsive Breakpoints - Overlapping dithered cards */
-@media (max-width: 1300px) {
-  .game-item {
-    flex: 0 0 calc((100% + 4 * 24px) / 5);
-    width: calc((100% + 4 * 24px) / 5);
-  }
-}
-
-@media (max-width: 1024px) {
-  .game-item {
-    flex: 0 0 calc((100% + 3 * 24px) / 4);
-    width: calc((100% + 3 * 24px) / 4);
-  }
-}
+/* --- Breakpoints --- */
+@media (min-width: 1700px) { .game-category-section { --cols: 7; } }
+@media (max-width: 1280px) { .game-category-section { --cols: 5; } }
+@media (max-width: 1024px) { .game-category-section { --cols: 4; } }
 
 @media (max-width: 768px) {
-  .game-item {
-    flex: 0 0 calc((100% + 2 * 20px) / 3);
-    width: calc((100% + 2 * 20px) / 3);
-  }
-  .game-item:not(:first-child) {
-    margin-left: -20px;
-  }
-  .carousel-arrow {
-    display: none !important;
-  }
+  .game-category-section { --cols: 2; --gap: 10px; padding: 0 14px; margin: 0 -14px; }
+  .all-game-carousels { gap: 20px; }
+  .category-title, .game-category-section h2 { font-size: 1.15rem; }
+  .carousel-arrow { display: none !important; }
+  .game-item:hover { transform: none; }
+  .favorite-btn { opacity: 1; transform: none; }
+  .skeleton-row i { flex-basis: calc((100% - 20px) / 2.35); }
 }
 
-@media (max-width: 480px) {
-  .game-item {
-    flex: 0 0 calc((100% + 16px) / 2);
-    width: calc((100% + 16px) / 2);
-  }
-  .game-item:not(:first-child) {
-    margin-left: -16px;
-  }
+@media (hover: none) {
+  .game-item:hover { transform: none; }
+  .game-item:hover::after { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-item, .game-thumb-wrap img, .game-meta { transition: none !important; }
+  .game-carousel { scroll-behavior: auto; }
+  .skeleton-title, .skeleton-row i { animation: none; }
 }

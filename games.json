@@ -1,5 +1,368 @@
 [
   {
+    "soundboard": {
+      "game image": "images/soundboard.webp",
+      "game link": "soundboard/",
+      "game categories": [
+        "Tools",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-06",
+      "description": "The ultimate meme soundboard with 28,000+ sounds from SoundboardMax. Trigger memes, sound effects, anime, gaming & movies with custom pitch controls and instant hotkeys."
+    }
+  },
+  {
+    "golf orbit": {
+      "game image": "images/golf orbit.jpg",
+      "game link": "play/golf orbit/",
+      "game categories": [
+        "Sports",
+        "Arcade",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Smash the golf ball into orbit and reach Mars! Upgrade strength, speed, and bounce in this addictive one-shot golf simulator."
+    }
+  },
+  {
+    "idle loops": {
+      "game image": "images/idle loops.svg",
+      "game link": "play/idle loops/",
+      "game categories": [
+        "Idle",
+        "Strategy RPG",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Strategic time-loop RPG. Queue actions to train stats, explore dungeons, and master magic spells before your mana runs out and the loop resets."
+    }
+  },
+  {
+    "4x4 chess": {
+      "game image": "images/4x4 chess.webp",
+      "game link": "play/4x4 chess/",
+      "game categories": [
+        "Strategy",
+        "Board Game",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Fast-paced micro-chess played on a 4x4 grid. Intense, compact tactical puzzles and rapid games with standard chess movement rules."
+    }
+  },
+  {
+    "brotato": {
+      "game image": "images/brotato.png",
+      "game link": "play/brotato/",
+      "game categories": [
+        "Action",
+        "Roguelite",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Top-down arena shooter roguelite where you play a potato wielding up to 6 weapons at once to fight off waves of aliens until help arrives."
+    }
+  },
+  {
+    "house of hazards": {
+      "game image": "images/house of hazards.jpg",
+      "game link": "play/house of hazards/",
+      "game categories": [
+        "Action",
+        "2-Player Party",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Hilarious multiplayer party game. Complete ordinary daily tasks around the house while your opponents activate hazardous traps to stop you."
+    }
+  },
+  {
+    "superhot": {
+      "game image": "images/superhot.png",
+      "game link": "play/superhot/",
+      "game categories": [
+        "Action",
+        "FPS",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "The groundbreaking time-bending first-person shooter where time only moves when you move. Dodge bullets in mid-air and take out enemies in stylish slow motion."
+    }
+  },
+  {
+    "pokérogue": {
+      "game image": "images/pokerogue.png",
+      "game link": "play/pokérogue/",
+      "game categories": [
+        "RPG",
+        "Roguelike",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "A Pokémon fangame heavily inspired by roguelites. Battle endlessly across biomes, draft Pokémon teams, and accumulate permanent relics."
+    }
+  },
+  {
+    "vex 10": {
+      "game image": "images/vex 10.png",
+      "game link": "play/vex 10/",
+      "game categories": [
+        "Platformer",
+        "Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "The latest chapter in the legendary Vex parkour platformer series. Avoid razor-sharp saws, laser traps, and solve precision timing puzzles."
+    }
+  },
+  {
+    "slow roads": {
+      "game image": "images/slow roads.jpg",
+      "game link": "play/slow roads/",
+      "game categories": [
+        "Simulation",
+        "Driving",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Endless procedural driving zen. Cruise through rolling hills, seasonal forests, mountain passes, and space vistas with dynamic lighting."
+    }
+  },
+  {
+    "raft wars 2": {
+      "game image": "images/raft wars 2.webp",
+      "game link": "play/raft wars 2/",
+      "game categories": [
+        "Action",
+        "Turn-based",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Simon and Paul return to reclaim their buried treasure after a water park is built right on top of it. Shoot tennis balls and rockets across the pool!"
+    }
+  },
+  {
+    "the prestige tree": {
+      "game image": "images/the prestige tree.png",
+      "game link": "play/the prestige tree/",
+      "game categories": [
+        "Idle",
+        "Strategy",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Branching prestige tree incremental game. Unlock points, prestige, boosters, generators, and discover an ever-expanding web of mechanics."
+    }
+  },
+  {
+    "antimatter dimensions": {
+      "game image": "images/antimatter dimensions.png",
+      "game link": "play/antimatter dimensions/",
+      "game categories": [
+        "Idle",
+        "Incremental",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "A massive, deeply layered incremental game about watching mind-boggling numbers skyrocket past infinity into dimensional sacrifice and eternity."
+    }
+  },
+  {
+    "a dark room": {
+      "game image": "images/a dark room.png",
+      "game link": "play/a dark room/",
+      "game categories": [
+        "RPG",
+        "Incremental",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "The critically acclaimed minimalist text adventure. Light a fire in a cold room, build a village, craft supplies, and venture into the silent forest."
+    }
+  },
+  {
+    "poor bunny": {
+      "game image": "images/poor bunny.jpg",
+      "game link": "play/poor bunny/",
+      "game categories": [
+        "Arcade",
+        "Multiplayer",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Charming 1-player or local 2-player arcade game. Help the hungry rabbit gobble up carrots while dodging spikes, sawblades, and lasers."
+    }
+  },
+  {
+    "stickman hook": {
+      "game image": "images/stickman hook.png",
+      "game link": "play/stickman hook/",
+      "game categories": [
+        "Action",
+        "Physics",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Swing from grapple points like Spider-Man, build momentum through loop-de-loops, and perform acrobatic stunts to reach the finish line."
+    }
+  },
+  {
+    "drift boss": {
+      "game image": "images/drift boss.png",
+      "game link": "play/drift boss/",
+      "game categories": [
+        "Driving",
+        "Arcade",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "One-button endless 3D isometric drifting game. Navigate tight zigzag ramps and collect coins to unlock new vehicles."
+    }
+  },
+  {
+    "basket bros": {
+      "game image": "images/basket bros.png",
+      "game link": "play/basket bros/",
+      "game categories": [
+        "Sports",
+        "Multiplayer",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Fast-paced arcade 1v1 basketball action with wild dunks, crazy powerups, custom character unlocks, and intense physics."
+    }
+  },
+  {
+    "drive mad": {
+      "game image": "images/drive mad.jpg",
+      "game link": "play/drive mad/",
+      "game categories": [
+        "Driving",
+        "Physics",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Drive a 4x4 truck across increasingly wild stunt tracks filled with bridges, jumps, and crazy obstacles without flipping over."
+    }
+  },
+  {
+    "jetpack joyride": {
+      "game image": "images/jetpack joyride.jpg",
+      "game link": "play/jetpack joyride/",
+      "game categories": [
+        "Action",
+        "Arcade",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Barry Steakfries breaks into a secret lab to commandeer experimental jetpacks. Bullet-powered jetpacks, giant mechs, and endless obstacles!"
+    }
+  },
+  {
+    "geometry dash lite": {
+      "game image": "images/geometry dash lite.webp",
+      "game link": "play/geometry dash lite/",
+      "game categories": [
+        "Rhythm",
+        "Platformer",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Rhythm-based action platformer. Jump, fly, and flip your way through dangerous passages and spiky obstacles with full soundtrack."
+    }
+  },
+  {
+    "tube jumpers": {
+      "game image": "images/tube jumpers.jpg",
+      "game link": "play/tube jumpers/",
+      "game categories": [
+        "Party",
+        "Multiplayer",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Hilarious 1 to 4 player party game. Battle against waves, sharks, and balls to stay on your floating tube!"
+    }
+  },
+  {
+    "death run 3d": {
+      "game image": "images/death run 3d.jpg",
+      "game link": "play/death run 3d/",
+      "game categories": [
+        "Action",
+        "Fast Reflex",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Hyper-fast first-person reflex runner inside an endless neon tube with unpredictable moving obstacles."
+    }
+  },
+  {
+    "polytrack": {
+      "game image": "images/polytrack.png",
+      "game link": "play/polytrack/",
+      "game categories": [
+        "Driving",
+        "Time Trial",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Fast-paced low-poly track racer with physics loops, custom track editor, and official built-in tracks."
+    }
+  },
+  {
+    "mad grand prix": {
+      "game image": "images/mad grand prix.jpg",
+      "game link": "play/mad grand prix/",
+      "game categories": [
+        "Racing",
+        "Formula 1",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Intense open-wheel circuit racing. Compete against aggressive AI drivers across realistic Grand Prix racetracks."
+    }
+  },
+  {
+    "supreme duelist stickman 2": {
+      "game image": "images/supreme duelist stickman 2.jpg",
+      "game link": "play/supreme duelist stickman 2/",
+      "game categories": [
+        "Fighting",
+        "2-Player Action",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Crazy physics stickman fighting game. Battle with swords, guns, shields, and magic abilities across destructive battlegrounds."
+    }
+  },
+  {
+    "mr racer - car racing": {
+      "game image": "images/mr racer.jpg",
+      "game link": "play/mr racer - car racing/",
+      "game categories": [
+        "Racing",
+        "3D Driving",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "High-speed highway racing thriller. Weave through dynamic traffic, race in multiple game modes, and upgrade supercars."
+    }
+  },
+  {
+    "helix jump": {
+      "game image": "images/helix jump.png",
+      "game link": "play/helix jump/",
+      "game categories": [
+        "Arcade",
+        "Casual",
+        "Addictive Games"
+      ],
+      "date added": "2026-10-07",
+      "description": "Exciting bouncing ball adventure through the helix tower labyrinth. Avoid red forbidden platforms and drop straight to the bottom!"
+    }
+  },
+  {
     "snow rider 3d": {
       "game image": "images/snowrider.webp",
       "game link": "play/snow rider 3d/",
@@ -793,14 +1156,15 @@
   },
   {
     "crossy road": {
-      "game image": "images/crossyroad.webp",
+      "game image": "images/crossy road.webp",
       "game link": "play/crossy road/",
       "game categories": [
-        "Action",
+        "Arcade",
+        "Voxel Runner",
         "Addictive Games"
       ],
-      "date added": "2024-03-05",
-      "description": "Hop across busy freeways, train rails, and raging rivers without getting hit or swept away."
+      "date added": "2026-10-07",
+      "description": "Why did the chicken cross the road? Dodge endless oncoming cars, trucks, trains, and rivers in this beloved voxel arcade classic."
     }
   },
   {

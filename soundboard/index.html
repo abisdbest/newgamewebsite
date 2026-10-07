@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-VNGZND6VMN");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="keywords"
+      content="soundboard, meme soundboard, unblocked soundboard, soundboardmax, blooket1, discord soundboard, meme sounds, sfx, sound buttons"
+    />
+    <title>Blooket1 Meme Soundboard | 2,700+ Unblocked Sounds &amp; FX</title>
+    <link rel="icon" type="image/x-icon" href="../images/b-logo.webp" />
+    <meta
+      name="description"
+      content="The ultimate free meme soundboard on Blooket1 with 2,700+ sounds from SoundboardMax. Trigger memes, gaming clips, sound effects, anime audio, pitch shift, and Discord stream deck hotkeys."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link type="text/css" rel="stylesheet" href="../ub.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="soundboard.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Blooket1 Meme Soundboard",
+        "url": "https://blooket1.pages.dev/soundboard/",
+        "description": "2,700+ sounds from SoundboardMax. Memes, sound effects, gaming and anime soundboard with hotkeys and pitch control.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All"
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Header: logo | search | stealth mode + buttons -->
+    <header class="cg-header">
+      <div class="cg-header-left">
+        <button id="mobile-menu-btn" class="cg-mobile-menu-btn" aria-label="Open menu" onclick="document.getElementById('sidebar-toggle-btn').click()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a href="../" class="cg-logo-area" aria-label="Blooket1 Home">
+          <span class="cg-logo-icon-wrap">
+            <img class="cg-logo-img" src="../images/b-logo.webp" alt="" width="34" height="34" />
+          </span>
+          <span class="cg-logo-text">
+            <span class="cg-logo-main">blooket<span class="cg-logo-accent">1</span></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="cg-header-center">
+        <div class="cg-search-bar" role="search">
+          <input
+            id="sbSearchInput"
+            type="search"
+            class="cg-search-input"
+            placeholder="Search 28,000+ meme sounds and sound effects..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search sounds"
+          />
+          <kbd class="search-kbd">/</kbd>
+          <button id="sbSearchClear" class="cg-search-submit" style="display:none;" aria-label="Clear search">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="cg-header-right">
+        <button id="headerRandomBtn" class="cg-icon-btn" title="Random sound (R)" aria-label="Play a random sound" onclick="window.soundboardAPI && window.soundboardAPI.playRandom()">
+          <i class="fas fa-shuffle"></i>
+        </button>
+        <button id="headerStopBtn" class="cg-icon-btn" style="color: #ff4757;" title="Stop all audio (Esc)" aria-label="Stop all audio" onclick="window.soundboardAPI && window.soundboardAPI.stopAll()">
+          <i class="fas fa-square"></i>
+        </button>
+        <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings &amp; tab cloaking">
+          <i class="fas fa-user-secret"></i>
+          <span>Stealth mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="cg-sidebar-backdrop"></div>
+
+    <!-- Dense icon rail (CrazyGames-style) matching Blooket1 -->
+    <aside id="cg-sidebar" class="cg-sidebar" aria-label="Main Navigation">
+      <nav class="cg-nav-list">
+        <a href="../#featured-section" class="cg-nav-item" data-tooltip="Home">
+          <span class="cg-nav-icon"><i class="fas fa-house"></i></span>
+          <span class="cg-nav-label">Home</span>
+        </a>
+        <a href="../#category-new" class="cg-nav-item" data-tooltip="New">
+          <span class="cg-nav-icon"><i class="fas fa-wand-magic-sparkles"></i></span>
+          <span class="cg-nav-label">New</span>
+        </a>
+        <a href="../#category-popular" class="cg-nav-item" data-tooltip="Trending">
+          <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
+          <span class="cg-nav-label">Trending</span>
+        </a>
+        <a href="../#favorites-carousel" class="cg-nav-item" data-tooltip="Favorites">
+          <span class="cg-nav-icon"><i class="fas fa-heart"></i></span>
+          <span class="cg-nav-label">Favorites</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <a href="../#category-action" class="cg-nav-item" data-tooltip="Action">
+          <span class="cg-nav-icon"><i class="fas fa-bolt"></i></span>
+          <span class="cg-nav-label">Action</span>
+        </a>
+        <a href="../#category-addictive" class="cg-nav-item" data-tooltip="Addictive">
+          <span class="cg-nav-icon"><i class="fas fa-infinity"></i></span>
+          <span class="cg-nav-label">Addictive</span>
+        </a>
+        <a href="../#category-driving" class="cg-nav-item" data-tooltip="Driving">
+          <span class="cg-nav-icon"><i class="fas fa-car-side"></i></span>
+          <span class="cg-nav-label">Driving</span>
+        </a>
+        <a href="../#category-puzzle" class="cg-nav-item" data-tooltip="Puzzle">
+          <span class="cg-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
+          <span class="cg-nav-label">Puzzle</span>
+        </a>
+        <a href="../#category-sports" class="cg-nav-item" data-tooltip="Sports">
+          <span class="cg-nav-icon"><i class="fas fa-basketball"></i></span>
+          <span class="cg-nav-label">Sports</span>
+        </a>
+        <a href="../#category-2-player" class="cg-nav-item" data-tooltip="2 Player">
+          <span class="cg-nav-icon"><i class="fas fa-user-group"></i></span>
+          <span class="cg-nav-label">2 Player</span>
+        </a>
+        <a href="../#category-retro" class="cg-nav-item" data-tooltip="Retro">
+          <span class="cg-nav-icon"><i class="fas fa-ghost"></i></span>
+          <span class="cg-nav-label">Retro</span>
+        </a>
+        <a href="../#category-clicker" class="cg-nav-item" data-tooltip="Clicker">
+          <span class="cg-nav-icon"><i class="fas fa-arrow-pointer"></i></span>
+          <span class="cg-nav-label">Clicker</span>
+        </a>
+        <a href="../#category-tools" class="cg-nav-item" data-tooltip="Tools">
+          <span class="cg-nav-icon"><i class="fas fa-toolbox"></i></span>
+          <span class="cg-nav-label">Tools</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <a href="../chat/" class="cg-nav-item" data-tooltip="Community chat">
+          <span class="cg-nav-icon"><i class="fas fa-comments"></i></span>
+          <span class="cg-nav-label">Community chat</span>
+        </a>
+        <a href="./" class="cg-nav-item active" data-tooltip="Soundboard">
+          <span class="cg-nav-icon"><i class="fas fa-volume-high"></i></span>
+          <span class="cg-nav-label">Soundboard</span>
+        </a>
+        <a href="../blog/" class="cg-nav-item" data-tooltip="Updates">
+          <span class="cg-nav-icon"><i class="fas fa-newspaper"></i></span>
+          <span class="cg-nav-label">Updates</span>
+        </a>
+
+        <!-- Panel toggle bottom-left -->
+        <div class="cg-sidebar-bottom-wrap">
+          <button id="sidebar-toggle-btn" class="cg-sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="false" title="Expand / collapse sidebar">
+            <span class="cg-panel-toggle-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+                <line x1="9" y1="4" x2="9" y2="20"></line>
+              </svg>
+            </span>
+            <span class="cg-panel-toggle-label">Collapse</span>
+          </button>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Canvas -->
+    <main class="cg-main-canvas" id="main-content">
+      <!-- Studio Hero Banner -->
+      <section class="sb-hero-banner">
+        <div class="sb-hero-content">
+          <div class="sb-hero-info">
+            <div class="sb-badge-pill">
+              <i class="fas fa-fire"></i>
+              <span>Live Soundboard Studio</span>
+            </div>
+            <h1 class="sb-hero-title">
+              Blooket1 <span>Meme Soundboard</span>
+            </h1>
+            <p class="sb-hero-desc">
+              All 28,000+ sounds from SoundboardMax. Trigger memes, viral sound bites, anime audio, and gaming sound effects with hotkey stream deck controls and live pitch shift.
+            </p>
+          </div>
+
+          <!-- Master Control Console -->
+          <div class="sb-master-console">
+            <!-- Stop All Button -->
+            <button id="stopAllBtn" class="sb-btn sb-btn-danger" title="Stop all playing audio (Esc)">
+              <i class="fas fa-stop"></i>
+              <span>Stop All</span>
+              <kbd class="sb-kbd-hint">Esc</kbd>
+            </button>
+
+            <!-- Random Sound -->
+            <button id="randomSoundBtn" class="sb-btn sb-btn-primary" title="Play random sound (R)">
+              <i class="fas fa-dice"></i>
+              <span>Random</span>
+              <kbd class="sb-kbd-hint">R</kbd>
+            </button>
+
+            <!-- Volume Control -->
+            <div class="sb-volume-control">
+              <i id="volumeIcon" class="fas fa-volume-high" title="Click to mute"></i>
+              <input id="masterVolume" type="range" min="0" max="1" step="0.05" value="0.85" class="sb-slider" aria-label="Master volume" />
+              <span id="volumeValue" class="sb-volume-label">85%</span>
+            </div>
+
+            <!-- Speed / Pitch Shift -->
+            <div class="sb-console-group">
+              <select id="sbSpeedSelect" class="sb-speed-select" aria-label="Playback speed / pitch">
+                <option value="0.5">0.5x Slowed</option>
+                <option value="0.75">0.75x Chill</option>
+                <option value="1.0" selected>1.0x Normal</option>
+                <option value="1.25">1.25x Fast</option>
+                <option value="1.5">1.5x Nightcore</option>
+                <option value="2.0">2.0x Chipmunk</option>
+              </select>
+            </div>
+
+            <!-- Play Mode (Overlap vs Solo) -->
+            <button id="playModeBtn" class="sb-btn sb-btn-secondary" title="Toggle Overlap or Solo play">
+              <i class="fas fa-layer-group"></i>
+              <span>Overlap</span>
+            </button>
+
+            <!-- Global Loop -->
+            <button id="globalLoopBtn" class="sb-btn sb-btn-secondary" title="Toggle continuous loop">
+              <i class="fas fa-repeat"></i>
+              <span>Loop</span>
+            </button>
+
+            <!-- Add Custom Sound -->
+            <button id="openCustomModalBtn" class="sb-btn sb-btn-secondary" title="Upload custom audio or sound">
+              <i class="fas fa-plus"></i>
+              <span>Add Sound</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hotkey Stream Deck (Keys 1-9) -->
+      <section class="sb-deck-section">
+        <div class="sb-deck-header">
+          <div class="sb-deck-title-area">
+            <i class="fas fa-keyboard" style="color: var(--accent-color); font-size: 20px;"></i>
+            <div>
+              <h2 class="sb-deck-title">Quick Stream Deck (Hotkeys 1 &ndash; 9)</h2>
+              <p class="sb-deck-sub">Press number keys <strong>1 through 9</strong> on your keyboard to trigger instant sounds anywhere!</p>
+            </div>
+          </div>
+          <div class="sb-deck-actions">
+            <span class="sb-badge-pill" style="margin: 0; background: rgba(255,255,255,0.06); color: var(--text-secondary);">
+              <i class="fas fa-info-circle"></i> Click to play or right-click to reassign
+            </span>
+          </div>
+        </div>
+
+        <div class="sb-deck-grid" id="sbDeckGrid">
+          <!-- Populated by JavaScript with 9 hotkey pads -->
+        </div>
+      </section>
+
+      <!-- Category Filter Pills & Search/Sort Bar -->
+      <section class="sb-controls-bar">
+        <div class="sb-category-pills" id="sbCategoryPills">
+          <button class="sb-cat-pill active" data-category="all">
+            <i class="fas fa-shapes"></i>
+            <span>All Sounds</span>
+            <span class="sb-cat-count" id="count-all">28,551</span>
+          </button>
+          <button class="sb-cat-pill" data-category="trending">
+            <i class="fas fa-fire"></i>
+            <span>Trending</span>
+            <span class="sb-cat-count" id="count-trending">0</span>
+          </button>
+          <button class="sb-cat-pill" data-category="favorites">
+            <i class="fas fa-heart"></i>
+            <span>Favorites</span>
+            <span class="sb-cat-count" id="count-favorites">0</span>
+          </button>
+          <button class="sb-cat-pill" data-category="meme">
+            <i class="fas fa-face-grin-squint-tears"></i>
+            <span>Meme</span>
+            <span class="sb-cat-count" id="count-meme">15,525</span>
+          </button>
+          <button class="sb-cat-pill" data-category="sound-effects">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <span>Sound Effects</span>
+            <span class="sb-cat-count" id="count-sound-effects">4,816</span>
+          </button>
+          <button class="sb-cat-pill" data-category="games">
+            <i class="fas fa-gamepad"></i>
+            <span>Games</span>
+            <span class="sb-cat-count" id="count-games">4,022</span>
+          </button>
+          <button class="sb-cat-pill" data-category="movies">
+            <i class="fas fa-film"></i>
+            <span>Movies</span>
+            <span class="sb-cat-count" id="count-movies">2,580</span>
+          </button>
+          <button class="sb-cat-pill" data-category="anime-manga">
+            <i class="fas fa-dragon"></i>
+            <span>Anime &amp; Manga</span>
+            <span class="sb-cat-count" id="count-anime-manga">1,183</span>
+          </button>
+          <button class="sb-cat-pill" data-category="notification">
+            <i class="fas fa-bell"></i>
+            <span>Notification</span>
+            <span class="sb-cat-count" id="count-notification">425</span>
+          </button>
+          <button class="sb-cat-pill" data-category="custom">
+            <i class="fas fa-upload"></i>
+            <span>My Custom</span>
+            <span class="sb-cat-count" id="count-custom">0</span>
+          </button>
+        </div>
+
+        <div class="sb-search-sort-row">
+          <div class="sb-results-count" id="sbResultsCount">
+            Loading sounds...
+          </div>
+
+          <div class="sb-sort-wrap">
+            <label for="sbSortSelect" style="font-size: 13.5px; font-weight: 800; color: var(--text-muted);">Sort:</label>
+            <select id="sbSortSelect" class="sb-sort-select">
+              <option value="plays-desc">Most Played (Default)</option>
+              <option value="views-desc">Most Viewed</option>
+              <option value="title-asc">Name (A &ndash; Z)</option>
+              <option value="title-desc">Name (Z &ndash; A)</option>
+              <option value="random">Shuffle / Random</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sound Cards Grid -->
+      <section class="sb-grid" id="sbGrid" aria-label="Soundboard cards">
+        <!-- Rendered dynamically by soundboard.js -->
+      </section>
+
+      <!-- Loading Spinner for Infinite Scroll -->
+      <div id="sbLoader" class="sb-loader-area">
+        <div class="sb-spinner"></div>
+        <span style="font-size: 13px; color: var(--text-muted); font-weight: 700;">Loading sounds...</span>
+      </div>
+    </main>
+
+    <!-- Custom Sound Upload Modal -->
+    <div id="customSoundModal" class="sb-modal-backdrop">
+      <div class="sb-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="customModalTitle">
+        <div class="sb-modal-header">
+          <div class="sb-modal-title" id="customModalTitle">
+            <i class="fas fa-cloud-arrow-up" style="color: var(--accent-color);"></i>
+            <span>Add Custom Sound</span>
+          </div>
+          <button id="closeCustomModalBtn" class="sb-modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="sb-modal-body">
+          <div id="customDropzone" class="sb-dropzone">
+            <i class="fas fa-music"></i>
+            <p style="font-weight: 800; color: #fff; margin-bottom: 4px;">Drag &amp; drop audio file here</p>
+            <p style="font-size: 12px; color: var(--text-muted);">Supports .mp3, .wav, .ogg, .aac, .m4a</p>
+            <input type="file" id="customAudioFile" accept="audio/*" style="display:none;" />
+          </div>
+
+          <div>
+            <label for="customAudioName" style="font-size: 13px; font-weight: 800; color: var(--text-secondary); display: block; margin-bottom: 6px;">Sound Name</label>
+            <input type="text" id="customAudioName" class="sb-input-field" placeholder="e.g. My Epic Meme" />
+          </div>
+
+          <button id="saveCustomSoundBtn" class="sb-btn sb-btn-primary" style="width: 100%; height: 42px; margin-top: 8px;">
+            <i class="fas fa-check"></i> Add to My Soundboard
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings & Stealth Cloaking Modal (Blooket1 standard) -->
+    <div id="settingsModalOverlay" class="settings-modal-overlay">
+      <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+        <div class="settings-modal-header">
+          <div class="settings-title-wrap">
+            <i class="fas fa-sliders-h settings-header-icon"></i>
+            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
+          </div>
+          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
+        </div>
+
+        <div class="settings-modal-body">
+          <!-- Section 1: Tab Cloaking -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-mask section-icon"></i>
+              <div>
+                <h3>Tab Cloaking (Disguise)</h3>
+                <p>Change this tab's title and favicon so it appears as school or productivity work.</p>
+              </div>
+            </div>
+            <div class="cloak-options-grid" id="cloakOptionsGrid"></div>
+          </div>
+
+          <!-- Section 2: Panic Key -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-shield-alt section-icon"></i>
+              <div>
+                <h3>Panic Key (Boss Key)</h3>
+                <p>Press this single key at any moment to immediately escape to Google Classroom.</p>
+              </div>
+            </div>
+            <div class="panic-key-card">
+              <div class="panic-key-status">
+                <span class="panic-label">Current Panic Key:</span>
+                <kbd id="currentPanicKeyDisplay">`</kbd>
+                <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
+              </div>
+              <div class="panic-btn-group">
+                <button id="changePanicKeyBtn" class="settings-action-btn"><i class="fas fa-keyboard"></i> Change Key</button>
+                <button id="testPanicKeyBtn" class="settings-action-btn secondary"><i class="fas fa-external-link-alt"></i> Test Panic</button>
+                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (`)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Theme Switcher -->
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <i class="fas fa-palette section-icon"></i>
+              <div>
+                <h3>Theme Switcher</h3>
+                <p>Customize the look and feel of the site.</p>
+              </div>
+            </div>
+            <div class="theme-options-grid" id="themeOptionsGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../script.js"></script>
+    <script src="soundboard.js?v=3"></script>
+  </body>
+</html>

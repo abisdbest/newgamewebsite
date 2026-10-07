@@ -1,0 +1,1 @@
+No Content: https://www.coolmathgames.com/sites/default/files/public_games/53738/ServiceWorker.js

@@ -1,0 +1,82 @@
+canvas.emscripten {
+  border: 0px none;
+  cursor: none;
+  width: 100vw !important;
+  height: 100vh !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html,
+body,
+div,
+canvas {
+  margin: 0px;
+  padding: 0px;
+}
+::selection {
+  color: rgb(51, 51, 51);
+  text-shadow: none;
+}
+.clear::after {
+  visibility: hidden;
+  display: block;
+  font-size: 0px;
+  content: " ";
+  clear: both;
+  height: 0px;
+}
+.clear {
+  display: inline-table;
+  clear: both;
+}
+* html .clear {
+  height: 1%;
+}
+.clear {
+  display: block;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: Helvetica, Verdana, Arial, sans-serif;
+  background: black;
+  overflow: hidden;
+}
+body {
+}
+p.header,
+p.footer,
+div.logo,
+div.title,
+.fullscreen {
+  display: none !important;
+}
+.template-wrap {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.template-wrap canvas {
+  margin: 0 !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+body.template {
+}
+.template .template-wrap {
+}
+.template .template-wrap canvas {
+}

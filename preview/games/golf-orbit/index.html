@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Golf Orbit</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #121214;
+      }
+      #unity-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      #unity-canvas {
+        width: 100%;
+        height: 100%;
+        background: #231F20;
+      }
+      #unity-loading-bar {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        text-align: center;
+      }
+      #unity-progress-bar-empty {
+        width: 256px;
+        height: 20px;
+        background: url('TemplateData/progress-bar-empty.png') no-repeat center;
+        background-size: contain;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid #333;
+        margin: 0 auto;
+      }
+      #unity-progress-bar-full {
+        width: 0%;
+        height: 100%;
+        background: url('TemplateData/progress-bar-full.png') no-repeat left;
+        background-size: cover;
+        transition: width 0.2s ease;
+      }
+      .loading-text {
+        color: #ffffff;
+        font-family: sans-serif;
+        margin-top: 12px;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+      /* Suppress any rogue ad overlays or adblock banners */
+      #gamedistribution-jssdk, [id*="gdsdk"], [class*="gdsdk"], [id*="adblock"], [class*="adblock"] {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
+    <!-- Offline GameDistribution Mock to completely eliminate adblock popups -->
+    <script id="gamedistribution-jssdk">
+      (function() {
+        var AdType = {
+          Rewarded: 'rewarded',
+          Interstitial: 'interstitial',
+          Display: 'display'
+        };
+        window.gdsdk = {
+          AdType: AdType,
+          preloadAd: function(type) {
+            return Promise.resolve(1);
+          },
+          showAd: function(adType) {
+            console.log('[GDSDK Offline Mock] Ad requested:', adType);
+            return new Promise(function(resolve) {
+              if (window.GD_OPTIONS && typeof window.GD_OPTIONS.onEvent === 'function') {
+                if (adType === AdType.Rewarded || adType === 'rewarded') {
+                  window.GD_OPTIONS.onEvent({ name: 'SDK_REWARDED_WATCH_COMPLETE' });
+                }
+                window.GD_OPTIONS.onEvent({ name: 'SDK_GAME_START' });
+              }
+              resolve();
+            });
+          },
+          sendEvent: function(options) {
+            return Promise.resolve();
+          },
+          openConsole: function() {},
+          on: function() {},
+          off: function() {}
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="loading-text" id="loading-text">Loading Golf Orbit...</div>
+      </div>
+      <div id="unity-warning"> </div>
+    </div>
+    <script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var loadingText = document.querySelector("#loading-text");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function unityShowBanner(msg, type) {
+        console.log("[" + type + "] " + msg);
+        if (warningBanner) {
+          var div = document.createElement('div');
+          div.innerHTML = msg;
+          warningBanner.appendChild(div);
+          if (type == 'error') div.style = 'background: red; color: white; padding: 10px;';
+          else {
+            if (type == 'warning') div.style = 'background: #ffcc00; color: black; padding: 10px;';
+            setTimeout(function() {
+              if (div.parentNode) div.parentNode.removeChild(div);
+            }, 5000);
+          }
+        }
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/GolfOrbit.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/GolfOrbit.data.unityweb",
+        frameworkUrl: buildUrl + "/GolfOrbit.framework.js.unityweb",
+        codeUrl: buildUrl + "/GolfOrbit.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "PinpinTeam",
+        productName: "Golf Orbit",
+        productVersion: "1.25.39",
+        showBanner: unityShowBanner,
+      };
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+      }
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = (100 * progress) + "%";
+          if (loadingText) {
+            loadingText.textContent = "Loading... " + Math.round(progress * 100) + "%";
+          }
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          window.unityInstance = unityInstance;
+        }).catch((message) => {
+          console.error("Unity load error:", message);
+          if (loadingText) {
+            loadingText.textContent = "Error loading game: " + message;
+            loadingText.style.color = "#ff4444";
+          }
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>

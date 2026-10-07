@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SUPERHOT | Spawnd Games</title>
+    <link rel="shortcut icon" href="game/TemplateData/favicon.ico" />
+    <script>
+      // Simple progress tracking that doesn't interfere with Unity
+      var gameInstance = null;
+      var customProgress = 0;
+      var progressInterval = null;
+
+      // Smart progress tracking that adapts to actual Unity loading speed
+      function simulateProgress() {
+        var startTime = Date.now();
+        var currentProgress = 0;
+        var targetProgress = 0;
+        var progressSpeed = 1; // Adaptive speed multiplier
+        
+        function updateProgress() {
+          var elapsed = Date.now() - startTime;
+          
+          // Faster initial progress for fast-loading games
+          if (elapsed < 500) {
+            // First 0.5 seconds: 0-40%
+            targetProgress = (elapsed / 500) * 40;
+          } else if (elapsed < 1500) {
+            // Next 1 second: 40-80%
+            targetProgress = 40 + ((elapsed - 500) / 1000) * 40;
+          } else if (elapsed < 3000) {
+            // Next 1.5 seconds: 80-95%
+            targetProgress = 80 + ((elapsed - 1500) / 1500) * 15;
+          } else {
+            // Hold at 95% until Unity finishes
+            targetProgress = 95;
+          }
+          
+          // Smooth interpolation toward target
+          currentProgress += (targetProgress - currentProgress) * 0.1;
+          
+          if (window.updateLoadingProgress && !gameStarted) {
+            window.updateLoadingProgress(Math.min(currentProgress, 95));
+          }
+          
+          if (currentProgress < 95 && !gameStarted) {
+            requestAnimationFrame(updateProgress);
+          }
+        }
+        
+        updateProgress();
+      }
+
+      // Track game loading for our custom progress bar
+      var gameStarted = false;
+      var loadingStartTime = Date.now();
+      var minimumLoadingTime = 2000; // Minimum 2 seconds to show branding
+      
+      // Override Unity's default progress handling
+      function monitorUnityLoading() {
+        // Start progress simulation
+        simulateProgress();
+        
+        // Monitor for when Unity game actually starts
+        var checkInterval = setInterval(function() {
+          var canvas = document.querySelector('canvas.emscripten, #canvas');
+          var elapsed = Date.now() - loadingStartTime;
+          
+          // Check if canvas exists and Unity is rendering
+          // Also ensure minimum branding display time has passed
+          if (canvas && canvas.width > 0 && canvas.height > 0 && elapsed >= minimumLoadingTime && !gameStarted) {
+            gameStarted = true;
+            console.log('Unity game detected as started after', elapsed, 'ms');
+            
+            // Smoothly progress to 100%
+            var finalProgress = 95;
+            var progressToComplete = setInterval(function() {
+              finalProgress += 2;
+              if (window.updateLoadingProgress) {
+                window.updateLoadingProgress(Math.min(finalProgress, 100));
+              }
+              
+              if (finalProgress >= 100) {
+                clearInterval(progressToComplete);
+                setTimeout(function() {
+                  if (window.hideLoadingScreen) {
+                    window.hideLoadingScreen();
+                  }
+                }, 300);
+              }
+            }, 50);
+            
+            clearInterval(checkInterval);
+          } else if (canvas && canvas.width > 0 && canvas.height > 0 && elapsed < minimumLoadingTime) {
+            // Unity loaded fast, but wait for minimum time
+            console.log('Unity loaded quickly, waiting for minimum branding time...');
+          }
+        }, 100);
+        
+        // Fallback: hide loading screen after reasonable time
+        setTimeout(function() {
+          if (!gameStarted) {
+            console.log('Fallback: hiding loading screen after timeout');
+            if (window.updateLoadingProgress) {
+              window.updateLoadingProgress(100);
+            }
+            if (window.hideLoadingScreen) {
+              window.hideLoadingScreen();
+            }
+          }
+          clearInterval(checkInterval);
+        }, 15000); // 15 second timeout
+      }
+
+      // Initialize when page loads - let Unity handle everything naturally
+      window.addEventListener('load', function() {
+        // Just start monitoring for the loading screen
+        monitorUnityLoading();
+      });
+    </script>
+    <link rel="stylesheet" href="game/TemplateData/style.css">
+    <script src="game/TemplateData/UnityProgress.js"></script>
+    <style>
+
+      /* Loading screen container */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        z-index: 2000;
+      }
+
+      .loading-container.hidden {
+        display: none;
+      }
+
+      .loading-logo {
+        margin-bottom: 40px;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .loading-logo img {
+        max-width: 200px;
+        height: auto;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Progress bar container with reserved space */
+      .fancy-progress-container {
+        width: 100%;
+        max-width: 600px;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Spawnd progress bar styling */
+      .red {
+        --primary-color: #f12711;
+        --secondary-color: #f5af19;
+      }
+
+      .blue {
+        --primary-color: #0ed2f7;
+        --secondary-color: #b2fefa;
+      }
+
+      .green {
+        --primary-color: #0575e6;
+        --secondary-color: #00f260;
+      }
+
+      .purple {
+        --primary-color: #7303c0;
+        --secondary-color: #ec38bc;
+      }
+
+      .progressBarFancyContainer {
+        width: 100%;
+      }
+
+      .progressBarFancyContainer .labelScoreContainer {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 10px 5px 10px;
+        color: #000;
+        font-family: Poppins, sans-serif;
+        min-height: 20px;
+        align-items: center;
+      }
+
+      .progressBarFancyContainer .label {
+        margin-left: 10px;
+        min-height: 1em;
+        line-height: 1em;
+      }
+
+      .progressBarFancyContainer .labelDarkTheme {
+        color: #fff;
+      }
+
+      .progressBarFancyContainer .progressBar {
+        float: left;
+        width: 100%;
+        display: flex;
+        position: relative;
+      }
+
+      .progressBarFancyContainer .progressBar > .progressTrack {
+        position: relative;
+        width: 100%;
+        background: linear-gradient(90deg, #f5f5f5, #c4c4c4);
+        border-radius: 10px 0 10px 0;
+        margin-top: 3px;
+        height: 8px;
+      }
+
+      .progressBarFancyContainer .barGaugeContainer {
+        display: flex;
+        align-items: center;
+      }
+
+      .progressBarFancyContainer .barGaugeContainer .progressbarWidth {
+        width: 100%;
+      }
+
+      .progressBarFancyContainer .progressFill {
+        transition: all 1s ease-in-out;
+        position: absolute;
+        overflow: hidden;
+        height: 15px;
+        line-height: 20px;
+        border-radius: 10px 0 10px 0;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        z-index: 10;
+      }
+
+      .progressBarFancyContainer .progressFill:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        background: linear-gradient(120deg, transparent, var(--secondary-color), transparent);
+        animation: shine 3s ease-in-out infinite;
+        height: 15px;
+        z-index: 1000;
+      }
+
+      .progressBarFancyContainer .glowingEffect {
+        filter: blur(3px);
+      }
+
+      .progressBarFancyContainer .particlesContainer {
+        transition: all 1s ease-in-out;
+        position: absolute;
+        bottom: 50%;
+      }
+
+      .progressBarFancyContainer .particlesContainer .bigParticles {
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        background: var(--secondary-color);
+        animation: animation3 4s ease-in-out infinite;
+        animation-delay: 0.5s !important;
+        opacity: 0;
+      }
+
+      .progressBarFancyContainer .particlesContainer .particles {
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+        background: var(--secondary-color);
+        animation: animation1 2.5s ease-in-out infinite;
+        animation-delay: 0.5s !important;
+        opacity: 0;
+      }
+
+      .progressBarFancyContainer .particlesContainer .particles.particles2 {
+        animation: animation6 5s ease-in-out infinite;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles {
+        height: 2px;
+        width: 2px;
+        border-radius: 50%;
+        background: var(--secondary-color);
+        animation: animation2 3s ease-in-out infinite;
+        animation-delay: 0.5s !important;
+        opacity: 0;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles.smallParticles2 {
+        animation: animation3 5s ease-in-out infinite;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles.smallParticles3 {
+        animation: animation4 2.5s ease-in-out infinite;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles.smallParticles4 {
+        animation: animation4 3.5s ease-in-out infinite;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles.smallParticles5 {
+        animation: animation5 2s ease-in-out infinite;
+      }
+
+      .progressBarFancyContainer .particlesContainer .smallParticles.smallParticles6 {
+        animation: animation5 2.5s ease-in-out infinite;
+      }
+
+      @keyframes animation1 {
+        0% {
+          transform: translateX(-10px) translateY(15px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-5px) translateY(5px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes animation2 {
+        0% {
+          transform: translateX(-10px) translateY(5px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(5px) translateY(20px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes animation3 {
+        0% {
+          transform: translateX(-5px) translateY(15px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(10px) translateY(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes animation4 {
+        0% {
+          transform: translateX(-20px) translateY(15px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-10px) translateY(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes animation5 {
+        0% {
+          transform: translateX(-25px) translateY(5px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-15px) translateY(13px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes animation6 {
+        0% {
+          transform: translateX(-20px) translateY(5px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(0) translateY(17px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes shine {
+        0% {
+          left: -100%;
+        }
+        62.5%, 100% {
+          left: 100%;
+        }
+      }
+
+      .fancy-progress-container {
+        width: 400px;
+        max-width: 90%;
+      }
+    </style>
+</head>
+<body class="template">
+    <div class="template-wrap">
+        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
+
+    <!-- Spawnd Loading Screen Container -->
+    <div id="loading-root"></div>
+
+    <script>
+      // Spawnd LoadingScreen implementation based on react-progressbar-fancy
+      class LoadingScreen {
+        constructor(target) {
+          this.target = target;
+          this.progress = 0;
+          this.isVisible = true;
+          this.progressAnimation = false;
+          
+          this.init();
+          this.setupEventListeners();
+          
+          // Trigger animation after a short delay
+          setTimeout(() => {
+            this.progressAnimation = true;
+            this.render();
+          }, 100);
+        }
+        
+        init() {
+          this.render();
+        }
+        
+        setupEventListeners() {
+          window.updateLoadingProgress = (value) => {
+            this.progress = value;
+            this.render();
+          };
+          
+          window.hideLoadingScreen = () => {
+            this.isVisible = false;
+            this.render();
+          };
+        }
+        
+        createProgressFiller(glow = false) {
+          const progressWidth = this.progressAnimation ? `${this.progress > 3 ? this.progress : 3}%` : '3%';
+          const particleLeft = this.progressAnimation ? `${this.progress > 3 ? this.progress : 3}%` : '3%';
+          
+          return `
+            <div class="progressFill red ${glow ? 'glowingEffect' : ''}" style="width: ${progressWidth}"></div>
+            <div class="red">
+              <div class="particlesContainer" style="left: ${particleLeft}">
+                <div class="particles"></div>
+                <div class="smallParticles smallParticles4"></div>
+                <div class="smallParticles smallParticles3"></div>
+                <div class="smallParticles smallParticles2"></div>
+                <div class="bigParticles"></div>
+                <div class="smallParticles"></div>
+                <div class="particles particles2"></div>
+                <div class="smallParticles smallParticles5"></div>
+                <div class="smallParticles smallParticles6"></div>
+              </div>
+            </div>
+          `;
+        }
+        
+        render() {
+          if (!this.isVisible) {
+            this.target.innerHTML = '';
+            return;
+          }
+          
+          this.target.innerHTML = `
+            <div class="loading-container">
+              <div class="loading-logo">
+                <img src="spawnd_logo.png" alt="Spawnd Logo" onerror="this.style.display='none'" />
+              </div>
+              <div class="fancy-progress-container">
+                <div class="progressBarFancyContainer" style="width: 100%">
+                  <div class="labelScoreContainer labelDarkTheme">
+                    <div class="label">&nbsp;</div>
+                    <div class="number">${this.progress.toFixed(1)}%</div>
+                  </div>
+                  <div class="barGaugeContainer" style="flex-wrap: wrap">
+                    <div class="progressbarWidth" style="width: 100%; margin: 0px 10px">
+                      <div class="progressBar">
+                        <div class="progressTrack"></div>
+                        ${this.createProgressFiller(false)}
+                        ${this.createProgressFiller(true)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        
+        destroy() {
+          delete window.updateLoadingProgress;
+          delete window.hideLoadingScreen;
+        }
+      }
+
+      // Initialize the loading screen when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadingRoot = document.getElementById('loading-root');
+        if (loadingRoot) {
+          const loadingScreen = new LoadingScreen(loadingRoot);
+        }
+      });
+
+      // Also initialize immediately in case DOM is already loaded
+      if (document.readyState === 'loading') {
+        // DOM is still loading, wait for DOMContentLoaded
+      } else {
+        // DOM is already loaded
+        const loadingRoot = document.getElementById('loading-root');
+        if (loadingRoot) {
+          const loadingScreen = new LoadingScreen(loadingRoot);
+        }
+      }
+    </script>
+
+    <script type='text/javascript'>
+        var Module = {
+            TOTAL_MEMORY: 268435456,
+            errorhandler: null,
+            compatibilitycheck: null,
+            dataUrl: "game/Release/webgl.datagz",
+            codeUrl: "game/Release/webgl.jsgz",
+            memUrl: "game/Release/webgl.memgz",
+        };
+    </script>
+    <script src="game/UnityLoader.js"></script>
+    
+</body>
+</html> 
