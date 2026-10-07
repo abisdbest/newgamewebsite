@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "start": "node tools/server.js",
+    "server": "node tools/server.js",
     "preview": "node tools/preview-server.js",
     "promote": "node tools/promote-game.js"
   },
