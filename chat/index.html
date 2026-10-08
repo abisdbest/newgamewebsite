@@ -1152,6 +1152,13 @@
             const soundEffectToggle = document.getElementById('soundEffectToggle');
             const currentUserDisplay = document.getElementById('currentUserDisplay');
 
+            let userToken = localStorage.getItem('blooket1_chat_user_token');
+            if (!userToken) {
+                userToken = 'usr_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+                try { localStorage.setItem('blooket1_chat_user_token', userToken); } catch(e) {}
+            }
+
+            const knownUsernames = new Set();
             let currentUser = { username: 'Anonymous' };
             let soundEnabled = true;
             let notificationsEnabled = false;
@@ -1166,7 +1173,7 @@
                 try {
                     const saved = JSON.parse(localStorage.getItem('chatAppSettings')) || {};
                     const randomId = Math.floor(1000 + Math.random() * 9000);
-                    currentUser.username = saved.username || `Player_${randomId}`;
+                    currentUser.username = saved.username || localStorage.getItem('blooket1_chat_username') || `Player_${randomId}`;
                     soundEnabled = saved.sound !== false;
                     notificationsEnabled = saved.notifications === true && 'Notification' in window && Notification.permission === 'granted';
 
@@ -1192,6 +1199,8 @@
                         sound: soundEnabled,
                         notifications: notificationsEnabled
                     }));
+                    localStorage.setItem('blooket1_chat_username', currentUser.username);
+                    localStorage.setItem('blooket1_chat_user_token', userToken);
                 } catch(e) {}
                 updateUI();
             }
@@ -1376,31 +1385,127 @@
             }
 
             function getMsgKey(msg) {
-                return `${msg.sender}_${msg.timestamp}_${msg.text}`;
+                if (msg.id) return `id_${msg.id}`;
+                return `k_${msg.timestamp}_${encodeURIComponent(msg.text)}`;
+            }
+
+            function updateDOMMessageAuthor(oldName, newName) {
+                if (!oldName || !newName || oldName.toLowerCase() === newName.toLowerCase()) return;
+                const rows = chatFeed.querySelectorAll('.chat-msg-row');
+                rows.forEach(row => {
+                    if (row.dataset.username && row.dataset.username.toLowerCase() === oldName.toLowerCase()) {
+                        row.dataset.username = newName;
+                        const isSelf = newName.toLowerCase() === currentUser.username.toLowerCase();
+                        row.classList.toggle('is-user', isSelf);
+                        const authorEl = row.querySelector('.msg-author');
+                        if (authorEl) authorEl.textContent = newName;
+                        const avatarEl = row.querySelector('.msg-avatar');
+                        if (avatarEl) {
+                            avatarEl.textContent = newName.charAt(0) || '?';
+                            avatarEl.style.backgroundColor = isSelf ? 'var(--accent-color)' : getAvatarColor(newName);
+                        }
+                    }
+                });
+            }
+
+            async function requestRename(requestedName) {
+                const clean = (requestedName || '').trim();
+                if (!clean) {
+                    alert('Please enter a valid username.');
+                    return false;
+                }
+                if (clean.length < 2) {
+                    alert('Username must be at least 2 characters long.');
+                    return false;
+                }
+                if (clean.length > 20) {
+                    alert('Username cannot exceed 20 characters.');
+                    return false;
+                }
+                if (clean.toLowerCase() === currentUser.username.toLowerCase()) {
+                    return true;
+                }
+
+                // Check against other users in chat history
+                if (knownUsernames.has(clean.toLowerCase()) && clean.toLowerCase() !== currentUser.username.toLowerCase()) {
+                    alert(`The username "${clean}" is already in use by another player. Please choose a different name!`);
+                    return false;
+                }
+
+                const oldName = currentUser.username;
+                try {
+                    const res = await fetch(`${API_BASE}/chat/rename`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            oldName: oldName,
+                            newName: clean,
+                            userToken: userToken
+                        })
+                    });
+
+                    if (res.status === 409 || res.status === 403 || res.status === 400) {
+                        const data = await res.json().catch(() => ({}));
+                        alert(data.error || `The username "${clean}" is already taken by another player.`);
+                        return false;
+                    }
+                } catch(e) {
+                    console.warn('Backend rename request completed with client-side fallback:', e);
+                }
+
+                knownUsernames.delete(oldName.toLowerCase());
+                knownUsernames.add(clean.toLowerCase());
+                currentUser.username = clean;
+                saveSettings();
+                updateDOMMessageAuthor(oldName, clean);
+                showToastAlert('System', `Your username was changed to "${clean}". All your previous messages have been updated!`);
+                return true;
             }
 
             // Add Message to Chat DOM
             function addMessage(msg, isInitialHistory = false) {
+                if (!msg || !msg.sender) return;
+                const senderName = msg.sender.trim();
+                knownUsernames.add(senderName.toLowerCase());
+
                 const key = getMsgKey(msg);
-                if (seenMessageKeys.has(key)) return;
+                const existingRow = chatFeed.querySelector(`.chat-msg-row[data-msg-key="${key}"]`);
+                if (existingRow) {
+                    // Update sender if it was renamed
+                    if (existingRow.dataset.username !== senderName) {
+                        existingRow.dataset.username = senderName;
+                        const isSelf = senderName.toLowerCase() === currentUser.username.toLowerCase();
+                        existingRow.classList.toggle('is-user', isSelf);
+                        const authorEl = existingRow.querySelector('.msg-author');
+                        if (authorEl) authorEl.textContent = senderName;
+                        const avatarEl = existingRow.querySelector('.msg-avatar');
+                        if (avatarEl) {
+                            avatarEl.textContent = senderName.charAt(0) || '?';
+                            avatarEl.style.backgroundColor = isSelf ? 'var(--accent-color)' : getAvatarColor(senderName);
+                        }
+                    }
+                    return;
+                }
+
                 seenMessageKeys.add(key);
 
-                const isSelf = msg.sender === currentUser.username;
+                const isSelf = senderName.toLowerCase() === currentUser.username.toLowerCase();
                 const row = document.createElement('div');
                 row.className = `chat-msg-row ${isSelf ? 'is-user' : ''}`;
-                row.dataset.username = msg.sender;
+                row.dataset.msgKey = key;
+                row.dataset.username = senderName;
 
                 const avatar = document.createElement('div');
                 avatar.className = 'msg-avatar';
-                avatar.style.backgroundColor = isSelf ? 'var(--accent-color)' : getAvatarColor(msg.sender);
-                avatar.textContent = (msg.sender && msg.sender.charAt(0)) || '?';
+                avatar.style.backgroundColor = isSelf ? 'var(--accent-color)' : getAvatarColor(senderName);
+                avatar.textContent = senderName.charAt(0) || '?';
 
                 const bodyWrap = document.createElement('div');
                 bodyWrap.className = 'msg-body-wrap';
 
                 const meta = document.createElement('div');
                 meta.className = 'msg-meta';
-                meta.innerHTML = `<span class="msg-author">${escapeHtml(msg.sender)}</span><span class="msg-time">${formatTime(msg.timestamp)}</span>`;
+                meta.innerHTML = `<span class="msg-author">${escapeHtml(senderName)}</span><span class="msg-time">${formatTime(msg.timestamp)}</span>`;
 
                 const bubble = document.createElement('div');
                 bubble.className = 'msg-bubble';
@@ -1423,13 +1528,13 @@
                     } else {
                         // User is scrolled up reviewing history: show floating pill
                         if (newMsgPill) {
-                            newMsgPillText.textContent = `New message from ${escapeHtml(msg.sender)} ↓`;
+                            newMsgPillText.textContent = `New message from ${escapeHtml(senderName)} ↓`;
                             newMsgPill.style.display = 'flex';
                         }
                     }
 
                     if (!isSelf) {
-                        triggerNotification(msg.sender, msg.text);
+                        triggerNotification(senderName, msg.text);
                     }
                 }
             }
@@ -1493,7 +1598,11 @@
                 if (sendBtn) sendBtn.disabled = true;
 
                 try {
-                    const payload = { sender: currentUser.username, text: clean };
+                    const payload = {
+                        sender: currentUser.username,
+                        text: clean,
+                        userToken: userToken
+                    };
                     const res = await fetch(SEND_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -1580,14 +1689,23 @@
                 if (e.target === chatSettingsOverlay) chatSettingsOverlay.classList.remove('active');
             };
 
-            saveProfileBtn.onclick = () => {
+            saveProfileBtn.onclick = async () => {
                 const newName = usernameInput.value.trim();
-                if (newName && newName !== currentUser.username) {
-                    currentUser.username = newName;
+                saveProfileBtn.disabled = true;
+                const origHtml = saveProfileBtn.innerHTML;
+                saveProfileBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                try {
+                    const ok = await requestRename(newName);
+                    if (ok) {
+                        soundEnabled = soundEffectToggle.checked;
+                        saveSettings();
+                        chatSettingsOverlay.classList.remove('active');
+                    }
+                } finally {
+                    saveProfileBtn.disabled = false;
+                    saveProfileBtn.innerHTML = origHtml;
                 }
-                soundEnabled = soundEffectToggle.checked;
-                saveSettings();
-                chatSettingsOverlay.classList.remove('active');
             };
 
             // Start Continuous Live Real-Time Polling (Works in background tabs)

@@ -12,6 +12,37 @@
   </style>
 
   <script>
+    // Fix Unity WebGL double-encoding of URLs containing spaces (%20 -> %2520)
+    (function() {
+      function fixUrl(u) {
+        if (typeof u === 'string' && u.includes('%25')) {
+          try {
+            return decodeURI(u);
+          } catch(e) {
+            return u.replace(/%2520/g, '%20');
+          }
+        }
+        return u;
+      }
+
+      const origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+        return origOpen.call(this, method, fixUrl(url), ...rest);
+      };
+
+      if (window.fetch) {
+        const origFetch = window.fetch;
+        window.fetch = function(input, init) {
+          if (typeof input === 'string') {
+            input = fixUrl(input);
+          } else if (input && input.url) {
+            input = new Request(fixUrl(input.url), input);
+          }
+          return origFetch(input, init);
+        };
+      }
+    })();
+
     // Offline Yandex / YaGames SDK mock to bridge Unity lifecycle events
     window.YaGames = {
       init: function() {

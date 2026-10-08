@@ -50,6 +50,10 @@ const server = http.createServer((req, res) => {
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
 
   let reqPath = decodeURI(req.url.split('?')[0]);
+  if (reqPath.includes('%20') || reqPath.includes('%25')) {
+    try { reqPath = decodeURI(reqPath); } catch(e) {}
+  }
+  console.log(`[REQ] ${req.method} ${req.url} -> ${reqPath}`);
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/index.html';
   }
