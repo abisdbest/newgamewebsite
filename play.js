@@ -54,7 +54,7 @@
     // Used only to ORDER recommendations when the live API is unavailable
     // (never displayed as a play count).
     const FALLBACK_RANK = [
-        'slope', '1v1.lol', 'retro bowl', 'cookie clicker', 'geometry dash', 'subway surfers',
+        'slope', '1v1.lol', 'retro bowl', 'cookie clicker', 'geometry dash lite', 'subway surfers',
         'basket random', 'space waves', 'monkey mart', 'minecraft', 'temple run 2', 'flappy bird',
         'rooftop snipers', 'snow rider 3d', 'getaway shootout', 'bitlife', 'crossy road',
         'cut the rope', 'doodle jump', 'fireboy and watergirl', 'happy wheels', 'capybara clicker',

@@ -26,7 +26,7 @@ const HERO_INTERVAL_MS = 7000;
 // Realistic fallback play counts (last 30 days)
 const FALLBACK_POPULARITY = {
     'slope': 14250, '1v1.lol': 12800, 'retro bowl': 12800, 'cookie clicker': 11500,
-    'geometry dash': 9800, 'subway surfers': 9200, 'basket random': 8400, 'space waves': 8100,
+    'geometry dash lite': 9800, 'subway surfers': 9200, 'basket random': 8400, 'space waves': 8100,
     'monkey mart': 7900, 'minecraft': 7500, 'temple run 2': 7200, 'flappy bird': 6800,
     'rooftop snipers': 6500, 'snow rider 3d': 6300, 'getaway shootout': 5900, 'bitlife': 5600,
     'crossy road': 5400, 'cut the rope': 5200, 'doodle jump': 4900, 'fireboy and watergirl': 4800,

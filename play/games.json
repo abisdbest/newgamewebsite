@@ -1316,18 +1316,6 @@
     }
   },
   {
-    "geometry dash": {
-      "game image": "images/geodash.webp",
-      "game link": "play/geometry dash/",
-      "game categories": [
-        "Action",
-        "Addictive Games"
-      ],
-      "date added": "2026-09-01",
-      "description": "Jump, fly, and flip your way through rhythm-based geometric obstacles synchronized to pulsating electronic music."
-    }
-  },
-  {
     "duck life 4": {
       "game image": "images/ducklife4.webp",
       "game link": "play/duck life 4/",
