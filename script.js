@@ -84,6 +84,27 @@ const TAB_CLOAK_PRESETS = {
         title: 'Desmos | Graphing Calculator',
         icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23197b4b'/%3E%3Cpath d='M20 75 Q 40 15, 60 50 T 85 20' stroke='%23ffffff' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3C/svg%3E",
         badge: 'Math'
+    },
+    wikipedia: {
+        id: 'wikipedia',
+        name: 'Wikipedia',
+        title: 'Wikipedia, the free encyclopedia',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23ffffff'/%3E%3Ctext x='50' y='72' font-size='68' font-family='Georgia, serif' font-weight='bold' text-anchor='middle' fill='%23000000'%3EW%3C/text%3E%3C/svg%3E",
+        badge: 'Study'
+    },
+    khan: {
+        id: 'khan',
+        name: 'Khan Academy',
+        title: 'Dashboard | Khan Academy',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%2314bf96'/%3E%3Cpath d='M35 30 L65 50 L35 70 Z' fill='%23ffffff'/%3E%3C/svg%3E",
+        badge: 'Learning'
+    },
+    bing: {
+        id: 'bing',
+        name: 'Bing Search',
+        title: 'Bing',
+        icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23008394'/%3E%3Ctext x='50' y='72' font-size='65' fill='%23ffffff' font-family='sans-serif' font-weight='bold' text-anchor='middle'%3Eb%3C/text%3E%3C/svg%3E",
+        badge: 'Search'
     }
 };
 
@@ -146,6 +167,104 @@ function toggleSearch() {
     }
 }
 
+function updateStealthHUD(overrideName, overrideTitle, overrideIcon) {
+    const activeCloak = localStorage.getItem('blooket1_tab_cloak') || 'default';
+    const preset = TAB_CLOAK_PRESETS[activeCloak] || {
+        name: localStorage.getItem('blooket1_custom_name') || 'Custom Cloak',
+        title: localStorage.getItem('blooket1_custom_title') || document.title,
+        icon: localStorage.getItem('blooket1_custom_icon') || 'images/b-logo.webp'
+    };
+
+    const hudName = document.getElementById('hudCloakName');
+    if (hudName) hudName.textContent = overrideName || preset.name;
+
+    const mockTitle = document.getElementById('mockupTabTitle');
+    if (mockTitle) mockTitle.textContent = overrideTitle || preset.title;
+
+    const mockIcon = document.getElementById('mockupTabIcon');
+    if (mockIcon) mockIcon.src = overrideIcon || preset.icon;
+
+    const destSelect = document.getElementById('panicDestinationSelect');
+    if (destSelect) {
+        destSelect.value = getStoredPanicDest();
+    }
+}
+
+function getStoredPanicDest() {
+    try {
+        return localStorage.getItem('blooket1_panic_dest') || 'https://classroom.google.com';
+    } catch(e) {
+        return 'https://classroom.google.com';
+    }
+}
+
+function setStoredPanicDest(url) {
+    try {
+        localStorage.setItem('blooket1_panic_dest', url);
+    } catch(e) {}
+}
+
+function triggerPanicExit() {
+    const dest = getStoredPanicDest();
+    window.location.replace(dest);
+}
+
+function openAboutBlankCloak() {
+    const win = window.open('about:blank', '_blank');
+    if (!win) {
+        alert('Popup blocked! Please allow popups for Blooket1 so it can open inside about:blank.');
+        return;
+    }
+    const doc = win.document;
+    doc.title = document.title;
+    const link = doc.createElement('link');
+    link.rel = 'icon';
+    const fav = document.querySelector("link[rel*='icon']");
+    link.href = fav ? fav.href : 'images/b-logo.webp';
+    doc.head.appendChild(link);
+
+    const iframe = doc.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.inset = '0';
+    iframe.style.width = '100vw';
+    iframe.style.height = '100vh';
+    iframe.style.border = 'none';
+    iframe.src = window.location.href;
+    doc.body.style.margin = '0';
+    doc.body.style.overflow = 'hidden';
+    doc.body.appendChild(iframe);
+
+    // Redirect current tab to safety
+    triggerPanicExit();
+}
+
+function applyCustomCloak() {
+    const titleIn = document.getElementById('customCloakTitle');
+    const iconIn = document.getElementById('customCloakIcon');
+    if (!titleIn) return;
+    const title = titleIn.value.trim() || 'My Classes';
+    const icon = iconIn.value.trim() || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"%3E%3Cpath fill="%231e8e3e" d="M40 8H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V12c0-2.2-1.8-4-4-4z"/%3E%3C/svg%3E';
+    
+    document.title = title;
+    let favicon = document.querySelector("link[rel*='icon']");
+    if (!favicon) {
+        favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        document.head.appendChild(favicon);
+    }
+    favicon.href = icon;
+    
+    try {
+        localStorage.setItem('blooket1_tab_cloak', 'custom');
+        localStorage.setItem('blooket1_custom_name', 'Custom Disguise');
+        localStorage.setItem('blooket1_custom_title', title);
+        localStorage.setItem('blooket1_custom_icon', icon);
+    } catch(e) {}
+    
+    updateStealthHUD('Custom Disguise', title, icon);
+    renderCloakOptions();
+}
+
 function applyTabCloak(presetKey) {
     const preset = TAB_CLOAK_PRESETS[presetKey] || TAB_CLOAK_PRESETS.default;
     document.title = preset.title;
@@ -162,6 +281,7 @@ function applyTabCloak(presetKey) {
         localStorage.setItem('blooket1_tab_cloak', presetKey);
     } catch (e) {}
 
+    updateStealthHUD();
     renderCloakOptions();
 }
 
@@ -232,7 +352,7 @@ window.addEventListener('keydown', (e) => {
     const panicKey = getStoredPanicKey();
     if (e.key === panicKey || (panicKey === '`' && (e.key === '`' || e.code === 'Backquote')) || (panicKey === ']' && (e.key === ']' || e.code === 'BracketRight'))) {
         e.preventDefault();
-        window.location.replace('https://classroom.google.com');
+        triggerPanicExit();
     }
 });
 
@@ -284,9 +404,25 @@ function renderThemeOptions() {
     });
 }
 
+function initStealthTabs() {
+    const tabBtns = document.querySelectorAll('.stealth-tab-btn');
+    tabBtns.forEach(btn => {
+        btn.onclick = () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.stealth-tab-pane').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const targetId = btn.dataset.tab;
+            const targetPane = document.getElementById(targetId);
+            if (targetPane) targetPane.classList.add('active');
+        };
+    });
+}
+
 function openSettingsModal() {
     const overlay = document.getElementById('settingsModalOverlay');
     if (!overlay) return;
+    initStealthTabs();
+    updateStealthHUD();
     renderCloakOptions();
     renderThemeOptions();
     updatePanicKeyUI();
@@ -302,8 +438,15 @@ function closeSettingsModal() {
     stopListeningForPanicKey();
 }
 
+window.openSettingsModal = openSettingsModal;
+window.closeSettingsModal = closeSettingsModal;
+window.triggerPanicExit = triggerPanicExit;
+window.openAboutBlankCloak = openAboutBlankCloak;
+window.applyCustomCloak = applyCustomCloak;
+
 // Setup Settings Modal Events & AdSense Compliance on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
+    initStealthTabs();
     const closeBtn = document.getElementById('closeSettingsBtn');
     if (closeBtn) closeBtn.onclick = closeSettingsModal;
 
@@ -330,9 +473,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const testKeyBtn = document.getElementById('testPanicKeyBtn');
     if (testKeyBtn) {
         testKeyBtn.onclick = () => {
-            if (confirm('Test Panic Key? This will redirect this tab to Google Classroom.')) {
-                window.location.replace('https://classroom.google.com');
+            if (confirm('Test Panic Key? This will redirect this tab immediately to your safe exit destination.')) {
+                triggerPanicExit();
             }
+        };
+    }
+
+    const destSelect = document.getElementById('panicDestinationSelect');
+    if (destSelect) {
+        destSelect.onchange = () => {
+            setStoredPanicDest(destSelect.value);
         };
     }
 

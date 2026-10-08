@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNGZND6VMN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-VNGZND6VMN");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c13" />
+    <title>Updates & Changelog - Blooket1 Unblocked Games</title>
+    <meta
+      name="description"
+      content="See all new games added, performance fixes, stealth features, and platform upgrades on Blooket1 Unblocked Games."
+    />
+    <link rel="canonical" href="https://blooket1.com/updates/" />
+    <link rel="icon" type="image/x-icon" href="../images/b-logo.webp" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../carousel.css" />
+
+    <style>
+      .updates-canvas {
+        margin-left: var(--sidebar-collapsed-width);
+        margin-top: var(--header-height);
+        min-height: calc(100vh - var(--header-height));
+        padding: 32px 36px 60px;
+        box-sizing: border-box;
+        transition: margin-left 0.22s var(--ease-out);
+        max-width: 1100px;
+      }
+
+      body.sidebar-expanded .updates-canvas {
+        margin-left: var(--sidebar-expanded-width);
+      }
+
+      /* Hero Section */
+      .updates-hero {
+        margin-bottom: 32px;
+      }
+
+      .updates-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(247, 85, 50, 0.15);
+        color: var(--accent-color);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+
+      .updates-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: #ffffff;
+        margin: 0 0 8px;
+        letter-spacing: -0.02em;
+      }
+
+      .updates-subtitle {
+        font-size: 15px;
+        color: var(--text-secondary);
+        margin: 0 0 24px;
+        max-width: 680px;
+        line-height: 1.5;
+      }
+
+      /* Filter Chips */
+      .updates-filter-bar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+      }
+
+      .filter-chip {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-size: 13.5px;
+        font-weight: 800;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.15s ease;
+      }
+
+      .filter-chip:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
+
+      .filter-chip.active {
+        background: var(--accent-soft);
+        color: #ffffff;
+        border-color: rgba(247, 85, 50, 0.4);
+        box-shadow: 0 0 16px rgba(247, 85, 50, 0.2);
+      }
+
+      /* Changelog Timeline */
+      .timeline-wrap {
+        position: relative;
+        padding-left: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .timeline-wrap::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 11px;
+        width: 2px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .timeline-card {
+        position: relative;
+        background: #131522;
+        border: 1.5px solid var(--border-subtle);
+        border-radius: 18px;
+        padding: 24px 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        transition: all 0.2s ease;
+      }
+
+      .timeline-card:hover {
+        border-color: rgba(247, 85, 50, 0.35);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .timeline-node {
+        position: absolute;
+        left: -36px;
+        top: 26px;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #131522;
+        border: 3px solid var(--accent-color);
+        box-shadow: 0 0 12px rgba(247, 85, 50, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timeline-node::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+
+      .release-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding-bottom: 14px;
+      }
+
+      .release-title-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .release-version {
+        font-size: 1.35rem;
+        font-weight: 900;
+        color: #ffffff;
+      }
+
+      .release-tag {
+        font-size: 11.5px;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .release-tag.major {
+        background: rgba(247, 85, 50, 0.15);
+        color: var(--accent-color);
+        border-color: rgba(247, 85, 50, 0.35);
+      }
+
+      .release-date {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      .release-description {
+        font-size: 14.5px;
+        color: var(--text-secondary);
+        line-height: 1.55;
+        margin: 0 0 20px;
+      }
+
+      /* Change Items */
+      .release-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .change-section-heading {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .change-items-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .change-item {
+        font-size: 14px;
+        color: #e2e8f0;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        line-height: 1.45;
+      }
+
+      .change-item i {
+        color: var(--accent-color);
+        font-size: 11px;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+
+      /* Game Quick Chips */
+      .game-chips-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .game-chip-link {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        padding: 6px 12px;
+        border-radius: 9px;
+        font-size: 12.5px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: all 0.15s ease;
+      }
+
+      .game-chip-link:hover {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(247, 85, 50, 0.35);
+      }
+
+      @media (max-width: 768px) {
+        .updates-canvas {
+          margin-left: 0;
+          padding: 20px 16px 40px;
+        }
+        .timeline-wrap {
+          padding-left: 20px;
+        }
+        .timeline-node {
+          left: -20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main CrazyGames Header -->
+    <header class="cg-header">
+      <div class="cg-header-left">
+        <button id="mobile-menu-btn" class="cg-mobile-menu-btn" aria-label="Open menu" onclick="document.getElementById('sidebar-toggle-btn').click()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a href="../" class="cg-logo-area" aria-label="Blooket1 Home">
+          <span class="cg-logo-icon-wrap">
+            <img class="cg-logo-img" src="../images/b-logo.webp" alt="" width="34" height="34" />
+          </span>
+          <span class="cg-logo-text">
+            <span class="cg-logo-main">blooket<span class="cg-logo-accent">1</span></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="cg-header-center">
+        <form class="cg-search-bar" role="search" action="../" method="get">
+          <input
+            id="searchright"
+            name="q"
+            type="search"
+            class="cg-search-input"
+            placeholder="Search games and categories"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search games"
+          />
+          <kbd class="search-kbd">/</kbd>
+          <button type="submit" class="cg-search-submit" aria-label="Search">
+            <i class="fas fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="cg-header-right">
+        <a href="../" class="cg-icon-btn" title="Back to Games" aria-label="Home">
+          <i class="fas fa-gamepad"></i>
+        </a>
+        <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings &amp; tab cloaking">
+          <i class="fas fa-user-secret"></i>
+          <span>Stealth mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="cg-sidebar-backdrop"></div>
+
+    <!-- Pinned CrazyGames Sidebar -->
+    <aside id="cg-sidebar" class="cg-sidebar" aria-label="Main Navigation">
+      <nav class="cg-nav-list">
+        <a href="../" class="cg-nav-item" data-tooltip="Home">
+          <span class="cg-nav-icon"><i class="fas fa-house"></i></span>
+          <span class="cg-nav-label">Home</span>
+        </a>
+        <a href="../#category-new" class="cg-nav-item" data-tooltip="New">
+          <span class="cg-nav-icon"><i class="fas fa-wand-magic-sparkles"></i></span>
+          <span class="cg-nav-label">New</span>
+        </a>
+        <a href="../#category-popular" class="cg-nav-item" data-tooltip="Trending">
+          <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
+          <span class="cg-nav-label">Trending</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <a href="../category/action/" class="cg-nav-item" data-tooltip="Action">
+          <span class="cg-nav-icon"><i class="fas fa-bolt"></i></span>
+          <span class="cg-nav-label">Action</span>
+        </a>
+        <a href="../category/addictive/" class="cg-nav-item" data-tooltip="Addictive">
+          <span class="cg-nav-icon"><i class="fas fa-infinity"></i></span>
+          <span class="cg-nav-label">Addictive</span>
+        </a>
+        <a href="../category/driving/" class="cg-nav-item" data-tooltip="Driving">
+          <span class="cg-nav-icon"><i class="fas fa-car-side"></i></span>
+          <span class="cg-nav-label">Driving</span>
+        </a>
+        <a href="../category/puzzle/" class="cg-nav-item" data-tooltip="Puzzle">
+          <span class="cg-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
+          <span class="cg-nav-label">Puzzle</span>
+        </a>
+        <a href="../category/sports/" class="cg-nav-item" data-tooltip="Sports">
+          <span class="cg-nav-icon"><i class="fas fa-basketball"></i></span>
+          <span class="cg-nav-label">Sports</span>
+        </a>
+        <a href="../category/2-player/" class="cg-nav-item" data-tooltip="2 Player">
+          <span class="cg-nav-icon"><i class="fas fa-user-group"></i></span>
+          <span class="cg-nav-label">2 Player</span>
+        </a>
+        <a href="../category/retro/" class="cg-nav-item" data-tooltip="Retro">
+          <span class="cg-nav-icon"><i class="fas fa-ghost"></i></span>
+          <span class="cg-nav-label">Retro</span>
+        </a>
+        <a href="../category/clicker/" class="cg-nav-item" data-tooltip="Clicker">
+          <span class="cg-nav-icon"><i class="fas fa-arrow-pointer"></i></span>
+          <span class="cg-nav-label">Clicker</span>
+        </a>
+        <a href="../category/tools/" class="cg-nav-item" data-tooltip="Tools">
+          <span class="cg-nav-icon"><i class="fas fa-toolbox"></i></span>
+          <span class="cg-nav-label">Tools</span>
+        </a>
+
+        <div class="cg-nav-divider"></div>
+
+        <a href="../chat/" class="cg-nav-item" data-tooltip="Community chat">
+          <span class="cg-nav-icon"><i class="fas fa-comments"></i></span>
+          <span class="cg-nav-label">Community chat</span>
+        </a>
+        <a href="../soundboard/" class="cg-nav-item" data-tooltip="Soundboard">
+          <span class="cg-nav-icon"><i class="fas fa-volume-high"></i></span>
+          <span class="cg-nav-label">Soundboard</span>
+        </a>
+        <a href="./" class="cg-nav-item active" data-tooltip="Updates">
+          <span class="cg-nav-icon"><i class="fas fa-newspaper"></i></span>
+          <span class="cg-nav-label">Updates</span>
+        </a>
+      </nav>
+
+      <!-- Panel toggle pinned bottom-left -->
+      <div class="cg-sidebar-bottom-wrap">
+        <button id="sidebar-toggle-btn" class="cg-sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="false" title="Expand / collapse sidebar">
+          <span class="cg-panel-toggle-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+              <line x1="9" y1="4" x2="9" y2="20"></line>
+            </svg>
+          </span>
+          <span class="cg-panel-toggle-label">Collapse</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Updates Content -->
+    <main class="updates-canvas">
+      <div class="updates-hero">
+        <div class="updates-pill">
+          <i class="fas fa-sparkles"></i>
+          <span>Official Changelog</span>
+        </div>
+        <h1 class="updates-title">Platform Updates &amp; Releases</h1>
+        <p class="updates-subtitle">
+          Discover all the newest unblocked games, browser speed optimizations, and stealth school cloaking tools shipped to Blooket1.
+        </p>
+
+        <div class="updates-filter-bar">
+          <button class="filter-chip active" data-filter="all">All Updates</button>
+          <button class="filter-chip" data-filter="games"><i class="fas fa-gamepad"></i> New Games</button>
+          <button class="filter-chip" data-filter="stealth"><i class="fas fa-user-secret"></i> Stealth &amp; Cloaking</button>
+          <button class="filter-chip" data-filter="fixes"><i class="fas fa-wrench"></i> Engine Fixes</button>
+        </div>
+      </div>
+
+      <!-- Timeline Entries -->
+      <div class="timeline-wrap">
+        <!-- Entry 1: Oct 2026 -->
+        <article class="timeline-card" data-category="games fixes stealth">
+          <div class="timeline-node"></div>
+          <header class="release-header">
+            <div class="release-title-area">
+              <span class="release-version">Version 2.6</span>
+              <span class="release-tag major">Massive Game Expansion</span>
+            </div>
+            <span class="release-date">October 2026</span>
+          </header>
+          <p class="release-description">
+            Added over 30 top-requested games to Blooket1, resolved major WebGL engine decompression issues, eliminated intrusive blocker popups, and launched the upgraded Stealth Mode Hub.
+          </p>
+
+          <div class="release-sections">
+            <div>
+              <div class="change-section-heading"><i class="fas fa-plus-circle"></i> New Games Added</div>
+              <ul class="change-items-list">
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span>Added 30+ blockbuster titles including <strong>Golf Orbit</strong>, <strong>Basket Bros</strong>, <strong>Vex 10</strong>, <strong>SUPERHOT</strong>, <strong>Drive Mad</strong>, <strong>Drift Boss</strong>, <strong>4x4 Chess</strong>, <strong>Traffic Racer</strong>, <strong>Fidget Spinner</strong>, <strong>Idle Loops</strong>, and <strong>Brotato</strong>.</span>
+                </li>
+              </ul>
+              <div class="game-chips-grid">
+                <a href="../play/golf orbit/" class="game-chip-link"><i class="fas fa-play"></i> Golf Orbit</a>
+                <a href="../play/basket bros/" class="game-chip-link"><i class="fas fa-play"></i> Basket Bros</a>
+                <a href="../play/vex 10/" class="game-chip-link"><i class="fas fa-play"></i> Vex 10</a>
+                <a href="../play/superhot/" class="game-chip-link"><i class="fas fa-play"></i> SUPERHOT</a>
+                <a href="../play/drive mad/" class="game-chip-link"><i class="fas fa-play"></i> Drive Mad</a>
+                <a href="../play/drift boss/" class="game-chip-link"><i class="fas fa-play"></i> Drift Boss</a>
+                <a href="../play/4x4 chess/" class="game-chip-link"><i class="fas fa-play"></i> 4x4 Chess</a>
+                <a href="../play/traffic racer/" class="game-chip-link"><i class="fas fa-play"></i> Traffic Racer</a>
+                <a href="../play/fidget spinner/" class="game-chip-link"><i class="fas fa-play"></i> Fidget Spinner</a>
+                <a href="../play/idle loops/" class="game-chip-link"><i class="fas fa-play"></i> Idle Loops</a>
+              </div>
+            </div>
+
+            <div>
+              <div class="change-section-heading"><i class="fas fa-wrench"></i> Engine Fixes &amp; Stability</div>
+              <ul class="change-items-list">
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Golf Orbit Decompression:</strong> Resolved Brotli header mismatches on WebGL <code>.unityweb</code> assets by converting to raw uncompressed binaries for 5x faster load times.</span>
+                </li>
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Vex 10 Adblock Neutralizer:</strong> Fully bypassed Azerion SDK adblock detection overlay so the game never gets paused or interrupted.</span>
+                </li>
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Idle Loops Localization:</strong> Integrated missing English game localization XML and added fail-safe fallbacks.</span>
+                </li>
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Fixed Sidebar Toggle:</strong> Redesigned navigation sidebar with independent scrolling and permanently pinned toggle button at the bottom of the viewport.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="change-section-heading"><i class="fas fa-user-secret"></i> Stealth Mode &amp; Chat Overhaul</div>
+              <ul class="change-items-list">
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Stealth Mode HUD:</strong> Introduced tabbed stealth modal featuring live browser tab preview, custom title/favicon cloaking, customizable panic destination, and about:blank anti-tracking popup cloak.</span>
+                </li>
+                <li class="change-item">
+                  <i class="fas fa-check"></i>
+                  <span><strong>Community Chat Redesign:</strong> Rebuilt chat with responsive crazygames layout, synthesized Web Audio chimes, quick reaction chips, and avatar nicknames.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Entry 2: Sep 2026 -->
+        <article class="timeline-card" data-category="stealth fixes">
+          <div class="timeline-node"></div>
+          <header class="release-header">
+            <div class="release-title-area">
+              <span class="release-version">Version 2.5</span>
+              <span class="release-tag">UI Overhaul</span>
+            </div>
+            <span class="release-date">September 2026</span>
+          </header>
+          <p class="release-description">
+            Complete platform visual refresh inspired by CrazyGames with dense icon rails, rounded cards, and emergency school safeguards.
+          </p>
+          <div class="release-sections">
+            <ul class="change-items-list">
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span><strong>Hero Spotlight Carousel:</strong> Auto-rotating weekly showcase highlighting trending games with live play rank badges.</span>
+              </li>
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span><strong>Instant Live Search:</strong> Fuzzy search across all titles and categories with instant keyboard shortcut (<kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">/</kbd>).</span>
+              </li>
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span><strong>Tab Cloaking:</strong> Disguise Blooket1 tabs as Google Classroom, Google Drive, Google Docs, Desmos, or Canvas LMS.</span>
+              </li>
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span><strong>Panic Key (Boss Key):</strong> Instant single-key escape hotkey (<kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">`</kbd>) redirecting instantly to safe school work.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Entry 3: Aug 2026 -->
+        <article class="timeline-card" data-category="games fixes">
+          <div class="timeline-node"></div>
+          <header class="release-header">
+            <div class="release-title-area">
+              <span class="release-version">Version 2.0</span>
+              <span class="release-tag">Foundation</span>
+            </div>
+            <span class="release-date">August 2026</span>
+          </header>
+          <p class="release-description">
+            Initial launch of Blooket1 core unblocked game network with high-speed WebAssembly engines.
+          </p>
+          <div class="release-sections">
+            <ul class="change-items-list">
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span>Optimized high-performance WebAssembly engines for <strong>Slope</strong>, <strong>Retro Bowl</strong>, <strong>1v1.lol</strong>, and <strong>Subway Surfers</strong>.</span>
+              </li>
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span>Added mobile on-screen D-pad and action button touch controls for Chromebook and tablet players.</span>
+              </li>
+              <li class="change-item">
+                <i class="fas fa-check"></i>
+                <span>Integrated SoundboardMax with 28,000+ meme sounds and pitch controls.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+      // Filter functionality
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const filter = chip.dataset.filter;
+          document.querySelectorAll('.timeline-card').forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+            } else {
+              const cats = card.dataset.category || '';
+              card.style.display = cats.includes(filter) ? 'block' : 'none';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

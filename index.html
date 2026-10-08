@@ -124,9 +124,6 @@
         <button id="header-random-btn" class="cg-icon-btn" title="Random game" aria-label="Play a random game">
           <i class="fas fa-shuffle"></i>
         </button>
-        <a id="header-fav-btn" class="cg-icon-btn" href="#favorites-carousel" title="Favorites" aria-label="My favorites">
-          <i class="fas fa-bookmark"></i>
-        </a>
         <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings &amp; tab cloaking">
           <i class="fas fa-user-secret"></i>
           <span>Stealth mode</span>
@@ -154,10 +151,6 @@
         <a href="#category-popular" class="cg-nav-item" data-tooltip="Trending">
           <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
           <span class="cg-nav-label">Trending</span>
-        </a>
-        <a href="#favorites-carousel" class="cg-nav-item" data-tooltip="Favorites">
-          <span class="cg-nav-icon"><i class="fas fa-heart"></i></span>
-          <span class="cg-nav-label">Favorites</span>
         </a>
 
         <div class="cg-nav-divider"></div>
@@ -209,24 +202,24 @@
           <span class="cg-nav-icon"><i class="fas fa-volume-high"></i></span>
           <span class="cg-nav-label">Soundboard</span>
         </a>
-        <a href="blog/" class="cg-nav-item" data-tooltip="Updates">
+        <a href="updates/" class="cg-nav-item" data-tooltip="Updates">
           <span class="cg-nav-icon"><i class="fas fa-newspaper"></i></span>
           <span class="cg-nav-label">Updates</span>
         </a>
-
-        <!-- Panel toggle [| ] pinned bottom-left (wireframe) -->
-        <div class="cg-sidebar-bottom-wrap">
-          <button id="sidebar-toggle-btn" class="cg-sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="false" title="Expand / collapse sidebar">
-            <span class="cg-panel-toggle-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
-                <line x1="9" y1="4" x2="9" y2="20"></line>
-              </svg>
-            </span>
-            <span class="cg-panel-toggle-label">Collapse</span>
-          </button>
-        </div>
       </nav>
+
+      <!-- Panel toggle [| ] pinned bottom-left (wireframe) -->
+      <div class="cg-sidebar-bottom-wrap">
+        <button id="sidebar-toggle-btn" class="cg-sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="false" title="Expand / collapse sidebar">
+          <span class="cg-panel-toggle-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+              <line x1="9" y1="4" x2="9" y2="20"></line>
+            </svg>
+          </span>
+          <span class="cg-panel-toggle-label">Collapse</span>
+        </button>
+      </div>
     </aside>
 
     <main class="cg-main-canvas" id="main-content">
@@ -345,42 +338,85 @@
       </div>
     </div>
 
-    <!-- Settings & Stealth Cloaking Modal -->
+    <!-- Redesigned Stealth Mode & Cloaking HUD Modal -->
     <div id="settingsModalOverlay" class="settings-modal-overlay">
       <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+        <!-- Modal Top Header -->
         <div class="settings-modal-header">
           <div class="settings-title-wrap">
-            <i class="fas fa-sliders-h settings-header-icon"></i>
-            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
+            <i class="fas fa-user-secret settings-header-icon"></i>
+            <div>
+              <h2 id="settingsModalTitle">Stealth Mode Hub</h2>
+              <p>Tab disguises, instant panic escape &amp; anti-tracking cloak</p>
+            </div>
           </div>
-          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
+          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Stealth Mode">&times;</button>
+        </div>
+
+        <!-- Top HUD Banner with Active Status & Quick Panic -->
+        <div class="stealth-hud-banner">
+          <div class="stealth-hud-status">
+            <span class="stealth-pulse-dot"></span>
+            <span>Active Cloak: <strong id="hudCloakName">Default</strong></span>
+          </div>
+          <button type="button" class="stealth-quick-panic-btn" onclick="triggerPanicExit()">
+            <i class="fas fa-person-running"></i>
+            <span>Panic Escape Now</span>
+          </button>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="stealth-tabs-bar">
+          <button type="button" class="stealth-tab-btn active" data-tab="tab-disguise">
+            <i class="fas fa-mask"></i> Tab Disguise
+          </button>
+          <button type="button" class="stealth-tab-btn" data-tab="tab-panic">
+            <i class="fas fa-bolt"></i> Panic Hotkey
+          </button>
+          <button type="button" class="stealth-tab-btn" data-tab="tab-aboutblank">
+            <i class="fas fa-ghost"></i> Anti-Tracking (about:blank)
+          </button>
+          <button type="button" class="stealth-tab-btn" data-tab="tab-themes">
+            <i class="fas fa-palette"></i> Cyber Themes
+          </button>
         </div>
 
         <div class="settings-modal-body">
-          <!-- Section 1: Tab Cloaking -->
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-mask section-icon"></i>
-              <div>
-                <h3>Tab Cloaking (Disguise)</h3>
-                <p>Change this tab's title and favicon so it appears as school or productivity work.</p>
+          <!-- TAB 1: Tab Disguise -->
+          <div class="stealth-tab-pane active" id="tab-disguise">
+            <!-- Live Browser Tab Mockup Preview -->
+            <div class="browser-tab-preview">
+              <span class="browser-tab-preview-label"><i class="fas fa-eye"></i> Live Browser Tab Preview</span>
+              <div class="browser-tab-mockup">
+                <img id="mockupTabIcon" class="browser-tab-mockup-icon" src="images/b-logo.webp" alt="" />
+                <span id="mockupTabTitle" class="browser-tab-mockup-title">Blooket1 Unblocked Games</span>
+                <span class="browser-tab-mockup-close">&times;</span>
               </div>
             </div>
-            <div class="cloak-options-grid" id="cloakOptionsGrid"></div>
+
+            <!-- Preset Cards Grid -->
+            <div>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 10px;">Select a preset to instantly cloak this tab's title and favicon:</p>
+              <div class="cloak-options-grid" id="cloakOptionsGrid"></div>
+            </div>
+
+            <!-- Custom Cloak Box -->
+            <div class="stealth-custom-box">
+              <h4><i class="fas fa-pen-to-square"></i> Custom Tab Disguise</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Type any custom webpage title and favicon image URL:</p>
+              <div class="stealth-custom-inputs">
+                <input type="text" id="customCloakTitle" class="stealth-input" placeholder="Page Title (e.g. History Essay)" />
+                <input type="url" id="customCloakIcon" class="stealth-input" placeholder="Favicon Image URL (.png / .ico)" />
+                <button type="button" class="settings-action-btn" onclick="applyCustomCloak()"><i class="fas fa-check"></i> Apply</button>
+              </div>
+            </div>
           </div>
 
-          <!-- Section 2: Panic Key -->
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-shield-alt section-icon"></i>
-              <div>
-                <h3>Panic Key (Boss Key)</h3>
-                <p>Press this single key at any moment to immediately escape to Google Classroom.</p>
-              </div>
-            </div>
+          <!-- TAB 2: Panic Key -->
+          <div class="stealth-tab-pane" id="tab-panic">
             <div class="panic-key-card">
               <div class="panic-key-status">
-                <span class="panic-label">Current Panic Key:</span>
+                <span class="panic-label">Emergency Escape Key:</span>
                 <kbd id="currentPanicKeyDisplay">`</kbd>
                 <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
               </div>
@@ -390,17 +426,44 @@
                 <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (`)</button>
               </div>
             </div>
+
+            <div class="stealth-custom-box">
+              <h4><i class="fas fa-location-arrow"></i> Panic Escape Destination</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;">When the panic hotkey is pressed, immediately replace this tab with:</p>
+              <select id="panicDestinationSelect" class="stealth-input" style="max-width: 320px; cursor: pointer;">
+                <option value="https://classroom.google.com">Google Classroom</option>
+                <option value="https://drive.google.com">Google Drive</option>
+                <option value="https://docs.google.com">Google Docs</option>
+                <option value="https://www.desmos.com/calculator">Desmos Calculator</option>
+                <option value="https://www.google.com">Google Search</option>
+                <option value="https://www.wikipedia.org">Wikipedia</option>
+              </select>
+            </div>
           </div>
 
-          <!-- Section 3: Theme Switcher -->
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-palette section-icon"></i>
-              <div>
-                <h3>Theme Switcher</h3>
-                <p>Personalize your experience with dark cyberpunk aesthetics and vivid glows.</p>
+          <!-- TAB 3: Anti-Tracking (about:blank) -->
+          <div class="stealth-tab-pane" id="tab-aboutblank">
+            <div class="aboutblank-hero-card">
+              <div class="aboutblank-header">
+                <i class="fas fa-ghost aboutblank-icon"></i>
+                <div>
+                  <h3>about:blank Popup Cloak</h3>
+                  <p>Bypasses Chrome extension URL scanners (GoGuardian, Securly, Hapara) by nesting the site within a raw <code>about:blank</code> iframe that has no network domain in browser history.</p>
+                </div>
               </div>
+              <div class="aboutblank-features">
+                <div class="aboutblank-feature-pill"><i class="fas fa-shield"></i> Hidden from URL history</div>
+                <div class="aboutblank-feature-pill"><i class="fas fa-ban"></i> Blocks extension tab closing</div>
+                <div class="aboutblank-feature-pill"><i class="fas fa-bolt"></i> Auto-exits origin tab to Classroom</div>
+              </div>
+              <button type="button" class="settings-action-btn" style="padding: 12px 20px; font-size: 14px; width: fit-content;" onclick="openAboutBlankCloak()">
+                <i class="fas fa-up-right-from-square"></i> Launch Blooket1 in about:blank Window
+              </button>
             </div>
+          </div>
+
+          <!-- TAB 4: Cyber Themes -->
+          <div class="stealth-tab-pane" id="tab-themes">
             <div class="theme-options-grid" id="themeOptionsGrid"></div>
           </div>
         </div>
