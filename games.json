@@ -38,7 +38,7 @@
   },
   {
     "4x4 chess": {
-      "game image": "images/4x4 chess.webp",
+      "game image": "images/4x4 chess.png",
       "game link": "play/4x4 chess/",
       "game categories": [
         "Puzzle",
@@ -223,7 +223,7 @@
   },
   {
     "drive mad": {
-      "game image": "images/drive mad.jpg",
+      "game image": "images/drive mad.png",
       "game link": "play/drive mad/",
       "game categories": [
         "Driving",

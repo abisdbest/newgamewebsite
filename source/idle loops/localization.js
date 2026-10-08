@@ -64,7 +64,17 @@ window.Localization = {
     window.location.href=window.location.origin+window.location.pathname+'?'+$.param(vars);
   },
   loadXML : function(libName,callback) {
-      $.get('lang/'+Localization.currentLang+'/'+libName+'.xml',null,callback,'xml');
+      $.ajax({
+          url: 'lang/'+Localization.currentLang+'/'+libName+'.xml',
+          dataType: 'xml',
+          success: function(xmlData) {
+              if (callback) callback(xmlData);
+          },
+          error: function(xhr, status, err) {
+              console.warn("Could not load lang XML:", err);
+              if (callback) callback($('<root></root>')[0]);
+          }
+      });
   },
   getUrlVars : function() {
       var vars = {};

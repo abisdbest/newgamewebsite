@@ -40,7 +40,8 @@ const MIME_TYPES = {
   '.memgz': 'application/octet-stream',
   '.pck': 'application/octet-stream',
   '.bundle': 'application/octet-stream',
-  '.hash': 'text/plain; charset=utf-8'
+  '.hash': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8'
 };
 
 const server = http.createServer((req, res) => {
@@ -68,7 +69,12 @@ const server = http.createServer((req, res) => {
 
   const stat = fs.statSync(filePath);
   const ext = path.extname(filePath).toLowerCase();
-  const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+  let contentType = MIME_TYPES[ext] || 'application/octet-stream';
+  if (filePath.endsWith('.wasm.unityweb') || filePath.endsWith('.wasm')) {
+    contentType = 'application/wasm';
+  } else if (filePath.endsWith('.js.unityweb') || filePath.endsWith('.js')) {
+    contentType = 'application/javascript; charset=utf-8';
+  }
 
   // Support HTTP Range requests (crucial for game audio/video assets)
   const range = req.headers.range;
