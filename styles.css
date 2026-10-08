@@ -320,13 +320,33 @@ button { font-family: inherit; }
   flex-direction: column;
   z-index: 999;
   overflow: hidden;
-  transition: width 0.22s var(--ease-out);
+  transition: width 0.22s var(--ease-out), box-shadow 0.22s ease;
 }
 
 .cg-sidebar::-webkit-scrollbar { display: none; }
 
 body.sidebar-expanded .cg-sidebar,
 .cg-sidebar.expanded { width: var(--sidebar-expanded-width); }
+
+/* Sidebar open preview on hover (desktop hover-capable devices) */
+@media (hover: hover) and (min-width: 1024px) {
+  body:not(.sidebar-expanded) .cg-sidebar:hover {
+    width: var(--sidebar-expanded-width);
+    box-shadow: 12px 0 36px rgba(0, 0, 0, 0.65);
+    z-index: 1001;
+  }
+
+  body:not(.sidebar-expanded) .cg-sidebar:hover .cg-nav-label,
+  body:not(.sidebar-expanded) .cg-sidebar:hover .cg-panel-toggle-label {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Suppress single-item popover tooltips when preview is open on hover */
+  body:not(.sidebar-expanded) .cg-sidebar:hover .cg-nav-item[data-tooltip]::after {
+    display: none !important;
+  }
+}
 
 .cg-nav-list {
   flex: 1 1 auto;

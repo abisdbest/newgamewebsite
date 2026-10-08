@@ -1608,6 +1608,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (sidebarToggleBtn) {
             sidebarToggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            const toggleLabel = sidebarToggleBtn.querySelector('.cg-panel-toggle-label');
+            if (toggleLabel) {
+                toggleLabel.textContent = isExpanded ? 'Collapse' : 'Expand';
+            }
         }
     }
 
@@ -1618,6 +1622,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (sidebarToggleBtn) {
             sidebarToggleBtn.setAttribute('aria-expanded', 'false');
+            const toggleLabel = sidebarToggleBtn.querySelector('.cg-panel-toggle-label');
+            if (toggleLabel) {
+                toggleLabel.textContent = 'Expand';
+            }
+        }
+    }
+
+    // Initialize toggle button label on load
+    if (sidebarToggleBtn) {
+        const toggleLabel = sidebarToggleBtn.querySelector('.cg-panel-toggle-label');
+        if (toggleLabel) {
+            toggleLabel.textContent = document.body.classList.contains('sidebar-expanded') ? 'Collapse' : 'Expand';
         }
     }
 
