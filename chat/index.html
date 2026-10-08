@@ -267,6 +267,111 @@
             box-shadow: 0 6px 20px rgba(247, 85, 50, 0.65);
         }
 
+        /* In-App Toast Alert Popup */
+        .chat-toast-container {
+            position: fixed;
+            top: calc(var(--header-height) + 16px);
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            max-width: 360px;
+            width: calc(100% - 40px);
+        }
+
+        .chat-toast-card {
+            background: rgba(18, 20, 31, 0.96);
+            border: 1.5px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(247, 85, 50, 0.3);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #ffffff;
+            pointer-events: auto;
+            cursor: pointer;
+            animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
+        }
+
+        @keyframes toastSlideIn {
+            0% { transform: translateX(110%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .chat-toast-card.removing {
+            transform: translateX(110%);
+            opacity: 0;
+        }
+
+        .toast-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            flex-shrink: 0;
+            color: #ffffff;
+        }
+
+        .toast-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+
+        .toast-author {
+            font-weight: 800;
+            font-size: 13px;
+            color: var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toast-badge {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .toast-body {
+            font-size: 12.5px;
+            color: #e2e8f0;
+            line-height: 1.35;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        .toast-close:hover {
+            color: #ffffff;
+        }
+
         /* Messages Feed */
         .chat-feed {
             flex: 1;
@@ -762,9 +867,13 @@
                         <i class="fas fa-volume-high"></i>
                         <span id="soundLabel">Sound</span>
                     </button>
-                    <button type="button" class="chat-tool-btn" id="notifyToggleBtn" title="Desktop Notifications">
+                    <button type="button" class="chat-tool-btn" id="notifyToggleBtn" title="Desktop &amp; In-App Notifications">
                         <i class="fas fa-bell"></i>
                         <span id="notifyLabel">Alerts</span>
+                    </button>
+                    <button type="button" class="chat-tool-btn" id="testAlertBtn" title="Test notification sound &amp; popup">
+                        <i class="fas fa-flask"></i>
+                        <span>Test Alert</span>
                     </button>
                     <button type="button" class="chat-tool-btn" id="openSettingsBtn" title="Change Username">
                         <i class="fas fa-user-pen"></i>
@@ -772,6 +881,9 @@
                     </button>
                 </div>
             </div>
+
+            <!-- In-App Floating Toast Alerts Container -->
+            <div class="chat-toast-container" id="chatToastContainer"></div>
 
             <!-- Notification Opt-in Prompt Banner -->
             <div class="chat-notify-banner" id="notifyBanner" style="display: none;">
@@ -844,8 +956,13 @@
                     </div>
 
                     <div class="settings-toggle-row">
-                        <span><i class="fas fa-bell"></i> Desktop Notifications</span>
+                        <span><i class="fas fa-bell"></i> Desktop &amp; In-App Notifications</span>
                         <input type="checkbox" id="notificationToggle" style="transform: scale(1.2); cursor: pointer;" />
+                    </div>
+                    <div style="margin-top: 6px; margin-bottom: 12px;">
+                        <button type="button" class="settings-action-btn secondary" id="modalTestAlertBtn" style="padding: 7px 12px; font-size: 12px; width: 100%; justify-content: center;">
+                            <i class="fas fa-flask"></i> Send a Test Notification Now
+                        </button>
                     </div>
 
                     <div class="settings-toggle-row">
@@ -955,10 +1072,100 @@
                 }
             }
 
+            // In-App Toast Popup Alert (Visible on screen)
+            const toastContainer = document.getElementById('chatToastContainer');
+            function showToastAlert(sender, text) {
+                if (!toastContainer) return;
+                const card = document.createElement('div');
+                card.className = 'chat-toast-card';
+                card.innerHTML = `
+                    <div class="toast-avatar" style="background-color: ${getAvatarColor(sender)}">
+                        ${(sender && sender.charAt(0)) || '?'}
+                    </div>
+                    <div class="toast-content">
+                        <div class="toast-header">
+                            <span class="toast-author">${escapeHtml(sender)}</span>
+                            <span class="toast-badge">Just now</span>
+                        </div>
+                        <div class="toast-body">${escapeHtml(text)}</div>
+                    </div>
+                    <button type="button" class="toast-close" aria-label="Close notification">&times;</button>
+                `;
+
+                card.onclick = (e) => {
+                    if (e.target.classList.contains('toast-close')) {
+                        card.remove();
+                        return;
+                    }
+                    if (messageInput) messageInput.focus();
+                    card.remove();
+                };
+
+                toastContainer.appendChild(card);
+
+                // Auto-dismiss after 4.5 seconds
+                setTimeout(() => {
+                    card.classList.add('removing');
+                    setTimeout(() => card.remove(), 250);
+                }, 4500);
+            }
+
+            // Universal Alert Trigger (Audio Chime + Visual In-App Toast + Desktop Push + Tab Flash)
+            function triggerNotification(sender, text, isTest = false) {
+                // 1. Audio chime
+                playChime();
+
+                // 2. In-App visual toast popup (works even if browser blocks OS notifications!)
+                showToastAlert(sender, text);
+
+                // 3. Native OS Desktop Notification
+                if (notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
+                    try {
+                        const notif = new Notification(`Blooket1 • ${sender}`, {
+                            body: text,
+                            icon: '../images/b-logo.webp',
+                            badge: '../images/b-logo.webp',
+                            tag: 'blooket1-chat-' + Date.now()
+                        });
+                        notif.onclick = () => {
+                            window.focus();
+                            notif.close();
+                        };
+                        setTimeout(() => notif.close(), 6000);
+                    } catch(e) {}
+                }
+
+                // 4. Tab title unread flash
+                if (document.hidden || !document.hasFocus() || isTest) {
+                    unreadCount++;
+                    document.title = `(${unreadCount}) 🔔 ${ORIGINAL_TITLE}`;
+                }
+            }
+
+            // Test Alert Button Handler
+            function runTestNotification() {
+                // Prime Web Audio context
+                try {
+                    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                } catch(e) {}
+
+                // If desktop notifications are not yet requested, prompt user
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().then(perm => {
+                        notificationsEnabled = perm === 'granted';
+                        saveSettings();
+                        triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
+                    });
+                } else {
+                    triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
+                }
+            }
+
             // Request Notification Permission
             async function requestNotifyPermission() {
                 if (!('Notification' in window)) {
-                    alert('Notifications are not supported by this browser.');
+                    showToastAlert('System', 'Desktop notifications are not supported in this browser, but In-App Alerts & Sound are active!');
                     return false;
                 }
 
@@ -966,11 +1173,14 @@
                     notificationsEnabled = !notificationsEnabled;
                     saveSettings();
                     if (notifyBanner) notifyBanner.style.display = 'none';
+                    if (notificationsEnabled) {
+                        triggerNotification('System', 'Notifications are enabled! You will be alerted when new messages arrive. 🔔', true);
+                    }
                     return notificationsEnabled;
                 }
 
                 if (Notification.permission === 'denied') {
-                    alert('Notifications are blocked by your browser settings. To enable alerts, please allow notifications in your browser URL bar.');
+                    alert('Desktop notifications are currently blocked by your browser for this URL. Please click the icon next to the URL in your address bar to allow notifications. In-App toasts and audio chimes will continue to work!');
                     notificationsEnabled = false;
                     saveSettings();
                     return false;
@@ -982,12 +1192,7 @@
                         notificationsEnabled = true;
                         saveSettings();
                         if (notifyBanner) notifyBanner.style.display = 'none';
-                        try {
-                            new Notification('Blooket1 Notifications Active! 🔔', {
-                                body: 'You will receive alerts when other players message you.',
-                                icon: '../images/b-logo.webp'
-                            });
-                        } catch(e) {}
+                        triggerNotification('System', 'Notifications are enabled! You will be alerted when new messages arrive. 🔔', true);
                         return true;
                     } else {
                         notificationsEnabled = false;
@@ -1102,32 +1307,7 @@
                     }
 
                     if (!isSelf) {
-                        playChime();
-
-                        // Desktop Notification
-                        if (notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
-                            if (document.hidden || !document.hasFocus()) {
-                                try {
-                                    const notif = new Notification(`Blooket1: ${msg.sender}`, {
-                                        body: msg.text,
-                                        icon: '../images/b-logo.webp',
-                                        badge: '../images/b-logo.webp',
-                                        tag: 'blooket1-chat'
-                                    });
-                                    notif.onclick = () => {
-                                        window.focus();
-                                        notif.close();
-                                    };
-                                    setTimeout(() => notif.close(), 6000);
-                                } catch(e) {}
-                            }
-                        }
-
-                        // Tab unread count badge
-                        if (document.hidden || !document.hasFocus()) {
-                            unreadCount++;
-                            document.title = `(${unreadCount}) Community Chat - Blooket1`;
-                        }
+                        triggerNotification(msg.sender, msg.text);
                     }
                 }
             }
@@ -1244,6 +1424,16 @@
             // Notification Button Toggles
             if (notifyToggleBtn) {
                 notifyToggleBtn.onclick = requestNotifyPermission;
+            }
+
+            const testAlertBtn = document.getElementById('testAlertBtn');
+            if (testAlertBtn) {
+                testAlertBtn.onclick = runTestNotification;
+            }
+
+            const modalTestAlertBtn = document.getElementById('modalTestAlertBtn');
+            if (modalTestAlertBtn) {
+                modalTestAlertBtn.onclick = runTestNotification;
             }
 
             if (bannerEnableNotifyBtn) {
