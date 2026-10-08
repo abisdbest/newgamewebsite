@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="google-adsense-account" content="ca-pub-5346759304245799" />
     <meta name="theme-color" content="#0b0c13" />
-    <title>Driving Games Unblocked - Play 17 Free Driving Games Online | Blooket1</title>
+    <title>Driving Games Unblocked - Play Driving Games Online | Blooket1</title>
     <meta name="description" content="Hit the gas with free unblocked driving games: racing, stunt bikes, traffic dodging and physics-based car challenges that run smoothly on any school computer. 17 free games, no downloads, works on Chromebooks." />
     <link rel="canonical" href="https://blooket1.com/category/driving/" />
     <meta property="og:type" content="website" />
@@ -210,7 +210,7 @@
         <button id="header-random-btn" class="cg-icon-btn" title="Random game" aria-label="Play a random game">
           <i class="fas fa-shuffle"></i>
         </button>
-        <a id="header-fav-btn" class="cg-icon-btn" href="../../#favorites-carousel" title="Favorites" aria-label="My favorites">
+        <a id="header-fav-btn" class="cg-icon-btn" href="../../category/favorites/" title="Favorites" aria-label="My favorites">
           <i class="fas fa-bookmark"></i>
         </a>
         <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings &amp; tab cloaking">
@@ -232,15 +232,15 @@
           <span class="cg-nav-icon"><i class="fas fa-clock-rotate-left"></i></span>
           <span class="cg-nav-label">Recently played</span>
         </a>
-        <a href="../../#category-new" class="cg-nav-item" data-tooltip="New">
+        <a href="../../category/new/" class="cg-nav-item" data-tooltip="New">
           <span class="cg-nav-icon"><i class="fas fa-wand-magic-sparkles"></i></span>
           <span class="cg-nav-label">New</span>
         </a>
-        <a href="../../#category-popular" class="cg-nav-item" data-tooltip="Trending">
+        <a href="../../category/popular/" class="cg-nav-item" data-tooltip="Trending">
           <span class="cg-nav-icon"><i class="fas fa-fire"></i></span>
           <span class="cg-nav-label">Trending</span>
         </a>
-        <a href="../../#favorites-carousel" class="cg-nav-item" data-tooltip="Favorites">
+        <a href="../../category/favorites/" class="cg-nav-item" data-tooltip="Favorites">
           <span class="cg-nav-icon"><i class="fas fa-heart"></i></span>
           <span class="cg-nav-label">Favorites</span>
         </a>
@@ -325,6 +325,9 @@
       </section>
 
       <nav class="category-chips" aria-label="Other categories">
+          <a class="category-chip" href="../../category/popular/"><i class="fas fa-fire"></i> Trending</a>
+          <a class="category-chip" href="../../category/new/"><i class="fas fa-wand-magic-sparkles"></i> New</a>
+          <a class="category-chip" href="../../category/favorites/"><i class="fas fa-heart"></i> Favorites</a>
           <a class="category-chip" href="../../category/action/"><i class="fas fa-bolt"></i> Action</a>
           <a class="category-chip" href="../../category/addictive/"><i class="fas fa-infinity"></i> Addictive</a>
           <a class="category-chip" href="../../category/puzzle/"><i class="fas fa-puzzle-piece"></i> Puzzle</a>
@@ -351,6 +354,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/slope/" aria-label="Play Slope"></a>
+              <button type="button" class="favorite-btn" data-game="slope" aria-label="Favorite Slope"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="snow rider 3d">
               <div class="game-thumb-wrap">
@@ -361,6 +365,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/snow%20rider%203d/" aria-label="Play Snow Rider 3d"></a>
+              <button type="button" class="favorite-btn" data-game="snow rider 3d" aria-label="Favorite Snow Rider 3d"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="eggy car">
               <div class="game-thumb-wrap">
@@ -371,6 +376,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/eggy%20car/" aria-label="Play Eggy Car"></a>
+              <button type="button" class="favorite-btn" data-game="eggy car" aria-label="Favorite Eggy Car"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="moto x3m pool party">
               <div class="game-thumb-wrap">
@@ -381,6 +387,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/moto%20x3m%20pool%20party/" aria-label="Play Moto X3m Pool Party"></a>
+              <button type="button" class="favorite-btn" data-game="moto x3m pool party" aria-label="Favorite Moto X3m Pool Party"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="escape road">
               <div class="game-thumb-wrap">
@@ -391,6 +398,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/escape%20road/" aria-label="Play Escape Road"></a>
+              <button type="button" class="favorite-btn" data-game="escape road" aria-label="Favorite Escape Road"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="traffic racer">
               <div class="game-thumb-wrap">
@@ -401,6 +409,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/traffic%20racer/" aria-label="Play Traffic Racer"></a>
+              <button type="button" class="favorite-btn" data-game="traffic racer" aria-label="Favorite Traffic Racer"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="drift boss">
               <div class="game-thumb-wrap">
@@ -411,16 +420,18 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/drift%20boss/" aria-label="Play Drift Boss"></a>
+              <button type="button" class="favorite-btn" data-game="drift boss" aria-label="Favorite Drift Boss"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="drive mad">
               <div class="game-thumb-wrap">
-                <img src="../../images/drive%20mad.jpg" alt="Drive Mad" width="300" height="200" decoding="async" class="is-loaded" />
+                <img src="../../images/drive%20mad.png" alt="Drive Mad" width="300" height="200" decoding="async" class="is-loaded" />
                 <div class="game-card-overlay">
                   <span class="game-name">Drive Mad</span>
                   <span class="game-meta"><span class="game-chip">Driving</span></span>
                 </div>
               </div>
               <a class="full-card-link" href="../../play/drive%20mad/" aria-label="Play Drive Mad"></a>
+              <button type="button" class="favorite-btn" data-game="drive mad" aria-label="Favorite Drive Mad"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="mad grand prix">
               <div class="game-thumb-wrap">
@@ -431,6 +442,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/mad%20grand%20prix/" aria-label="Play Mad Grand Prix"></a>
+              <button type="button" class="favorite-btn" data-game="mad grand prix" aria-label="Favorite Mad Grand Prix"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="mr racer - car racing">
               <div class="game-thumb-wrap">
@@ -441,6 +453,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/mr%20racer%20-%20car%20racing/" aria-label="Play Mr Racer - Car Racing"></a>
+              <button type="button" class="favorite-btn" data-game="mr racer - car racing" aria-label="Favorite Mr Racer - Car Racing"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="polytrack">
               <div class="game-thumb-wrap">
@@ -451,6 +464,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/polytrack/" aria-label="Play Polytrack"></a>
+              <button type="button" class="favorite-btn" data-game="polytrack" aria-label="Favorite Polytrack"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="slow roads">
               <div class="game-thumb-wrap">
@@ -461,6 +475,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/slow%20roads/" aria-label="Play Slow Roads"></a>
+              <button type="button" class="favorite-btn" data-game="slow roads" aria-label="Favorite Slow Roads"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="tunnel glider">
               <div class="game-thumb-wrap">
@@ -471,6 +486,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/tunnel%20glider/" aria-label="Play Tunnel Glider"></a>
+              <button type="button" class="favorite-btn" data-game="tunnel glider" aria-label="Favorite Tunnel Glider"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="hex gl">
               <div class="game-thumb-wrap">
@@ -481,6 +497,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/hex%20gl/" aria-label="Play Hex Gl"></a>
+              <button type="button" class="favorite-btn" data-game="hex gl" aria-label="Favorite Hex Gl"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="mariokart wii">
               <div class="game-thumb-wrap">
@@ -491,6 +508,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/mariokart%20wii/" aria-label="Play Mariokart Wii"></a>
+              <button type="button" class="favorite-btn" data-game="mariokart wii" aria-label="Favorite Mariokart Wii"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="moto x3m spooky land">
               <div class="game-thumb-wrap">
@@ -501,6 +519,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/moto%20x3m%20spooky%20land/" aria-label="Play Moto X3m Spooky Land"></a>
+              <button type="button" class="favorite-btn" data-game="moto x3m spooky land" aria-label="Favorite Moto X3m Spooky Land"><i class="far fa-heart"></i></button>
             </div>
             <div class="game-item" data-game-name="rocket league">
               <div class="game-thumb-wrap">
@@ -511,6 +530,7 @@
                 </div>
               </div>
               <a class="full-card-link" href="../../play/rocket%20league/" aria-label="Play Rocket League"></a>
+              <button type="button" class="favorite-btn" data-game="rocket league" aria-label="Favorite Rocket League"><i class="far fa-heart"></i></button>
             </div>
         </div>
       </section>
@@ -543,8 +563,9 @@
           <div class="footer-col">
             <h4>Games</h4>
             <ul>
-              <li><a href="../../#category-popular">Trending</a></li>
-              <li><a href="../../#category-new">New games</a></li>
+              <li><a href="../../category/popular/">Trending</a></li>
+              <li><a href="../../category/new/">New games</a></li>
+              <li><a href="../../category/favorites/">Favorites</a></li>
               <li><a href="../../category/action/">Action</a></li>
               <li><a href="../../category/driving/">Driving</a></li>
               <li><a href="../../category/puzzle/">Puzzle</a></li>
@@ -565,43 +586,25 @@
             <h4>About</h4>
             <ul>
               <li><a href="../../about us/">About us</a></li>
-              <li><a href="../../contact us/">Contact &amp; DMCA</a></li>
+              <li><a href="../../contact us/">Contact</a></li>
               <li><a href="../../privacy/">Privacy policy</a></li>
-              <li><a href="../../tsandcs/">Terms of service</a></li>
+              <li><a href="../../tsandcs/">Terms</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Blooket1. Games belong to their respective creators.</p>
+          <p>&copy; 2026 Blooket1. All rights reserved. Free browser games for school and home.</p>
         </div>
       </footer>
     </main>
 
     <div class="play-toast" id="play-toast" role="status" aria-live="polite"></div>
 
-    <div id="unblockAssistantOverlay">
-      <div id="unblockAssistantPopup">
-        <h2>Unblock Assistant</h2>
-        <div id="unblockAssistantProgressBarContainer">
-          <div id="unblockAssistantProgressBar"></div>
-        </div>
-        <div id="unblockAssistantContent"></div>
-        <div id="unblockAssistantButtons">
-          <button id="unblockPrevBtn" class="unblock-assistant-btn">← Previous</button>
-          <button id="unblockNextBtn" class="unblock-assistant-btn">Next →</button>
-          <button id="unblockSubmitBtn" class="hidden unblock-assistant-btn submit">Send Report</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="settingsModalOverlay" class="settings-modal-overlay">
-      <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+    <div class="settings-modal-overlay" id="settingsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle" hidden>
+      <div class="settings-modal-card">
         <div class="settings-modal-header">
-          <div class="settings-title-wrap">
-            <i class="fas fa-sliders-h settings-header-icon"></i>
-            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
-          </div>
-          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
+          <h2 id="settingsModalTitle">Stealth Mode Hub</h2>
+          <button class="settings-close-btn" id="closeSettingsModalBtn" aria-label="Close settings">&times;</button>
         </div>
         <div class="settings-modal-body">
           <div class="settings-section">

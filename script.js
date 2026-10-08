@@ -1665,3 +1665,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- Universal Favorites Persistence & Button Synchronization ---
+(function initUniversalFavorites() {
+    function getStoredFavorites() {
+        try {
+            const raw = localStorage.getItem('favoriteGames');
+            return new Set(raw ? JSON.parse(raw) : []);
+        } catch (e) {
+            return new Set();
+        }
+    }
+
+    function saveStoredFavorites(favSet) {
+        try {
+            localStorage.setItem('favoriteGames', JSON.stringify(Array.from(favSet)));
+        } catch (e) {}
+    }
+
+    function syncAllFavoriteButtons() {
+        const favs = getStoredFavorites();
+        document.querySelectorAll('.favorite-btn[data-game]').forEach(btn => {
+            const gameName = btn.dataset.game;
+            const isFav = favs.has(gameName);
+            btn.classList.toggle('is-favorite', isFav);
+            btn.setAttribute('aria-pressed', String(isFav));
+            btn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i>`;
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.favorite-btn[data-game]');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        const gameName = btn.dataset.game;
+        if (!gameName) return;
+
+        const favs = getStoredFavorites();
+        const isNowFav = !favs.has(gameName);
+        if (isNowFav) {
+            favs.add(gameName);
+        } else {
+            favs.delete(gameName);
+        }
+        saveStoredFavorites(favs);
+
+        // Update all buttons for this game on current page
+        document.querySelectorAll(`.favorite-btn[data-game="${CSS.escape(gameName)}"]`).forEach(b => {
+            b.classList.toggle('is-favorite', isNowFav);
+            b.setAttribute('aria-pressed', String(isNowFav));
+            b.innerHTML = `<i class="${isNowFav ? 'fas' : 'far'} fa-heart"></i>`;
+        });
+
+        // Broadcast event for category/favorites/ and any active listeners
+        window.dispatchEvent(new CustomEvent('favorites-updated', {
+            detail: { gameName, isFavorite: isNowFav }
+        }));
+    });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', syncAllFavoriteButtons);
+    } else {
+        syncAllFavoriteButtons();
+    }
+
+    window.addEventListener('favorites-updated', syncAllFavoriteButtons);
+})();

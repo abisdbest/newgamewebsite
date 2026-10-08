@@ -366,6 +366,7 @@ function buildFavoritesSection(container) {
     return createCarouselSection('Your favorites', favs, container, {
         id: 'favorites-carousel',
         categorySlug: 'favorites',
+        pageHref: 'category/favorites/',
         icon: 'fas fa-heart',
         before: anchor
     });
@@ -401,6 +402,7 @@ function createAllCarousels() {
     createCarouselSection('Top 10 this week', popular, container, {
         id: 'category-popular',
         categorySlug: 'popular',
+        pageHref: 'category/popular/',
         icon: 'fas fa-fire',
         ranked: true,
         eager: !recent.length
@@ -416,6 +418,7 @@ function createAllCarousels() {
     createCarouselSection('New games', newGames, container, {
         id: 'category-new',
         categorySlug: 'new',
+        pageHref: 'category/new/',
         icon: 'fas fa-star',
         hideNewBadge: true
     });
@@ -522,6 +525,7 @@ function toggleFavorite(gameName) {
         if (section) initializeCarouselFunctionality(section);
     }
     syncHeroFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favorites-updated', { detail: { gameName, isFavorite: !wasFavorite } }));
 }
 
 function syncHeroFavoriteButtons() {

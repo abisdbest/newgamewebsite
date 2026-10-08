@@ -3,9 +3,11 @@
  *
  *   node tools/build-category-pages.js
  *
- * Re-run after adding games to games.json. Each page has static,
- * crawlable links to every game in the category plus a unique intro,
- * so it can rank for searches like "unblocked driving games".
+ * Builds canonical categories + special collections:
+ *   - /category/popular/  (Trending / most played)
+ *   - /category/new/      (Newest additions)
+ *   - /category/favorites/ (User's bookmarks with local sync)
+ *   - 9 canonical genre categories
  */
 const fs = require('fs');
 const path = require('path');
@@ -27,7 +29,7 @@ const POPULARITY = [
   'universal paperclip'
 ];
 
-const CATEGORIES = [
+const CANONICAL_CATEGORIES = [
   {
     key: 'Action', slug: 'action', name: 'Action', icon: 'fa-bolt',
     intro: 'Fast reflexes, big moments and zero waiting around. These unblocked action games load straight in your browser, so you can jump into a shootout, a platformer or a ragdoll brawl in seconds.',
@@ -101,6 +103,38 @@ const CATEGORIES = [
   }
 ];
 
+const SPECIAL_CATEGORIES = [
+  {
+    slug: 'popular', name: 'Trending', icon: 'fa-fire', h1: 'Trending games',
+    pageTitle: 'Trending Games Unblocked - Most Popular Free Games Online | Blooket1',
+    intro: 'The most played, highest rated and trending games on Blooket1. Jump into the community\'s all-time favorites, including blockbusters like Slope, Subway Surfers, Minecraft, and Retro Bowl.',
+    more: [
+      'These are the games that players spend the most time with every single day. Whether you want to beat your high score in classic runners, compete in multiplayer arenas, or relax with top-tier puzzle games, these trending titles are guaranteed hits.',
+      'Every popular game here is unblocked and optimized for instant loading in your browser with zero installs or logins required.'
+    ]
+  },
+  {
+    slug: 'new', name: 'New', icon: 'fa-wand-magic-sparkles', h1: 'New games',
+    pageTitle: 'New Games Unblocked - Latest Free Browser Games | Blooket1',
+    intro: 'Fresh arrivals, latest releases and newly added browser games. Discover the newest games added to Blooket1, playable instantly on any school Chromebook or PC with no downloads.',
+    more: [
+      'Our game library is continually growing with community suggestions, popular indie hits, and viral arcade games. Every new addition is tested for high performance, responsive controls, and full school Chromebook compatibility.',
+      'From high-octane 3D racers and intense sports showdowns to relaxing idle clickers and brain-teasing puzzles, find your next favorite game among our newest releases.'
+    ]
+  },
+  {
+    slug: 'favorites', name: 'Favorites', icon: 'fa-heart', h1: 'Your favorites',
+    pageTitle: 'My Favorite Games - Personal Bookmarks | Blooket1',
+    intro: 'Your personally curated collection of favorite games on Blooket1. Click the heart icon on any game card or play page to bookmark games right here for instant access.',
+    more: [
+      'Keep all your top-tier games in one convenient spot. Whenever you find a game you love, click the heart icon on its card or play page to bookmark it directly to your favorites list.',
+      'Favorites are securely saved in your browser storage so they will be right here waiting for you next time you return.'
+    ]
+  }
+];
+
+const ALL_CATEGORIES = [...SPECIAL_CATEGORIES, ...CANONICAL_CATEGORIES];
+
 // ------------------------------------------------------------------
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const title = (s) => s.replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
@@ -120,8 +154,8 @@ function sortGames(list) {
 
 function primaryLabel(g, current) {
   const cats = (g['game categories'] || []).filter((c) => c !== 'Addictive Games' && c !== current.key);
-  const c = CATEGORIES.find((x) => x.key === (cats[0] || current.key));
-  return c ? c.name : current.name;
+  const c = CANONICAL_CATEGORIES.find((x) => x.key === (cats[0] || current.key));
+  return c ? c.name : (current.name || 'Arcade');
 }
 
 function card(g, i, cat) {
@@ -137,6 +171,7 @@ function card(g, i, cat) {
                 </div>
               </div>
               <a class="full-card-link" href="${esc(href)}" aria-label="Play ${esc(name)}"></a>
+              <button type="button" class="favorite-btn" data-game="${esc(g.name)}" aria-label="Favorite ${esc(name)}"><i class="far fa-heart"></i></button>
             </div>`;
 }
 
@@ -147,15 +182,15 @@ function sidebar(active) {
         </a>`;
   return `    <aside id="cg-sidebar" class="cg-sidebar" aria-label="Main Navigation">
       <nav class="cg-nav-list">
-${item(R, 'fa-house', 'Home')}
+${item(R, 'fa-house', 'Home', active === 'home')}
 ${item(R + '#recent-carousel', 'fa-clock-rotate-left', 'Recently played')}
-${item(R + '#category-new', 'fa-wand-magic-sparkles', 'New')}
-${item(R + '#category-popular', 'fa-fire', 'Trending')}
-${item(R + '#favorites-carousel', 'fa-heart', 'Favorites')}
+${item(R + 'category/new/', 'fa-wand-magic-sparkles', 'New', active === 'new')}
+${item(R + 'category/popular/', 'fa-fire', 'Trending', active === 'popular')}
+${item(R + 'category/favorites/', 'fa-heart', 'Favorites', active === 'favorites')}
 
         <div class="cg-nav-divider"></div>
 
-${CATEGORIES.map((c) => item(`${R}category/${c.slug}/`, c.icon, c.name, c.slug === active)).join('\n')}
+${CANONICAL_CATEGORIES.map((c) => item(`${R}category/${c.slug}/`, c.icon, c.name, c.slug === active)).join('\n')}
 
         <div class="cg-nav-divider"></div>
 
@@ -207,7 +242,7 @@ const HEADER = `    <header class="cg-header">
         <button id="header-random-btn" class="cg-icon-btn" title="Random game" aria-label="Play a random game">
           <i class="fas fa-shuffle"></i>
         </button>
-        <a id="header-fav-btn" class="cg-icon-btn" href="${R}#favorites-carousel" title="Favorites" aria-label="My favorites">
+        <a id="header-fav-btn" class="cg-icon-btn" href="${R}category/favorites/" title="Favorites" aria-label="My favorites">
           <i class="fas fa-bookmark"></i>
         </a>
         <button class="cg-pill-action-btn" onclick="openSettingsModal()" title="Settings &amp; tab cloaking">
@@ -233,8 +268,9 @@ const FOOTER = `      <footer class="app-footer">
           <div class="footer-col">
             <h4>Games</h4>
             <ul>
-              <li><a href="${R}#category-popular">Trending</a></li>
-              <li><a href="${R}#category-new">New games</a></li>
+              <li><a href="${R}category/popular/">Trending</a></li>
+              <li><a href="${R}category/new/">New games</a></li>
+              <li><a href="${R}category/favorites/">Favorites</a></li>
               <li><a href="${R}category/action/">Action</a></li>
               <li><a href="${R}category/driving/">Driving</a></li>
               <li><a href="${R}category/puzzle/">Puzzle</a></li>
@@ -255,40 +291,22 @@ const FOOTER = `      <footer class="app-footer">
             <h4>About</h4>
             <ul>
               <li><a href="${R}about us/">About us</a></li>
-              <li><a href="${R}contact us/">Contact &amp; DMCA</a></li>
+              <li><a href="${R}contact us/">Contact</a></li>
               <li><a href="${R}privacy/">Privacy policy</a></li>
-              <li><a href="${R}tsandcs/">Terms of service</a></li>
+              <li><a href="${R}tsandcs/">Terms</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Blooket1. Games belong to their respective creators.</p>
+          <p>&copy; 2026 Blooket1. All rights reserved. Free browser games for school and home.</p>
         </div>
       </footer>`;
 
-const MODALS = `    <div id="unblockAssistantOverlay">
-      <div id="unblockAssistantPopup">
-        <h2>Unblock Assistant</h2>
-        <div id="unblockAssistantProgressBarContainer">
-          <div id="unblockAssistantProgressBar"></div>
-        </div>
-        <div id="unblockAssistantContent"></div>
-        <div id="unblockAssistantButtons">
-          <button id="unblockPrevBtn" class="unblock-assistant-btn">← Previous</button>
-          <button id="unblockNextBtn" class="unblock-assistant-btn">Next →</button>
-          <button id="unblockSubmitBtn" class="hidden unblock-assistant-btn submit">Send Report</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="settingsModalOverlay" class="settings-modal-overlay">
-      <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+const MODALS = `    <div class="settings-modal-overlay" id="settingsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle" hidden>
+      <div class="settings-modal-card">
         <div class="settings-modal-header">
-          <div class="settings-title-wrap">
-            <i class="fas fa-sliders-h settings-header-icon"></i>
-            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
-          </div>
-          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
+          <h2 id="settingsModalTitle">Stealth Mode Hub</h2>
+          <button class="settings-close-btn" id="closeSettingsModalBtn" aria-label="Close settings">&times;</button>
         </div>
         <div class="settings-modal-body">
           <div class="settings-section">
@@ -337,16 +355,26 @@ const MODALS = `    <div id="unblockAssistantOverlay">
     </div>`;
 
 function page(cat) {
-  const list = sortGames(games.filter((g) => (g['game categories'] || []).includes(cat.key)));
+  let list;
+  let h1 = cat.h1 || `${cat.name} games`;
+  let pageTitle = cat.pageTitle || `${cat.name} Games Unblocked - Play ${cat.name} Games Online | Blooket1`;
+
+  if (cat.slug === 'popular') {
+    list = sortGames(games);
+  } else if (cat.slug === 'new') {
+    list = [...games].sort((a, b) => new Date(b['date added'] || 0) - new Date(a['date added'] || 0));
+  } else if (cat.slug === 'favorites') {
+    list = sortGames(games);
+  } else {
+    list = sortGames(games.filter((g) => (g['game categories'] || []).includes(cat.key)));
+  }
+
   const url = `${SITE}/category/${cat.slug}/`;
   const top = list.slice(0, 3).map((g) => title(g.name));
-  const topSentence = top.length >= 3
+  const topSentence = top.length >= 3 && cat.slug !== 'favorites'
     ? `The most played ${cat.name.toLowerCase()} games on Blooket1 right now include ${top[0]}, ${top[1]} and ${top[2]}.`
     : '';
-  const pageTitle = cat.slug === 'tools'
-    ? 'Free Browser Tools | Blooket1'
-    : `${cat.name} Games Unblocked - Play ${list.length} Free ${cat.name} Games Online | Blooket1`;
-  const h1 = cat.slug === 'tools' ? 'Browser tools' : `${cat.name} games`;
+
   const description = `${cat.intro.split('. ')[0].replace(/\.$/, '')}. ${list.length} free games, no downloads, works on Chromebooks.`.slice(0, 300);
 
   const ld = [
@@ -378,8 +406,81 @@ function page(cat) {
     }
   ];
 
-  const chips = CATEGORIES.filter((c) => c.slug !== cat.slug)
-    .map((c) => `          <a class="category-chip" href="${R}category/${c.slug}/"><i class="fas ${c.icon}"></i> ${c.name}</a>`).join('\n');
+  const chips = ALL_CATEGORIES
+    .filter((c) => c.slug !== cat.slug)
+    .map((c) => `          <a class="category-chip" href="${R}category/${c.slug}/"><i class="fas ${c.icon}"></i> ${c.name}</a>`)
+    .join('\n');
+
+  let gridSection = '';
+  if (cat.slug === 'favorites') {
+    gridSection = `      <section class="category-grid-section" aria-label="Favorite games">
+        <div class="search-results-grid category-grid" id="favorites-grid">
+${list.map((g, i) => card(g, i, cat)).join('\n')}
+        </div>
+        <div class="favorites-empty-state" id="favorites-empty" style="display: none; text-align: center; padding: 60px 20px;">
+          <div style="font-size: 54px; color: var(--accent-color); margin-bottom: 18px;"><i class="far fa-heart"></i></div>
+          <h2 style="font-size: 26px; font-weight: 900; margin-bottom: 10px; color: #fff;">No favorites yet!</h2>
+          <p style="color: var(--text-secondary); max-width: 480px; margin: 0 auto 28px; font-size: 16px; line-height: 1.5;">Click the heart icon on any game card across Blooket1 to save your favorite games right here.</p>
+          <a href="${R}category/popular/" class="cg-pill-action-btn" style="text-decoration: none; display: inline-flex;"><i class="fas fa-fire"></i> Browse Trending Games</a>
+        </div>
+      </section>
+      <script>
+        (function() {
+          function syncFavoritesView() {
+            const grid = document.getElementById('favorites-grid');
+            const empty = document.getElementById('favorites-empty');
+            const countEl = document.querySelector('.category-count');
+            if (!grid) return;
+
+            let favs = [];
+            try {
+              const raw = localStorage.getItem('favoriteGames');
+              if (raw) favs = JSON.parse(raw);
+            } catch (e) {}
+
+            const favSet = new Set(favs);
+            const cards = Array.from(grid.querySelectorAll('.game-item'));
+            let matched = 0;
+
+            cards.forEach(card => {
+              const name = card.dataset.gameName;
+              if (favSet.has(name)) {
+                card.style.display = '';
+                matched++;
+              } else {
+                card.style.display = 'none';
+              }
+            });
+
+            if (countEl) {
+              countEl.textContent = matched + ' game' + (matched === 1 ? '' : 's');
+            }
+
+            if (matched === 0) {
+              if (empty) empty.style.display = 'block';
+              grid.style.display = 'none';
+            } else {
+              if (empty) empty.style.display = 'none';
+              grid.style.display = '';
+            }
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', syncFavoritesView);
+          } else {
+            syncFavoritesView();
+          }
+
+          window.addEventListener('favorites-updated', syncFavoritesView);
+        })();
+      </script>`;
+  } else {
+    gridSection = `      <section class="category-grid-section" aria-label="${esc(cat.name)} games">
+        <div class="search-results-grid category-grid">
+${list.map((g, i) => card(g, i, cat)).join('\n')}
+        </div>
+      </section>`;
+  }
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -439,7 +540,7 @@ ${sidebar(cat.slug)}
       <section class="category-hero">
         <span class="category-hero-icon"><i class="fas ${cat.icon}"></i></span>
         <div>
-          <h1 class="category-hero-title">${esc(h1)} <span class="category-count">${list.length} games</span></h1>
+          <h1 class="category-hero-title">${esc(h1)} <span class="category-count">${cat.slug === 'favorites' ? '0 games' : list.length + ' games'}</span></h1>
           <p class="category-hero-intro">${esc(cat.intro)}</p>
         </div>
       </section>
@@ -453,11 +554,7 @@ ${chips}
         <ins class="adsbygoogle" data-ad-key="leaderboard"></ins>
       </div>
 
-      <section class="category-grid-section" aria-label="${esc(cat.name)} games">
-        <div class="search-results-grid category-grid">
-${list.map((g, i) => card(g, i, cat)).join('\n')}
-        </div>
-      </section>
+${gridSection}
 
       <section class="play-card category-about">
         <h2 class="play-about-title">About ${esc(cat.name.toLowerCase())} games on Blooket1</h2>
@@ -486,13 +583,13 @@ ${MODALS}
 }
 
 let count = 0;
-for (const cat of CATEGORIES) {
+for (const cat of ALL_CATEGORIES) {
   const dir = path.join(ROOT_DIR, 'category', cat.slug);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), page(cat));
   count++;
-  console.log(`category/${cat.slug}/  (${games.filter((g) => (g['game categories'] || []).includes(cat.key)).length} games)`);
+  console.log(`category/${cat.slug}/  (${cat.name})`);
 }
 console.log(`Built ${count} category pages.`);
 
-module.exports = { CATEGORIES };
+module.exports = { CATEGORIES: ALL_CATEGORIES, CANONICAL_CATEGORIES, SPECIAL_CATEGORIES };
