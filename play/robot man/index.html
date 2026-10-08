@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
     <link rel="preload" as="image" href="../../images/robotman.webp" fetchpriority="high" />
     <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../stealth.css" />
     <link rel="stylesheet" href="../../carousel.css" />
     <link rel="stylesheet" href="../../ub.css" />
     <link rel="stylesheet" href="../../play.css" />
@@ -476,64 +477,156 @@
       </div>
     </div>
 
-    <div id="settingsModalOverlay" class="settings-modal-overlay">
-      <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
-        <div class="settings-modal-header">
-          <div class="settings-title-wrap">
-            <i class="fas fa-sliders-h settings-header-icon"></i>
-            <h2 id="settingsModalTitle">Settings &amp; Stealth Cloak</h2>
-          </div>
-          <button id="closeSettingsBtn" class="settings-close-btn" aria-label="Close Settings">&times;</button>
-        </div>
+            <!-- Stealth mode (replaces the old #settingsModalOverlay block) -->
+    <div id="settingsModalOverlay" class="sm-overlay">
+      <div id="settingsModal" class="sm-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
 
-        <div class="settings-modal-body">
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-mask section-icon"></i>
-              <div>
-                <h3>Tab Cloaking (Disguise)</h3>
-                <p>Change this tab's title and favicon so it appears as school or productivity work.</p>
-              </div>
-            </div>
-            <div class="cloak-options-grid" id="cloakOptionsGrid"></div>
-          </div>
-
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-shield-alt section-icon"></i>
-              <div>
-                <h3>Panic Key (Boss Key)</h3>
-                <p>Press this single key at any moment to immediately escape to Google Classroom.</p>
-              </div>
-            </div>
-            <div class="panic-key-card">
-              <div class="panic-key-status">
-                <span class="panic-label">Current Panic Key:</span>
-                <kbd id="currentPanicKeyDisplay">`</kbd>
-                <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
-              </div>
-              <div class="panic-btn-group">
-                <button id="changePanicKeyBtn" class="settings-action-btn"><i class="fas fa-keyboard"></i> Change Key</button>
-                <button id="testPanicKeyBtn" class="settings-action-btn secondary"><i class="fas fa-external-link-alt"></i> Test Panic</button>
-                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (`)</button>
-              </div>
+        <!-- Sidebar -->
+        <aside class="sm-side">
+          <div class="sm-brand">
+            <span class="sm-brand-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></span>
+            <div>
+              <h2 id="settingsModalTitle">Stealth mode</h2>
+              <p>Saved on this device</p>
             </div>
           </div>
 
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-palette section-icon"></i>
-              <div>
-                <h3>Theme Switcher</h3>
-                <p>Personalize your experience with dark cyberpunk aesthetics and vivid glows.</p>
+          <nav class="sm-nav" role="tablist" aria-label="Stealth settings">
+            <button type="button" class="sm-nav-btn is-active" role="tab" aria-selected="true" aria-controls="sm-pane-disguise" data-sm-tab="sm-pane-disguise">
+              <i class="fas fa-window-maximize" aria-hidden="true"></i>
+              <span><b>Tab disguise</b><small>Change the tab's name and icon</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-panic" data-sm-tab="sm-pane-panic">
+              <i class="fas fa-keyboard" aria-hidden="true"></i>
+              <span><b>Panic key</b><small>One key to leave instantly</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-blank" data-sm-tab="sm-pane-blank">
+              <i class="fas fa-file" aria-hidden="true"></i>
+              <span><b>Blank tab</b><small>Open in an about:blank tab</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-theme" data-sm-tab="sm-pane-theme">
+              <i class="fas fa-palette" aria-hidden="true"></i>
+              <span><b>Theme</b><small>Colours for the whole site</small></span>
+            </button>
+          </nav>
+
+          <div class="sm-side-foot">
+            <div class="sm-status">
+              <span class="sm-fav sm-fav--sm"><img id="hudCloakIcon" src="../../images/b-logo.webp" alt="" /></span>
+              <span><small>This tab looks like</small><b id="hudCloakName">Blooket1</b></span>
+            </div>
+            <button type="button" class="sm-leave-btn" onclick="triggerPanicExit()">
+              <i class="fas fa-person-running" aria-hidden="true"></i>Leave now
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="sm-main">
+          <button id="closeSettingsBtn" class="sm-close" type="button" aria-label="Close stealth mode">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <!-- Tab disguise -->
+          <section class="sm-pane is-active" id="sm-pane-disguise" role="tabpanel">
+            <header class="sm-pane-head">
+              <h3>Tab disguise</h3>
+              <p>Make this tab look like another site. Hover to preview, click to use.</p>
+            </header>
+
+            <div class="sm-browser" aria-hidden="true">
+              <div class="sm-browser-tabs">
+                <span class="sm-browser-tab is-current">
+                  <img id="mockupTabIcon" src="../../images/b-logo.webp" alt="" />
+                  <span id="mockupTabTitle">Blooket1 Unblocked Games</span>
+                  <i class="fas fa-xmark"></i>
+                </span>
+                <span class="sm-browser-tab"><i class="fas fa-globe"></i><span>New tab</span></span>
+                <span class="sm-browser-plus"><i class="fas fa-plus"></i></span>
+              </div>
+              <div class="sm-browser-bar">
+                <i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i><i class="fas fa-rotate-right"></i>
+                <span class="sm-browser-url"><i class="fas fa-lock"></i>blooket1.com</span>
               </div>
             </div>
-            <div class="theme-options-grid" id="themeOptionsGrid"></div>
-          </div>
+
+            <div class="sm-cloak-grid" id="cloakOptionsGrid" role="radiogroup" aria-label="Disguises"></div>
+
+            <details class="sm-custom">
+              <summary><i class="fas fa-pen" aria-hidden="true"></i>Use your own name and icon<i class="fas fa-chevron-down sm-custom-chev" aria-hidden="true"></i></summary>
+              <div class="sm-custom-body">
+                <label class="sm-field">
+                  <span>Tab name</span>
+                  <input type="text" id="customCloakTitle" class="sm-input" placeholder="History essay - Google Docs" maxlength="80" />
+                </label>
+                <label class="sm-field">
+                  <span>Icon image link</span>
+                  <input type="url" id="customCloakIcon" class="sm-input" placeholder="https://example.com/favicon.ico" />
+                </label>
+                <button type="button" class="sm-btn sm-btn--primary" onclick="applyCustomCloak()">Use this disguise</button>
+              </div>
+            </details>
+          </section>
+
+          <!-- Panic key -->
+          <section class="sm-pane" id="sm-pane-panic" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Panic key</h3>
+              <p>Press it anywhere on Blooket1 and this tab is instantly replaced with the site you pick below. Pressing Back won't bring it back.</p>
+            </header>
+
+            <div class="sm-panic">
+              <div class="sm-keycap" id="smKeycap" aria-hidden="true"><span class="sm-keycap-face" id="currentPanicKeyDisplay">`</span></div>
+              <div class="sm-panic-info">
+                <p class="sm-panic-state"><span id="smPanicStateText">Your panic key</span><span id="panicListeningStatus" class="sm-listening" style="display:none">Press any key now. Esc cancels.</span></p>
+                <div class="sm-btn-row">
+                  <button id="changePanicKeyBtn" type="button" class="sm-btn sm-btn--primary"><i class="fas fa-keyboard" aria-hidden="true"></i>Change key</button>
+                  <button id="testPanicKeyBtn" type="button" class="sm-btn"><i class="fas fa-play" aria-hidden="true"></i>Try it</button>
+                  <button id="resetPanicKeyBtn" type="button" class="sm-btn sm-btn--ghost">Reset to `</button>
+                </div>
+              </div>
+            </div>
+
+            <h4 class="sm-sub">Go to</h4>
+            <div class="sm-dest-grid" id="smDestGrid" role="radiogroup" aria-label="Panic destination"></div>
+          </section>
+
+          <!-- Blank tab -->
+          <section class="sm-pane" id="sm-pane-blank" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Blank tab</h3>
+              <p>Opens Blooket1 inside a new tab whose address reads about:blank, and sends this tab to your panic destination.</p>
+            </header>
+
+            <div class="sm-blank-demo" aria-hidden="true">
+              <div class="sm-browser-bar sm-browser-bar--solo">
+                <i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i><i class="fas fa-rotate-right"></i>
+                <span class="sm-browser-url"><i class="fas fa-circle-info"></i>about:blank</span>
+              </div>
+              <div class="sm-blank-page">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <div class="sm-btn-row">
+              <button type="button" class="sm-btn sm-btn--primary sm-btn--lg" onclick="openAboutBlankCloak()"><i class="fas fa-up-right-from-square" aria-hidden="true"></i>Open blank tab</button>
+            </div>
+            <p class="sm-note"><i class="fas fa-circle-info" aria-hidden="true"></i>If nothing opens, allow pop-ups for Blooket1 in your browser and try again.</p>
+          </section>
+
+          <!-- Theme -->
+          <section class="sm-pane" id="sm-pane-theme" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Theme</h3>
+              <p>Changes the colours across the whole site. Your games and favourites stay the same.</p>
+            </header>
+            <div class="sm-theme-grid" id="themeOptionsGrid" role="radiogroup" aria-label="Themes"></div>
+          </section>
         </div>
       </div>
     </div>
 
     <script src="../../script.js"></script>
+    <script src="../../stealth.js"></script>
   </body>
 </html>
