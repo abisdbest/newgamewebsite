@@ -168,6 +168,105 @@
             border-color: rgba(247, 85, 50, 0.4);
         }
 
+        /* Notification Opt-in Banner */
+        .chat-notify-banner {
+            background: linear-gradient(90deg, rgba(247, 85, 50, 0.16) 0%, rgba(59, 130, 246, 0.12) 100%);
+            border-bottom: 1px solid rgba(247, 85, 50, 0.25);
+            padding: 9px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+            color: #ffffff;
+            animation: fadeIn 0.2s ease-out;
+            z-index: 5;
+        }
+
+        .notify-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            line-height: 1.35;
+        }
+
+        .notify-banner-left i {
+            color: var(--accent-color);
+            font-size: 14px;
+        }
+
+        .notify-banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .notify-banner-btn {
+            border: none;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .notify-banner-btn.primary {
+            background: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .notify-banner-btn.primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .notify-banner-btn.dismiss {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            font-size: 14px;
+        }
+
+        .notify-banner-btn.dismiss:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Floating New Message Pill */
+        .chat-new-msg-pill {
+            position: absolute;
+            bottom: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(247, 85, 50, 0.45);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            z-index: 20;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: pillBounce 0.25s ease-out;
+        }
+
+        @keyframes pillBounce {
+            0% { transform: translateX(-50%) translateY(10px); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .chat-new-msg-pill:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(247, 85, 50, 0.65);
+        }
+
         /* Messages Feed */
         .chat-feed {
             flex: 1;
@@ -663,10 +762,26 @@
                         <i class="fas fa-volume-high"></i>
                         <span id="soundLabel">Sound</span>
                     </button>
+                    <button type="button" class="chat-tool-btn" id="notifyToggleBtn" title="Desktop Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifyLabel">Alerts</span>
+                    </button>
                     <button type="button" class="chat-tool-btn" id="openSettingsBtn" title="Change Username">
                         <i class="fas fa-user-pen"></i>
                         <span id="currentUserDisplay">Profile</span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Notification Opt-in Prompt Banner -->
+            <div class="chat-notify-banner" id="notifyBanner" style="display: none;">
+                <div class="notify-banner-left">
+                    <i class="fas fa-bell"></i>
+                    <span>Turn on notifications to get alerted when players message or invite you!</span>
+                </div>
+                <div class="notify-banner-actions">
+                    <button type="button" class="notify-banner-btn primary" id="bannerEnableNotifyBtn">Enable</button>
+                    <button type="button" class="notify-banner-btn dismiss" id="bannerDismissNotifyBtn" aria-label="Dismiss">&times;</button>
                 </div>
             </div>
 
@@ -677,6 +792,12 @@
                     <span>Welcome to Blooket1 Community Chat! Keep discussions civil and respectful.</span>
                 </div>
             </div>
+
+            <!-- Jump to Bottom / New Message Floating Pill -->
+            <button type="button" class="chat-new-msg-pill" id="newMsgPill" style="display: none;">
+                <i class="fas fa-arrow-down"></i>
+                <span id="newMsgPillText">New messages below</span>
+            </button>
 
             <!-- Quick Reaction Chips -->
             <div class="quick-reactions-bar">
@@ -746,6 +867,7 @@
             const API_BASE = "https://blooket1-api.arielblau2.workers.dev";
             const HISTORY_URL = `${API_BASE}/chat/history`;
             const SEND_URL = `${API_BASE}/chat/send`;
+            const ORIGINAL_TITLE = "Community Chat - Blooket1 Unblocked Games";
 
             const chatFeed = document.getElementById('chatFeed');
             const messageInput = document.getElementById('messageInput');
@@ -755,6 +877,13 @@
             const statusText = document.getElementById('statusText');
             const soundToggleBtn = document.getElementById('soundToggleBtn');
             const soundLabel = document.getElementById('soundLabel');
+            const notifyToggleBtn = document.getElementById('notifyToggleBtn');
+            const notifyLabel = document.getElementById('notifyLabel');
+            const notifyBanner = document.getElementById('notifyBanner');
+            const bannerEnableNotifyBtn = document.getElementById('bannerEnableNotifyBtn');
+            const bannerDismissNotifyBtn = document.getElementById('bannerDismissNotifyBtn');
+            const newMsgPill = document.getElementById('newMsgPill');
+            const newMsgPillText = document.getElementById('newMsgPillText');
             const openSettingsBtn = document.getElementById('openSettingsBtn');
             const chatSettingsOverlay = document.getElementById('chatSettingsOverlay');
             const closeSettingsModal = document.getElementById('closeSettingsModal');
@@ -766,6 +895,8 @@
 
             let currentUser = { username: 'Anonymous' };
             let soundEnabled = true;
+            let notificationsEnabled = false;
+            let unreadCount = 0;
             let audioCtx = null;
             const seenMessageKeys = new Set();
             let isSending = false;
@@ -778,10 +909,18 @@
                     const randomId = Math.floor(1000 + Math.random() * 9000);
                     currentUser.username = saved.username || `Player_${randomId}`;
                     soundEnabled = saved.sound !== false;
-                    if (notificationToggle) notificationToggle.checked = saved.notifications === true;
+                    notificationsEnabled = saved.notifications === true && 'Notification' in window && Notification.permission === 'granted';
+
+                    if (notificationToggle) notificationToggle.checked = notificationsEnabled;
                     if (soundEffectToggle) soundEffectToggle.checked = soundEnabled;
                     if (usernameInput) usernameInput.value = currentUser.username;
-                    updateUserUI();
+                    updateUI();
+
+                    // Check if notification prompt banner should be displayed
+                    const bannerDismissed = localStorage.getItem('chatNotifyBannerDismissed') === 'true';
+                    if (!bannerDismissed && 'Notification' in window && Notification.permission === 'default') {
+                        if (notifyBanner) notifyBanner.style.display = 'flex';
+                    }
                 } catch(e) {
                     currentUser.username = `Player_${Math.floor(1000 + Math.random() * 9000)}`;
                 }
@@ -792,22 +931,75 @@
                     localStorage.setItem('chatAppSettings', JSON.stringify({
                         username: currentUser.username,
                         sound: soundEnabled,
-                        notifications: notificationToggle ? notificationToggle.checked : false
+                        notifications: notificationsEnabled
                     }));
                 } catch(e) {}
-                updateUserUI();
+                updateUI();
             }
 
-            function updateUserUI() {
+            function updateUI() {
                 if (currentUserDisplay) currentUserDisplay.textContent = currentUser.username;
                 if (soundLabel) soundLabel.textContent = soundEnabled ? 'Sound On' : 'Muted';
                 if (soundToggleBtn) {
-                    if (soundEnabled) soundToggleBtn.classList.add('active');
-                    else soundToggleBtn.classList.remove('active');
+                    soundToggleBtn.classList.toggle('active', soundEnabled);
+                }
+
+                if (notifyLabel) {
+                    notifyLabel.textContent = notificationsEnabled ? 'Alerts On' : 'Alerts Off';
+                }
+                if (notifyToggleBtn) {
+                    notifyToggleBtn.classList.toggle('active', notificationsEnabled);
+                }
+                if (notificationToggle) {
+                    notificationToggle.checked = notificationsEnabled;
                 }
             }
 
-            // Web Audio API Synthesized Chime (No external audio files needed)
+            // Request Notification Permission
+            async function requestNotifyPermission() {
+                if (!('Notification' in window)) {
+                    alert('Notifications are not supported by this browser.');
+                    return false;
+                }
+
+                if (Notification.permission === 'granted') {
+                    notificationsEnabled = !notificationsEnabled;
+                    saveSettings();
+                    if (notifyBanner) notifyBanner.style.display = 'none';
+                    return notificationsEnabled;
+                }
+
+                if (Notification.permission === 'denied') {
+                    alert('Notifications are blocked by your browser settings. To enable alerts, please allow notifications in your browser URL bar.');
+                    notificationsEnabled = false;
+                    saveSettings();
+                    return false;
+                }
+
+                try {
+                    const result = await Notification.requestPermission();
+                    if (result === 'granted') {
+                        notificationsEnabled = true;
+                        saveSettings();
+                        if (notifyBanner) notifyBanner.style.display = 'none';
+                        try {
+                            new Notification('Blooket1 Notifications Active! 🔔', {
+                                body: 'You will receive alerts when other players message you.',
+                                icon: '../images/b-logo.webp'
+                            });
+                        } catch(e) {}
+                        return true;
+                    } else {
+                        notificationsEnabled = false;
+                        saveSettings();
+                        return false;
+                    }
+                } catch(e) {
+                    return false;
+                }
+            }
+
+            // Web Audio API Synthesized Chime (No external audio files required)
             function playChime() {
                 if (!soundEnabled) return;
                 try {
@@ -818,15 +1010,15 @@
                     const gain = audioCtx.createGain();
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1); // A5
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.12); // A5
                     
-                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
 
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
                     osc.start();
-                    osc.stop(audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.35);
                 } catch(e) {}
             }
 
@@ -896,12 +1088,73 @@
                 chatFeed.appendChild(row);
 
                 if (!isInitialHistory) {
-                    chatFeed.scrollTop = chatFeed.scrollHeight;
-                    if (!isSelf) playChime();
-                    if (document.hidden && Notification.permission === 'granted' && !isSelf) {
-                        new Notification(`Blooket1: ${msg.sender}`, { body: msg.text, icon: '../images/b-logo.webp' });
+                    const isNearBottom = chatFeed.scrollHeight - chatFeed.scrollTop - chatFeed.clientHeight < 140;
+
+                    if (isNearBottom || isSelf) {
+                        chatFeed.scrollTop = chatFeed.scrollHeight;
+                        if (newMsgPill) newMsgPill.style.display = 'none';
+                    } else {
+                        // User is scrolled up reviewing history: show floating pill
+                        if (newMsgPill) {
+                            newMsgPillText.textContent = `New message from ${escapeHtml(msg.sender)} ↓`;
+                            newMsgPill.style.display = 'flex';
+                        }
+                    }
+
+                    if (!isSelf) {
+                        playChime();
+
+                        // Desktop Notification
+                        if (notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
+                            if (document.hidden || !document.hasFocus()) {
+                                try {
+                                    const notif = new Notification(`Blooket1: ${msg.sender}`, {
+                                        body: msg.text,
+                                        icon: '../images/b-logo.webp',
+                                        badge: '../images/b-logo.webp',
+                                        tag: 'blooket1-chat'
+                                    });
+                                    notif.onclick = () => {
+                                        window.focus();
+                                        notif.close();
+                                    };
+                                    setTimeout(() => notif.close(), 6000);
+                                } catch(e) {}
+                            }
+                        }
+
+                        // Tab unread count badge
+                        if (document.hidden || !document.hasFocus()) {
+                            unreadCount++;
+                            document.title = `(${unreadCount}) Community Chat - Blooket1`;
+                        }
                     }
                 }
+            }
+
+            // Clear unread badge when user returns
+            function clearUnreadBadge() {
+                unreadCount = 0;
+                document.title = ORIGINAL_TITLE;
+            }
+            window.addEventListener('focus', clearUnreadBadge);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) clearUnreadBadge();
+            });
+
+            // Scroll listener for floating new message pill
+            chatFeed.addEventListener('scroll', () => {
+                const isNearBottom = chatFeed.scrollHeight - chatFeed.scrollTop - chatFeed.clientHeight < 80;
+                if (isNearBottom && newMsgPill) {
+                    newMsgPill.style.display = 'none';
+                }
+            });
+
+            if (newMsgPill) {
+                newMsgPill.onclick = () => {
+                    chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' });
+                    newMsgPill.style.display = 'none';
+                };
             }
 
             // Sync with D1 Database
@@ -988,6 +1241,28 @@
                 saveSettings();
             };
 
+            // Notification Button Toggles
+            if (notifyToggleBtn) {
+                notifyToggleBtn.onclick = requestNotifyPermission;
+            }
+
+            if (bannerEnableNotifyBtn) {
+                bannerEnableNotifyBtn.onclick = requestNotifyPermission;
+            }
+
+            if (bannerDismissNotifyBtn) {
+                bannerDismissNotifyBtn.onclick = () => {
+                    if (notifyBanner) notifyBanner.style.display = 'none';
+                    try {
+                        localStorage.setItem('chatNotifyBannerDismissed', 'true');
+                    } catch(e) {}
+                };
+            }
+
+            if (notificationToggle) {
+                notificationToggle.onchange = requestNotifyPermission;
+            }
+
             // Modal Handlers
             openSettingsBtn.onclick = () => {
                 usernameInput.value = currentUser.username;
@@ -1012,20 +1287,10 @@
                 chatSettingsOverlay.classList.remove('active');
             };
 
-            if (notificationToggle) {
-                notificationToggle.onchange = () => {
-                    if (notificationToggle.checked && Notification.permission !== 'granted') {
-                        Notification.requestPermission();
-                    }
-                    saveSettings();
-                };
-            }
-
             // Start Live Real-Time Polling
             loadSettings();
             syncMessages(true).then(() => {
                 pollTimer = setInterval(() => {
-                    // Only poll if tab is active to preserve resources
                     if (document.visibilityState === 'visible') {
                         syncMessages(false);
                     }
