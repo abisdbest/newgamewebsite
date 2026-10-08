@@ -317,7 +317,7 @@
         const meta = document.createElement('span');
         meta.className = 'game-meta';
         meta.innerHTML = `<span class="game-chip">${escapeHtml(categoryTitle(primaryCategory(game)))}</span>` +
-            (game.plays >= 100 ? `<span class="game-plays"><i class="fas fa-play"></i>${formatPlays(game.plays)}</span>` : '');
+            (game.plays > 0 ? `<span class="game-plays"><i class="fas fa-play"></i>${formatPlays(game.plays)}</span>` : '');
         info.append(name, meta);
         thumb.appendChild(info);
 
@@ -521,8 +521,9 @@
     function applyGameMeta() {
         if (!currentGame) return;
         const playsEl = $('player-plays');
-        if (playsEl && currentGame.plays >= 100) {
-            playsEl.innerHTML = `<i class="fas fa-play"></i>${formatPlays(currentGame.plays)} plays`;
+        if (playsEl && typeof currentGame.plays === 'number') {
+            const count = currentGame.plays;
+            playsEl.innerHTML = `<i class="fas fa-play"></i>${formatPlays(count)} ${count === 1 ? 'play' : 'plays'}`;
             playsEl.hidden = false;
         }
         // Highlight the game's category in the sidebar
