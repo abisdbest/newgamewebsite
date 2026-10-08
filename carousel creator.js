@@ -15,7 +15,7 @@ let allGamesData = [];
 let favoriteGames = new Set();
 let recentGames = [];
 let hotGames = new Set();
-const WORKER_BASE_URL = 'https://blooket1-popularity-api.info-blooket1.workers.dev';
+const WORKER_BASE_URL = 'https://blooket1-api.arielblau2.workers.dev';
 const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`;
 const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
 const NEW_GAMES_COUNT = 14;
@@ -101,8 +101,8 @@ function toTitleCase(str) {
 
 function formatPlays(n) {
     if (!n) return '0';
-    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
-    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K';
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'm';
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
     return String(n);
 }
 
@@ -791,8 +791,9 @@ async function loadGames() {
     const mapGames = (raw, popularityMap) => raw.map(gameObj => {
         const name = Object.keys(gameObj)[0];
         const details = gameObj[name];
-        let clicks = popularityMap?.get(name.toLowerCase().trim());
-        if (!clicks) clicks = getRealisticPlayCount(name);
+        const key = name.toLowerCase().trim();
+        let clicks = popularityMap?.get(key);
+        if (typeof clicks !== 'number') clicks = getRealisticPlayCount(name);
         return { name, image: details['game image'], link: details['game link'], details, clicks };
     });
 
@@ -802,7 +803,7 @@ async function loadGames() {
                 if (!r.ok) throw new Error('games.json status: ' + r.status);
                 return r.json();
             }),
-            fetchWithTimeout(POPULAR_GAMES_API_URL, 1000)
+            fetchWithTimeout(POPULAR_GAMES_API_URL, 3000)
         ]);
         const popularityMap = new Map();
         if (Array.isArray(popData)) {
