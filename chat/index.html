@@ -743,9 +743,9 @@
     <script src="../script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const WORKER_URL = "blooket1-chat.info-blooket1.workers.dev";
-            const WEBSOCKET_URL = `wss://${WORKER_URL}/websocket`;
-            const HISTORY_URL = `https://${WORKER_URL}/history`;
+            const API_BASE = "https://blooket1-api.arielblau2.workers.dev";
+            const HISTORY_URL = `${API_BASE}/chat/history`;
+            const SEND_URL = `${API_BASE}/chat/send`;
 
             const chatFeed = document.getElementById('chatFeed');
             const messageInput = document.getElementById('messageInput');
@@ -765,9 +765,11 @@
             const currentUserDisplay = document.getElementById('currentUserDisplay');
 
             let currentUser = { username: 'Anonymous' };
-            let ws = null;
             let soundEnabled = true;
             let audioCtx = null;
+            const seenMessageKeys = new Set();
+            let isSending = false;
+            let pollTimer = null;
 
             // Load saved settings
             function loadSettings() {
@@ -805,7 +807,7 @@
                 }
             }
 
-            // Web Audio API Synthesized Chime (No external sound file required!)
+            // Web Audio API Synthesized Chime (No external audio files needed)
             function playChime() {
                 if (!soundEnabled) return;
                 try {
@@ -828,7 +830,6 @@
                 } catch(e) {}
             }
 
-            // Generate deterministic pleasant avatar background color from username
             function getAvatarColor(name) {
                 const colors = ['#f75532', '#3b82f6', '#10b981', '#8b5cf6', '#ec4899', '#f59e0b', '#06b6d4'];
                 let hash = 0;
@@ -855,8 +856,16 @@
                 );
             }
 
+            function getMsgKey(msg) {
+                return `${msg.sender}_${msg.timestamp}_${msg.text}`;
+            }
+
             // Add Message to Chat DOM
-            function addMessage(msg, isHistory = false) {
+            function addMessage(msg, isInitialHistory = false) {
+                const key = getMsgKey(msg);
+                if (seenMessageKeys.has(key)) return;
+                seenMessageKeys.add(key);
+
                 const isSelf = msg.sender === currentUser.username;
                 const row = document.createElement('div');
                 row.className = `chat-msg-row ${isSelf ? 'is-user' : ''}`;
@@ -886,7 +895,7 @@
 
                 chatFeed.appendChild(row);
 
-                if (!isHistory) {
+                if (!isInitialHistory) {
                     chatFeed.scrollTop = chatFeed.scrollHeight;
                     if (!isSelf) playChime();
                     if (document.hidden && Notification.permission === 'granted' && !isSelf) {
@@ -895,85 +904,70 @@
                 }
             }
 
-            // Load Chat History
-            async function fetchHistory() {
+            // Sync with D1 Database
+            async function syncMessages(isInitial = false) {
                 try {
                     const res = await fetch(HISTORY_URL);
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
                     const history = await res.json();
                     if (Array.isArray(history)) {
-                        history.forEach(m => addMessage(m, true));
-                        chatFeed.scrollTop = chatFeed.scrollHeight;
+                        history.forEach(m => addMessage(m, isInitial));
+                        if (isInitial) {
+                            chatFeed.scrollTop = chatFeed.scrollHeight;
+                        }
+                    }
+                    if (statusDot) {
+                        statusDot.className = 'status-dot connected';
+                        statusText.textContent = 'Online • Connected';
                     }
                 } catch(e) {
-                    console.warn('Could not load chat history:', e);
+                    if (statusDot) {
+                        statusDot.className = 'status-dot';
+                        statusText.textContent = 'Syncing...';
+                    }
                 }
             }
 
-            // WebSocket Connection
-            let reconnectTimer = null;
-
-            function connectWebSocket() {
-                if (statusDot) {
-                    statusDot.className = 'status-dot connecting';
-                    statusText.textContent = 'Connecting...';
-                }
-
-                ws = new WebSocket(WEBSOCKET_URL);
-
-                ws.onopen = () => {
-                    statusDot.className = 'status-dot connected';
-                    statusText.textContent = 'Online • Connected';
-                    // Register current username with server
-                    if (currentUser.username) {
-                        ws.send(JSON.stringify({ type: 'setUsername', newUsername: currentUser.username }));
-                    }
-                };
-
-                ws.onmessage = (event) => {
-                    try {
-                        const data = JSON.parse(event.data);
-                        if (data.type === 'newMessage') {
-                            addMessage(data);
-                        } else if (data.type === 'usernameSuccess') {
-                            currentUser.username = data.newUsername;
-                            saveSettings();
-                        } else if (data.type === 'usernameError') {
-                            alert(data.message || 'Error updating username');
-                        }
-                    } catch(e) {
-                        console.error('WS parse error:', e);
-                    }
-                };
-
-                ws.onclose = () => {
-                    statusDot.className = 'status-dot';
-                    statusText.textContent = 'Disconnected • Reconnecting in 3s...';
-                    clearTimeout(reconnectTimer);
-                    reconnectTimer = setTimeout(connectWebSocket, 3000);
-                };
-
-                ws.onerror = () => {
-                    statusDot.className = 'status-dot';
-                    statusText.textContent = 'Connection Error';
-                    try { ws.close(); } catch(e) {}
-                };
-            }
-
-            // Send Message Handler
-            function sendMessage(text) {
+            // Send Message to D1 Worker
+            async function sendMessage(text) {
                 const clean = text.trim();
-                if (!clean || !ws || ws.readyState !== WebSocket.OPEN) return;
-                ws.send(JSON.stringify({ type: 'sendMessage', text: clean }));
+                if (!clean || isSending) return;
+
+                isSending = true;
+                const sendBtn = document.getElementById('sendBtn');
+                if (sendBtn) sendBtn.disabled = true;
+
+                try {
+                    const payload = { sender: currentUser.username, text: clean };
+                    const res = await fetch(SEND_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.message) {
+                            addMessage(data.message, false);
+                        }
+                        messageInput.value = '';
+                        charCounter.textContent = '0/300';
+                    } else {
+                        const err = await res.json().catch(() => ({}));
+                        alert(err.error || 'Failed to send message. Please try again.');
+                    }
+                } catch(e) {
+                    alert('Network error while sending message.');
+                } finally {
+                    isSending = false;
+                    if (sendBtn) sendBtn.disabled = false;
+                    messageInput.focus();
+                }
             }
 
             chatForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const val = messageInput.value;
-                if (!val.trim()) return;
-                sendMessage(val);
-                messageInput.value = '';
-                charCounter.textContent = '0/300';
+                sendMessage(messageInput.value);
             });
 
             messageInput.addEventListener('input', () => {
@@ -983,8 +977,7 @@
             // Quick Reaction Chips
             document.querySelectorAll('.reaction-chip').forEach(btn => {
                 btn.onclick = () => {
-                    const txt = btn.dataset.quick;
-                    sendMessage(txt);
+                    sendMessage(btn.dataset.quick);
                 };
             });
 
@@ -1012,9 +1005,6 @@
             saveProfileBtn.onclick = () => {
                 const newName = usernameInput.value.trim();
                 if (newName && newName !== currentUser.username) {
-                    if (ws && ws.readyState === WebSocket.OPEN) {
-                        ws.send(JSON.stringify({ type: 'setUsername', newUsername: newName }));
-                    }
                     currentUser.username = newName;
                 }
                 soundEnabled = soundEffectToggle.checked;
@@ -1031,10 +1021,16 @@
                 };
             }
 
-            // Init
+            // Start Live Real-Time Polling
             loadSettings();
-            fetchHistory();
-            connectWebSocket();
+            syncMessages(true).then(() => {
+                pollTimer = setInterval(() => {
+                    // Only poll if tab is active to preserve resources
+                    if (document.visibilityState === 'visible') {
+                        syncMessages(false);
+                    }
+                }, 2500);
+            });
         });
     </script>
 </body>

@@ -44,7 +44,7 @@
         }
     };
 
-    const WORKER_BASE_URL = 'https://blooket1-popularity-api.info-blooket1.workers.dev';
+    const WORKER_BASE_URL = 'https://blooket1-api.arielblau2.workers.dev';
     const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`;
     const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
     const RECENT_LIMIT = 14;
@@ -196,6 +196,11 @@
     function trackPlay(name) {
         pushRecent(name);
         try {
+            // Deduplicate plays in the current browser session to prevent quota waste
+            const sessionKey = 'b1_played_' + name;
+            if (sessionStorage.getItem(sessionKey)) return;
+            sessionStorage.setItem(sessionKey, '1');
+
             fetch(TRACK_PLAY_API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
