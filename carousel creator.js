@@ -792,8 +792,7 @@ async function loadGames() {
         const name = Object.keys(gameObj)[0];
         const details = gameObj[name];
         const key = name.toLowerCase().trim();
-        let clicks = popularityMap?.get(key);
-        if (typeof clicks !== 'number') clicks = getRealisticPlayCount(name);
+        let clicks = (popularityMap && popularityMap.has(key)) ? popularityMap.get(key) : 0;
         return { name, image: details['game image'], link: details['game link'], details, clicks };
     });
 
