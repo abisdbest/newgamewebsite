@@ -45,15 +45,15 @@ const FALLBACK_POPULARITY = {
  * (used by sidebar anchors), display title and order.
  */
 const CATEGORY_CONFIG = {
-    'Action':          { id: 'category-action',    title: 'Action' },
-    'Addictive Games': { id: 'category-addictive', title: 'Addictive' },
-    'Driving':         { id: 'category-driving',   title: 'Driving' },
-    'Puzzle':          { id: 'category-puzzle',    title: 'Puzzle' },
-    'Sports':          { id: 'category-sports',    title: 'Sports' },
-    '2-Player':        { id: 'category-2-player',  title: '2 Player' },
-    'Retro Games':     { id: 'category-retro',     title: 'Retro' },
-    'Clicker':         { id: 'category-clicker',   title: 'Clicker' },
-    'Tools':           { id: 'category-tools',     title: 'Tools' }
+    'Action':          { id: 'category-action',    title: 'Action',    icon: 'fas fa-bolt' },
+    'Driving':         { id: 'category-driving',   title: 'Driving',   icon: 'fas fa-car-side' },
+    'Puzzle':          { id: 'category-puzzle',    title: 'Puzzle',    icon: 'fas fa-puzzle-piece' },
+    'Sports':          { id: 'category-sports',    title: 'Sports',    icon: 'fas fa-basketball' },
+    '2-Player':        { id: 'category-2-player',  title: '2 Player',  icon: 'fas fa-user-group' },
+    'Retro Games':     { id: 'category-retro',     title: 'Retro',     icon: 'fas fa-ghost' },
+    'Clicker':         { id: 'category-clicker',   title: 'Clicker',   icon: 'fas fa-arrow-pointer' },
+    'Tools':           { id: 'category-tools',     title: 'Tools',     icon: 'fas fa-toolbox' },
+    'Addictive Games': { id: 'category-addictive', title: 'Addictive', icon: 'fas fa-infinity' }
 };
 
 // =================================================================
@@ -420,35 +420,75 @@ function createAllCarousels() {
         hideNewBadge: true
     });
 
-    // 5. Categories (games sorted by popularity inside each rail for variety + quality)
-    const categories = {};
-    allGamesData.forEach(game => {
-        (game.details?.['game categories'] || []).forEach(category => {
-            if (category === 'Popular Games') return;
-            (categories[category] = categories[category] || []).push(game);
+    // 5. Canonical Category Rails with Intelligent Deduplication & Variety
+    // Tracks games displayed in the initial visible window (first 6 cards) so that
+    // blockbusters don't immediately repeat in consecutive rails.
+    const exposureCount = new Map();
+    const lastSeenSection = new Map();
+    let sectionIdx = 0;
+
+    // Record Top 10 games as exposed
+    popular.forEach(g => {
+        exposureCount.set(g.name, 1);
+        lastSeenSection.set(g.name, sectionIdx);
+    });
+
+    // Record New games front window
+    sectionIdx++;
+    newGames.slice(0, 6).forEach(g => {
+        exposureCount.set(g.name, (exposureCount.get(g.name) || 0) + 1);
+        lastSeenSection.set(g.name, sectionIdx);
+    });
+
+    // Render ONLY configured canonical categories in balanced genre order
+    Object.keys(CATEGORY_CONFIG).forEach(categoryKey => {
+        const cfg = CATEGORY_CONFIG[categoryKey];
+        if (!cfg) return;
+        sectionIdx++;
+
+        const matching = allGamesData.filter(game =>
+            (game.details?.['game categories'] || []).includes(categoryKey)
+        );
+        if (!matching.length) return;
+
+        // Partition into:
+        // 1. Fresh games: games not yet exposed in the front window of prior sections
+        // 2. Previously seen games: will follow behind fresh games so full catalog is still browsable
+        const fresh = [];
+        const seen = [];
+
+        matching.forEach(game => {
+            if (!exposureCount.has(game.name) || exposureCount.get(game.name) === 0) {
+                fresh.push(game);
+            } else {
+                seen.push(game);
+            }
         });
-    });
 
-    const order = Object.keys(CATEGORY_CONFIG);
-    const names = Object.keys(categories).sort((a, b) => {
-        const ia = order.indexOf(a), ib = order.indexOf(b);
-        if (ia !== -1 && ib !== -1) return ia - ib;
-        if (ia !== -1) return -1;
-        if (ib !== -1) return 1;
-        return a.localeCompare(b);
-    });
+        // Fresh games ordered by popularity
+        fresh.sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
 
-    // Avoid every rail opening with the same blockbuster: rotate each list
-    names.forEach((category, i) => {
-        const cfg = CATEGORY_CONFIG[category] || {};
-        const slug = (cfg.id || category.toLowerCase().replace(/[^a-z0-9]+/g, '-')).replace(/^category-/, '');
-        const list = [...categories[category]].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
-        const offset = list.length > 8 ? (i * 2) % Math.min(6, list.length) : 0;
-        const rotated = list.slice(offset).concat(list.slice(0, offset));
-        createCarouselSection(cfg.title || category, rotated, container, {
+        // Seen games sorted by maximum distance from when they were last seen, then popularity
+        seen.sort((a, b) => {
+            const distA = sectionIdx - (lastSeenSection.get(a.name) || 0);
+            const distB = sectionIdx - (lastSeenSection.get(b.name) || 0);
+            return (distB - distA) || ((b.clicks || 0) - (a.clicks || 0));
+        });
+
+        const railGames = [...fresh, ...seen];
+
+        // Register the front 6 visible cards as exposed
+        railGames.slice(0, 6).forEach(game => {
+            exposureCount.set(game.name, (exposureCount.get(game.name) || 0) + 1);
+            lastSeenSection.set(game.name, sectionIdx);
+        });
+
+        const slug = (cfg.id || categoryKey.toLowerCase().replace(/[^a-z0-9]+/g, '-')).replace(/^category-/, '');
+        createCarouselSection(cfg.title || categoryKey, railGames, container, {
             id: `category-${slug}`,
             categorySlug: slug,
-            pageHref: cfg.id ? `category/${slug}/` : undefined
+            icon: cfg.icon,
+            pageHref: `category/${slug}/`
         });
     });
 

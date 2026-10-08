@@ -17,7 +17,6 @@
       "game link": "play/golf orbit/",
       "game categories": [
         "Sports",
-        "Arcade",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -29,8 +28,8 @@
       "game image": "images/idle loops.svg",
       "game link": "play/idle loops/",
       "game categories": [
-        "Idle",
-        "Strategy RPG",
+        "Clicker",
+        "Puzzle",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -42,9 +41,8 @@
       "game image": "images/4x4 chess.webp",
       "game link": "play/4x4 chess/",
       "game categories": [
-        "Strategy",
-        "Board Game",
-        "Addictive Games"
+        "Puzzle",
+        "2-Player"
       ],
       "date added": "2026-10-07",
       "description": "Fast-paced micro-chess played on a 4x4 grid. Intense, compact tactical puzzles and rapid games with standard chess movement rules."
@@ -56,7 +54,6 @@
       "game link": "play/brotato/",
       "game categories": [
         "Action",
-        "Roguelite",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -68,8 +65,8 @@
       "game image": "images/house of hazards.jpg",
       "game link": "play/house of hazards/",
       "game categories": [
+        "2-Player",
         "Action",
-        "2-Player Party",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -82,7 +79,6 @@
       "game link": "play/superhot/",
       "game categories": [
         "Action",
-        "FPS",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -94,8 +90,8 @@
       "game image": "images/pokerogue.png",
       "game link": "play/pokérogue/",
       "game categories": [
-        "RPG",
-        "Roguelike",
+        "Action",
+        "Puzzle",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -107,7 +103,6 @@
       "game image": "images/vex 10.png",
       "game link": "play/vex 10/",
       "game categories": [
-        "Platformer",
         "Action",
         "Addictive Games"
       ],
@@ -120,7 +115,6 @@
       "game image": "images/slow roads.jpg",
       "game link": "play/slow roads/",
       "game categories": [
-        "Simulation",
         "Driving",
         "Addictive Games"
       ],
@@ -134,7 +128,6 @@
       "game link": "play/raft wars 2/",
       "game categories": [
         "Action",
-        "Turn-based",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -146,8 +139,7 @@
       "game image": "images/the prestige tree.png",
       "game link": "play/the prestige tree/",
       "game categories": [
-        "Idle",
-        "Strategy",
+        "Clicker",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -159,8 +151,7 @@
       "game image": "images/antimatter dimensions.png",
       "game link": "play/antimatter dimensions/",
       "game categories": [
-        "Idle",
-        "Incremental",
+        "Clicker",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -172,8 +163,8 @@
       "game image": "images/a dark room.png",
       "game link": "play/a dark room/",
       "game categories": [
-        "RPG",
-        "Incremental",
+        "Clicker",
+        "Puzzle",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -185,8 +176,8 @@
       "game image": "images/poor bunny.jpg",
       "game link": "play/poor bunny/",
       "game categories": [
-        "Arcade",
-        "Multiplayer",
+        "2-Player",
+        "Action",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -199,7 +190,6 @@
       "game link": "play/stickman hook/",
       "game categories": [
         "Action",
-        "Physics",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -212,7 +202,6 @@
       "game link": "play/drift boss/",
       "game categories": [
         "Driving",
-        "Arcade",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -225,7 +214,7 @@
       "game link": "play/basket bros/",
       "game categories": [
         "Sports",
-        "Multiplayer",
+        "2-Player",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -238,7 +227,6 @@
       "game link": "play/drive mad/",
       "game categories": [
         "Driving",
-        "Physics",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -251,7 +239,6 @@
       "game link": "play/jetpack joyride/",
       "game categories": [
         "Action",
-        "Arcade",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -263,8 +250,7 @@
       "game image": "images/geometry dash lite.webp",
       "game link": "play/geometry dash lite/",
       "game categories": [
-        "Rhythm",
-        "Platformer",
+        "Action",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -276,8 +262,8 @@
       "game image": "images/tube jumpers.jpg",
       "game link": "play/tube jumpers/",
       "game categories": [
-        "Party",
-        "Multiplayer",
+        "2-Player",
+        "Action",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -290,7 +276,6 @@
       "game link": "play/death run 3d/",
       "game categories": [
         "Action",
-        "Fast Reflex",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -303,7 +288,6 @@
       "game link": "play/polytrack/",
       "game categories": [
         "Driving",
-        "Time Trial",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -315,8 +299,8 @@
       "game image": "images/mad grand prix.jpg",
       "game link": "play/mad grand prix/",
       "game categories": [
-        "Racing",
-        "Formula 1",
+        "Driving",
+        "Sports",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -328,8 +312,8 @@
       "game image": "images/supreme duelist stickman 2.jpg",
       "game link": "play/supreme duelist stickman 2/",
       "game categories": [
-        "Fighting",
-        "2-Player Action",
+        "2-Player",
+        "Action",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -341,8 +325,7 @@
       "game image": "images/mr racer.jpg",
       "game link": "play/mr racer - car racing/",
       "game categories": [
-        "Racing",
-        "3D Driving",
+        "Driving",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -354,8 +337,7 @@
       "game image": "images/helix jump.png",
       "game link": "play/helix jump/",
       "game categories": [
-        "Arcade",
-        "Casual",
+        "Action",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -467,8 +449,8 @@
       "game image": "images/zigzag.webp",
       "game link": "play/zigzag/",
       "game categories": [
-        "Addictive Games",
-        "Action"
+        "Action",
+        "Addictive Games"
       ],
       "date added": "2024-03-05",
       "description": "Stay on the precarious wall and make sharp zigzag turns at the perfect moment in this reflex-testing runner."
@@ -1159,8 +1141,8 @@
       "game image": "images/crossy road.webp",
       "game link": "play/crossy road/",
       "game categories": [
-        "Arcade",
-        "Voxel Runner",
+        "Action",
+        "Retro Games",
         "Addictive Games"
       ],
       "date added": "2026-10-07",
@@ -1234,8 +1216,8 @@
       "game image": "images/bottle flip 3d.webp",
       "game link": "play/bottle flip 3d/",
       "game categories": [
-        "Addictive Games",
-        "Puzzle"
+        "Puzzle",
+        "Addictive Games"
       ],
       "date added": "2024-03-05",
       "description": "Flip a water bottle onto tables, chairs, and shelves to reach the finish line without dropping it."
