@@ -1144,21 +1144,30 @@
 
             // Test Alert Button Handler
             function runTestNotification() {
-                // Prime Web Audio context
                 try {
                     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                     if (audioCtx.state === 'suspended') audioCtx.resume();
                 } catch(e) {}
 
-                // If desktop notifications are not yet requested, prompt user
+                function triggerTestSequence() {
+                    showToastAlert('Blooket1 Bot', '⏱️ Test alert firing in 3 seconds! Switch to another tab or minimize now to test background alerts!');
+                    setTimeout(() => {
+                        triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
+                    }, 3000);
+                }
+
                 if ('Notification' in window && Notification.permission === 'default') {
                     Notification.requestPermission().then(perm => {
                         notificationsEnabled = perm === 'granted';
                         saveSettings();
-                        triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
+                        triggerTestSequence();
                     });
                 } else {
-                    triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        notificationsEnabled = true;
+                        saveSettings();
+                    }
+                    triggerTestSequence();
                 }
             }
 
@@ -1477,14 +1486,19 @@
                 chatSettingsOverlay.classList.remove('active');
             };
 
-            // Start Live Real-Time Polling
+            // Start Continuous Live Real-Time Polling (Works in background tabs)
             loadSettings();
             syncMessages(true).then(() => {
-                pollTimer = setInterval(() => {
-                    if (document.visibilityState === 'visible') {
-                        syncMessages(false);
-                    }
-                }, 2500);
+                function schedulePoll() {
+                    clearTimeout(pollTimer);
+                    // Polls every 2.5s when active, 3.5s when tab is in background
+                    const delay = document.hidden ? 3500 : 2500;
+                    pollTimer = setTimeout(async () => {
+                        await syncMessages(false);
+                        schedulePoll();
+                    }, delay);
+                }
+                schedulePoll();
             });
         });
     </script>
