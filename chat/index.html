@@ -871,10 +871,6 @@
                         <i class="fas fa-bell"></i>
                         <span id="notifyLabel">Alerts</span>
                     </button>
-                    <button type="button" class="chat-tool-btn" id="testAlertBtn" title="Test notification sound &amp; popup">
-                        <i class="fas fa-flask"></i>
-                        <span>Test Alert</span>
-                    </button>
                     <button type="button" class="chat-tool-btn" id="openSettingsBtn" title="Change Username">
                         <i class="fas fa-user-pen"></i>
                         <span id="currentUserDisplay">Profile</span>
@@ -958,11 +954,6 @@
                     <div class="settings-toggle-row">
                         <span><i class="fas fa-bell"></i> Desktop &amp; In-App Notifications</span>
                         <input type="checkbox" id="notificationToggle" style="transform: scale(1.2); cursor: pointer;" />
-                    </div>
-                    <div style="margin-top: 6px; margin-bottom: 12px;">
-                        <button type="button" class="settings-action-btn secondary" id="modalTestAlertBtn" style="padding: 7px 12px; font-size: 12px; width: 100%; justify-content: center;">
-                            <i class="fas fa-flask"></i> Send a Test Notification Now
-                        </button>
                     </div>
 
                     <div class="settings-toggle-row">
@@ -1139,35 +1130,6 @@
                 if (document.hidden || !document.hasFocus() || isTest) {
                     unreadCount++;
                     document.title = `(${unreadCount}) 🔔 ${ORIGINAL_TITLE}`;
-                }
-            }
-
-            // Test Alert Button Handler
-            function runTestNotification() {
-                try {
-                    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    if (audioCtx.state === 'suspended') audioCtx.resume();
-                } catch(e) {}
-
-                function triggerTestSequence() {
-                    showToastAlert('Blooket1 Bot', '⏱️ Test alert firing in 3 seconds! Switch to another tab or minimize now to test background alerts!');
-                    setTimeout(() => {
-                        triggerNotification('ProGamer_99', 'GG! Who wants to play Duck Life 4 next? 🎮🔥', true);
-                    }, 3000);
-                }
-
-                if ('Notification' in window && Notification.permission === 'default') {
-                    Notification.requestPermission().then(perm => {
-                        notificationsEnabled = perm === 'granted';
-                        saveSettings();
-                        triggerTestSequence();
-                    });
-                } else {
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                        notificationsEnabled = true;
-                        saveSettings();
-                    }
-                    triggerTestSequence();
                 }
             }
 
@@ -1435,15 +1397,6 @@
                 notifyToggleBtn.onclick = requestNotifyPermission;
             }
 
-            const testAlertBtn = document.getElementById('testAlertBtn');
-            if (testAlertBtn) {
-                testAlertBtn.onclick = runTestNotification;
-            }
-
-            const modalTestAlertBtn = document.getElementById('modalTestAlertBtn');
-            if (modalTestAlertBtn) {
-                modalTestAlertBtn.onclick = runTestNotification;
-            }
 
             if (bannerEnableNotifyBtn) {
                 bannerEnableNotifyBtn.onclick = requestNotifyPermission;
