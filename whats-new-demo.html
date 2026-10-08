@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blooket1 - What's New Popup Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Demo preview background styling */
+    body {
+      background: #0b0c13;
+      color: #ffffff;
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(247, 85, 50, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
+    }
+
+    .demo-container {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(247, 85, 50, 0.15);
+      color: #f75532;
+      border: 1px solid rgba(247, 85, 50, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .demo-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .demo-text {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .demo-btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .demo-btn {
+      background: #f75532;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(247, 85, 50, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .demo-btn:hover {
+      background: #ff6847;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(247, 85, 50, 0.5);
+    }
+
+    .demo-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: none;
+      color: #e2e8f0;
+    }
+
+    .demo-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* ========================================================
+       WHAT'S NEW / WELCOME MODAL STYLES (FULL CSS)
+       ======================================================== */
+    .whatsnew-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 6, 10, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .whatsnew-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .whatsnew-modal {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: linear-gradient(150deg, #161822 0%, #11131c 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 34px 34px 26px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(247, 85, 50, 0.18);
+      transform: scale(0.93) translateY(14px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .whatsnew-overlay.active .whatsnew-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Close Button */
+    .whatsnew-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .whatsnew-close-btn:hover {
+      background: rgba(247, 85, 50, 0.2);
+      border-color: rgba(247, 85, 50, 0.5);
+      color: #ffffff;
+      transform: rotate(90deg);
+    }
+
+    /* Header & Pill */
+    .whatsnew-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(247, 85, 50, 0.15);
+      color: #f75532;
+      border: 1px solid rgba(247, 85, 50, 0.3);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .whatsnew-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .whatsnew-subtitle {
+      font-size: 14.5px;
+      color: #94a3b8;
+      margin: 0 0 24px;
+      line-height: 1.5;
+      max-width: 580px;
+    }
+
+    /* Features 2x2 Grid */
+    .whatsnew-features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .whatsnew-feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+
+    .whatsnew-feature-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(247, 85, 50, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(247, 85, 50, 0.12);
+      color: #f75532;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .feature-info h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 4px;
+    }
+
+    .feature-info p {
+      font-size: 12px;
+      color: #94a3b8;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Footer Actions */
+    .whatsnew-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .whatsnew-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #64748b;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+    }
+
+    .whatsnew-checkbox-label input {
+      accent-color: #f75532;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .whatsnew-btn-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .whatsnew-link-btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.18s ease;
+    }
+
+    .whatsnew-link-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .whatsnew-primary-btn {
+      background: #f75532;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 10px 22px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(247, 85, 50, 0.4);
+      transition: all 0.18s ease;
+    }
+
+    .whatsnew-primary-btn:hover {
+      background: #ff6847;
+      box-shadow: 0 6px 20px rgba(247, 85, 50, 0.55);
+      transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .whatsnew-modal {
+        padding: 24px 20px 20px;
+        border-radius: 20px;
+      }
+      .whatsnew-features-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .whatsnew-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+      .whatsnew-btn-group {
+        flex-direction: column;
+      }
+      .whatsnew-primary-btn, .whatsnew-link-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo page background controls -->
+  <div class="demo-container">
+    <div class="demo-badge"><i class="fas fa-eye"></i> Live Interactive Preview</div>
+    <h1 class="demo-title">Blooket1 What's New Modal</h1>
+    <p class="demo-text">
+      This page tests the complete HTML markup, CSS styling, responsive layout, animations, and trigger logic.
+    </p>
+    <div class="demo-btn-group">
+      <button class="demo-btn" onclick="openWhatsNewModal()">
+        <i class="fas fa-sparkles"></i> Open Popup
+      </button>
+      <button class="demo-btn secondary" onclick="resetAndReload()">
+        <i class="fas fa-rotate"></i> Reset Storage &amp; Test Auto-Trigger
+      </button>
+    </div>
+  </div>
+
+  <!-- The Actual Production Ready What's New Modal -->
+  <div id="whatsNewModalOverlay" class="whatsnew-overlay" role="dialog" aria-modal="true" aria-labelledby="whatsNewTitle" style="display: none;">
+    <div class="whatsnew-modal">
+      <button class="whatsnew-close-btn" id="closeWhatsNewBtn" aria-label="Close modal">
+        <i class="fas fa-xmark"></i>
+      </button>
+
+      <div class="whatsnew-header">
+        <div class="whatsnew-pill">
+          <i class="fas fa-sparkles"></i> Major Platform Update
+        </div>
+        <h2 id="whatsNewTitle" class="whatsnew-title">Welcome to the New Blooket1</h2>
+        <p class="whatsnew-subtitle">We've completely overhauled the platform with faster speeds, stealth tools, and 30+ new games.</p>
+      </div>
+
+      <div class="whatsnew-features-grid">
+        <div class="whatsnew-feature-card">
+          <div class="feature-icon-wrap"><i class="fas fa-gamepad"></i></div>
+          <div class="feature-info">
+            <h3>30+ New Games Added</h3>
+            <p>Blockbuster titles like Golf Orbit, Basket Bros, Vex 10, SUPERHOT &amp; Drive Mad.</p>
+          </div>
+        </div>
+
+        <div class="whatsnew-feature-card">
+          <div class="feature-icon-wrap"><i class="fas fa-user-secret"></i></div>
+          <div class="feature-info">
+            <h3>Stealth Mode &amp; Cloak HUD</h3>
+            <p>Tab cloaking (Drive, Docs, Canvas), panic key (]), and about:blank anti-filter launcher.</p>
+          </div>
+        </div>
+
+        <div class="whatsnew-feature-card">
+          <div class="feature-icon-wrap"><i class="fas fa-comments"></i></div>
+          <div class="feature-info">
+            <h3>Live Multiplayer Chat</h3>
+            <p>Global community chat backed by Cloudflare D1 with instant alerts and avatars.</p>
+          </div>
+        </div>
+
+        <div class="whatsnew-feature-card">
+          <div class="feature-icon-wrap"><i class="fas fa-bolt"></i></div>
+          <div class="feature-info">
+            <h3>5x Faster Game Loading</h3>
+            <p>WebGL decompression fixes and adblock detection neutralizers for smooth play.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="whatsnew-footer">
+        <label class="whatsnew-checkbox-label">
+          <input type="checkbox" id="dontShowAgainCheck" checked />
+          <span>Don't show again</span>
+        </label>
+        <div class="whatsnew-btn-group">
+          <a href="updates.html" class="whatsnew-link-btn">
+            View Changelog <i class="fas fa-arrow-right"></i>
+          </a>
+          <button class="whatsnew-primary-btn" id="whatsNewPlayBtn">
+            Start Playing! 🎮
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WHATS_NEW_VERSION = 'v2.6-oct2026';
+
+    function initWhatsNewModal() {
+      const overlay = document.getElementById('whatsNewModalOverlay');
+      const closeBtn = document.getElementById('closeWhatsNewBtn');
+      const playBtn = document.getElementById('whatsNewPlayBtn');
+      const dontShowCheck = document.getElementById('dontShowAgainCheck');
+      if (!overlay) return;
+
+      function openModal() {
+        overlay.style.display = 'flex';
+        requestAnimationFrame(() => overlay.classList.add('active'));
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.classList.remove('active');
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 280);
+
+        if (dontShowCheck && dontShowCheck.checked) {
+          try {
+            localStorage.setItem('blooket1_whats_new_version', WHATS_NEW_VERSION);
+          } catch(e) {}
+        }
+      }
+
+      if (closeBtn) closeBtn.onclick = closeModal;
+      if (playBtn) playBtn.onclick = closeModal;
+      overlay.onclick = (e) => {
+        if (e.target === overlay) closeModal();
+      };
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+      });
+
+      // Auto trigger check
+      try {
+        const seen = localStorage.getItem('blooket1_whats_new_version');
+        if (seen !== WHATS_NEW_VERSION) {
+          setTimeout(openModal, 800);
+        }
+      } catch(e) {}
+
+      window.openWhatsNewModal = openModal;
+      window.closeWhatsNewModal = closeModal;
+    }
+
+    function resetAndReload() {
+      try {
+        localStorage.removeItem('blooket1_whats_new_version');
+      } catch(e) {}
+      location.reload();
+    }
+
+    document.addEventListener('DOMContentLoaded', initWhatsNewModal);
+  </script>
+</body>
+</html>
