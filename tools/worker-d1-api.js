@@ -116,17 +116,44 @@ async function checkIsBanned(db, { username, userToken, fingerprint, hwProfile, 
     const hw = hwProfile ? String(hwProfile).trim() : "";
     const clientIp = ip ? String(ip).trim() : "";
 
-    const banned = await db.prepare(`
+    // 1. Direct High-Entropy Identifiers (Single Match = Block)
+    // Exact match on Username, Unique User Token, Browser Canvas/WebGL Fingerprint, or IP
+    const directBan = await db.prepare(`
       SELECT type, value, reason FROM banned_entities
       WHERE (type = 'username' AND value = ?1 COLLATE NOCASE)
          OR (?2 != '' AND type = 'user_token' AND value = ?2)
          OR (?3 != '' AND type = 'fingerprint' AND value = ?3)
-         OR (?4 != '' AND type = 'hw_profile' AND value = ?4)
-         OR (?5 != '' AND type = 'ip' AND value = ?5)
+         OR (?4 != '' AND type = 'ip' AND value = ?4)
       LIMIT 1
-    `).bind(u, t, fp, hw, clientIp).first();
+    `).bind(u, t, fp, clientIp).first();
 
-    return banned || null;
+    if (directBan) return directBan;
+
+    // 2. Cross-Browser Hardware Profile (Multi-Factor Combination Shield)
+    // Prevents false positives: If an innocent stranger happens to own the same laptop model,
+    // they are NEVER blocked unless their network IP or subnet also matches the banned entity!
+    if (hw && clientIp) {
+      const hwBan = await db.prepare(`
+        SELECT reason FROM banned_entities
+        WHERE type = 'hw_profile' AND value = ?1
+        LIMIT 1
+      `).bind(hw).first();
+
+      if (hwBan) {
+        const ipPrefix = clientIp.split('.').slice(0, 3).join('.');
+        const relatedIp = await db.prepare(`
+          SELECT reason FROM banned_entities
+          WHERE type = 'ip' AND (value = ?1 OR value LIKE ?2)
+          LIMIT 1
+        `).bind(clientIp, `${ipPrefix}.%`).first();
+
+        if (relatedIp) {
+          return { type: 'hw_profile_and_network', value: hw, reason: hwBan.reason || relatedIp.reason };
+        }
+      }
+    }
+
+    return null;
   } catch (err) {
     console.error("checkIsBanned error:", err);
     return null;
