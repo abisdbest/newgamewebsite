@@ -91,8 +91,10 @@ async function ensureChatTables(db) {
   const migrations = [
     `ALTER TABLE chat_messages ADD COLUMN user_token TEXT`,
     `ALTER TABLE chat_messages ADD COLUMN fingerprint TEXT`,
+    `ALTER TABLE chat_messages ADD COLUMN hw_profile TEXT`,
     `ALTER TABLE chat_messages ADD COLUMN ip TEXT`,
     `ALTER TABLE chat_users ADD COLUMN fingerprint TEXT`,
+    `ALTER TABLE chat_users ADD COLUMN hw_profile TEXT`,
     `ALTER TABLE chat_users ADD COLUMN ip TEXT`,
     `ALTER TABLE chat_users ADD COLUMN is_banned INTEGER DEFAULT 0`,
     `ALTER TABLE chat_users ADD COLUMN banned_reason TEXT`
@@ -106,11 +108,12 @@ async function ensureChatTables(db) {
   }
 }
 
-async function checkIsBanned(db, { username, userToken, fingerprint, ip }) {
+async function checkIsBanned(db, { username, userToken, fingerprint, hwProfile, ip }) {
   try {
     const u = username ? String(username).toLowerCase().trim() : "";
     const t = userToken ? String(userToken).trim() : "";
     const fp = fingerprint ? String(fingerprint).trim() : "";
+    const hw = hwProfile ? String(hwProfile).trim() : "";
     const clientIp = ip ? String(ip).trim() : "";
 
     const banned = await db.prepare(`
@@ -118,9 +121,10 @@ async function checkIsBanned(db, { username, userToken, fingerprint, ip }) {
       WHERE (type = 'username' AND value = ?1 COLLATE NOCASE)
          OR (?2 != '' AND type = 'user_token' AND value = ?2)
          OR (?3 != '' AND type = 'fingerprint' AND value = ?3)
-         OR (?4 != '' AND type = 'ip' AND value = ?4)
+         OR (?4 != '' AND type = 'hw_profile' AND value = ?4)
+         OR (?5 != '' AND type = 'ip' AND value = ?5)
       LIMIT 1
-    `).bind(u, t, fp, clientIp).first();
+    `).bind(u, t, fp, hw, clientIp).first();
 
     return banned || null;
   } catch (err) {
@@ -224,11 +228,12 @@ export default {
       try {
         await ensureChatTables(env.DB);
         const body = await request.json();
-        const { sender, text, userToken, fingerprint } = body;
+        const { sender, text, userToken, fingerprint, hwProfile } = body;
         const cleanSender = cleanText(String(sender || "Anonymous").slice(0, 20));
         const cleanMsg = cleanText(String(text || "").slice(0, 300));
         const token = String(userToken || "").trim() || "anonymous";
         const fp = String(fingerprint || "").trim().slice(0, 100);
+        const hw = String(hwProfile || "").trim().slice(0, 150);
 
         if (!cleanMsg) {
           return new Response(JSON.stringify({ error: "Message text cannot be empty" }), {
@@ -244,11 +249,12 @@ export default {
           });
         }
 
-        // CHECK IF SENDER, USER TOKEN, HARDWARE FINGERPRINT, OR IP IS BANNED
+        // CHECK IF SENDER, USER TOKEN, HARDWARE FINGERPRINT, HW PROFILE, OR IP IS BANNED
         const banMatch = await checkIsBanned(env.DB, {
           username: cleanSender,
           userToken: token,
           fingerprint: fp,
+          hwProfile: hw,
           ip: clientIp
         });
 
@@ -278,22 +284,23 @@ export default {
 
         const now = Date.now();
 
-        // Register or refresh ownership of this username with fingerprint & IP
+        // Register or refresh ownership of this username with fingerprint, hw_profile & IP
         await env.DB.prepare(
-          `INSERT INTO chat_users (username, user_token, fingerprint, ip, created_at, updated_at)
-           VALUES (?1, ?2, ?3, ?4, ?5, ?5)
+          `INSERT INTO chat_users (username, user_token, fingerprint, hw_profile, ip, created_at, updated_at)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?6)
            ON CONFLICT(username) DO UPDATE SET
-             updated_at = ?5,
+             updated_at = ?6,
              user_token = ?2,
              fingerprint = COALESCE(NULLIF(?3, ''), fingerprint),
-             ip = COALESCE(NULLIF(?4, ''), ip)`
-        ).bind(cleanSender, token, fp, clientIp, now).run();
+             hw_profile = COALESCE(NULLIF(?4, ''), hw_profile),
+             ip = COALESCE(NULLIF(?5, ''), ip)`
+        ).bind(cleanSender, token, fp, hw, clientIp, now).run();
 
-        // Insert message with device fingerprint and IP
+        // Insert message with device fingerprint, hw_profile and IP
         const insertRes = await env.DB.prepare(
-          `INSERT INTO chat_messages (sender, text, timestamp, user_token, fingerprint, ip)
-           VALUES (?1, ?2, ?3, ?4, ?5, ?6)`
-        ).bind(cleanSender, cleanMsg, now, token, fp, clientIp).run();
+          `INSERT INTO chat_messages (sender, text, timestamp, user_token, fingerprint, hw_profile, ip)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)`
+        ).bind(cleanSender, cleanMsg, now, token, fp, hw, clientIp).run();
 
         const newId = insertRes.meta?.last_row_id || now;
 
@@ -321,11 +328,12 @@ export default {
       try {
         await ensureChatTables(env.DB);
         const body = await request.json();
-        const { oldName, newName, userToken, fingerprint } = body;
+        const { oldName, newName, userToken, fingerprint, hwProfile } = body;
         const cleanOld = cleanText(String(oldName || "").slice(0, 20));
         const cleanNew = cleanText(String(newName || "").slice(0, 20));
         const token = String(userToken || "").trim();
         const fp = String(fingerprint || "").trim().slice(0, 100);
+        const hw = String(hwProfile || "").trim().slice(0, 150);
 
         if (!cleanNew) {
           return new Response(JSON.stringify({ error: "New username cannot be empty" }), {
@@ -346,6 +354,7 @@ export default {
           username: cleanOld,
           userToken: token,
           fingerprint: fp,
+          hwProfile: hw,
           ip: clientIp
         });
 
@@ -381,16 +390,17 @@ export default {
 
         const now = Date.now();
 
-        // Claim new username
+        // Claim new username with fingerprint, hw_profile & IP
         await env.DB.prepare(
-          `INSERT INTO chat_users (username, user_token, fingerprint, ip, created_at, updated_at)
-           VALUES (?1, ?2, ?3, ?4, ?5, ?5)
+          `INSERT INTO chat_users (username, user_token, fingerprint, hw_profile, ip, created_at, updated_at)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?6)
            ON CONFLICT(username) DO UPDATE SET
-             updated_at = ?5,
+             updated_at = ?6,
              user_token = ?2,
              fingerprint = COALESCE(NULLIF(?3, ''), fingerprint),
-             ip = COALESCE(NULLIF(?4, ''), ip)`
-        ).bind(cleanNew, token, fp, clientIp, now).run();
+             hw_profile = COALESCE(NULLIF(?4, ''), hw_profile),
+             ip = COALESCE(NULLIF(?5, ''), ip)`
+        ).bind(cleanNew, token, fp, hw, clientIp, now).run();
 
         // Remove old username registration if it was owned by this token
         if (cleanOld) {
@@ -444,18 +454,19 @@ export default {
         const banReason = cleanText(String(reason || "Violating chat guidelines"));
         const now = Date.now();
 
-        // Look up target user's registered fingerprint, IP, and token
+        // Look up target user's registered fingerprint, hw_profile, IP, and token
         const userRow = await env.DB.prepare(
-          `SELECT username, user_token, fingerprint, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
+          `SELECT username, user_token, fingerprint, hw_profile, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
         ).bind(targetUser).first();
 
         // Also check their recent messages in case fingerprint was logged there
         const msgRow = await env.DB.prepare(
-          `SELECT user_token, fingerprint, ip FROM chat_messages WHERE sender = ?1 COLLATE NOCASE ORDER BY id DESC LIMIT 1`
+          `SELECT user_token, fingerprint, hw_profile, ip FROM chat_messages WHERE sender = ?1 COLLATE NOCASE ORDER BY id DESC LIMIT 1`
         ).bind(targetUser).first();
 
         const token = userRow?.user_token || msgRow?.user_token || "";
         const fp = userRow?.fingerprint || msgRow?.fingerprint || "";
+        const hw = userRow?.hw_profile || msgRow?.hw_profile || "";
         const ip = userRow?.ip || msgRow?.ip || "";
 
         const batchStatements = [
@@ -473,12 +484,21 @@ export default {
           ).bind(targetUser)
         ];
 
-        // Ban hardware device fingerprint (blocks user across all browsers on that machine!)
+        // Ban hardware device fingerprint
         if (fp) {
           batchStatements.push(
             env.DB.prepare(
               `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('fingerprint', ?1, ?2, 'admin', ?3)`
             ).bind(fp, banReason, now)
+          );
+        }
+
+        // Ban cross-browser hardware profile (blocks across Chrome, Safari, Edge, Firefox!)
+        if (hw) {
+          batchStatements.push(
+            env.DB.prepare(
+              `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('hw_profile', ?1, ?2, 'admin', ?3)`
+            ).bind(hw, banReason, now)
           );
         }
 
@@ -508,6 +528,7 @@ export default {
           blockedAcrossBrowsers: {
             username: true,
             deviceFingerprint: !!fp,
+            crossBrowserHwProfile: !!hw,
             ipAddress: !!ip,
             userToken: !!token
           }
@@ -562,10 +583,11 @@ export default {
 
         if (targetUser && targetUser !== targetValue) {
           const userRow = await env.DB.prepare(
-            `SELECT user_token, fingerprint, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
+            `SELECT user_token, fingerprint, hw_profile, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
           ).bind(targetUser).first();
 
           const fp = userRow?.fingerprint || "";
+          const hw = userRow?.hw_profile || "";
           const ip = userRow?.ip || "";
           const token = userRow?.user_token || "";
 
@@ -575,6 +597,7 @@ export default {
           );
 
           if (fp) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'fingerprint' AND value = ?1`).bind(fp));
+          if (hw) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'hw_profile' AND value = ?1`).bind(hw));
           if (ip) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'ip' AND value = ?1`).bind(ip));
           if (token) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'user_token' AND value = ?1`).bind(token));
         }

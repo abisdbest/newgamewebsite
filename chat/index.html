@@ -1304,7 +1304,63 @@
                 try { localStorage.setItem('blooket1_chat_user_token', userToken); } catch(e) {}
             }
 
-            // Cross-browser hardware & device fingerprinting (Incognito & multi-browser persistent)
+            // Normalized GPU Extractor (Strips browser wrappers like ANGLE, DirectX, OpenGL)
+            function getNormalizedGpu() {
+                try {
+                    const canvas = document.createElement('canvas');
+                    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    if (!gl) return 'no_webgl';
+                    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                    const raw = dbg ? (gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '') : '';
+                    let s = String(raw).toLowerCase();
+                    // Strip browser engine wrapper prefixes and driver suffixes
+                    s = s.replace(/angle\s*\(/g, '');
+                    s = s.replace(/\b(opengl|direct3d[0-9]*|d3d[0-9]*|vs_[0-9_]+|ps_[0-9_]+|mesa|llvmpipe|metal)\b/gi, '');
+                    s = s.replace(/[,\(\)\/\\]/g, ' ');
+                    s = s.replace(/\s+/g, ' ').trim();
+                    return s.slice(0, 35) || 'generic_gpu';
+                } catch(e) {
+                    return 'gpu_err';
+                }
+            }
+
+            // Cross-Browser Deterministic Hardware Signature
+            // Uses ONLY hardware properties that match 100% across Chrome, Safari, Firefox, and Edge:
+            // 1. Screen resolution & device pixel ratio
+            // 2. CPU concurrency (core count)
+            // 3. System timezone & offset
+            // 4. Normalized GPU chip
+            let cachedHwProfile = '';
+            function getCrossBrowserHardwareProfile() {
+                if (cachedHwProfile && cachedHwProfile.length >= 10) return cachedHwProfile;
+                try {
+                    cachedHwProfile = localStorage.getItem('blooket1_chat_cb_hw') || '';
+                } catch(e) {}
+                if (cachedHwProfile && cachedHwProfile.length >= 10) return cachedHwProfile;
+
+                try {
+                    const gpu = getNormalizedGpu();
+                    const screenDim = `${screen.width}x${screen.height}@${Math.round((window.devicePixelRatio || 1) * 10) / 10}`;
+                    const cores = navigator.hardwareConcurrency || 0;
+                    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'utc';
+                    const offset = Math.round(new Date().getTimezoneOffset() / 15) * 15;
+                    const rawHw = `${gpu}__${screenDim}__${cores}c__${tz}_${offset}`;
+
+                    let h = 0x811c9dc5;
+                    for (let i = 0; i < rawHw.length; i++) {
+                        h ^= rawHw.charCodeAt(i);
+                        h = Math.imul(h, 0x01000193);
+                    }
+                    cachedHwProfile = 'hw_' + (h >>> 0).toString(16) + '_' + screenDim;
+                } catch(e) {
+                    cachedHwProfile = 'hw_fallback';
+                }
+                try { localStorage.setItem('blooket1_chat_cb_hw', cachedHwProfile); } catch(e) {}
+                return cachedHwProfile;
+            }
+            getCrossBrowserHardwareProfile();
+
+            // Browser-Engine Deep Fingerprint (Within same browser / Incognito)
             let cachedFingerprint = '';
             try {
                 cachedFingerprint = localStorage.getItem('blooket1_chat_hw_fp') || '';
@@ -1648,6 +1704,7 @@
                 const oldName = currentUser.username;
                 try {
                     const fp = await getDeviceFingerprint();
+                    const hw = getCrossBrowserHardwareProfile();
                     const res = await fetch(`${API_BASE}/chat/rename`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -1655,7 +1712,8 @@
                             oldName: oldName,
                             newName: clean,
                             userToken: userToken,
-                            fingerprint: fp
+                            fingerprint: fp,
+                            hwProfile: hw
                         })
                     });
 
@@ -1837,11 +1895,13 @@
 
                 try {
                     const fp = await getDeviceFingerprint();
+                    const hw = getCrossBrowserHardwareProfile();
                     const payload = {
                         sender: currentUser.username,
                         text: clean,
                         userToken: userToken,
-                        fingerprint: fp
+                        fingerprint: fp,
+                        hwProfile: hw
                     };
                     const res = await fetch(SEND_URL, {
                         method: 'POST',
