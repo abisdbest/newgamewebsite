@@ -114,6 +114,7 @@
       updateCategoryCounts();
       renderDeck();
       applyFilters();
+      saveDeck();
 
       // Check if URL has a sound hash
       handleUrlHash();
@@ -147,6 +148,15 @@
   function saveDeck() {
     try {
       localStorage.setItem(STORAGE_KEY_DECK, JSON.stringify(deckSlots));
+      if (Array.isArray(deckSlots) && Array.isArray(allSounds) && allSounds.length > 0) {
+        const deckObjects = deckSlots.map((id, idx) => {
+          const found = allSounds.find(s => s.id === id);
+          return found ? { slot: idx + 1, id: found.id, title: found.title, src: found.src } : null;
+        }).filter(Boolean);
+        if (deckObjects.length > 0) {
+          localStorage.setItem('blooket1_sb_deck_cache', JSON.stringify(deckObjects));
+        }
+      }
     } catch (e) {}
   }
 

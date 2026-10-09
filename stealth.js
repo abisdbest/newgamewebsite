@@ -306,3 +306,143 @@ function smShowPane(id) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireCustom);
   else wireCustom();
 })();
+
+/* =================================================================
+ * BLOOKET1 - SITE-WIDE SOUNDBOARD SHORTCUTS (Alt + 1-9)
+ * Plays the user's Stream Deck sound slots safely site-wide.
+ * Automatically disabled inside active games or while typing.
+ * ================================================================= */
+(function wireSiteWideSoundboard() {
+  var DEFAULT_SOUNDBOARD_SLOTS = [
+    { slot: 1, id: 13175, title: 'Fahhh', src: 'https://cdn.soundboardmax.com/2025/09/Fahhh.mp3' },
+    { slot: 2, id: 999, title: 'Fart', src: 'https://cdn.soundboardmax.com/2025/06/Fart.mp3' },
+    { slot: 3, id: 13764, title: '67', src: 'https://cdn.soundboardmax.com/2025/09/67.mp3' },
+    { slot: 4, id: 1276, title: 'Indian', src: 'https://cdn.soundboardmax.com/2025/06/indian.mp3' },
+    { slot: 5, id: 311, title: 'Rizz sounds', src: 'https://cdn.soundboardmax.com/2025/06/Vh58sXTV-Rizz-sounds.mp3' },
+    { slot: 6, id: 16922, title: 'Anime Moan', src: 'https://cdn.soundboardmax.com/2025/11/Anime-moan.mp3' },
+    { slot: 7, id: 14934, title: 'Smoke Detector Beep', src: 'https://cdn.soundboardmax.com/2025/10/Smoke-Detector-Beep.mp3' },
+    { slot: 8, id: 23347, title: 'EFN', src: 'https://cdn.soundboardmax.com/2026/01/efn.mp3' },
+    { slot: 9, id: 5501, title: 'Moan', src: 'https://cdn.soundboardmax.com/2025/07/moan.mp3' }
+  ];
+
+  var activeAudio = null;
+  var activeSoundId = null;
+  var toastTimer = null;
+
+  function getDeck() {
+    try {
+      var cached = localStorage.getItem('blooket1_sb_deck_cache');
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch(e) {}
+    return DEFAULT_SOUNDBOARD_SLOTS;
+  }
+
+  function showToast(title, slot) {
+    var toast = document.getElementById('blooket1SoundToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'blooket1SoundToast';
+      toast.className = 'blooket1-sound-toast';
+      document.body.appendChild(toast);
+    }
+    var slotLabel = slot ? '<kbd>Alt+' + slot + '</kbd>' : '';
+    toast.innerHTML = '<i class="fas fa-volume-high" style="color:var(--sm-accent, #ff7a1a);"></i><span>' + smEsc(title) + '</span>' + slotLabel;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  function stopAudio() {
+    if (activeAudio) {
+      activeAudio.pause();
+      activeAudio = null;
+      activeSoundId = null;
+      showToast('Audio stopped ⏹️');
+    }
+  }
+
+  function playSound(sound, slot) {
+    if (!sound || !sound.src) return;
+
+    // Toggle off if already playing this exact sound
+    if (activeAudio && activeSoundId === sound.id) {
+      activeAudio.pause();
+      activeAudio = null;
+      activeSoundId = null;
+      showToast('Audio stopped ⏹️');
+      return;
+    }
+
+    if (activeAudio) {
+      activeAudio.pause();
+      activeAudio = null;
+    }
+
+    var audio = new Audio(sound.src);
+    audio.volume = 0.85;
+    activeAudio = audio;
+    activeSoundId = sound.id;
+
+    audio.play().catch(function(err) {
+      console.warn('Site-wide sound playback error:', err);
+    });
+
+    audio.onended = function() {
+      if (activeAudio === audio) {
+        activeAudio = null;
+        activeSoundId = null;
+      }
+    };
+
+    showToast(sound.title || ('Sound ' + slot), slot);
+  }
+
+  window.addEventListener('keydown', function(e) {
+    // If on /soundboard/, soundboard.js natively handles hotkeys
+    if (window.location.pathname.indexOf('/soundboard') !== -1) return;
+
+    // Ignore if typing in text inputs or editable elements
+    var target = e.target;
+    var tag = target ? target.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || (target && target.isContentEditable)) return;
+
+    // Ignore if focused inside an iframe
+    if (tag === 'IFRAME') return;
+
+    // Ignore if active game is currently running on a play page
+    var isPlayPage = document.body && document.body.classList.contains('play-page');
+    var cover = document.getElementById('player-cover');
+    var isGamePlaying = isPlayPage && cover && (cover.style.display === 'none' || cover.hidden);
+    if (isGamePlaying) return;
+
+    // Escape or Alt+0 stops all playing soundboard audio
+    if ((e.key === 'Escape' || (e.altKey && e.key === '0')) && activeAudio) {
+      var overlay = document.getElementById('settingsModalOverlay');
+      if (!overlay || !overlay.classList.contains('active')) {
+        e.preventDefault();
+        stopAudio();
+        return;
+      }
+    }
+
+    // Alt + 1-9 shortcuts
+    if (e.altKey && !e.ctrlKey && !e.metaKey && e.key >= '1' && e.key <= '9') {
+      e.preventDefault();
+      var slotIndex = parseInt(e.key, 10) - 1;
+      var deck = getDeck();
+      var sound = deck[slotIndex] || DEFAULT_SOUNDBOARD_SLOTS[slotIndex];
+      if (sound) {
+        playSound(sound, slotIndex + 1);
+      }
+    }
+  });
+
+  window.blooket1StopSound = stopAudio;
+})();
+

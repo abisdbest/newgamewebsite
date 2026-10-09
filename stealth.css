@@ -487,3 +487,47 @@
 @media (prefers-reduced-motion: reduce) {
   .sm-overlay *, .sm-overlay *::before, .sm-overlay *::after { animation: none !important; transition-duration: 0.001s !important; }
 }
+
+/* --- Site-wide Soundboard Toast (Alt + 1-9) -------------------------- */
+.blooket1-sound-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(24, 25, 38, 0.96);
+  border: 1.5px solid var(--accent, #ff7a1a);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 999999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 122, 26, 0.25);
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.blooket1-sound-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.blooket1-sound-toast kbd {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-family: inherit;
+  font-weight: 800;
+  color: #ff9f43;
+  margin-left: 4px;
+}
+
