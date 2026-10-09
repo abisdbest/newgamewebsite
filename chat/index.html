@@ -474,9 +474,12 @@
             opacity: 0.35;
             transition: all 0.15s ease;
             border-radius: 4px;
-            display: inline-flex;
+            display: none;
             align-items: center;
             gap: 3px;
+        }
+        body.mod-mode-active .msg-block-btn {
+            display: inline-flex;
         }
         .chat-msg-row:hover .msg-block-btn {
             opacity: 0.85;
@@ -948,7 +951,7 @@
                         <i class="fas fa-user-pen"></i>
                         <span id="currentUserDisplay">Profile</span>
                     </button>
-                    <button type="button" class="chat-tool-btn mod-badge-btn" id="openModBtn" title="Moderator Controls" style="border-color: rgba(239, 68, 68, 0.45); color: #f87171;">
+                    <button type="button" class="chat-tool-btn mod-badge-btn" id="openModBtn" title="Moderator Controls" style="display: none; border-color: rgba(239, 68, 68, 0.45); color: #f87171;">
                         <i class="fas fa-shield-halved"></i>
                         <span>Mod</span>
                     </button>
@@ -1002,7 +1005,7 @@
                         type="text"
                         id="messageInput"
                         class="chat-text-input"
-                        placeholder="Message #general-chat... (Enter to send, or /block <name>)"
+                        placeholder="Message #general-chat... (Enter to send)"
                         maxlength="300"
                         autocomplete="off"
                     />
@@ -1051,15 +1054,22 @@
                         <h3 style="color: #f87171; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-shield-halved"></i> Moderator Controls
                         </h3>
-                        <button type="button" class="settings-close-btn" id="closeModModal">&times;</button>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" id="lockModBtn" title="Lock &amp; hide moderator controls from this browser" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; border-radius: 6px; font-size: 11px; padding: 4px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-lock"></i> Lock &amp; Exit
+                            </button>
+                            <button type="button" class="settings-close-btn" id="closeModModal">&times;</button>
+                        </div>
                     </div>
 
                     <!-- Admin Key Input -->
                     <div class="settings-field" style="margin-top: 14px;">
                         <label for="adminKeyInput"><i class="fas fa-key"></i> Mod Passcode / Admin Secret</label>
                         <input type="password" id="adminKeyInput" class="stealth-input" placeholder="Default: admin123" />
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-                            <span style="font-size: 11px; color: var(--text-muted);">Set via Worker ADMIN_KEY (default: admin123).</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; gap: 8px;">
+                            <button type="button" id="unlockModKeyBtn" class="settings-action-btn" style="padding: 6px 12px; font-size: 11.5px; border-radius: 6px;">
+                                <i class="fas fa-key"></i> Verify &amp; Unlock Mod Mode
+                            </button>
                             <label style="font-size: 11px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px;">
                                 <input type="checkbox" id="rememberAdminKeyCheckbox" checked /> Remember key
                             </label>
@@ -1801,16 +1811,24 @@
                 const clean = text.trim();
                 if (!clean || isSending) return;
 
-                // Support quick /block <name> or /ban <name> command in chat input
-                if (clean.startsWith('/block ') || clean.startsWith('/ban ')) {
+                // Support secret moderator commands: /mod, /admin, /block <name>, /ban <name>
+                if (clean === '/mod' || clean === '/admin' || clean.startsWith('/mod ') || clean.startsWith('/admin ')) {
                     const parts = clean.split(/\s+/);
-                    const target = parts[1];
-                    if (target) {
-                        openModModal(target);
-                        messageInput.value = '';
-                        if (charCounter) charCounter.textContent = '0/300';
-                        return;
+                    if (parts[1]) {
+                        if (adminKeyInput) adminKeyInput.value = parts[1];
                     }
+                    openModModal();
+                    messageInput.value = '';
+                    if (charCounter) charCounter.textContent = '0/300';
+                    return;
+                }
+                if (clean.startsWith('/block') || clean.startsWith('/ban')) {
+                    const parts = clean.split(/\s+/);
+                    const target = parts[1] || '';
+                    openModModal(target);
+                    messageInput.value = '';
+                    if (charCounter) charCounter.textContent = '0/300';
+                    return;
                 }
 
                 isSending = true;
@@ -1937,6 +1955,8 @@
             const openModBtn = document.getElementById('openModBtn');
             const chatModOverlay = document.getElementById('chatModOverlay');
             const closeModModal = document.getElementById('closeModModal');
+            const lockModBtn = document.getElementById('lockModBtn');
+            const unlockModKeyBtn = document.getElementById('unlockModKeyBtn');
             const adminKeyInput = document.getElementById('adminKeyInput');
             const rememberAdminKeyCheckbox = document.getElementById('rememberAdminKeyCheckbox');
             const modTargetInput = document.getElementById('modTargetInput');
@@ -1962,6 +1982,26 @@
                         localStorage.removeItem('blooket1_chat_admin_key');
                     }
                 } catch(e) {}
+            }
+
+            function enableModMode() {
+                document.body.classList.add('mod-mode-active');
+                if (openModBtn) openModBtn.style.display = 'inline-flex';
+                try {
+                    localStorage.setItem('blooket1_chat_is_mod', 'true');
+                } catch(e) {}
+            }
+
+            function disableModMode() {
+                document.body.classList.remove('mod-mode-active');
+                if (openModBtn) openModBtn.style.display = 'none';
+                try {
+                    localStorage.removeItem('blooket1_chat_is_mod');
+                    localStorage.removeItem('blooket1_chat_admin_key');
+                } catch(e) {}
+                if (adminKeyInput) adminKeyInput.value = '';
+                closeModDialog();
+                showToastAlert('System', 'Moderator controls locked and hidden.');
             }
 
             function openModModal(targetUsername = '') {
@@ -2027,6 +2067,8 @@
                         return;
                     }
                     if (!res.ok) throw new Error('Failed to fetch');
+                    enableModMode();
+                    showToastAlert('Moderator', 'Mod mode unlocked and active.');
                     const items = await res.json();
                     if (!Array.isArray(items) || items.length === 0) {
                         modBannedList.innerHTML = '<div style="color:var(--text-muted);padding:8px;text-align:center;font-size:11.5px;">No users or devices currently blocked.</div>';
@@ -2166,6 +2208,10 @@
 
             if (openModBtn) openModBtn.onclick = () => openModModal();
             if (closeModModal) closeModModal.onclick = closeModDialog;
+            if (lockModBtn) lockModBtn.onclick = disableModMode;
+            if (unlockModKeyBtn) unlockModKeyBtn.onclick = () => {
+                loadBannedList();
+            };
             if (chatModOverlay) {
                 chatModOverlay.addEventListener('click', (e) => {
                     if (e.target === chatModOverlay) closeModDialog();
@@ -2173,6 +2219,25 @@
             }
             if (executeBanBtn) executeBanBtn.onclick = executeBan;
             if (refreshBannedBtn) refreshBannedBtn.onclick = loadBannedList;
+
+            // Global Moderator Hotkey: Ctrl+Shift+M or Alt+M
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey && e.shiftKey && (e.key === 'M' || e.key === 'm')) || (e.altKey && (e.key === 'M' || e.key === 'm'))) {
+                    e.preventDefault();
+                    if (chatModOverlay && chatModOverlay.classList.contains('active')) {
+                        closeModDialog();
+                    } else {
+                        openModModal();
+                    }
+                }
+            });
+
+            // Restore mod mode on startup if admin was previously verified on this device
+            try {
+                if (localStorage.getItem('blooket1_chat_is_mod') === 'true' && getSavedAdminKey()) {
+                    enableModMode();
+                }
+            } catch(e) {}
 
             // Start Continuous Live Real-Time Polling (Works in background tabs)
             loadSettings();

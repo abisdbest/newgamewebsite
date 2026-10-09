@@ -86,6 +86,24 @@ async function ensureChatTables(db) {
       )
     `)
   ]);
+
+  // Safe non-destructive column migrations in case tables were created in earlier versions
+  const migrations = [
+    `ALTER TABLE chat_messages ADD COLUMN user_token TEXT`,
+    `ALTER TABLE chat_messages ADD COLUMN fingerprint TEXT`,
+    `ALTER TABLE chat_messages ADD COLUMN ip TEXT`,
+    `ALTER TABLE chat_users ADD COLUMN fingerprint TEXT`,
+    `ALTER TABLE chat_users ADD COLUMN ip TEXT`,
+    `ALTER TABLE chat_users ADD COLUMN is_banned INTEGER DEFAULT 0`,
+    `ALTER TABLE chat_users ADD COLUMN banned_reason TEXT`
+  ];
+  for (const sql of migrations) {
+    try {
+      await db.prepare(sql).run();
+    } catch(e) {
+      // Column already exists, safe to ignore
+    }
+  }
 }
 
 async function checkIsBanned(db, { username, userToken, fingerprint, ip }) {
