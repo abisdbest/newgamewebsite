@@ -5,6 +5,7 @@
  * - Community Chat (chat_messages & chat_users)
  * - Username Uniqueness & Lockout Protection (user_token)
  * - Rename Propagation (updates past messages to new username)
+ * - Cross-Browser Device & IP Fingerprint Blocking (/chat/ban, /chat/unban, /chat/banned)
  */
 
 const CORS_HEADERS = {
@@ -36,6 +37,13 @@ function cleanText(text) {
     .trim();
 }
 
+function getClientIp(request) {
+  return request.headers.get("cf-connecting-ip") ||
+         request.headers.get("x-real-ip") ||
+         request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+         "127.0.0.1";
+}
+
 async function ensureChatTables(db) {
   await db.batch([
     db.prepare(`
@@ -50,18 +58,57 @@ async function ensureChatTables(db) {
         sender TEXT NOT NULL,
         text TEXT NOT NULL,
         timestamp INTEGER NOT NULL,
-        user_token TEXT
+        user_token TEXT,
+        fingerprint TEXT,
+        ip TEXT
       )
     `),
     db.prepare(`
       CREATE TABLE IF NOT EXISTS chat_users (
         username TEXT COLLATE NOCASE PRIMARY KEY,
         user_token TEXT NOT NULL,
+        fingerprint TEXT,
+        ip TEXT,
+        is_banned INTEGER DEFAULT 0,
+        banned_reason TEXT,
         created_at INTEGER NOT NULL,
         updated_at INTEGER NOT NULL
       )
+    `),
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS banned_entities (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        type TEXT NOT NULL,
+        value TEXT COLLATE NOCASE NOT NULL,
+        reason TEXT,
+        banned_by TEXT,
+        banned_at INTEGER NOT NULL
+      )
     `)
   ]);
+}
+
+async function checkIsBanned(db, { username, userToken, fingerprint, ip }) {
+  try {
+    const u = username ? String(username).toLowerCase().trim() : "";
+    const t = userToken ? String(userToken).trim() : "";
+    const fp = fingerprint ? String(fingerprint).trim() : "";
+    const clientIp = ip ? String(ip).trim() : "";
+
+    const banned = await db.prepare(`
+      SELECT type, value, reason FROM banned_entities
+      WHERE (type = 'username' AND value = ?1 COLLATE NOCASE)
+         OR (?2 != '' AND type = 'user_token' AND value = ?2)
+         OR (?3 != '' AND type = 'fingerprint' AND value = ?3)
+         OR (?4 != '' AND type = 'ip' AND value = ?4)
+      LIMIT 1
+    `).bind(u, t, fp, clientIp).first();
+
+    return banned || null;
+  } catch (err) {
+    console.error("checkIsBanned error:", err);
+    return null;
+  }
 }
 
 export default {
@@ -71,6 +118,8 @@ export default {
     }
 
     const url = new URL(request.url);
+    const clientIp = getClientIp(request);
+    const ADMIN_KEY = env.ADMIN_KEY || "admin123";
 
     // Root check
     if (url.pathname === "/" || url.pathname === "") {
@@ -152,14 +201,16 @@ export default {
       }
     }
 
-    // 4. SEND CHAT MESSAGE
+    // 4. SEND CHAT MESSAGE (Enforces Fingerprint & IP Ban Checks)
     if (request.method === "POST" && (url.pathname === "/chat/send" || url.pathname === "/send" || url.pathname === "/message")) {
       try {
         await ensureChatTables(env.DB);
-        const { sender, text, userToken } = await request.json();
+        const body = await request.json();
+        const { sender, text, userToken, fingerprint } = body;
         const cleanSender = cleanText(String(sender || "Anonymous").slice(0, 20));
         const cleanMsg = cleanText(String(text || "").slice(0, 300));
         const token = String(userToken || "").trim() || "anonymous";
+        const fp = String(fingerprint || "").trim().slice(0, 100);
 
         if (!cleanMsg) {
           return new Response(JSON.stringify({ error: "Message text cannot be empty" }), {
@@ -171,6 +222,24 @@ export default {
         if (!cleanSender || cleanSender === "Anonymous") {
           return new Response(JSON.stringify({ error: "Please choose a username to chat" }), {
             status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        // CHECK IF SENDER, USER TOKEN, HARDWARE FINGERPRINT, OR IP IS BANNED
+        const banMatch = await checkIsBanned(env.DB, {
+          username: cleanSender,
+          userToken: token,
+          fingerprint: fp,
+          ip: clientIp
+        });
+
+        if (banMatch) {
+          return new Response(JSON.stringify({
+            error: "You are blocked from chatting on Blooket1 across all browsers.",
+            reason: banMatch.reason || "Violation of community rules"
+          }), {
+            status: 403,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
         }
@@ -191,17 +260,22 @@ export default {
 
         const now = Date.now();
 
-        // Register or refresh ownership of this username
+        // Register or refresh ownership of this username with fingerprint & IP
         await env.DB.prepare(
-          `INSERT INTO chat_users (username, user_token, created_at, updated_at)
-           VALUES (?1, ?2, ?3, ?3)
-           ON CONFLICT(username) DO UPDATE SET updated_at = ?3, user_token = ?2`
-        ).bind(cleanSender, token, now).run();
+          `INSERT INTO chat_users (username, user_token, fingerprint, ip, created_at, updated_at)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?5)
+           ON CONFLICT(username) DO UPDATE SET
+             updated_at = ?5,
+             user_token = ?2,
+             fingerprint = COALESCE(NULLIF(?3, ''), fingerprint),
+             ip = COALESCE(NULLIF(?4, ''), ip)`
+        ).bind(cleanSender, token, fp, clientIp, now).run();
 
-        // Insert message
+        // Insert message with device fingerprint and IP
         const insertRes = await env.DB.prepare(
-          `INSERT INTO chat_messages (sender, text, timestamp, user_token) VALUES (?1, ?2, ?3, ?4)`
-        ).bind(cleanSender, cleanMsg, now, token).run();
+          `INSERT INTO chat_messages (sender, text, timestamp, user_token, fingerprint, ip)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?6)`
+        ).bind(cleanSender, cleanMsg, now, token, fp, clientIp).run();
 
         const newId = insertRes.meta?.last_row_id || now;
 
@@ -228,10 +302,12 @@ export default {
     if (request.method === "POST" && (url.pathname === "/chat/rename" || url.pathname === "/rename")) {
       try {
         await ensureChatTables(env.DB);
-        const { oldName, newName, userToken } = await request.json();
+        const body = await request.json();
+        const { oldName, newName, userToken, fingerprint } = body;
         const cleanOld = cleanText(String(oldName || "").slice(0, 20));
         const cleanNew = cleanText(String(newName || "").slice(0, 20));
         const token = String(userToken || "").trim();
+        const fp = String(fingerprint || "").trim().slice(0, 100);
 
         if (!cleanNew) {
           return new Response(JSON.stringify({ error: "New username cannot be empty" }), {
@@ -243,6 +319,24 @@ export default {
         if (cleanNew.length < 2) {
           return new Response(JSON.stringify({ error: "Username must be at least 2 characters long" }), {
             status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        // CHECK BAN
+        const banMatch = await checkIsBanned(env.DB, {
+          username: cleanOld,
+          userToken: token,
+          fingerprint: fp,
+          ip: clientIp
+        });
+
+        if (banMatch) {
+          return new Response(JSON.stringify({
+            error: "You are blocked from chatting on Blooket1.",
+            reason: banMatch.reason || "Banned by administrator"
+          }), {
+            status: 403,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
         }
@@ -269,20 +363,24 @@ export default {
 
         const now = Date.now();
 
-        // 1. Claim new username
+        // Claim new username
         await env.DB.prepare(
-          `INSERT INTO chat_users (username, user_token, created_at, updated_at)
-           VALUES (?1, ?2, ?3, ?3)
-           ON CONFLICT(username) DO UPDATE SET updated_at = ?3, user_token = ?2`
-        ).bind(cleanNew, token, now).run();
+          `INSERT INTO chat_users (username, user_token, fingerprint, ip, created_at, updated_at)
+           VALUES (?1, ?2, ?3, ?4, ?5, ?5)
+           ON CONFLICT(username) DO UPDATE SET
+             updated_at = ?5,
+             user_token = ?2,
+             fingerprint = COALESCE(NULLIF(?3, ''), fingerprint),
+             ip = COALESCE(NULLIF(?4, ''), ip)`
+        ).bind(cleanNew, token, fp, clientIp, now).run();
 
-        // 2. Remove old username registration if it was owned by this token
+        // Remove old username registration if it was owned by this token
         if (cleanOld) {
           await env.DB.prepare(
             `DELETE FROM chat_users WHERE username = ?1 AND user_token = ?2`
           ).bind(cleanOld, token).run();
 
-          // 3. Update ALL past messages from oldName to newName!
+          // Update ALL past messages from oldName to newName
           await env.DB.prepare(
             `UPDATE chat_messages SET sender = ?1 WHERE sender = ?2 COLLATE NOCASE`
           ).bind(cleanNew, cleanOld).run();
@@ -298,6 +396,207 @@ export default {
       } catch (err) {
         return new Response(JSON.stringify({ error: err.message }), {
           status: 500,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      }
+    }
+
+    // 6. BLOCK / BAN USER (Across All Browsers & Devices)
+    if (request.method === "POST" && (url.pathname === "/chat/ban" || url.pathname === "/ban")) {
+      try {
+        await ensureChatTables(env.DB);
+        const body = await request.json();
+        const { username, adminKey, reason } = body;
+
+        if (!adminKey || adminKey !== ADMIN_KEY) {
+          return new Response(JSON.stringify({ error: "Unauthorized: Invalid admin key" }), {
+            status: 401,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        const targetUser = cleanText(String(username || "").trim());
+        if (!targetUser) {
+          return new Response(JSON.stringify({ error: "Username to block is required" }), {
+            status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        const banReason = cleanText(String(reason || "Violating chat guidelines"));
+        const now = Date.now();
+
+        // Look up target user's registered fingerprint, IP, and token
+        const userRow = await env.DB.prepare(
+          `SELECT username, user_token, fingerprint, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
+        ).bind(targetUser).first();
+
+        // Also check their recent messages in case fingerprint was logged there
+        const msgRow = await env.DB.prepare(
+          `SELECT user_token, fingerprint, ip FROM chat_messages WHERE sender = ?1 COLLATE NOCASE ORDER BY id DESC LIMIT 1`
+        ).bind(targetUser).first();
+
+        const token = userRow?.user_token || msgRow?.user_token || "";
+        const fp = userRow?.fingerprint || msgRow?.fingerprint || "";
+        const ip = userRow?.ip || msgRow?.ip || "";
+
+        const batchStatements = [
+          // Ban by username
+          env.DB.prepare(
+            `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('username', ?1, ?2, 'admin', ?3)`
+          ).bind(targetUser, banReason, now),
+          // Mark chat_users table
+          env.DB.prepare(
+            `UPDATE chat_users SET is_banned = 1, banned_reason = ?1 WHERE username = ?2 COLLATE NOCASE`
+          ).bind(banReason, targetUser),
+          // Clean up their chat messages from the feed
+          env.DB.prepare(
+            `DELETE FROM chat_messages WHERE sender = ?1 COLLATE NOCASE`
+          ).bind(targetUser)
+        ];
+
+        // Ban hardware device fingerprint (blocks user across all browsers on that machine!)
+        if (fp) {
+          batchStatements.push(
+            env.DB.prepare(
+              `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('fingerprint', ?1, ?2, 'admin', ?3)`
+            ).bind(fp, banReason, now)
+          );
+        }
+
+        // Ban IP address (blocks user across network and all devices/tabs)
+        if (ip) {
+          batchStatements.push(
+            env.DB.prepare(
+              `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('ip', ?1, ?2, 'admin', ?3)`
+            ).bind(ip, banReason, now)
+          );
+        }
+
+        // Ban user token
+        if (token) {
+          batchStatements.push(
+            env.DB.prepare(
+              `INSERT INTO banned_entities (type, value, reason, banned_by, banned_at) VALUES ('user_token', ?1, ?2, 'admin', ?3)`
+            ).bind(token, banReason, now)
+          );
+        }
+
+        await env.DB.batch(batchStatements);
+
+        return new Response(JSON.stringify({
+          success: true,
+          banned: targetUser,
+          blockedAcrossBrowsers: {
+            username: true,
+            deviceFingerprint: !!fp,
+            ipAddress: !!ip,
+            userToken: !!token
+          }
+        }), {
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+          status: 500,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      }
+    }
+
+    // 7. UNBAN / UNBLOCK USER
+    if (request.method === "POST" && (url.pathname === "/chat/unban" || url.pathname === "/unban")) {
+      try {
+        await ensureChatTables(env.DB);
+        const body = await request.json();
+        const { username, adminKey, value, type } = body;
+
+        if (!adminKey || adminKey !== ADMIN_KEY) {
+          return new Response(JSON.stringify({ error: "Unauthorized: Invalid admin key" }), {
+            status: 401,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        const targetUser = cleanText(String(username || "").trim());
+        const targetValue = String(value || "").trim();
+        const targetType = String(type || "").trim();
+
+        if (!targetUser && !targetValue) {
+          return new Response(JSON.stringify({ error: "Username or entity value is required" }), {
+            status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        const batchStatements = [];
+
+        if (targetValue) {
+          batchStatements.push(
+            env.DB.prepare(`DELETE FROM banned_entities WHERE value = ?1`).bind(targetValue)
+          );
+          if (targetType === 'username' || (!targetType && targetUser)) {
+            batchStatements.push(
+              env.DB.prepare(`UPDATE chat_users SET is_banned = 0, banned_reason = NULL WHERE username = ?1 COLLATE NOCASE`).bind(targetValue)
+            );
+          }
+        }
+
+        if (targetUser && targetUser !== targetValue) {
+          const userRow = await env.DB.prepare(
+            `SELECT user_token, fingerprint, ip FROM chat_users WHERE username = ?1 COLLATE NOCASE`
+          ).bind(targetUser).first();
+
+          const fp = userRow?.fingerprint || "";
+          const ip = userRow?.ip || "";
+          const token = userRow?.user_token || "";
+
+          batchStatements.push(
+            env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'username' AND value = ?1 COLLATE NOCASE`).bind(targetUser),
+            env.DB.prepare(`UPDATE chat_users SET is_banned = 0, banned_reason = NULL WHERE username = ?1 COLLATE NOCASE`).bind(targetUser)
+          );
+
+          if (fp) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'fingerprint' AND value = ?1`).bind(fp));
+          if (ip) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'ip' AND value = ?1`).bind(ip));
+          if (token) batchStatements.push(env.DB.prepare(`DELETE FROM banned_entities WHERE type = 'user_token' AND value = ?1`).bind(token));
+        }
+
+        if (batchStatements.length > 0) {
+          await env.DB.batch(batchStatements);
+        }
+
+        return new Response(JSON.stringify({ success: true, unbanned: targetUser || targetValue }), {
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+          status: 500,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      }
+    }
+
+    // 8. LIST BANNED ENTITIES (For Moderator Dashboard)
+    if (request.method === "GET" && (url.pathname === "/chat/banned" || url.pathname === "/banned")) {
+      try {
+        const key = url.searchParams.get("adminKey");
+        if (!key || key !== ADMIN_KEY) {
+          return new Response(JSON.stringify({ error: "Unauthorized" }), {
+            status: 401,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+
+        await ensureChatTables(env.DB);
+        const { results } = await env.DB.prepare(
+          `SELECT type, value, reason, banned_at FROM banned_entities ORDER BY id DESC LIMIT 100`
+        ).all();
+
+        return new Response(JSON.stringify(results || []), {
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify([]), {
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
         });
       }

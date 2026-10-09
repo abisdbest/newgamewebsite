@@ -464,6 +464,78 @@
             font-size: 11px;
         }
 
+        .msg-block-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 10.5px;
+            cursor: pointer;
+            padding: 2px 5px;
+            opacity: 0.35;
+            transition: all 0.15s ease;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .chat-msg-row:hover .msg-block-btn {
+            opacity: 0.85;
+        }
+        .msg-block-btn:hover {
+            color: #ef4444;
+            opacity: 1;
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .mod-user-chip {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 11.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #e2e8f0;
+        }
+        .mod-user-chip button {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            border-radius: 4px;
+            font-size: 10px;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .mod-user-chip button:hover {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .banned-entry-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 11.5px;
+            color: #e2e8f0;
+        }
+        .banned-entry-row:last-child {
+            border-bottom: none;
+        }
+        .banned-entry-type {
+            font-size: 9.5px;
+            text-transform: uppercase;
+            padding: 1px 4px;
+            border-radius: 3px;
+            background: rgba(239, 68, 68, 0.25);
+            color: #fca5a5;
+            font-weight: 800;
+            margin-right: 4px;
+        }
+
         .msg-bubble {
             background: var(--chat-msg-contact);
             color: #e2e8f0;
@@ -876,6 +948,10 @@
                         <i class="fas fa-user-pen"></i>
                         <span id="currentUserDisplay">Profile</span>
                     </button>
+                    <button type="button" class="chat-tool-btn mod-badge-btn" id="openModBtn" title="Moderator Controls" style="border-color: rgba(239, 68, 68, 0.45); color: #f87171;">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Mod</span>
+                    </button>
                 </div>
             </div>
 
@@ -926,7 +1002,7 @@
                         type="text"
                         id="messageInput"
                         class="chat-text-input"
-                        placeholder="Message #general-chat... (Enter to send)"
+                        placeholder="Message #general-chat... (Enter to send, or /block <name>)"
                         maxlength="300"
                         autocomplete="off"
                     />
@@ -965,6 +1041,66 @@
                     <button type="button" class="settings-action-btn" id="saveProfileBtn" style="padding: 10px; justify-content: center;">
                         <i class="fas fa-check"></i> Save &amp; Update Name
                     </button>
+                </div>
+            </div>
+
+            <!-- Moderator & Cross-Browser Ban Modal -->
+            <div class="chat-settings-overlay" id="chatModOverlay">
+                <div class="chat-settings-box" style="max-width: 480px; max-height: 85vh; overflow-y: auto;">
+                    <div class="settings-box-header" style="border-bottom: 1px solid rgba(239, 68, 68, 0.3);">
+                        <h3 style="color: #f87171; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-shield-halved"></i> Moderator Controls
+                        </h3>
+                        <button type="button" class="settings-close-btn" id="closeModModal">&times;</button>
+                    </div>
+
+                    <!-- Admin Key Input -->
+                    <div class="settings-field" style="margin-top: 14px;">
+                        <label for="adminKeyInput"><i class="fas fa-key"></i> Mod Passcode / Admin Secret</label>
+                        <input type="password" id="adminKeyInput" class="stealth-input" placeholder="Default: admin123" />
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+                            <span style="font-size: 11px; color: var(--text-muted);">Set via Worker ADMIN_KEY (default: admin123).</span>
+                            <label style="font-size: 11px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                <input type="checkbox" id="rememberAdminKeyCheckbox" checked /> Remember key
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Block User Form -->
+                    <div class="settings-field" style="margin-top: 14px; background: rgba(239, 68, 68, 0.08); padding: 14px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                        <label for="modTargetInput" style="color: #fca5a5; font-weight: 800;"><i class="fas fa-ban"></i> Block User by Username</label>
+                        <input type="text" id="modTargetInput" class="stealth-input" placeholder="Enter username (e.g. TrollUser)" style="margin-bottom: 8px;" />
+                        <input type="text" id="modReasonInput" class="stealth-input" placeholder="Reason (e.g. Inappropriate language / Spam)" style="margin-bottom: 10px;" />
+                        <button type="button" class="settings-action-btn" id="executeBanBtn" style="background: #dc2626; color: #fff; width: 100%; justify-content: center; padding: 10px; font-weight: 800;">
+                            <i class="fas fa-ban"></i> Block User Across All Browsers &amp; Devices
+                        </button>
+                        <p style="font-size: 11px; color: #fca5a5; margin: 8px 0 0 0; line-height: 1.45;">
+                            🔒 <b>Cross-Browser Shield:</b> Captures their hardware GPU/screen fingerprint, user token, and network IP. They remain blocked even if they switch between Chrome, Firefox, Edge, Safari, or use Incognito tabs!
+                        </p>
+                    </div>
+
+                    <!-- Quick Ban Recent Chatters -->
+                    <div style="margin-top: 16px;">
+                        <div style="font-size: 12px; font-weight: 800; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Recent Active Users in Chat
+                        </div>
+                        <div id="modRecentUsersList" style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 110px; overflow-y: auto;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Blocked Users List -->
+                    <div style="margin-top: 16px; border-top: 1px solid var(--chat-border); padding-top: 14px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 12px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase;">Blocked Entities</span>
+                            <button type="button" id="refreshBannedBtn" style="background: none; border: none; color: var(--accent-color); font-size: 11.5px; font-weight: 700; cursor: pointer;">
+                                <i class="fas fa-rotate"></i> Refresh List
+                            </button>
+                        </div>
+                        <div id="modBannedList" style="max-height: 140px; overflow-y: auto; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 6px;">
+                            <div style="color: var(--text-muted); padding: 8px; text-align: center;">Enter Mod Key and click Refresh to view blocked list</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1157,6 +1293,73 @@
                 userToken = 'usr_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
                 try { localStorage.setItem('blooket1_chat_user_token', userToken); } catch(e) {}
             }
+
+            // Cross-browser hardware & device fingerprinting (Incognito & multi-browser persistent)
+            let cachedFingerprint = '';
+            try {
+                cachedFingerprint = localStorage.getItem('blooket1_chat_hw_fp') || '';
+            } catch(e) {}
+
+            async function getDeviceFingerprint() {
+                if (cachedFingerprint && cachedFingerprint.length >= 16) return cachedFingerprint;
+                try {
+                    let glVendor = '';
+                    let glRenderer = '';
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                        if (gl) {
+                            const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                            if (dbg) {
+                                glVendor = gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) || '';
+                                glRenderer = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '';
+                            }
+                        }
+                    } catch(e) {}
+
+                    let canvasSig = '';
+                    try {
+                        const c = document.createElement('canvas');
+                        c.width = 200;
+                        c.height = 40;
+                        const ctx = c.getContext('2d');
+                        if (ctx) {
+                            ctx.textBaseline = 'top';
+                            ctx.font = '14px Arial';
+                            ctx.fillStyle = '#f60';
+                            ctx.fillRect(100, 1, 60, 20);
+                            ctx.fillStyle = '#069';
+                            ctx.fillText('blooket1_hw_sig', 2, 12);
+                            ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+                            ctx.fillText('blooket1_hw_sig', 4, 14);
+                            canvasSig = c.toDataURL().slice(-50);
+                        }
+                    } catch(e) {}
+
+                    const screenPart = `${screen.width}x${screen.height}x${screen.colorDepth}@${window.devicePixelRatio || 1}`;
+                    const cpuPart = `${navigator.hardwareConcurrency || 0}_${navigator.deviceMemory || 0}`;
+                    const tzPart = `${Intl.DateTimeFormat().resolvedOptions().timeZone || ''}_${new Date().getTimezoneOffset()}`;
+                    const raw = [glVendor, glRenderer, screenPart, cpuPart, tzPart, canvasSig].join('|||');
+
+                    if (window.crypto && crypto.subtle) {
+                        const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+                        const hashArray = Array.from(new Uint8Array(buffer));
+                        cachedFingerprint = 'fp_' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 32);
+                    } else {
+                        let h = 0x811c9dc5;
+                        for (let i = 0; i < raw.length; i++) {
+                            h ^= raw.charCodeAt(i);
+                            h = Math.imul(h, 0x01000193);
+                        }
+                        cachedFingerprint = 'fp_' + (h >>> 0).toString(16);
+                    }
+                } catch(e) {
+                    cachedFingerprint = 'fp_dev_' + Math.random().toString(36).substring(2, 12);
+                }
+                try { localStorage.setItem('blooket1_chat_hw_fp', cachedFingerprint); } catch(e) {}
+                return cachedFingerprint;
+            }
+            getDeviceFingerprint();
 
             const knownUsernames = new Set();
             let currentUser = { username: 'Anonymous' };
@@ -1434,13 +1637,15 @@
 
                 const oldName = currentUser.username;
                 try {
+                    const fp = await getDeviceFingerprint();
                     const res = await fetch(`${API_BASE}/chat/rename`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             oldName: oldName,
                             newName: clean,
-                            userToken: userToken
+                            userToken: userToken,
+                            fingerprint: fp
                         })
                     });
 
@@ -1505,7 +1710,10 @@
 
                 const meta = document.createElement('div');
                 meta.className = 'msg-meta';
-                meta.innerHTML = `<span class="msg-author">${escapeHtml(senderName)}</span><span class="msg-time">${formatTime(msg.timestamp)}</span>`;
+                const blockBtnHtml = !isSelf 
+                    ? `<button type="button" class="msg-block-btn" data-user="${escapeHtml(senderName)}" title="Block ${escapeHtml(senderName)} across all browsers"><i class="fas fa-shield-halved"></i> Block</button>` 
+                    : '';
+                meta.innerHTML = `<span class="msg-author">${escapeHtml(senderName)}</span><span class="msg-time">${formatTime(msg.timestamp)}</span>${blockBtnHtml}`;
 
                 const bubble = document.createElement('div');
                 bubble.className = 'msg-bubble';
@@ -1593,15 +1801,29 @@
                 const clean = text.trim();
                 if (!clean || isSending) return;
 
+                // Support quick /block <name> or /ban <name> command in chat input
+                if (clean.startsWith('/block ') || clean.startsWith('/ban ')) {
+                    const parts = clean.split(/\s+/);
+                    const target = parts[1];
+                    if (target) {
+                        openModModal(target);
+                        messageInput.value = '';
+                        if (charCounter) charCounter.textContent = '0/300';
+                        return;
+                    }
+                }
+
                 isSending = true;
                 const sendBtn = document.getElementById('sendBtn');
                 if (sendBtn) sendBtn.disabled = true;
 
                 try {
+                    const fp = await getDeviceFingerprint();
                     const payload = {
                         sender: currentUser.username,
                         text: clean,
-                        userToken: userToken
+                        userToken: userToken,
+                        fingerprint: fp
                     };
                     const res = await fetch(SEND_URL, {
                         method: 'POST',
@@ -1616,6 +1838,9 @@
                         }
                         messageInput.value = '';
                         charCounter.textContent = '0/300';
+                    } else if (res.status === 403) {
+                        const err = await res.json().catch(() => ({}));
+                        alert('🚫 ' + (err.error || 'You have been blocked from sending messages in Community Chat.') + (err.reason ? `\nReason: ${err.reason}` : ''));
                     } else {
                         const err = await res.json().catch(() => ({}));
                         alert(err.error || 'Failed to send message. Please try again.');
@@ -1707,6 +1932,247 @@
                     saveProfileBtn.innerHTML = origHtml;
                 }
             };
+
+            // Moderator Controls & Cross-Browser Device Fingerprint Shield
+            const openModBtn = document.getElementById('openModBtn');
+            const chatModOverlay = document.getElementById('chatModOverlay');
+            const closeModModal = document.getElementById('closeModModal');
+            const adminKeyInput = document.getElementById('adminKeyInput');
+            const rememberAdminKeyCheckbox = document.getElementById('rememberAdminKeyCheckbox');
+            const modTargetInput = document.getElementById('modTargetInput');
+            const modReasonInput = document.getElementById('modReasonInput');
+            const executeBanBtn = document.getElementById('executeBanBtn');
+            const modRecentUsersList = document.getElementById('modRecentUsersList');
+            const refreshBannedBtn = document.getElementById('refreshBannedBtn');
+            const modBannedList = document.getElementById('modBannedList');
+
+            function getSavedAdminKey() {
+                try {
+                    return localStorage.getItem('blooket1_chat_admin_key') || '';
+                } catch(e) {
+                    return '';
+                }
+            }
+
+            function saveAdminKey(key) {
+                try {
+                    if (rememberAdminKeyCheckbox && rememberAdminKeyCheckbox.checked) {
+                        localStorage.setItem('blooket1_chat_admin_key', key);
+                    } else {
+                        localStorage.removeItem('blooket1_chat_admin_key');
+                    }
+                } catch(e) {}
+            }
+
+            function openModModal(targetUsername = '') {
+                if (!chatModOverlay) return;
+                const savedKey = getSavedAdminKey();
+                if (adminKeyInput && savedKey) {
+                    adminKeyInput.value = savedKey;
+                }
+                if (targetUsername && modTargetInput) {
+                    modTargetInput.value = targetUsername;
+                }
+                renderRecentUsersInMod();
+                chatModOverlay.classList.add('active');
+                if (adminKeyInput && adminKeyInput.value.trim()) {
+                    loadBannedList();
+                }
+                if (targetUsername && modReasonInput) {
+                    modReasonInput.focus();
+                } else if (modTargetInput && !modTargetInput.value) {
+                    modTargetInput.focus();
+                }
+            }
+
+            function closeModDialog() {
+                if (chatModOverlay) chatModOverlay.classList.remove('active');
+            }
+
+            function renderRecentUsersInMod() {
+                if (!modRecentUsersList) return;
+                modRecentUsersList.innerHTML = '';
+                const users = Array.from(knownUsernames).filter(u => u && u.toLowerCase() !== currentUser.username.toLowerCase());
+                if (users.length === 0) {
+                    modRecentUsersList.innerHTML = '<span style="font-size:11.5px;color:var(--text-muted);padding:4px;">No other users active yet.</span>';
+                    return;
+                }
+                users.slice(-15).reverse().forEach(name => {
+                    const chip = document.createElement('span');
+                    chip.className = 'mod-user-chip';
+                    chip.innerHTML = `<span>${escapeHtml(name)}</span><button type="button">Block</button>`;
+                    const btn = chip.querySelector('button');
+                    btn.onclick = () => {
+                        if (modTargetInput) modTargetInput.value = name;
+                        if (modReasonInput) modReasonInput.focus();
+                    };
+                    modRecentUsersList.appendChild(chip);
+                });
+            }
+
+            async function loadBannedList() {
+                if (!modBannedList) return;
+                const key = adminKeyInput ? adminKeyInput.value.trim() : '';
+                if (!key) {
+                    modBannedList.innerHTML = '<div style="color:#ef4444;padding:8px;text-align:center;font-size:11.5px;">Enter your Mod Passcode above, then click Refresh.</div>';
+                    return;
+                }
+                saveAdminKey(key);
+                modBannedList.innerHTML = '<div style="color:var(--text-muted);padding:8px;text-align:center;font-size:11.5px;"><i class="fas fa-spinner fa-spin"></i> Loading blocked list...</div>';
+
+                try {
+                    const res = await fetch(`${API_BASE}/chat/banned?adminKey=${encodeURIComponent(key)}`);
+                    if (res.status === 401) {
+                        modBannedList.innerHTML = '<div style="color:#ef4444;padding:8px;text-align:center;font-size:11.5px;">Invalid Mod Passcode. Access denied.</div>';
+                        return;
+                    }
+                    if (!res.ok) throw new Error('Failed to fetch');
+                    const items = await res.json();
+                    if (!Array.isArray(items) || items.length === 0) {
+                        modBannedList.innerHTML = '<div style="color:var(--text-muted);padding:8px;text-align:center;font-size:11.5px;">No users or devices currently blocked.</div>';
+                        return;
+                    }
+
+                    modBannedList.innerHTML = '';
+                    items.forEach(item => {
+                        const row = document.createElement('div');
+                        row.className = 'banned-entry-row';
+                        const typeLabel = item.type === 'fingerprint' ? 'DEVICE HW' : item.type === 'ip' ? 'IP' : item.type === 'user_token' ? 'TOKEN' : 'USER';
+                        const valDisplay = escapeHtml(item.value.length > 28 ? item.value.slice(0, 26) + '...' : item.value);
+                        const reasonDisplay = item.reason ? ` &bull; ${escapeHtml(item.reason)}` : '';
+
+                        row.innerHTML = `
+                            <div>
+                                <span class="banned-entry-type">${typeLabel}</span>
+                                <b>${valDisplay}</b>
+                                <span style="font-size:10.5px;color:var(--text-muted);">${reasonDisplay}</span>
+                            </div>
+                            <button type="button" class="unban-btn" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#38bdf8;padding:2px 7px;border-radius:4px;font-size:10.5px;cursor:pointer;font-weight:700;">Unblock</button>
+                        `;
+
+                        const unbanBtn = row.querySelector('.unban-btn');
+                        unbanBtn.onclick = async () => {
+                            if (!confirm(`Are you sure you want to unblock ${item.type} "${item.value}"?`)) return;
+                            unbanBtn.disabled = true;
+                            unbanBtn.textContent = '...';
+                            try {
+                                const unbanRes = await fetch(`${API_BASE}/chat/unban`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        adminKey: key,
+                                        value: item.value,
+                                        type: item.type,
+                                        username: item.type === 'username' ? item.value : undefined
+                                    })
+                                });
+                                if (unbanRes.ok) {
+                                    showToastAlert('Moderator', `Unblocked ${item.value}`);
+                                    loadBannedList();
+                                } else {
+                                    alert('Failed to unblock entity.');
+                                    unbanBtn.disabled = false;
+                                    unbanBtn.textContent = 'Unblock';
+                                }
+                            } catch(e) {
+                                alert('Network error during unblock.');
+                                unbanBtn.disabled = false;
+                                unbanBtn.textContent = 'Unblock';
+                            }
+                        };
+
+                        modBannedList.appendChild(row);
+                    });
+                } catch(e) {
+                    modBannedList.innerHTML = '<div style="color:#ef4444;padding:8px;text-align:center;font-size:11.5px;">Error loading blocked list.</div>';
+                }
+            }
+
+            async function executeBan() {
+                const key = adminKeyInput ? adminKeyInput.value.trim() : '';
+                if (!key) {
+                    alert('Please enter the Mod Passcode / Admin Secret.');
+                    if (adminKeyInput) adminKeyInput.focus();
+                    return;
+                }
+                const target = modTargetInput ? modTargetInput.value.trim() : '';
+                if (!target) {
+                    alert('Please enter the username of the user to block.');
+                    if (modTargetInput) modTargetInput.focus();
+                    return;
+                }
+                const reason = modReasonInput ? (modReasonInput.value.trim() || 'Violating chat guidelines') : 'Violating chat guidelines';
+
+                saveAdminKey(key);
+
+                if (!confirm(`Block "${target}" across all browsers, incognito tabs, and devices? Their past messages will also be wiped.`)) {
+                    return;
+                }
+
+                if (executeBanBtn) {
+                    executeBanBtn.disabled = true;
+                    executeBanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Blocking Across All Browsers...';
+                }
+
+                try {
+                    const res = await fetch(`${API_BASE}/chat/ban`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            adminKey: key,
+                            username: target,
+                            reason: reason
+                        })
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        alert(`🔒 Successfully blocked "${target}" across all browsers and devices!\nDevice Fingerprint: ${data.blockedAcrossBrowsers?.deviceFingerprint ? 'Captured & Blocked' : 'Pending'}\nIP Address: ${data.blockedAcrossBrowsers?.ipAddress ? 'Blocked' : 'N/A'}`);
+                        // Wipe their messages from DOM
+                        document.querySelectorAll('.chat-msg-row').forEach(row => {
+                            if (row.dataset.username && row.dataset.username.toLowerCase() === target.toLowerCase()) {
+                                row.remove();
+                            }
+                        });
+                        knownUsernames.delete(target.toLowerCase());
+                        if (modTargetInput) modTargetInput.value = '';
+                        if (modReasonInput) modReasonInput.value = '';
+                        loadBannedList();
+                        renderRecentUsersInMod();
+                    } else if (res.status === 401) {
+                        alert('Unauthorized: Invalid Mod Passcode. Please check your admin secret.');
+                    } else {
+                        const err = await res.json().catch(() => ({}));
+                        alert('Failed to block user: ' + (err.error || 'Server error'));
+                    }
+                } catch(e) {
+                    alert('Network error while executing block: ' + e.message);
+                } finally {
+                    if (executeBanBtn) {
+                        executeBanBtn.disabled = false;
+                        executeBanBtn.innerHTML = '<i class="fas fa-ban"></i> Block User Across All Browsers &amp; Devices';
+                    }
+                }
+            }
+
+            // Click listener for quick-ban buttons in message rows
+            chatFeed.addEventListener('click', (e) => {
+                const blockBtn = e.target.closest('.msg-block-btn');
+                if (blockBtn && blockBtn.dataset.user) {
+                    e.stopPropagation();
+                    openModModal(blockBtn.dataset.user);
+                }
+            });
+
+            if (openModBtn) openModBtn.onclick = () => openModModal();
+            if (closeModModal) closeModModal.onclick = closeModDialog;
+            if (chatModOverlay) {
+                chatModOverlay.addEventListener('click', (e) => {
+                    if (e.target === chatModOverlay) closeModDialog();
+                });
+            }
+            if (executeBanBtn) executeBanBtn.onclick = executeBan;
+            if (refreshBannedBtn) refreshBannedBtn.onclick = loadBannedList;
 
             // Start Continuous Live Real-Time Polling (Works in background tabs)
             loadSettings();
