@@ -1,14 +1,14 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><meta httpequiv="X-UA-Compatible" content="IE=edge"/><title>Crossy Road</title><link rel="shortcut icon" href="favicon.ico"/><style>
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;height:100%;background:#0f172a}
 body{width:100vw;height:100vh;margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center, #1e293b 0%, #090d16 100%);overflow:hidden;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-#root{width:100%;max-width:min(480px,56.25vh);height:100%;max-height:100vh;display:flex;flex:1;position:relative;box-shadow:0 0 50px rgba(0,0,0,0.8);background:#87C6FF;overflow:hidden;transform:translateZ(0)}
+#root{width:100%;max-width:min(960px,112.5vh);height:100%;max-height:100vh;display:flex;flex:1;position:relative;box-shadow:0 0 50px rgba(0,0,0,0.8);background:#87C6FF;overflow:hidden;transform:translateZ(0)}
 canvas{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
 </style><script>
 (function() {
   function getMobileWidth() {
     var h = window.innerHeight || (document.documentElement ? document.documentElement.clientHeight : 800) || 800;
-    var w = (document.documentElement ? document.documentElement.clientWidth : 0) || window.outerWidth || 450;
-    return Math.min(w, Math.min(480, Math.round(h * 0.5625)));
+    var w = (document.documentElement ? document.documentElement.clientWidth : 0) || window.outerWidth || 960;
+    return Math.min(w, Math.min(960, Math.round(h * 1.125)));
   }
   try {
     Object.defineProperty(window, 'innerWidth', {
