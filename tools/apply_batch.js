@@ -96,10 +96,13 @@ ${howToItems}
 ${tipItems}
         </ul>
 
+        <h3>Chromebook Performance &amp; Browser Architecture</h3>
+        <p>${displayName} is built for modern web browsers using hardware-accelerated HTML5 Canvas and WebGL graphics. By streaming compressed assets and running inside an optimized browser sandbox, it keeps memory usage low and frame rates steady at 60 FPS on managed school Chromebooks, Windows laptops, and classroom Wi-Fi networks.</p>
+
         <h3>Frequently asked questions</h3>
-        <p><b>Is ${displayName} free to play?</b><br />Yes, it is completely free to play directly in your web browser on Blooket1 with no downloads or installs required.</p>
-        <p><b>Can I play ${displayName} on a school Chromebook or mobile?</b><br />Yes, it runs smoothly in any modern browser including Chrome on Chromebooks, laptops, tablets, and smartphones.</p>
-        <p><b>Does my progress save automatically?</b><br />Your high scores, achievements, and unlocked upgrades are stored locally in your browser so you can continue where you left off.</p>
+        <p><b>Is ${displayName} free to play?</b><br />Yes, ${displayName} is 100% free to play directly in your web browser on Blooket1 with no downloads, plugins, or sign-ups required.</p>
+        <p><b>Does ${displayName} run well on school Chromebooks?</b><br />Yes! It uses hardware-accelerated HTML5 and WebGL rendering designed to run smoothly at 60 FPS on managed school Chromebooks, Windows laptops, MacBooks, and tablets.</p>
+        <p><b>Is my game progress saved automatically?</b><br />Yes, your high scores, unlocked levels, and settings are saved automatically in your browser's local storage so you can pick up right where you left off.</p>
       `;
 
     // Replace title

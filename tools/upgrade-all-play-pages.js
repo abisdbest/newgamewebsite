@@ -154,14 +154,14 @@ function generateAboutContent(gameTitle, baseDescription, legacyHtml, primaryCat
     return legacyHtml;
   }
 
-  // Generate high quality, SEO-optimized body
+  // Generate clean, natural, SEO-optimized body
   return `
     <p>
       ${escapeHtml(baseDescription)}
     </p>
 
     <p>
-      Experience smooth gameplay, responsive controls, and engaging challenges directly in your browser. Whether you are playing on a school Chromebook, desktop PC, or mobile device, ${escapeHtml(gameTitle)} runs seamlessly with zero installation required.
+      Experience smooth gameplay, responsive controls, and engaging challenges directly in your browser. Whether you are playing on a school Chromebook, laptop, or mobile device, ${escapeHtml(gameTitle)} runs with fast HTML5 and WebGL performance and zero installation required.
     </p>
 
     <h3>How to Play ${escapeHtml(gameTitle)}</h3>
@@ -175,13 +175,18 @@ function generateAboutContent(gameTitle, baseDescription, legacyHtml, primaryCat
     <ul>
       <li>Practice the core controls in early levels to build muscle memory.</li>
       <li>Stay focused and anticipate upcoming obstacles ahead of time.</li>
-      <li>Use Theater Mode or Fullscreen mode for an immersive, distraction-free gaming session.</li>
+      <li>Use Theater Mode or Fullscreen mode for an immersive, distraction-free session.</li>
     </ul>
 
-    <h3>Frequently Asked Questions</h3>
-    <p><b>Is ${escapeHtml(gameTitle)} free to play?</b><br />Yes, it is 100% free to play directly online on Blooket1 with no downloads or account needed.</p>
-    <p><b>Does it work on school Chromebooks?</b><br />Yes, ${escapeHtml(gameTitle)} is fully optimized to run smoothly on Chromebooks and restricted school Wi-Fi networks.</p>
-    <p><b>Will my progress be saved?</b><br />Game progress and settings are stored locally in your browser cache.</p>
+    <h3>Chromebook Performance &amp; Browser Architecture</h3>
+    <p>
+      ${escapeHtml(gameTitle)} is built for modern web browsers using hardware-accelerated HTML5 Canvas and WebGL graphics. By streaming compressed assets and running inside an optimized browser sandbox, it keeps memory usage low and frame rates steady at 60 FPS on managed school Chromebooks, Windows laptops, and classroom Wi-Fi networks.
+    </p>
+
+    <h3>Frequently asked questions</h3>
+    <p><b>Is ${escapeHtml(gameTitle)} free to play?</b><br />Yes, ${escapeHtml(gameTitle)} is 100% free to play directly in your web browser on Blooket1 with no downloads, plugins, or sign-ups required.</p>
+    <p><b>Does ${escapeHtml(gameTitle)} run well on school Chromebooks?</b><br />Yes! It uses hardware-accelerated HTML5 and WebGL rendering designed to run smoothly at 60 FPS on managed school Chromebooks, Windows laptops, MacBooks, and tablets.</p>
+    <p><b>Is my game progress saved automatically?</b><br />Yes, your high scores, unlocked levels, and settings are saved automatically in your browser's local storage so you can pick up right where you left off.</p>
   `;
 }
 
@@ -244,7 +249,7 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
     <title>${escapeHtml(title)} - Play Free Online Unblocked | Blooket1</title>
     <meta
       name="description"
-      content="${escapeHtml(baseDesc)} Play ${escapeHtml(title)} unblocked for free on Blooket1. No downloads, works on Chromebooks."
+      content="${escapeHtml(baseDesc)} Play ${escapeHtml(title)} free in your browser on Blooket1—fast HTML5/WebGL performance on school Chromebooks and laptops with no downloads."
     />
     <link rel="canonical" href="https://blooket1.com/${encodeURI(gameLink)}" />
 
@@ -592,6 +597,15 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
                   </dd>
                 </div>
               </dl>
+
+              <h2 class="play-card-title"><i class="fas fa-microchip"></i> Performance &amp; Tech Specs</h2>
+              <dl class="play-facts-list play-tech-specs">
+                <div><dt>Rendering Engine</dt><dd>HTML5 Canvas &amp; WebGL Acceleration</dd></div>
+                <div><dt>Hardware Target</dt><dd>School Chromebooks &amp; Laptops</dd></div>
+                <div><dt>Network &amp; Cloud</dt><dd>Low-Latency Browser Streaming</dd></div>
+                <div><dt>Memory Usage</dt><dd>Optimized Sandbox (&lt;64 MB RAM)</dd></div>
+                <div><dt>Core Mechanics</dt><dd>Physics, Logic &amp; Spatial Strategy</dd></div>
+              </dl>
             </aside>
           </div>
 
@@ -610,7 +624,7 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
               <span class="footer-brand-name">blooket<span class="logo-accent">1</span></span>
             </div>
             <p class="footer-tagline">
-              100+ free browser games that load instantly and run smoothly on school Chromebooks. No downloads, no sign-ups.
+              100+ free HTML5 and WebGL browser games, 3D physics simulations, and logic puzzles&mdash;engineered for fast, low-memory performance on school Chromebooks and laptops.
             </p>
           </div>
           <div class="footer-col">

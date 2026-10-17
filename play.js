@@ -34,15 +34,15 @@
     const AD_CONFIG = {
         client: 'ca-pub-5346759304245799',
         slots: {
-            sidebar:     { slot: '5440051367', format: null, eager: true },
-            leftRail:    { slot: '5440051367', format: null, eager: true },
-            leaderboard: { slot: '5440051367', format: 'horizontal', formatMobile: 'auto', responsive: true, eager: true },
+            sidebar:     { slot: '5440051367', width: 300, height: 250, format: null, eager: true },
+            leftRail:    { slot: '5440051367', width: 160, height: 600, format: null, eager: true },
+            leaderboard: { slot: '5440051367', width: 728, height: 90, widthMobile: 300, heightMobile: 250, format: null, eager: true },
             inArticle:   { slot: '5440051367', format: 'auto', responsive: true },
             multiplex:   { slot: '5440051367', format: 'auto', responsive: true }
             // Dedicated units later, e.g.:
-            // sidebar:     { slot: 'XXXXXXXXXX', format: null, eager: true },
-            // leftRail:    { slot: 'XXXXXXXXXX', format: null, eager: true },
-            // leaderboard: { slot: 'XXXXXXXXXX', format: 'horizontal', formatMobile: 'auto', responsive: true, eager: true },
+            // sidebar:     { slot: 'XXXXXXXXXX', width: 300, height: 250, format: null, eager: true },
+            // leftRail:    { slot: 'XXXXXXXXXX', width: 160, height: 600, format: null, eager: true },
+            // leaderboard: { slot: 'XXXXXXXXXX', width: 728, height: 90, widthMobile: 300, heightMobile: 250, format: null, eager: true },
             // multiplex:   { slot: 'XXXXXXXXXX', format: 'autorelaxed' },
         }
     };
@@ -894,10 +894,19 @@
             ins.dataset.adPushed = '1';
             ins.setAttribute('data-ad-client', AD_CONFIG.client);
             ins.setAttribute('data-ad-slot', cfg.slot);
-            const format = (cfg.formatMobile && window.innerWidth <= 900) ? cfg.formatMobile : cfg.format;
-            if (format) ins.setAttribute('data-ad-format', format);
-            if (cfg.layout) ins.setAttribute('data-ad-layout', cfg.layout);
-            if (cfg.responsive) ins.setAttribute('data-full-width-responsive', 'true');
+            const isMobile = window.innerWidth <= 768;
+            const w = (isMobile && cfg.widthMobile) ? cfg.widthMobile : cfg.width;
+            const h = (isMobile && cfg.heightMobile) ? cfg.heightMobile : cfg.height;
+            if (w && h) {
+                ins.style.display = 'inline-block';
+                ins.style.width = w + 'px';
+                ins.style.height = h + 'px';
+            } else {
+                const format = (cfg.formatMobile && window.innerWidth <= 900) ? cfg.formatMobile : cfg.format;
+                if (format) ins.setAttribute('data-ad-format', format);
+                if (cfg.layout) ins.setAttribute('data-ad-layout', cfg.layout);
+                if (cfg.responsive) ins.setAttribute('data-full-width-responsive', 'true');
+            }
             try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
         };
 

@@ -569,7 +569,7 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 .ad-unit ins.adsbygoogle { display: block; width: 100%; min-height: 0; }
 
 .ad-unit-leaderboard { margin: 14px 0 6px; min-height: 112px; }
-.ad-unit-leaderboard ins.adsbygoogle { min-height: 90px; }
+.ad-unit-leaderboard ins.adsbygoogle { width: 728px; height: 90px; max-width: 100%; }
 
 .ad-unit-inarticle { margin: 18px 0; min-height: 276px; }
 .ad-unit-inarticle ins.adsbygoogle { min-height: 250px; }
@@ -926,14 +926,13 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
   .player-btn { width: 46px; height: 46px; }
   .player-menu { right: auto; left: 50%; transform-origin: bottom center; translate: -50% 0; }
 
-  .ad-unit-leaderboard { min-height: 280px; }
-  .ad-unit-leaderboard ins.adsbygoogle { min-height: 250px; }
-
   .play-card { padding: 20px; }
   .play-about-title { font-size: 1.2rem; }
 }
 
 @media (max-width: 768px) {
+  .ad-unit-leaderboard { min-height: 274px; }
+  .ad-unit-leaderboard ins.adsbygoogle { width: 300px; height: 250px; }
   .play-rails .game-category-section { --cols: 2; }
   .side-grid-quick { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

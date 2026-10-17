@@ -27,6 +27,7 @@ for (const d of dirs) {
     noInArticleAd: !html.includes('data-ad-key="inArticle"'),
     multiplexAd: html.includes('data-ad-key="multiplex"'),
     playRailsAboveInfo: html.indexOf('id="play-rails"') > 0 && html.indexOf('id="play-rails"') < html.indexOf('class="play-info-grid"'),
+    techSpecs: html.includes('play-tech-specs'),
     balancedDivs: (html.match(/<div\b/g) || []).length === (html.match(/<\/div>/g) || []).length,
     settingsModal: html.includes('id="settingsModalOverlay"'),
     playJs: html.includes('play.js')
