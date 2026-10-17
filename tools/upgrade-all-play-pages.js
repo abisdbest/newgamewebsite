@@ -151,27 +151,7 @@ function extractLegacyContent(existingHtml, gameTitle, baseDescription) {
 
 function generateAboutContent(gameTitle, baseDescription, legacyHtml, primaryCatTitle) {
   if (legacyHtml) {
-    // If legacy content exists, insert inArticle ad cleanly after first paragraph
-    const pEnd = legacyHtml.indexOf('</p>');
-    if (pEnd !== -1) {
-      const before = legacyHtml.substring(0, pEnd + 4);
-      const after = legacyHtml.substring(pEnd + 4);
-      return `
-        ${before}
-        <div class="ad-unit ad-unit-inarticle">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-        </div>
-        ${after}
-      `;
-    }
-    return `
-      ${legacyHtml}
-      <div class="ad-unit ad-unit-inarticle">
-        <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-      </div>
-    `;
+    return legacyHtml;
   }
 
   // Generate high quality, SEO-optimized body
@@ -179,11 +159,6 @@ function generateAboutContent(gameTitle, baseDescription, legacyHtml, primaryCat
     <p>
       ${escapeHtml(baseDescription)}
     </p>
-
-    <div class="ad-unit ad-unit-inarticle">
-      <span class="ad-label">Advertisement</span>
-      <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-    </div>
 
     <p>
       Experience smooth gameplay, responsive controls, and engaging challenges directly in your browser. Whether you are playing on a school Chromebook, desktop PC, or mobile device, ${escapeHtml(gameTitle)} runs seamlessly with zero installation required.
@@ -476,6 +451,13 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
       </nav>
 
       <div class="play-layout">
+        <aside class="play-left-rail" aria-label="Advertisement">
+          <div class="ad-unit ad-unit-left">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle" data-ad-key="leftRail"></ins>
+          </div>
+        </aside>
+
         <section class="player-shell" id="player-shell" aria-label="Game player">
           <div class="player-stage" id="player-stage">
             <div class="player-cover" id="player-cover">
@@ -559,12 +541,12 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
         </section>
 
         <aside class="play-side" aria-label="More games">
-          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
-          <div class="side-grid" id="side-grid"></div>
-          <div class="ad-unit ad-unit-sticky">
+          <div class="ad-unit ad-unit-sidebar-top">
             <span class="ad-label">Advertisement</span>
             <ins class="adsbygoogle" data-ad-key="sidebar"></ins>
           </div>
+          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
+          <div class="side-grid" id="side-grid"></div>
         </aside>
 
         <div class="play-below">
@@ -577,6 +559,10 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
             <h2 class="play-section-title"><i class="fas fa-forward"></i> Up next</h2>
             <div class="side-grid side-grid-quick" id="side-grid-quick"></div>
           </section>
+
+          <div class="all-game-carousels play-rails" id="play-rails">
+            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
 
           <div class="play-info-grid">
             <article class="play-card play-about">
@@ -607,10 +593,6 @@ function generatePlayPageHtml(gameKey, gameObj, existingHtml) {
                 </div>
               </dl>
             </aside>
-          </div>
-
-          <div class="all-game-carousels play-rails" id="play-rails">
-            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
           </div>
 
           <div class="ad-unit ad-unit-multiplex">

@@ -21,11 +21,13 @@ for (const d of dirs) {
     playerShell: html.includes('id="player-shell"'),
     playerCover: html.includes('id="player-cover"'),
     gameIframe: html.includes('id="game-iframe"'),
-    sidebarAd: html.includes('data-ad-key="sidebar"'),
+    leftRailAd: html.includes('data-ad-key="leftRail"'),
+    sidebarTopAd: html.includes('ad-unit-sidebar-top') && html.includes('data-ad-key="sidebar"'),
     leaderboardAd: html.includes('data-ad-key="leaderboard"'),
-    inArticleAd: html.includes('data-ad-key="inArticle"'),
+    noInArticleAd: !html.includes('data-ad-key="inArticle"'),
     multiplexAd: html.includes('data-ad-key="multiplex"'),
-    playRails: html.includes('id="play-rails"'),
+    playRailsAboveInfo: html.indexOf('id="play-rails"') > 0 && html.indexOf('id="play-rails"') < html.indexOf('class="play-info-grid"'),
+    balancedDivs: (html.match(/<div\b/g) || []).length === (html.match(/<\/div>/g) || []).length,
     settingsModal: html.includes('id="settingsModalOverlay"'),
     playJs: html.includes('play.js')
   };

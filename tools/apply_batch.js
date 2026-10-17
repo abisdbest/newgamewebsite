@@ -83,12 +83,6 @@ function applyBatch(batchData) {
 
     const newAboutBody = `
         <p>${info.paragraphs[0]}</p>
-
-        <div class="ad-unit ad-unit-inarticle">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-        </div>
-
         <p>${info.paragraphs[1]}</p>
         <p>${info.paragraphs[2]}</p>
 

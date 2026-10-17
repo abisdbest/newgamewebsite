@@ -264,6 +264,13 @@
       </nav>
 
       <div class="play-layout">
+        <aside class="play-left-rail" aria-label="Advertisement">
+          <div class="ad-unit ad-unit-left">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle" data-ad-key="leftRail"></ins>
+          </div>
+        </aside>
+
         <!-- ===================== PLAYER ===================== -->
         <section class="player-shell" id="player-shell" aria-label="Game player">
           <div class="player-stage" id="player-stage">
@@ -353,12 +360,12 @@
 
         <!-- ===================== SIDE COLUMN ===================== -->
         <aside class="play-side" aria-label="More games">
-          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
-          <div class="side-grid" id="side-grid"></div>
-          <div class="ad-unit ad-unit-sticky">
+          <div class="ad-unit ad-unit-sidebar-top">
             <span class="ad-label">Advertisement</span>
             <ins class="adsbygoogle" data-ad-key="sidebar"></ins>
           </div>
+          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
+          <div class="side-grid" id="side-grid"></div>
         </aside>
 
         <!-- ===================== BELOW THE PLAYER ===================== -->
@@ -374,6 +381,10 @@
             <div class="side-grid side-grid-quick" id="side-grid-quick"></div>
           </section>
 
+          <div class="all-game-carousels play-rails" id="play-rails">
+            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+
           <div class="play-info-grid">
             <!-- EDIT: about text (keep each game's own words) -->
             <article class="play-card play-about">
@@ -382,11 +393,6 @@
                 <p>
                   Duck Life 4 is an acclaimed training and racing adventure game. After the ban on genetically modified ducks, it's up to you to raise and train your own champion duck from the ground up.
                 </p>
-
-                <div class="ad-unit ad-unit-inarticle">
-                  <span class="ad-label">Advertisement</span>
-                  <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-                </div>
 
                 <p>
                   Compete across six distinct training realms including Grassland, Swamp, Mountains, Glacier, City, and Volcano. Train running, flying, swimming, and climbing to level up your stats and unlock prestigious race tournaments.
@@ -449,11 +455,6 @@
                 </div>
               </dl>
             </aside>
-          </div>
-
-          <!-- Recommendation rails (filled by play.js) -->
-          <div class="all-game-carousels play-rails" id="play-rails">
-            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
           </div>
 
           <div class="ad-unit ad-unit-multiplex">

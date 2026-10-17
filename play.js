@@ -34,13 +34,16 @@
     const AD_CONFIG = {
         client: 'ca-pub-5346759304245799',
         slots: {
-            leaderboard: { slot: '5440051367', format: 'horizontal', formatMobile: 'auto', responsive: true },
-            sidebar:     { slot: '5440051367', format: null },
+            sidebar:     { slot: '5440051367', format: null, eager: true },
+            leftRail:    { slot: '5440051367', format: null, eager: true },
+            leaderboard: { slot: '5440051367', format: 'horizontal', formatMobile: 'auto', responsive: true, eager: true },
             inArticle:   { slot: '5440051367', format: 'auto', responsive: true },
             multiplex:   { slot: '5440051367', format: 'auto', responsive: true }
             // Dedicated units later, e.g.:
-            // inArticle: { slot: 'XXXXXXXXXX', format: 'fluid', layout: 'in-article' },
-            // multiplex: { slot: 'XXXXXXXXXX', format: 'autorelaxed' },
+            // sidebar:     { slot: 'XXXXXXXXXX', format: null, eager: true },
+            // leftRail:    { slot: 'XXXXXXXXXX', format: null, eager: true },
+            // leaderboard: { slot: 'XXXXXXXXXX', format: 'horizontal', formatMobile: 'auto', responsive: true, eager: true },
+            // multiplex:   { slot: 'XXXXXXXXXX', format: 'autorelaxed' },
         }
     };
 
@@ -48,7 +51,7 @@
     const POPULAR_GAMES_API_URL = `${WORKER_BASE_URL}/popular-games`;
     const TRACK_PLAY_API_URL = `${WORKER_BASE_URL}/track-play`;
     const RECENT_LIMIT = 14;
-    const SIDE_COUNT = 10;
+    const SIDE_COUNT = 8;
     const QUICK_COUNT = 8;
 
     // Used only to ORDER recommendations when the live API is unavailable
@@ -437,7 +440,7 @@
         take(popular, SIDE_COUNT);
         take(related, SIDE_COUNT);
 
-        fillGrid('side-grid', picks, 4);
+        fillGrid('side-grid', picks, 6);
         fillGrid('side-grid-quick', picks.slice(0, QUICK_COUNT));
         nextPicks = picks.filter((g) => !recentGames.includes(g.name)).concat(picks).slice(0, 3);
 
@@ -878,7 +881,7 @@
     }
 
     // -----------------------------------------------------------------
-    // ADS - configure from AD_CONFIG, push only when the slot is visible
+    // ADS - configure from AD_CONFIG, push eager slots immediately and lazy-load below-fold slots
     // -----------------------------------------------------------------
     function setupAds() {
         const slots = Array.from(document.querySelectorAll('ins.adsbygoogle[data-ad-key]'));
@@ -898,11 +901,25 @@
             try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
         };
 
+        const lazySlots = [];
+        slots.forEach((ins) => {
+            const cfg = AD_CONFIG.slots[ins.dataset.adKey];
+            if (cfg && cfg.eager && ins.offsetWidth > 0) {
+                fill(ins);
+            } else {
+                lazySlots.push(ins);
+            }
+        });
+
+        if (!lazySlots.length) return;
+
         if (!('IntersectionObserver' in window)) {
-            slots.forEach((ins) => { if (ins.offsetWidth > 0) fill(ins); });
+            lazySlots.forEach((ins) => { if (ins.offsetWidth > 0) fill(ins); });
             return;
         }
-        // Hidden slots (display:none at this breakpoint) never intersect, so they're never requested
+        // Hidden slots (display:none at this breakpoint) never intersect, so they're never requested.
+        // Use a tight 120px rootMargin so below-the-fold ads only load when the user actually scrolls down,
+        // protecting Active View Viewability.
         const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && entry.target.offsetWidth > 0) {
@@ -910,8 +927,8 @@
                     io.unobserve(entry.target);
                 }
             });
-        }, { rootMargin: '400px 0px' });
-        slots.forEach((ins) => io.observe(ins));
+        }, { rootMargin: '120px 0px' });
+        lazySlots.forEach((ins) => io.observe(ins));
     }
 
     // -----------------------------------------------------------------

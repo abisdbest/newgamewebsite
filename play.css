@@ -5,15 +5,15 @@
  * animations only.
  * ================================================================= */
 
-.play-main { padding-top: 10px; }
+.play-main { padding-top: 8px; }
 
 /* --- Breadcrumbs --- */
 .play-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 24px;
-  margin: 0 0 10px 2px;
+  min-height: 22px;
+  margin: 0 0 8px 2px;
   font-size: 13px;
   font-weight: 800;
   color: var(--text-muted);
@@ -25,18 +25,26 @@
 .play-breadcrumbs i { font-size: 9px; opacity: 0.7; }
 .play-breadcrumbs span { color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; }
 
-/* --- Page grid: player + below on the left, recommendations + sticky ad on the right --- */
+/* --- Page grid: left 160x600 ad rail, center player + below, right 300x250 ad + recommendations --- */
 .play-layout {
-  --side-w: 320px;
+  --left-w: 160px;
+  --side-w: 300px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--side-w);
+  grid-template-columns: var(--left-w) minmax(0, 1fr) var(--side-w);
   grid-template-areas:
-    "player side"
-    "below  side";
-  column-gap: 20px;
+    "left player side"
+    "left below  side";
+  column-gap: 16px;
   align-items: start;
 }
 
+.play-left-rail {
+  grid-area: left;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 .player-shell { grid-area: player; min-width: 0; }
 .play-below { grid-area: below; min-width: 0; }
 .play-side {
@@ -60,7 +68,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: calc(100vh - var(--header-height) - 140px);
+  max-height: calc(100vh - var(--header-height) - 210px);
   min-height: 340px;
   background: #000;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -383,8 +391,9 @@
 .is-touch-only { display: none !important; }
 html.is-touch .is-touch-only { display: flex !important; }
 
-/* --- Theater mode: player spans the full width, side column hidden --- */
+/* --- Theater mode: player spans the full width, side columns hidden --- */
 body.is-theater .play-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "player" "below"; }
+body.is-theater .play-left-rail,
 body.is-theater .play-side { display: none; }
 body.is-theater .player-stage { aspect-ratio: auto; height: calc(100vh - var(--header-height) - 120px); max-height: none; }
 body.is-theater .play-quick { display: block; }
@@ -548,8 +557,8 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 .ad-label {
   display: block;
   width: 100%;
-  padding: 6px 0 4px;
-  font-size: 10.5px;
+  padding: 5px 0 3px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -559,7 +568,7 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 
 .ad-unit ins.adsbygoogle { display: block; width: 100%; min-height: 0; }
 
-.ad-unit-leaderboard { margin: 20px 0 6px; min-height: 120px; }
+.ad-unit-leaderboard { margin: 14px 0 6px; min-height: 112px; }
 .ad-unit-leaderboard ins.adsbygoogle { min-height: 90px; }
 
 .ad-unit-inarticle { margin: 18px 0; min-height: 276px; }
@@ -567,6 +576,23 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 
 .ad-unit-multiplex { margin-top: 30px; min-height: 320px; }
 .ad-unit-multiplex ins.adsbygoogle { min-height: 280px; }
+
+/* Right rail top 300x250 unit (100% above the fold on 1366x768) */
+.ad-unit-sidebar-top {
+  margin-bottom: 14px;
+  min-height: 272px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.ad-unit-sidebar-top ins.adsbygoogle { width: 300px; height: 250px; }
+
+/* Left rail sticky 160x600 skyscraper */
+.ad-unit-left {
+  position: sticky;
+  top: calc(var(--header-height) + 12px);
+  min-height: 622px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.ad-unit-left ins.adsbygoogle { width: 160px; height: 600px; }
 
 .ad-unit-sticky {
   position: sticky;
@@ -595,7 +621,7 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 }
 .play-section-title i { color: var(--accent-color); font-size: 0.85em; }
 
-.play-side-title { margin-top: 4px; }
+.play-side-title { margin-top: 2px; }
 
 .side-grid {
   display: grid;
@@ -613,7 +639,7 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 .side-grid:empty::before {
   content: "";
   grid-column: 1 / -1;
-  height: 480px;
+  height: 380px;
   border-radius: var(--radius-md);
   background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-card-hover) 50%, var(--bg-card) 100%);
   background-size: 200% 100%;
@@ -621,11 +647,11 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
 }
 
 /* "Up next" grid (only when the side column is hidden) */
-.play-quick { display: none; margin-top: 22px; }
+.play-quick { display: none; margin-top: 18px; }
 .side-grid-quick { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .side-grid-quick:empty::before { height: 210px; }
 
-.play-rails { margin-top: 34px; }
+.play-rails { margin-top: 18px; }
 .play-rails .game-category-section { --cols: 5; }
 
 /* =================================================================
@@ -635,7 +661,7 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(250px, 1fr);
   gap: 16px;
-  margin-top: 22px;
+  margin-top: 28px;
   align-items: start;
 }
 
@@ -852,12 +878,23 @@ body.is-pseudo-fs .touch-btn { pointer-events: auto; opacity: 0.75; }
  * BREAKPOINTS
  * ================================================================= */
 @media (min-width: 1700px) {
-  .play-layout { --side-w: 340px; }
+  .play-layout { --side-w: 320px; column-gap: 20px; }
   .play-rails .game-category-section { --cols: 6; }
+}
+
+@media (max-width: 1480px) {
+  body.sidebar-expanded .play-layout {
+    grid-template-columns: minmax(0, 1fr) var(--side-w);
+    grid-template-areas:
+      "player side"
+      "below  side";
+  }
+  body.sidebar-expanded .play-left-rail { display: none; }
 }
 
 @media (max-width: 1279px) {
   .play-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "player" "below"; }
+  .play-left-rail,
   .play-side { display: none; }
   .play-quick { display: block; }
 }

@@ -232,6 +232,13 @@
       </nav>
 
       <div class="play-layout">
+        <aside class="play-left-rail" aria-label="Advertisement">
+          <div class="ad-unit ad-unit-left">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle" data-ad-key="leftRail"></ins>
+          </div>
+        </aside>
+
         <section class="player-shell" id="player-shell" aria-label="Game player">
           <div class="player-stage" id="player-stage">
             <div class="player-cover" id="player-cover">
@@ -316,12 +323,12 @@
         </section>
 
         <aside class="play-side" aria-label="More games">
-          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
-          <div class="side-grid" id="side-grid"></div>
-          <div class="ad-unit ad-unit-sticky">
+          <div class="ad-unit ad-unit-sidebar-top">
             <span class="ad-label">Advertisement</span>
             <ins class="adsbygoogle" data-ad-key="sidebar"></ins>
           </div>
+          <h2 class="play-section-title play-side-title"><i class="fas fa-fire"></i> More games</h2>
+          <div class="side-grid" id="side-grid"></div>
         </aside>
 
         <div class="play-below">
@@ -335,16 +342,15 @@
             <div class="side-grid side-grid-quick" id="side-grid-quick"></div>
           </section>
 
+          <div class="all-game-carousels play-rails" id="play-rails">
+            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+
           <div class="play-info-grid">
             <article class="play-card play-about">
               <h2 class="play-about-title">GBAjs: High-Compatibility Game Boy Advance Web Emulator</h2>
               <div class="play-about-body" id="play-about-body">
         <p>GBAjs is an impressive open-source Game Boy Advance emulator engineered entirely in JavaScript and HTML5 Canvas by Endrift. Capable of accurately simulating Nintendo's iconic 32-bit handheld architecture directly in modern web browsers, GBAjs brings classic handheld gaming to any device.</p>
-
-        <div class="ad-unit ad-unit-inarticle">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" data-ad-key="inArticle"></ins>
-        </div>
 
         <p>Featuring cycle-accurate ARM7TDMI processor interpretation, multi-channel sound synthesis, and real-time palette rendering, the engine runs classic handheld titles with silky-smooth frame rates and authentic audio.</p>
         <p>Enjoy customizable gamepad key bindings, save-state management, full-screen scaling with pixel-perfect filtering, and smooth Chromebook performance with zero external software or plugins required.</p>
@@ -399,10 +405,6 @@
                 </div>
               </dl>
             </aside>
-          </div>
-
-          <div class="all-game-carousels play-rails" id="play-rails">
-            <div class="skeleton-section"><div class="skeleton-title"></div><div class="skeleton-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
           </div>
 
           <div class="ad-unit ad-unit-multiplex">
