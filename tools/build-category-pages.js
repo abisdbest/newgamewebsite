@@ -195,7 +195,8 @@ ${CANONICAL_CATEGORIES.map((c) => item(`${R}category/${c.slug}/`, c.icon, c.name
         <div class="cg-nav-divider"></div>
 
 ${item(R + 'chat/', 'fa-comments', 'Community chat')}
-${item(R + 'blog/', 'fa-newspaper', 'Updates')}
+${item(R + 'blog/', 'fa-book-open', 'Guides & Blog')}
+${item(R + 'updates/', 'fa-newspaper', 'Updates')}
 
         <div class="cg-sidebar-bottom-wrap">
           <button id="sidebar-toggle-btn" class="cg-sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="false" title="Expand / collapse sidebar">
@@ -262,7 +263,7 @@ const FOOTER = `      <footer class="app-footer">
               <span class="footer-brand-name">blooket<span class="logo-accent">1</span></span>
             </div>
             <p class="footer-tagline">
-              100+ free browser games that load instantly and run smoothly on school Chromebooks. No downloads, no sign-ups.
+              127+ free HTML5 and WebGL browser games that load instantly and run smoothly on school Chromebooks. No downloads, no sign-ups.
             </p>
           </div>
           <div class="footer-col">
@@ -274,17 +275,20 @@ const FOOTER = `      <footer class="app-footer">
               <li><a href="${R}category/action/">Action</a></li>
               <li><a href="${R}category/driving/">Driving</a></li>
               <li><a href="${R}category/puzzle/">Puzzle</a></li>
+              <li><a href="${R}category/2-player/">2 Player</a></li>
               <li><a href="${R}category/retro/">Retro</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Tools</h4>
+            <h4>Tools &amp; Guides</h4>
             <ul>
+              <li><a href="#" onclick="openSettingsModal('mirrors'); return false;">Mirrors &amp; alt links</a></li>
               <li><a href="#" onclick="openSettingsModal('cloak'); return false;">Tab cloaking</a></li>
               <li><a href="#" onclick="openSettingsModal('panic'); return false;">Panic key</a></li>
               <li><a href="#" onclick="startUnblockAssistant(); return false;">Unblock assistant</a></li>
+              <li><a href="${R}blog/">Guides &amp; blog</a></li>
+              <li><a href="${R}updates/">Updates</a></li>
               <li><a href="${R}chat/">Community chat</a></li>
-              <li><a href="${R}blog/">Updates</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -302,54 +306,129 @@ const FOOTER = `      <footer class="app-footer">
         </div>
       </footer>`;
 
-const MODALS = `    <div class="settings-modal-overlay" id="settingsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle" hidden>
-      <div class="settings-modal-card">
-        <div class="settings-modal-header">
-          <h2 id="settingsModalTitle">Stealth Mode Hub</h2>
-          <button class="settings-close-btn" id="closeSettingsModalBtn" aria-label="Close settings">&times;</button>
-        </div>
-        <div class="settings-modal-body">
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-mask section-icon"></i>
-              <div>
-                <h3>Tab Cloaking (Disguise)</h3>
-                <p>Change this tab's title and favicon so it appears as school or productivity work.</p>
-              </div>
-            </div>
-            <div class="cloak-options-grid" id="cloakOptionsGrid"></div>
-          </div>
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-shield-alt section-icon"></i>
-              <div>
-                <h3>Panic Key (Boss Key)</h3>
-                <p>Press this single key at any moment to immediately escape to Google Classroom.</p>
-              </div>
-            </div>
-            <div class="panic-key-card">
-              <div class="panic-key-status">
-                <span class="panic-label">Current Panic Key:</span>
-                <kbd id="currentPanicKeyDisplay">\`</kbd>
-                <span id="panicListeningStatus" class="panic-listening-badge" style="display: none;">Press any key now...</span>
-              </div>
-              <div class="panic-btn-group">
-                <button id="changePanicKeyBtn" class="settings-action-btn"><i class="fas fa-keyboard"></i> Change Key</button>
-                <button id="testPanicKeyBtn" class="settings-action-btn secondary"><i class="fas fa-external-link-alt"></i> Test Panic</button>
-                <button id="resetPanicKeyBtn" class="settings-action-btn tertiary"><i class="fas fa-undo"></i> Reset (\`)</button>
-              </div>
+const MODALS = `    <div id="settingsModalOverlay" class="sm-overlay">
+      <div id="settingsModal" class="sm-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+        <aside class="sm-side">
+          <div class="sm-brand">
+            <span class="sm-brand-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></span>
+            <div>
+              <h2 id="settingsModalTitle">Stealth mode</h2>
+              <p>Saved on this device</p>
             </div>
           </div>
-          <div class="settings-section">
-            <div class="settings-section-header">
-              <i class="fas fa-palette section-icon"></i>
-              <div>
-                <h3>Theme Switcher</h3>
-                <p>Personalize your experience with dark cyberpunk aesthetics and vivid glows.</p>
+          <nav class="sm-nav" role="tablist" aria-label="Stealth settings">
+            <button type="button" class="sm-nav-btn is-active" role="tab" aria-selected="true" aria-controls="sm-pane-disguise" data-sm-tab="sm-pane-disguise">
+              <i class="fas fa-window-maximize" aria-hidden="true"></i>
+              <span><b>Tab disguise</b><small>Change the tab's name and icon</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-panic" data-sm-tab="sm-pane-panic">
+              <i class="fas fa-keyboard" aria-hidden="true"></i>
+              <span><b>Panic key</b><small>One key to leave instantly</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-blank" data-sm-tab="sm-pane-blank">
+              <i class="fas fa-file" aria-hidden="true"></i>
+              <span><b>Blank tab</b><small>Open in an about:blank tab</small></span>
+            </button>
+            <button type="button" class="sm-nav-btn" role="tab" aria-selected="false" aria-controls="sm-pane-theme" data-sm-tab="sm-pane-theme">
+              <i class="fas fa-palette" aria-hidden="true"></i>
+              <span><b>Theme</b><small>Colours for the whole site</small></span>
+            </button>
+          </nav>
+          <div class="sm-side-foot">
+            <div class="sm-status">
+              <span class="sm-fav sm-fav--sm"><img id="hudCloakIcon" src="${R}images/b-logo.webp" alt="" /></span>
+              <span><small>This tab looks like</small><b id="hudCloakName">Blooket1</b></span>
+            </div>
+            <button type="button" class="sm-leave-btn" onclick="triggerPanicExit()">
+              <i class="fas fa-person-running" aria-hidden="true"></i>Leave now
+            </button>
+          </div>
+        </aside>
+        <div class="sm-main">
+          <button id="closeSettingsBtn" class="sm-close" type="button" aria-label="Close stealth mode">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+          </button>
+          <section class="sm-pane is-active" id="sm-pane-disguise" role="tabpanel">
+            <header class="sm-pane-head">
+              <h3>Tab disguise</h3>
+              <p>Make this tab look like another site. Hover to preview, click to use.</p>
+            </header>
+            <div class="sm-browser" aria-hidden="true">
+              <div class="sm-browser-tabs">
+                <span class="sm-browser-tab is-current">
+                  <img id="mockupTabIcon" src="${R}images/b-logo.webp" alt="" />
+                  <span id="mockupTabTitle">Blooket1 Unblocked Games</span>
+                  <i class="fas fa-xmark"></i>
+                </span>
+                <span class="sm-browser-tab"><i class="fas fa-globe"></i><span>New tab</span></span>
+                <span class="sm-browser-plus"><i class="fas fa-plus"></i></span>
+              </div>
+              <div class="sm-browser-bar">
+                <i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i><i class="fas fa-rotate-right"></i>
+                <span class="sm-browser-url"><i class="fas fa-lock"></i>blooket1.com</span>
               </div>
             </div>
-            <div class="theme-options-grid" id="themeOptionsGrid"></div>
-          </div>
+            <div class="sm-cloak-grid" id="cloakOptionsGrid" role="radiogroup" aria-label="Disguises"></div>
+            <details class="sm-custom">
+              <summary><i class="fas fa-pen" aria-hidden="true"></i>Use your own name and icon<i class="fas fa-chevron-down sm-custom-chev" aria-hidden="true"></i></summary>
+              <div class="sm-custom-body">
+                <label class="sm-field">
+                  <span>Tab name</span>
+                  <input type="text" id="customCloakTitle" class="sm-input" placeholder="History essay - Google Docs" maxlength="80" />
+                </label>
+                <label class="sm-field">
+                  <span>Icon image link</span>
+                  <input type="url" id="customCloakIcon" class="sm-input" placeholder="https://example.com/favicon.ico" />
+                </label>
+                <button type="button" class="sm-btn sm-btn--primary" onclick="applyCustomCloak()">Use this disguise</button>
+              </div>
+            </details>
+          </section>
+          <section class="sm-pane" id="sm-pane-panic" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Panic key</h3>
+              <p>Press it anywhere on Blooket1 and this tab is instantly replaced with the site you pick below.</p>
+            </header>
+            <div class="sm-panic">
+              <div class="sm-keycap" id="smKeycap" aria-hidden="true"><span class="sm-keycap-face" id="currentPanicKeyDisplay">\`</span></div>
+              <div class="sm-panic-info">
+                <p class="sm-panic-state"><span id="smPanicStateText">Your panic key</span><span id="panicListeningStatus" class="sm-listening" style="display:none">Press any key now. Esc cancels.</span></p>
+                <div class="sm-btn-row">
+                  <button id="changePanicKeyBtn" type="button" class="sm-btn sm-btn--primary"><i class="fas fa-keyboard" aria-hidden="true"></i>Change key</button>
+                  <button id="testPanicKeyBtn" type="button" class="sm-btn"><i class="fas fa-play" aria-hidden="true"></i>Try it</button>
+                  <button id="resetPanicKeyBtn" type="button" class="sm-btn sm-btn--ghost">Reset to \`</button>
+                </div>
+              </div>
+            </div>
+            <h4 class="sm-sub">Go to</h4>
+            <div class="sm-dest-grid" id="smDestGrid" role="radiogroup" aria-label="Panic destination"></div>
+          </section>
+          <section class="sm-pane" id="sm-pane-blank" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Blank tab</h3>
+              <p>Opens Blooket1 inside a new tab whose address reads about:blank, and sends this tab to your panic destination.</p>
+            </header>
+            <div class="sm-blank-demo" aria-hidden="true">
+              <div class="sm-browser-bar sm-browser-bar--solo">
+                <i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i><i class="fas fa-rotate-right"></i>
+                <span class="sm-browser-url"><i class="fas fa-circle-info"></i>about:blank</span>
+              </div>
+              <div class="sm-blank-page">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="sm-btn-row">
+              <button type="button" class="sm-btn sm-btn--primary sm-btn--lg" onclick="openAboutBlankCloak()"><i class="fas fa-up-right-from-square" aria-hidden="true"></i>Open blank tab</button>
+            </div>
+            <p class="sm-note"><i class="fas fa-circle-info" aria-hidden="true"></i>If nothing opens, allow pop-ups for Blooket1 in your browser and try again.</p>
+          </section>
+          <section class="sm-pane" id="sm-pane-theme" role="tabpanel" hidden>
+            <header class="sm-pane-head">
+              <h3>Theme</h3>
+              <p>Changes the colours across the whole site. Your games and favourites stay the same.</p>
+            </header>
+            <div class="sm-theme-grid" id="themeOptionsGrid" role="radiogroup" aria-label="Themes"></div>
+          </section>
         </div>
       </div>
     </div>`;
@@ -357,7 +436,7 @@ const MODALS = `    <div class="settings-modal-overlay" id="settingsModalOverlay
 function page(cat) {
   let list;
   let h1 = cat.h1 || `${cat.name} games`;
-  let pageTitle = cat.pageTitle || `${cat.name} Games Unblocked - Play ${cat.name} Games Online | Blooket1`;
+  let pageTitle = cat.pageTitle || `${cat.name} Games Unblocked - Play Free ${cat.name} Games Online | Blooket1`;
 
   if (cat.slug === 'popular') {
     list = sortGames(games);
@@ -375,13 +454,13 @@ function page(cat) {
     ? `The most played ${cat.name.toLowerCase()} games on Blooket1 right now include ${top[0]}, ${top[1]} and ${top[2]}.`
     : '';
 
-  const description = `${cat.intro.split('. ')[0].replace(/\.$/, '')}. ${list.length} free games, no downloads, works on Chromebooks.`.slice(0, 300);
+  const description = `${cat.intro.split('. ')[0].replace(/\.$/, '')}. ${list.length} free unblocked games, no downloads, works on school Chromebooks.`.slice(0, 300);
 
   const ld = [
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: `${cat.name} games`,
+      name: `${cat.name} games unblocked`,
       url,
       description: cat.intro,
       isPartOf: { '@type': 'WebSite', name: 'Blooket1', url: SITE + '/' },
@@ -402,6 +481,28 @@ function page(cat) {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
         { '@type': 'ListItem', position: 2, name: `${cat.name} games` }
+      ]
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `What are the best unblocked ${cat.name.toLowerCase()} games on Blooket1?`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: topSentence || `Blooket1 features ${list.length} free unblocked ${cat.name.toLowerCase()} games playable directly in your browser on school Chromebooks.`
+          }
+        },
+        {
+          '@type': 'Question',
+          name: `Do these ${cat.name.toLowerCase()} games work on school Chromebooks?`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `Yes! All ${list.length} ${cat.name.toLowerCase()} games on Blooket1 run directly in HTML5 and WebGL with zero downloads, plus built-in Stealth Mode tab cloaking and mirror links.`
+          }
+        }
       ]
     }
   ];
@@ -515,11 +616,12 @@ ${list.map((g, i) => card(g, i, cat)).join('\n')}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
-    <link rel="stylesheet" href="${R}styles.css" />
-    <link rel="stylesheet" href="${R}carousel.css" />
-    <link rel="stylesheet" href="${R}ub.css" />
-    <link rel="stylesheet" href="${R}play.css" />
-    <script src="${R}play.js" defer></script>
+    <link rel="stylesheet" href="${R}styles.css?v=2.6" />
+    <link rel="stylesheet" href="${R}stealth.css?v=2.6" />
+    <link rel="stylesheet" href="${R}carousel.css?v=2.6" />
+    <link rel="stylesheet" href="${R}ub.css?v=2.6" />
+    <link rel="stylesheet" href="${R}play.css?v=2.6" />
+    <script src="${R}play.js?v=2.6" defer></script>
     <script type="application/ld+json">
 ${JSON.stringify(ld, null, 2).replace(/^/gm, '      ')}
     </script>
@@ -557,10 +659,11 @@ ${chips}
 ${gridSection}
 
       <section class="play-card category-about">
-        <h2 class="play-about-title">About ${esc(cat.name.toLowerCase())} games on Blooket1</h2>
+        <h2 class="play-about-title">About unblocked ${esc(cat.name.toLowerCase())} games on Blooket1</h2>
         <div class="play-about-body">
 ${cat.more.map((p) => `          <p>${esc(p)}</p>`).join('\n')}
 ${topSentence ? `          <p>${esc(topSentence)}</p>` : ''}
+          <p>Need to play on a restricted school Chromebook? Open <a href="#" onclick="openSettingsModal('mirrors'); return false;">Stealth Mode &amp; Mirror Links</a> in the top bar to disguise your browser tab, launch in an <code>about:blank</code> window, or switch to an alternate domain like <code>blooket1.pages.dev</code> or <code>educational.blooket1.com</code>. You can also explore our <a href="${R}blog/">Guides &amp; Tier Lists</a> for tips on every category.</p>
         </div>
       </section>
 
@@ -576,7 +679,8 @@ ${FOOTER}
 
 ${MODALS}
 
-    <script src="${R}script.js"></script>
+    <script src="${R}script.js?v=2.6"></script>
+    <script src="${R}stealth.js?v=2.6"></script>
   </body>
 </html>
 `;

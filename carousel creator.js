@@ -609,7 +609,7 @@ function heroSlideMarkup(game, rank, isFirst) {
         .slice(0, 2)
         .map(c => escapeHtml(CATEGORY_CONFIG[c]?.title || c));
     const desc = escapeHtml(game.details?.description || 'Jump in instantly - no downloads, no installs, works on any school device.');
-    const tag = isFirst ? 'h1' : 'h2';
+    const tag = 'h2';
     return `
       <img class="hero-ambient" src="${img}" alt="" aria-hidden="true" ${isFirst ? 'fetchpriority="high"' : 'loading="lazy"'} />
       <div class="hero-art"><img src="${img}" alt="" ${isFirst ? 'fetchpriority="high"' : 'loading="lazy"'} /></div>
@@ -817,9 +817,63 @@ async function loadGames() {
     }
 }
 
+function setupHomepageAds() {
+    const HOME_AD_CONFIG = {
+        client: 'ca-pub-5346759304245799',
+        slots: {
+            leaderboard: { slot: '5440051367', width: 728, height: 90, widthMobile: 300, heightMobile: 250, eager: true },
+            multiplex:   { slot: '5440051367', format: 'auto', responsive: true }
+        }
+    };
+    const slots = Array.from(document.querySelectorAll('ins.adsbygoogle[data-ad-key]'));
+    if (!slots.length) return;
+
+    const fill = (ins) => {
+        if (ins.dataset.adPushed) return;
+        const cfg = HOME_AD_CONFIG.slots[ins.dataset.adKey];
+        if (!cfg || !cfg.slot) return;
+        ins.dataset.adPushed = '1';
+        ins.setAttribute('data-ad-client', HOME_AD_CONFIG.client);
+        ins.setAttribute('data-ad-slot', cfg.slot);
+        const isMobile = window.innerWidth <= 768;
+        const w = (isMobile && cfg.widthMobile) ? cfg.widthMobile : cfg.width;
+        const h = (isMobile && cfg.heightMobile) ? cfg.heightMobile : cfg.height;
+        if (w && h) {
+            ins.style.display = 'inline-block';
+            ins.style.width = w + 'px';
+            ins.style.height = h + 'px';
+        } else {
+            if (cfg.format) ins.setAttribute('data-ad-format', cfg.format);
+            if (cfg.responsive) ins.setAttribute('data-full-width-responsive', 'true');
+        }
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    };
+
+    const lazy = [];
+    slots.forEach((ins) => {
+        const cfg = HOME_AD_CONFIG.slots[ins.dataset.adKey];
+        if (cfg && cfg.eager && ins.offsetWidth > 0) fill(ins);
+        else lazy.push(ins);
+    });
+
+    if (lazy.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.target.offsetWidth > 0) {
+                    fill(entry.target);
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '120px 0px' });
+        lazy.forEach((ins) => io.observe(ins));
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     loadFavorites();
     loadRecent();
+    initializeCarouselFunctionality();
+    setupHomepageAds();
 
     const searchInput = document.getElementById('searchright');
     if (searchInput) {
@@ -843,9 +897,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     await loadGames();
-    hotGames = new Set(getPopularGames(3).map(g => g.name));
-    buildHero();
-    createAllCarousels();
+    if (allGamesData.length) {
+        hotGames = new Set(getPopularGames(3).map(g => g.name));
+        buildHero();
+        createAllCarousels();
+    }
     setupSidebarScrollSpy();
 
     // Searches submitted from play pages arrive as ?q=...

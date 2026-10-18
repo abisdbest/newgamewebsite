@@ -19,12 +19,14 @@ const today = new Date().toISOString().slice(0, 10);
 // Static pages: [folder, changefreq, priority]
 const STATIC = [
   ['', 'daily', '1.0'],
-  ['blog/', 'weekly', '0.6'],
+  ['blog/', 'weekly', '0.9'],
+  ['updates/', 'weekly', '0.8'],
+  ['chat/', 'weekly', '0.7'],
+  ['soundboard/', 'monthly', '0.7'],
   ['about us/', 'monthly', '0.4'],
   ['contact us/', 'monthly', '0.3'],
   ['privacy/', 'yearly', '0.3'],
   ['tsandcs/', 'yearly', '0.3'],
-  ['chat/', 'weekly', '0.4'],
 ];
 
 const hasIndex = (rel) => fs.existsSync(path.join(ROOT_DIR, rel, 'index.html'));
@@ -53,8 +55,9 @@ const add = (rel, changefreq, priority) => {
 };
 
 for (const [rel, freq, pri] of STATIC) if (rel === '' || hasIndex(rel)) add(rel, freq, pri);
-for (const slug of subdirs('category')) add(`category/${slug}/`, 'daily', '0.8');
-for (const game of subdirs('play')) add(`play/${game}/`, 'weekly', '0.7');
+for (const slug of subdirs('blog')) add(`blog/${slug}/`, 'weekly', '0.85');
+for (const slug of subdirs('category')) add(`category/${slug}/`, 'daily', '0.85');
+for (const game of subdirs('play')) add(`play/${game}/`, 'weekly', '0.8');
 
 const xml =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
@@ -71,6 +74,39 @@ const xml =
 fs.writeFileSync(path.join(ROOT_DIR, 'sitemap.xml'), xml);
 fs.writeFileSync(
   path.join(ROOT_DIR, 'robots.txt'),
-  `User-agent: *\nAllow: /\n\nSitemap: ${BASE}sitemap.xml\n`
+  `# Blooket1 Unblocked Games - https://blooket1.com
+User-agent: *
+Allow: /
+Disallow: /source/
+Disallow: /test%20stuff/
+Disallow: /api/
+
+# Explicitly welcome AI Search & Answer Engines (ChatGPT, Perplexity, Claude, Gemini)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: ${BASE}sitemap.xml
+`
 );
-console.log(`sitemap.xml: ${urls.length} URLs (${subdirs('play').length} games, ${subdirs('category').length} categories)`);
+console.log(`sitemap.xml: ${urls.length} URLs (${subdirs('play').length} games, ${subdirs('category').length} categories, ${subdirs('blog').length} guides)`);

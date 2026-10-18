@@ -1699,3 +1699,180 @@ ins.adsbygoogle {
     grid-template-columns: 1fr;
   }
 }
+
+/* =================================================================
+ * HOMEPAGE H1 BAR, AD BANNER & SEO GUIDE SECTION
+ * ================================================================= */
+.home-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 6px 4px 12px;
+}
+
+.home-main-h1 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-secondary, #a8b0c8);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+}
+
+.home-main-h1 strong {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.home-main-h1 i {
+  color: var(--accent-color, #ff7a1a);
+}
+
+.home-quick-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.home-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--text-secondary, #c2c8dc);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.home-quick-pill:hover {
+  background: rgba(255, 122, 26, 0.15);
+  border-color: rgba(255, 122, 26, 0.45);
+  color: #ffffff;
+}
+
+.home-quick-pill i {
+  color: var(--accent-color, #ff7a1a);
+  font-size: 12px;
+}
+
+.home-ad-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 14px auto 22px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  max-width: 760px;
+}
+
+.home-ad-banner .ad-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 4px;
+}
+
+.home-ad-banner ins.adsbygoogle {
+  min-height: 90px;
+}
+
+@media (max-width: 768px) {
+  .home-ad-banner ins.adsbygoogle {
+    min-height: 250px;
+  }
+}
+
+.home-seo-guide {
+  margin: 36px 0 12px;
+  padding: 28px 32px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  color: var(--text-secondary, #b8c0d8);
+  line-height: 1.65;
+}
+
+.home-seo-guide h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.home-seo-guide h3 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 22px 0 8px;
+}
+
+.home-seo-guide p {
+  font-size: 0.94rem;
+  margin: 0 0 12px;
+}
+
+.home-seo-guide a {
+  color: var(--accent-color, #ff7a1a);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-seo-guide a:hover {
+  text-decoration: underline;
+}
+
+.home-seo-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.home-faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.home-faq-item {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+.home-faq-item h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 6px;
+}
+
+.home-faq-item p {
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+@media (max-width: 820px) {
+  .home-seo-guide { padding: 20px 18px; }
+  .home-seo-cols, .home-faq-grid { grid-template-columns: 1fr; gap: 14px; }
+}
+

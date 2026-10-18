@@ -531,3 +531,86 @@
   margin-left: 4px;
 }
 
+/* --- Mirrors & Alt Links Pane inside Stealth Mode -------------------- */
+.sm-mirrors-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sm-mirror-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.sm-mirror-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--sm-card, #181926);
+  border: 1px solid var(--sm-line, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sm-mirror-row:hover {
+  border-color: rgba(255, 122, 26, 0.45);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sm-mirror-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sm-mirror-url {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sm-mirror-tag {
+  font-size: 0.75rem;
+  color: var(--sm-text-2, #9aa0b8);
+}
+
+.sm-mirror-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sm-mirror-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.sm-mirror-btn:hover {
+  background: var(--sm-accent, #ff7a1a);
+  border-color: var(--sm-accent, #ff7a1a);
+  color: #fff;
+}
+
+

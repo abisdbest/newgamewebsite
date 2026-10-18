@@ -230,13 +230,118 @@ function updatePanicKeyUI() {
 }
 
 function initStealthTabs() {
+  injectMirrorsPane();
   var btns = document.querySelectorAll('.sm-nav-btn');
   btns.forEach(function (btn) {
     btn.onclick = function () { smShowPane(btn.getAttribute('data-sm-tab')); };
   });
 }
 
+var SM_MIRRORS = [
+  { url: 'https://blooket1.pages.dev/', label: 'blooket1.pages.dev', note: 'Cloudflare Pages mirror (best when .com is blocked)' },
+  { url: 'https://educational.blooket1.com/', label: 'educational.blooket1.com', note: 'Educational subdomain mirror' },
+  { url: 'https://blooket1.com/drive.google.com/', label: 'blooket1.com/drive.google.com/', note: 'Google Drive URL path disguise' },
+  { url: 'https://blooket1.com/classroom.google.com/', label: 'blooket1.com/classroom.google.com/', note: 'Google Classroom URL path disguise' },
+  { url: 'https://blooket1.com/docs.google.com/', label: 'blooket1.com/docs.google.com/', note: 'Google Docs URL path disguise' },
+  { url: 'https://blooket1.com/educational/', label: 'blooket1.com/educational/', note: 'Educational portal path mirror' },
+  { url: 'https://blooket1.com/school/', label: 'blooket1.com/school/', note: 'School resource path mirror' },
+  { url: 'https://blooket1.com/learning-hub/', label: 'blooket1.com/learning-hub/', note: 'Learning hub path mirror' },
+  { url: 'https://blooket1.com/academic/', label: 'blooket1.com/academic/', note: 'Academic portal path mirror' },
+  { url: 'https://blooket1.com/edu-platform/', label: 'blooket1.com/edu-platform/', note: 'Edu-platform path mirror' }
+];
+
+function injectMirrorsPane() {
+  var nav = document.querySelector('.sm-nav');
+  var main = document.querySelector('.sm-main');
+  if (!nav || !main || document.getElementById('sm-pane-mirrors')) return;
+
+  var navBtn = document.createElement('button');
+  navBtn.type = 'button';
+  navBtn.className = 'sm-nav-btn';
+  navBtn.setAttribute('role', 'tab');
+  navBtn.setAttribute('aria-selected', 'false');
+  navBtn.setAttribute('aria-controls', 'sm-pane-mirrors');
+  navBtn.setAttribute('data-sm-tab', 'sm-pane-mirrors');
+  navBtn.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i><span><b>Mirrors &amp; alt links</b><small>Backup URLs if blocked</small></span>';
+  nav.appendChild(navBtn);
+
+  var pane = document.createElement('section');
+  pane.className = 'sm-pane';
+  pane.id = 'sm-pane-mirrors';
+  pane.setAttribute('role', 'tabpanel');
+  pane.hidden = true;
+
+  var rowsHtml = SM_MIRRORS.map(function (m) {
+    return '<div class="sm-mirror-row">' +
+      '<div class="sm-mirror-info">' +
+        '<span class="sm-mirror-url">' + smEsc(m.label) + '</span>' +
+        '<span class="sm-mirror-tag">' + smEsc(m.note) + '</span>' +
+      '</div>' +
+      '<div class="sm-mirror-btns">' +
+        '<button type="button" class="sm-mirror-btn" data-copy-mirror="' + smEsc(m.url) + '"><i class="fas fa-copy"></i> Copy</button>' +
+        '<button type="button" class="sm-mirror-btn" data-blank-mirror="' + smEsc(m.url) + '" title="Open inside about:blank"><i class="fas fa-file"></i> Blank</button>' +
+        '<a class="sm-mirror-btn" href="' + smEsc(m.url) + '" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open</a>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  pane.innerHTML =
+    '<header class="sm-pane-head">' +
+      '<h3>Mirrors &amp; alt links</h3>' +
+      '<p>If your school blocks blooket1.com, use any of these official backup links or paste them into a shared Google Doc for your class.</p>' +
+    '</header>' +
+    '<div class="sm-mirrors-actions">' +
+      '<button type="button" class="sm-btn sm-btn--primary" id="smCopyAllMirrorsBtn"><i class="fas fa-clipboard-list"></i> Copy all links for Google Docs</button>' +
+      '<button type="button" class="sm-btn" onclick="openAboutBlankCloak()"><i class="fas fa-up-right-from-square"></i> Open current page in about:blank</button>' +
+    '</div>' +
+    '<div class="sm-mirror-list">' + rowsHtml + '</div>';
+
+  main.appendChild(pane);
+
+  pane.addEventListener('click', function (e) {
+    var copyBtn = e.target.closest('[data-copy-mirror]');
+    if (copyBtn) {
+      var u = copyBtn.getAttribute('data-copy-mirror');
+      navigator.clipboard && navigator.clipboard.writeText(u);
+      var orig = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(function () { copyBtn.innerHTML = orig; }, 1600);
+      return;
+    }
+    var blankBtn = e.target.closest('[data-blank-mirror]');
+    if (blankBtn) {
+      var targetUrl = blankBtn.getAttribute('data-blank-mirror');
+      var win = window.open('about:blank', '_blank');
+      if (win) {
+        var doc = win.document;
+        doc.title = 'Classes';
+        doc.body.style.margin = '0';
+        var f = doc.createElement('iframe');
+        f.src = targetUrl;
+        f.allow = 'autoplay; fullscreen; gamepad';
+        f.setAttribute('allowfullscreen', '');
+        f.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:none;margin:0;padding:0;';
+        doc.body.appendChild(f);
+      }
+    }
+  });
+
+  var copyAllBtn = document.getElementById('smCopyAllMirrorsBtn');
+  if (copyAllBtn) {
+    copyAllBtn.addEventListener('click', function () {
+      var docText = 'Blooket1 Unblocked Games — Working Mirror Links:\n' +
+        '• Main Site: https://blooket1.com/\n' +
+        SM_MIRRORS.map(function (m) { return '• ' + m.note + ': ' + m.url; }).join('\n');
+      navigator.clipboard && navigator.clipboard.writeText(docText);
+      var orig = copyAllBtn.innerHTML;
+      copyAllBtn.innerHTML = '<i class="fas fa-check"></i> Copied full list for Google Docs!';
+      setTimeout(function () { copyAllBtn.innerHTML = orig; }, 2200);
+    });
+  }
+}
+
 function smShowPane(id) {
+  injectMirrorsPane();
   var aliasMap = {
     cloak: 'sm-pane-disguise',
     disguise: 'sm-pane-disguise',
@@ -244,7 +349,10 @@ function smShowPane(id) {
     blank: 'sm-pane-blank',
     aboutblank: 'sm-pane-blank',
     theme: 'sm-pane-theme',
-    themes: 'sm-pane-theme'
+    themes: 'sm-pane-theme',
+    mirrors: 'sm-pane-mirrors',
+    mirror: 'sm-pane-mirrors',
+    links: 'sm-pane-mirrors'
   };
   if (aliasMap[id]) id = aliasMap[id];
 
@@ -269,6 +377,8 @@ function smShowPane(id) {
 
   window.openSettingsModal = function (paneId) {
     lastFocus = document.activeElement;
+    injectMirrorsPane();
+    initStealthTabs();
     if (typeof baseOpen === 'function') baseOpen();
     renderPanicDestinations();
     if (typeof paneId === 'string') smShowPane(paneId);
@@ -292,6 +402,8 @@ function smShowPane(id) {
   });
 
   function wireCustom() {
+    injectMirrorsPane();
+    initStealthTabs();
     var t = document.getElementById('customCloakTitle');
     var i = document.getElementById('customCloakIcon');
     var live = function () {

@@ -1,4 +1,33 @@
+# Blooket1 Unblocked Games - https://blooket1.com
 User-agent: *
+Allow: /
+Disallow: /source/
+Disallow: /test%20stuff/
+Disallow: /api/
+
+# Explicitly welcome AI Search & Answer Engines (ChatGPT, Perplexity, Claude, Gemini)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://blooket1.com/sitemap.xml
