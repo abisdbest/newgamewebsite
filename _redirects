@@ -6,3 +6,21 @@
 /terms      /tsandcs/index.html    301
 /contact    /contact%20us/index.html    301
 /about      /about%20us/index.html    301
+
+# Stealth Mirror Fallback Rewrites (Native Cloudflare Pages Edge, 0 Worker quota)
+/drive.google.com           /drive.google.com/         301
+/drive.google.com/*         /:splat                    200
+/classroom.google.com       /classroom.google.com/     301
+/classroom.google.com/*     /:splat                    200
+/docs.google.com            /docs.google.com/          301
+/docs.google.com/*          /:splat                    200
+/educational                /educational/              301
+/educational/*              /:splat                    200
+/school                     /school/                   301
+/school/*                   /:splat                    200
+/academic                   /academic/                 301
+/academic/*                 /:splat                    200
+/edu-platform               /edu-platform/             301
+/edu-platform/*             /:splat                    200
+/learning-hub               /learning-hub/             301
+/learning-hub/*             /:splat                    200
