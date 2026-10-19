@@ -239,6 +239,8 @@ function initStealthTabs() {
 
 var SM_MIRRORS = [
   { url: 'https://blooket1.pages.dev/', label: 'blooket1.pages.dev', note: 'Cloudflare Pages mirror (best when .com is blocked)' },
+  { url: 'https://sites.google.com/view/blooket1-ubg', label: 'sites.google.com/view/blooket1-ubg', note: 'Official Google Sites hub (never blocked by school filters)' },
+  { url: 'https://sites.google.com/view/best-unblocked-game-sites-2026', label: 'sites.google.com/view/best-unblocked-game-sites-2026', note: '2026 Best Unblocked Game Sites Google Sites Guide' },
   { url: 'https://educational.blooket1.com/', label: 'educational.blooket1.com', note: 'Educational subdomain mirror' },
   { url: 'https://blooket1.com/drive.google.com/', label: 'blooket1.com/drive.google.com/', note: 'Google Drive URL path disguise' },
   { url: 'https://blooket1.com/classroom.google.com/', label: 'blooket1.com/classroom.google.com/', note: 'Google Classroom URL path disguise' },
@@ -247,7 +249,8 @@ var SM_MIRRORS = [
   { url: 'https://blooket1.com/school/', label: 'blooket1.com/school/', note: 'School resource path mirror' },
   { url: 'https://blooket1.com/learning-hub/', label: 'blooket1.com/learning-hub/', note: 'Learning hub path mirror' },
   { url: 'https://blooket1.com/academic/', label: 'blooket1.com/academic/', note: 'Academic portal path mirror' },
-  { url: 'https://blooket1.com/edu-platform/', label: 'blooket1.com/edu-platform/', note: 'Edu-platform path mirror' }
+  { url: 'https://blooket1.com/edu-platform/', label: 'blooket1.com/edu-platform/', note: 'Edu-platform path mirror' },
+  { url: 'https://ab-613.github.io/best-unblocked-games-sites-2026/', label: 'ab-613.github.io/best-unblocked-games-sites-2026/', note: 'GitHub Pages 2026 Unblocked Sites Directory' }
 ];
 
 function injectMirrorsPane() {

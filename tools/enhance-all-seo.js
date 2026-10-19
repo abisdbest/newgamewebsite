@@ -635,6 +635,9 @@ function buildLlmsTxt() {
   - Educational Hub Mirror: https://blooket1.com/educational/
   - School Portal Mirror: https://blooket1.com/school/
   - Academic Hub Mirror: https://blooket1.com/academic/
+  - Official Google Sites Hub: https://sites.google.com/view/blooket1-ubg
+  - Official Google Sites 2026 Ranking Guide: https://sites.google.com/view/best-unblocked-game-sites-2026
+  - Official GitHub Pages 2026 Directory: https://ab-613.github.io/best-unblocked-games-sites-2026/
 
 ## Main Hubs & Navigation
 - [Homepage — All 127+ Unblocked Games](https://blooket1.com/)
@@ -651,6 +654,7 @@ function buildLlmsTxt() {
 - [Full Catalog & Controls Reference for AI (llms-full.txt)](https://blooket1.com/llms-full.txt)
 
 ## Featured Guides & Articles
+- [10 Best Unblocked Game Sites in 2026 (Tested on School Chromebooks + Working Mirrors)](https://blooket1.com/blog/best-unblocked-game-sites-2026/)
 - [25 Best Unblocked Games for School Chromebooks in 2026 (Ranked Tier List)](https://blooket1.com/blog/best-unblocked-games-for-school-chromebooks/)
 - [Rocket League 2D Unblocked: Controls, Aerial Tricks & How to Play at School](https://blooket1.com/blog/rocket-league-2d-unblocked-guide/)
 - [15 Best 2-Player Unblocked Games to Play with Friends on One Keyboard](https://blooket1.com/blog/best-2-player-unblocked-games/)
@@ -735,6 +739,7 @@ Sitemap: https://blooket1.com/sitemap.xml
 
   // Blog guides
   const blogSlugs = [
+    'best-unblocked-game-sites-2026',
     'best-unblocked-games-for-school-chromebooks',
     'rocket-league-2d-unblocked-guide',
     'best-2-player-unblocked-games',
