@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/aeria_ymenu.css">
 
-    <style>
+    
+    
+<style>
         #adblocker-overlay, .adblocker-container, [id*="adblock"], [class*="adblock"], #AzerionAdBlocker, .azerion-adblocker {
             display: none !important;
             visibility: hidden !important;
@@ -33,13 +35,36 @@
                 this.remove = function() {};
             }
         };
+        window._azerionIntegrationSDK = {
+            init: function() { return Promise.resolve(); },
+            onLoadStart: function() { return Promise.resolve(); },
+            onLoadProgress: function() {},
+            isAdProviderLoaded: function() { return true; },
+            onAdProviderLoaded: function() { return Promise.resolve(); },
+            onLoadComplete: function() { return Promise.resolve(); },
+            preloadAd: function() {},
+            showInterstitialAd: function() { return Promise.resolve(); },
+            addListeners: function() {},
+            showRewardedAd: function() { return Promise.resolve({ rewarded: true }); },
+            isAdPlaying: function() { return false; },
+            onGameStart: function() { return Promise.resolve(); },
+            onGameEnd: function() { return Promise.resolve(); }
+        };
+        window._azerionIntegration = { playBtn: false, bd: 0 };
+        window.h5branding = window.h5branding || {
+            Hosts: {
+                isBloodFree: function() { return false; },
+                isSpecificPartner: function() { return false; },
+                isSocialMediaBlockedPublisher: function() { return false; }
+            },
+            Utils: {
+                isOnDevice: function() { return false; }
+            }
+        };
     </script>
 <script src="msstart-v1.0.0-rc.20.min.js"></script>
 <script src="h5-azerion-branding.umd.min.js" defer="defer"></script>
-<script src="azerion-integration-sdk.js" defer="defer"></script>
-<script src="azerion-libs.js" defer="defer"></script>
-    
-   <script src="libs/phaser.min.js" defer="defer"></script>
+<script src="libs/phaser.min.js" defer="defer"></script>
    <script src="libs/SpinePlugin.min.js" defer="defer"></script>
    <script src="libs/SAT.min.js" defer="defer"></script>
 
