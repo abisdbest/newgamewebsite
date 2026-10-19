@@ -531,20 +531,19 @@ function enhanceHomepage() {
 
   html = html.replace(/<h1 class="hero-title">Retro Bowl<\/h1>/, `<h2 class="hero-title">Retro Bowl</h2>`);
 
-  const homeAdBannerHtml = `\n          <div class="home-ad-banner" aria-label="Advertisement">
+  const homeAdBannerHtml = `          <div class="home-ad-banner ad-unit" id="home-bottom-ad" aria-label="Advertisement">
             <span class="ad-label">Advertisement</span>
             <ins class="adsbygoogle" data-ad-key="leaderboard"></ins>
-          </div>`;
+          </div>\n\n          `;
 
-  if (!html.includes('class="home-ad-banner"')) {
-    html = html.replace(/(<\/section>\s*)(<!-- Live search results -->)/, `$1${homeAdBannerHtml}\n\n          $2`);
-  }
+  // Remove any old top home-ad-banner above search results
+  html = html.replace(/\s*<div class="home-ad-banner"[^>]*>[\s\S]*?<\/div>\s*(?=<!-- Live search results -->)/, '\n\n          ');
 
   // 2E. Pre-render all static HTML game rails into #all-game-carousels
   const staticRailsHtml = buildStaticHomepageRails();
   html = html.replace(
-    /<div class="all-game-carousels" id="all-game-carousels"[^>]*>[\s\S]*?<\/div>\s*(?=<section class="home-seo-guide"|<footer class="app-footer")/,
-    `<div class="all-game-carousels" id="all-game-carousels" aria-busy="false">\n${staticRailsHtml}\n          </div>\n\n          `
+    /<div class="all-game-carousels" id="all-game-carousels"[^>]*>[\s\S]*?<\/div>\s*(?:<div class="home-ad-banner[^"]*"[^>]*>[\s\S]*?<\/div>\s*)?(?=<section class="home-seo-guide"|<footer class="app-footer")/,
+    `<div class="all-game-carousels" id="all-game-carousels" aria-busy="false">\n${staticRailsHtml}\n          </div>\n\n${homeAdBannerHtml}`
   );
 
   // 2F. Add comprehensive .home-seo-guide + FAQ block above <footer class="app-footer">

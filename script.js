@@ -499,8 +499,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Google AdSense Policy Compliance & CLS Prevention
     document.querySelectorAll('.ad-container, .game-ads-sidebar, .ad-slot, ins.adsbygoogle').forEach(adSlot => {
-        // New play-page slots (.ad-unit) are already sized + labelled in play.css
-        if (adSlot.closest('.ad-unit')) return;
+        // New play-page slots (.ad-unit) and .home-ad-banner are already sized + labelled
+        if (adSlot.closest('.ad-unit, .home-ad-banner')) return;
 
         // Enforce CLS Prevention: set containment
         adSlot.style.contain = 'layout';

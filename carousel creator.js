@@ -717,6 +717,8 @@ function handleLiveSearch(query) {
     const noResults = document.getElementById('search-no-results');
     const allCarousels = document.getElementById('all-game-carousels');
     const heroSection = document.getElementById('featured-section');
+    const bottomAd = document.getElementById('home-bottom-ad');
+    const seoGuide = document.querySelector('.home-seo-guide');
     if (!searchSection || !searchGrid || !allCarousels) return;
 
     const trimmed = (query || '').trim().toLowerCase();
@@ -724,12 +726,16 @@ function handleLiveSearch(query) {
         searchSection.hidden = true;
         allCarousels.hidden = false;
         if (heroSection) heroSection.hidden = false;
+        if (bottomAd) bottomAd.hidden = false;
+        if (seoGuide) seoGuide.hidden = false;
         searchGrid.innerHTML = '';
         return;
     }
 
     allCarousels.hidden = true;
     if (heroSection) heroSection.hidden = true;
+    if (bottomAd) bottomAd.hidden = true;
+    if (seoGuide) seoGuide.hidden = true;
     searchSection.hidden = false;
     searchGrid.innerHTML = '';
 
@@ -821,7 +827,7 @@ function setupHomepageAds() {
     const HOME_AD_CONFIG = {
         client: 'ca-pub-5346759304245799',
         slots: {
-            leaderboard: { slot: '5440051367', width: 728, height: 90, widthMobile: 300, heightMobile: 250, eager: true },
+            leaderboard: { slot: '5440051367', width: 728, height: 90, widthMobile: 300, heightMobile: 250, eager: false },
             multiplex:   { slot: '5440051367', format: 'auto', responsive: true }
         }
     };
@@ -846,25 +852,39 @@ function setupHomepageAds() {
             if (cfg.format) ins.setAttribute('data-ad-format', cfg.format);
             if (cfg.responsive) ins.setAttribute('data-full-width-responsive', 'true');
         }
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            ins.closest('.home-ad-banner')?.classList.add('is-empty');
+        }
+        // Collapse container if AdSense is blocked or unfilled after 4s
+        setTimeout(() => {
+            const status = ins.getAttribute('data-ad-status');
+            const hasIframe = !!ins.querySelector('iframe');
+            if (status === 'unfilled' || (!hasIframe && !ins.getAttribute('data-adsbygoogle-status'))) {
+                ins.closest('.home-ad-banner')?.classList.add('is-empty');
+            }
+        }, 4000);
     };
 
     const lazy = [];
     slots.forEach((ins) => {
         const cfg = HOME_AD_CONFIG.slots[ins.dataset.adKey];
-        if (cfg && cfg.eager && ins.offsetWidth > 0) fill(ins);
+        const availWidth = ins.offsetWidth || ins.parentElement?.offsetWidth || 0;
+        if (cfg && cfg.eager && availWidth > 0) fill(ins);
         else lazy.push(ins);
     });
 
     if (lazy.length && 'IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting && entry.target.offsetWidth > 0) {
+                const availWidth = entry.target.offsetWidth || entry.target.parentElement?.offsetWidth || 0;
+                if (entry.isIntersecting && availWidth > 0) {
                     fill(entry.target);
                     io.unobserve(entry.target);
                 }
             });
-        }, { rootMargin: '120px 0px' });
+        }, { rootMargin: '200px 0px' });
         lazy.forEach((ins) => io.observe(ins));
     }
 }

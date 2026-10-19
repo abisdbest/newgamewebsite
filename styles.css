@@ -1771,12 +1771,12 @@ ins.adsbygoogle {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 14px auto 22px;
-  padding: 8px 12px;
+  margin: 28px auto 12px;
+  padding: 6px 12px 8px;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 14px;
-  max-width: 760px;
+  max-width: 752px;
 }
 
 .home-ad-banner .ad-label {
@@ -1784,17 +1784,27 @@ ins.adsbygoogle {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.35);
   margin-bottom: 4px;
 }
 
 .home-ad-banner ins.adsbygoogle {
-  min-height: 90px;
+  display: block;
+  width: 728px;
+  max-width: 100%;
+  height: 90px;
+  min-height: 0 !important;
+}
+
+.home-ad-banner:has(ins[data-ad-status="unfilled"]),
+.home-ad-banner.is-empty {
+  display: none !important;
 }
 
 @media (max-width: 768px) {
   .home-ad-banner ins.adsbygoogle {
-    min-height: 250px;
+    width: 300px;
+    height: 250px;
   }
 }
 
