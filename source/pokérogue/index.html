@@ -68,15 +68,17 @@
         const isCry = url.includes('audio/cry/');
         if (!isPokemonImg && !isCry) return url;
 
+        // All base Pokémon (#1 to #1025) exist locally in the project!
+        const isBase = /(images\/pokemon\/(back\/)?\d+\.(png|json)|audio\/cry\/\d+\.m4a)/.test(url);
+        if (isBase && !url.startsWith('http')) {
+          return url;
+        }
+
         const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+)/);
         if (!match) return url;
         const subpath = match[1];
 
-        // Keep known local assets local (1, 7, 661)
-        const isKnownLocal = subpath.includes('/1.') || subpath.includes('/7.') || subpath.includes('/661.') || subpath.includes('sub.png');
-        if (isKnownLocal && !url.startsWith('http')) return url;
-
-        // Route everything else to official CDN
+        // Route variants / exp-sprites to CDN
         return `${CDN}/${subpath}`;
       }
 
@@ -94,6 +96,15 @@
           set(val) {
             const mapped = mapAssetUrl(val);
             this.crossOrigin = 'anonymous';
+            this.addEventListener('error', function onErr() {
+              if (!this.dataset.fallbackTried) {
+                this.dataset.fallbackTried = '1';
+                const numMatch = val.match(/(\d+)/);
+                const id = numMatch ? numMatch[1] : '1';
+                const isBack = val.includes('/back/');
+                origSrcDesc.set.call(this, isBack ? `./images/pokemon/back/${id}.png` : `./images/pokemon/${id}.png`);
+              }
+            }, { once: true });
             return origSrcDesc.set.call(this, mapped);
           },
           get() {

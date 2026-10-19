@@ -57,15 +57,19 @@ self.addEventListener('fetch', (event) => {
 
     // 4. Safe offline / network failure fallback so battle never freezes
     try {
-      let fallbackPath = './images/pokemon/1.png';
+      const numMatch = pathname.match(/(\d+)/);
+      const id = numMatch ? numMatch[1] : '1';
+      const isBack = pathname.includes('/back/');
+      let fallbackPath = isBack ? `./images/pokemon/back/${id}.png` : `./images/pokemon/${id}.png`;
       if (pathname.endsWith('.json')) {
-        fallbackPath = pathname.includes('/back/') ? './images/pokemon/back/7.json' : './images/pokemon/1.json';
+        fallbackPath = isBack ? `./images/pokemon/back/${id}.json` : `./images/pokemon/${id}.json`;
       } else if (pathname.endsWith('.m4a') || pathname.includes('/audio/cry/')) {
-        fallbackPath = './audio/cry/1.m4a';
-      } else if (pathname.includes('/back/')) {
-        fallbackPath = './images/pokemon/back/7.png';
+        fallbackPath = `./audio/cry/${id}.m4a`;
       }
-      const fallbackRes = await fetch(fallbackPath);
+      let fallbackRes = await fetch(fallbackPath);
+      if (!fallbackRes.ok && id !== '1') {
+        fallbackRes = await fetch(pathname.endsWith('.json') ? (isBack ? './images/pokemon/back/7.json' : './images/pokemon/1.json') : './images/pokemon/1.png');
+      }
       if (fallbackRes && fallbackRes.ok) return fallbackRes;
     } catch (e) {}
 
