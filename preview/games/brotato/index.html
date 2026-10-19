@@ -112,6 +112,78 @@
 		<div id="status-notice" class="godot"></div>
 	</div>
 
+	<script>
+		// Intercept fetch for chunked index.en-default.pck to bypass Cloudflare 25MB file limit
+		(function() {
+			const origFetch = window.fetch;
+			window.fetch = async function(resource, init) {
+				const url = typeof resource === 'string' ? resource : (resource && resource.url ? resource.url : '');
+				if (url.includes('index.en-default.pck') && !url.includes('.part')) {
+					const parts = [
+						'index.en-default.pck.part1',
+						'index.en-default.pck.part2',
+						'index.en-default.pck.part3',
+						'index.en-default.pck.part4'
+					];
+					const baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
+					const totalExpectedSize = 93322372;
+					const loadedBytes = [0, 0, 0, 0];
+
+					function updateUiProgress() {
+						const totalLoaded = loadedBytes.reduce((a, b) => a + b, 0);
+						const progEl = document.getElementById('status-progress');
+						const innerEl = document.getElementById('status-progress-inner');
+						if (progEl && innerEl) {
+							progEl.style.display = 'block';
+							innerEl.style.width = Math.min(100, (totalLoaded / totalExpectedSize * 100)) + '%';
+						}
+					}
+
+					try {
+						const partPromises = parts.map((part, idx) => {
+							const partUrl = baseUrl ? baseUrl + part : part;
+							return origFetch(partUrl, init).then(async (res) => {
+								if (!res.ok) throw new Error('Failed to load part ' + (idx + 1) + ': HTTP ' + res.status);
+								if (!res.body) {
+									const buf = await res.arrayBuffer();
+									loadedBytes[idx] = buf.byteLength;
+									updateUiProgress();
+									return buf;
+								}
+								const reader = res.body.getReader();
+								const chunks = [];
+								while (true) {
+									const { done, value } = await reader.read();
+									if (done) break;
+									chunks.push(value);
+									loadedBytes[idx] += value.length;
+									updateUiProgress();
+								}
+								return new Blob(chunks);
+							});
+						});
+
+						const results = await Promise.all(partPromises);
+						const combinedBlob = new Blob(results, { type: 'application/octet-stream' });
+						console.log('[Brotato] Reassembled chunked pack:', combinedBlob.size, 'bytes');
+
+						return new Response(combinedBlob, {
+							status: 200,
+							statusText: 'OK',
+							headers: {
+								'Content-Type': 'application/octet-stream',
+								'Content-Length': String(combinedBlob.size)
+							}
+						});
+					} catch (err) {
+						console.error('[Brotato] Error loading chunked pack:', err);
+						throw err;
+					}
+				}
+				return origFetch.apply(this, arguments);
+			};
+		})();
+	</script>
 	<script src="index.js"></script>
 	<script>
 		const GODOT_CONFIG = {

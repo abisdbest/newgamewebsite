@@ -49,6 +49,75 @@
       }
     }, 200);
   </script>
+  <script>
+    // Register Service Worker for asset caching & battle freeze prevention
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js', { scope: './' }).catch(err => {
+        console.warn('PokéRogue ServiceWorker registration:', err);
+      });
+    }
+
+    // In-page asset interceptor & fallback (runs synchronously before game scripts)
+    (function() {
+      const CDN = 'https://pokerogue.online';
+
+      function mapAssetUrl(url) {
+        if (typeof url !== 'string') return url;
+        if (url.startsWith('data:') || url.startsWith('blob:')) return url;
+        const isPokemonImg = url.includes('images/pokemon/');
+        const isCry = url.includes('audio/cry/');
+        if (!isPokemonImg && !isCry) return url;
+
+        const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+)/);
+        if (!match) return url;
+        const subpath = match[1];
+
+        // Keep known local assets local (1, 7, 661)
+        const isKnownLocal = subpath.includes('/1.') || subpath.includes('/7.') || subpath.includes('/661.') || subpath.includes('sub.png');
+        if (isKnownLocal && !url.startsWith('http')) return url;
+
+        // Route everything else to official CDN
+        return `${CDN}/${subpath}`;
+      }
+
+      // 1. Hook XMLHttpRequest
+      const origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
+        const mapped = mapAssetUrl(url);
+        return origOpen.call(this, method, mapped, async !== false, user, pass);
+      };
+
+      // 2. Hook HTMLImageElement src
+      const origSrcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+      if (origSrcDesc && origSrcDesc.set) {
+        Object.defineProperty(HTMLImageElement.prototype, 'src', {
+          set(val) {
+            const mapped = mapAssetUrl(val);
+            this.crossOrigin = 'anonymous';
+            return origSrcDesc.set.call(this, mapped);
+          },
+          get() {
+            return origSrcDesc.get.call(this);
+          },
+          configurable: true
+        });
+      }
+
+      // 3. Hook window.fetch
+      const origFetch = window.fetch;
+      window.fetch = function(resource, init) {
+        if (typeof resource === 'string') {
+          resource = mapAssetUrl(resource);
+        } else if (resource && resource.url) {
+          const mapped = mapAssetUrl(resource.url);
+          if (mapped !== resource.url) {
+            resource = new Request(mapped, init || resource);
+          }
+        }
+        return origFetch.call(this, resource, init);
+      };
+    })();
+  </script>
   <script type="module" crossorigin src="./assets/index-48e7d695.js"></script>
   <link rel="stylesheet" href="./assets/index-a66f8043.css">
   <style>
