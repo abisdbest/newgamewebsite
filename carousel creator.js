@@ -372,6 +372,15 @@ function buildFavoritesSection(container) {
     });
 }
 
+function appendInBetweenAd(container, id) {
+    const wrap = document.createElement('div');
+    wrap.className = 'home-ad-banner ad-unit';
+    wrap.id = id;
+    wrap.setAttribute('aria-label', 'Advertisement');
+    wrap.innerHTML = '<span class="ad-label">Advertisement</span><ins class="adsbygoogle" data-ad-key="leaderboard"></ins>';
+    container.appendChild(wrap);
+}
+
 /**
  * Builds all rails
  */
@@ -422,6 +431,9 @@ function createAllCarousels() {
         icon: 'fas fa-star',
         hideNewBadge: true
     });
+
+    // In-between Ad #1: right after New games, before Action
+    appendInBetweenAd(container, 'home-ad-1');
 
     // 5. Canonical Category Rails with Intelligent Deduplication & Variety
     // Tracks games displayed in the initial visible window (first 6 cards) so that
@@ -493,9 +505,15 @@ function createAllCarousels() {
             icon: cfg.icon,
             pageHref: `category/${slug}/`
         });
+
+        // In-between Ad #2: halfway down the genre rails, right after Puzzle
+        if (slug === 'puzzle') {
+            appendInBetweenAd(container, 'home-ad-2');
+        }
     });
 
     initializeCarouselFunctionality();
+    setupHomepageAds();
 }
 
 // =================================================================

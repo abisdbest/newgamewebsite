@@ -386,9 +386,15 @@ function buildStaticHomepageRails() {
             </section>`;
   };
 
+  const makeAd = (id) => `            <div class="home-ad-banner ad-unit" id="${id}" aria-label="Advertisement">
+              <span class="ad-label">Advertisement</span>
+              <ins class="adsbygoogle" data-ad-key="leaderboard"></ins>
+            </div>`;
+
   const sections = [];
   sections.push(makeSection('category-popular', 'fas fa-trophy', 'Top 10 this week', top10, 'category/popular/', true));
   sections.push(makeSection('category-new', 'fas fa-wand-magic-sparkles', 'New games', newest, 'category/new/', false));
+  sections.push(makeAd('home-ad-1'));
 
   for (const [catKey, cfg] of Object.entries(CATEGORY_MAP)) {
     const catGames = sortGames(games.filter((g) => (g['game categories'] || []).includes(catKey)));
@@ -396,6 +402,9 @@ function buildStaticHomepageRails() {
       sections.push(
         makeSection(`category-${cfg.slug}`, cfg.icon, cfg.title, catGames, `category/${cfg.slug}/`, false)
       );
+      if (cfg.slug === 'puzzle') {
+        sections.push(makeAd('home-ad-2'));
+      }
     }
   }
 
@@ -531,11 +540,6 @@ function enhanceHomepage() {
 
   html = html.replace(/<h1 class="hero-title">Retro Bowl<\/h1>/, `<h2 class="hero-title">Retro Bowl</h2>`);
 
-  const homeAdBannerHtml = `          <div class="home-ad-banner ad-unit" id="home-bottom-ad" aria-label="Advertisement">
-            <span class="ad-label">Advertisement</span>
-            <ins class="adsbygoogle" data-ad-key="leaderboard"></ins>
-          </div>\n\n          `;
-
   // Remove any old top home-ad-banner above search results
   html = html.replace(/\s*<div class="home-ad-banner"[^>]*>[\s\S]*?<\/div>\s*(?=<!-- Live search results -->)/, '\n\n          ');
 
@@ -543,7 +547,7 @@ function enhanceHomepage() {
   const staticRailsHtml = buildStaticHomepageRails();
   html = html.replace(
     /<div class="all-game-carousels" id="all-game-carousels"[^>]*>[\s\S]*?<\/div>\s*(?:<div class="home-ad-banner[^"]*"[^>]*>[\s\S]*?<\/div>\s*)?(?=<section class="home-seo-guide"|<footer class="app-footer")/,
-    `<div class="all-game-carousels" id="all-game-carousels" aria-busy="false">\n${staticRailsHtml}\n          </div>\n\n${homeAdBannerHtml}`
+    `<div class="all-game-carousels" id="all-game-carousels" aria-busy="false">\n${staticRailsHtml}\n          </div>\n\n          `
   );
 
   // 2F. Add comprehensive .home-seo-guide + FAQ block above <footer class="app-footer">
