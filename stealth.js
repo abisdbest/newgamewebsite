@@ -250,7 +250,7 @@ var SM_MIRRORS = [
   { url: 'https://blooket1.com/learning-hub/', label: 'blooket1.com/learning-hub/', note: 'Learning hub path mirror' },
   { url: 'https://blooket1.com/academic/', label: 'blooket1.com/academic/', note: 'Academic portal path mirror' },
   { url: 'https://blooket1.com/edu-platform/', label: 'blooket1.com/edu-platform/', note: 'Edu-platform path mirror' },
-  { url: 'https://ab-613.github.io/best-unblocked-games-sites-2026/', label: 'ab-613.github.io/best-unblocked-games-sites-2026/', note: 'GitHub Pages 2026 Unblocked Sites Directory' }
+  { url: 'https://abisdbest.github.io/best-unblocked-games-sites-2026/', label: 'abisdbest.github.io/best-unblocked-games-sites-2026/', note: 'GitHub Pages 2026 Unblocked Sites Directory' }
 ];
 
 function injectMirrorsPane() {
