@@ -5,7 +5,7 @@ const path = require('path');
 const REPO_TREE_URL = 'https://api.github.com/repos/pagefaultgames/pokerogue-assets/git/trees/beta?recursive=1';
 const RAW_BASE_URL = 'https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/beta/';
 const CDN_BASE_URL = 'https://pokerogue.online/';
-const TARGET_DIR = path.resolve(__dirname, '../source/pokérogue');
+const TARGET_DIR = path.resolve(__dirname, '../source/pokerogue');
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {

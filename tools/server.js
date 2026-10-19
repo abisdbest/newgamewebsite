@@ -32,6 +32,7 @@ const MIME_TYPES = {
   '.part1': 'application/octet-stream',
   '.part2': 'application/octet-stream',
   '.part3': 'application/octet-stream',
+  '.part4': 'application/octet-stream',
   '.unityweb': 'application/octet-stream',
   '.datagz': 'application/octet-stream',
   '.jsgz': 'application/javascript; charset=utf-8',
