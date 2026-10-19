@@ -1840,11 +1840,28 @@
                 };
             }
 
+            let isRateLimited = false;
+            let lastUserActivity = Date.now();
+            ['mousemove', 'keydown', 'touchstart', 'scroll', 'click'].forEach(evt => {
+                window.addEventListener(evt, () => {
+                    lastUserActivity = Date.now();
+                }, { passive: true });
+            });
+
             // Sync with D1 Database
             async function syncMessages(isInitial = false) {
                 try {
                     const res = await fetch(HISTORY_URL);
+                    if (res.status === 429) {
+                        isRateLimited = true;
+                        if (statusDot) {
+                            statusDot.className = 'status-dot';
+                            statusText.textContent = 'High traffic • Reconnecting...';
+                        }
+                        return false;
+                    }
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    isRateLimited = false;
                     const history = await res.json();
                     if (Array.isArray(history)) {
                         history.forEach(m => addMessage(m, isInitial));
@@ -1856,11 +1873,13 @@
                         statusDot.className = 'status-dot connected';
                         statusText.textContent = 'Online • Connected';
                     }
+                    return true;
                 } catch(e) {
                     if (statusDot) {
                         statusDot.className = 'status-dot';
-                        statusText.textContent = 'Syncing...';
+                        statusText.textContent = isRateLimited ? 'High traffic • Reconnecting...' : 'Syncing...';
                     }
+                    return false;
                 }
             }
 
@@ -2299,18 +2318,42 @@
                 }
             } catch(e) {}
 
-            // Start Continuous Live Real-Time Polling (Works in background tabs)
+            // Start Continuous Live Real-Time Polling with Smart Idle & Visibility Backoff
             loadSettings();
-            syncMessages(true).then(() => {
-                function schedulePoll() {
+
+            function getPollDelay() {
+                if (isRateLimited) return 45000; // Back off to 45s if daily worker limit is hit
+                const idleSec = (Date.now() - lastUserActivity) / 1000;
+                if (idleSec > 180) return 30000; // If user hasn't moved in 3 mins, poll every 30s
+                if (idleSec > 60) return 12000;  // If idle for 1 min, poll every 12s
+                return 4000;                     // Active chatting: poll every 4s
+            }
+
+            function schedulePoll() {
+                clearTimeout(pollTimer);
+                pollTimer = null;
+                // NEVER poll when tab is hidden/minimized! Saves tens of thousands of requests per day!
+                if (document.hidden) return;
+
+                const delay = getPollDelay();
+                pollTimer = setTimeout(async () => {
+                    await syncMessages(false);
+                    schedulePoll();
+                }, delay);
+            }
+
+            // Instantly poll the moment the student switches back to the chat tab
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    lastUserActivity = Date.now();
+                    syncMessages(false).then(() => schedulePoll());
+                } else {
                     clearTimeout(pollTimer);
-                    // Polls every 2.5s when active, 3.5s when tab is in background
-                    const delay = document.hidden ? 3500 : 2500;
-                    pollTimer = setTimeout(async () => {
-                        await syncMessages(false);
-                        schedulePoll();
-                    }, delay);
+                    pollTimer = null;
                 }
+            });
+
+            syncMessages(true).then(() => {
                 schedulePoll();
             });
         });

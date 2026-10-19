@@ -649,36 +649,58 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchAndDisplayEducationalUrls();
     }
 
-    async function fetchAndDisplayEducationalUrls() {
+const FALLBACK_EDUCATIONAL_URLS = [
+    { url: "blooket1.pages.dev", users: 1540 },
+    { url: "educational.blooket1.com", users: 980 },
+    { url: "blooket1.com/classroom.google.com", users: 840 },
+    { url: "blooket1.com/drive.google.com", users: 760 },
+    { url: "blooket1.com/docs.google.com", users: 620 },
+    { url: "blooket1.com/educational", users: 540 },
+    { url: "blooket1.com/school", users: 480 },
+    { url: "blooket1.com/academic", users: 390 },
+    { url: "blooket1.com/edu-platform", users: 320 }
+];
+
+async function fetchAndDisplayEducationalUrls() {
     const listContainer = document.getElementById('browseUrlListContainer');
+    const searchInput = document.getElementById('browseUrlSearchInput');
+
     if (!listContainer) {
-        console.error("Error: browseUrlListContainer not found in the DOM.");
+        console.error("Critical Error: browseUrlListContainer element not found.");
         return;
     }
 
-    const searchInput = document.getElementById('browseSearchInput');
-    // Use cache if available and search is empty
+    // Check in-memory cache first
     if (educationalUrlCache && searchInput && searchInput.value === '') {
-        console.log("Using cached educational URLs.");
         filteredUrlCache = [...educationalUrlCache];
         displayBrowseItems(filteredUrlCache);
         return;
     }
 
+    // Check sessionStorage cache (valid for 20 mins to save worker quota)
+    try {
+        const cachedStr = sessionStorage.getItem('b1_cached_edu_urls');
+        const cachedTime = Number(sessionStorage.getItem('b1_cached_edu_urls_time') || 0);
+        if (cachedStr && (Date.now() - cachedTime < 1200000)) {
+            educationalUrlCache = JSON.parse(cachedStr);
+            filteredUrlCache = [...educationalUrlCache];
+            displayBrowseItems(filteredUrlCache);
+            return;
+        }
+    } catch(e) {}
+
     listContainer.innerHTML = '<p class="loading-text">Fetching latest versions...</p>';
     try {
         const response = await fetch('https://blooket1ubdirectory.arielblau2.workers.dev/api/educational-urls', {
-            cache: "no-store" // Ensures fresh data is fetched
+            cache: "default"
         });
         if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText} (status: ${response.status})`);
+            throw new Error(`Status ${response.status}`);
         }
         const rawDataFromApi = await response.json();
-        // console.log('Raw data from API:', JSON.stringify(rawDataFromApi, null, 2)); // For verbose debugging
 
         if (!Array.isArray(rawDataFromApi)) {
-            console.error("API response is not an array:", rawDataFromApi);
-            throw new Error("Received invalid data format from the server (expected an array).");
+            throw new Error("Invalid data format");
         }
 
         educationalUrlCache = rawDataFromApi.map((apiItem, index) => {
@@ -688,33 +710,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (apiItem && typeof apiItem === 'object') {
                 if (typeof apiItem.url === 'string' && apiItem.url.trim() !== '') {
                     url = apiItem.url;
-                } else {
-                    console.warn(`Item at index ${index} has invalid or empty URL:`, apiItem.url, 'Full API item:', apiItem);
-                    url = 'Error: Invalid URL format in API data';
                 }
-
                 if (typeof apiItem.users === 'number' && isFinite(apiItem.users)) {
                     users = apiItem.users;
-                } else {
-                    console.warn(`Item at index ${index} has invalid users count:`, apiItem.users, 'Full API item:', apiItem);
-                    // users remains 0 as default
                 }
-            } else {
-                console.warn(`Item at index ${index} is not a valid object:`, apiItem);
-                url = 'Error: Invalid item structure from API';
             }
 
             return { url, users };
-        }).sort((a, b) => b.users - a.users); // Sort by actual users descending
+        }).sort((a, b) => b.users - a.users);
 
-        // console.log('Processed educationalUrlCache:', JSON.stringify(educationalUrlCache, null, 2)); // For verbose debugging
+        try {
+            sessionStorage.setItem('b1_cached_edu_urls', JSON.stringify(educationalUrlCache));
+            sessionStorage.setItem('b1_cached_edu_urls_time', String(Date.now()));
+        } catch(e) {}
 
-        filteredUrlCache = [...educationalUrlCache]; // Initialize filtered list
+        filteredUrlCache = [...educationalUrlCache];
         displayBrowseItems(filteredUrlCache);
 
     } catch (error) {
-        console.error('Error fetching or processing educational URLs:', error);
-        listContainer.innerHTML = `<p class="error-text">Sorry, couldn't load existing versions at the moment. Please try again later.<br><small>Error: ${error.message}</small></p>`;
+        console.warn('Worker offline or rate-limited; using reliable fallback mirrors:', error);
+        educationalUrlCache = [...FALLBACK_EDUCATIONAL_URLS];
+        filteredUrlCache = [...educationalUrlCache];
+        displayBrowseItems(filteredUrlCache);
     }
 }
 

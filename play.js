@@ -245,12 +245,32 @@
     // -----------------------------------------------------------------
     async function loadGames() {
         try {
+            let popPromise;
+            try {
+                const cachedPop = sessionStorage.getItem('b1_cached_popular');
+                const cachedPopTime = Number(sessionStorage.getItem('b1_cached_popular_time') || 0);
+                if (cachedPop && (Date.now() - cachedPopTime < 900000)) {
+                    popPromise = Promise.resolve(JSON.parse(cachedPop));
+                }
+            } catch (e) {}
+            if (!popPromise) {
+                popPromise = fetchWithTimeout(POPULAR_GAMES_API_URL, 1500).then(res => {
+                    if (Array.isArray(res)) {
+                        try {
+                            sessionStorage.setItem('b1_cached_popular', JSON.stringify(res));
+                            sessionStorage.setItem('b1_cached_popular_time', String(Date.now()));
+                        } catch (e) {}
+                    }
+                    return res;
+                }).catch(() => null);
+            }
+
             const [raw, pop] = await Promise.all([
                 fetch(ROOT + 'games.json').then((r) => {
                     if (!r.ok) throw new Error('games.json ' + r.status);
                     return r.json();
                 }),
-                fetchWithTimeout(POPULAR_GAMES_API_URL, 1500)
+                popPromise
             ]);
             const plays = new Map();
             if (Array.isArray(pop)) {
