@@ -1,4 +1,7 @@
 # Cloudflare Pages Redirects & Rewrites
+/source/pokérogue/*         /source/pokerogue/:splat   200
+/source/pok%C3%A9rogue/*    /source/pokerogue/:splat   200
+/play/pokerogue/*           /play/pok%C3%A9rogue/:splat 200
 /privacy    /privacy/index.html    200
 /terms      /tsandcs/index.html    301
 /contact    /contact%20us/index.html    301

@@ -61,22 +61,37 @@
     (function() {
       const CDN = 'https://pokerogue.online';
 
+      function normalizeUrl(url) {
+        if (typeof url !== 'string') return url;
+        return url
+          .replace(/\/source\/pok%C3%A9rogue\//gi, '/source/pokerogue/')
+          .replace(/\/source\/pokérogue\//gi, '/source/pokerogue/');
+      }
+
       function mapAssetUrl(url) {
         if (typeof url !== 'string') return url;
         if (url.startsWith('data:') || url.startsWith('blob:')) return url;
+        url = normalizeUrl(url);
+
         const isPokemonImg = url.includes('images/pokemon/');
         const isCry = url.includes('audio/cry/');
-        if (!isPokemonImg && !isCry) return url;
+        const isBattleAnim = url.includes('battle-anims/');
+        if (!isPokemonImg && !isCry && !isBattleAnim) return url;
 
-        // All base Pokémon (#1 to #1025) exist locally in the project!
-        const isBase = /(images\/pokemon\/(back\/)?\d+\.(png|json)|audio\/cry\/\d+\.m4a)/.test(url);
+        // Base Pokémon (#1 to #1025) and battle anims exist locally in the project!
+        const isBase = /(images\/pokemon\/(back\/)?\d+\.(png|json)|audio\/cry\/\d+\.m4a|battle-anims\/[a-z0-9-]+\.json)/.test(url);
         if (isBase && !url.startsWith('http')) {
           return url;
         }
 
-        const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+)/);
+        const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+|battle-anims\/.+)/);
         if (!match) return url;
         const subpath = match[1];
+
+        // If it's a base Pokémon or local battle anim on full URL, ensure same-origin relative
+        if (isBase) {
+          return `./${subpath}`;
+        }
 
         // Route variants / exp-sprites to CDN
         return `${CDN}/${subpath}`;
@@ -116,16 +131,41 @@
 
       // 3. Hook window.fetch
       const origFetch = window.fetch;
-      window.fetch = function(resource, init) {
+      window.fetch = async function(resource, init) {
+        let url = typeof resource === 'string' ? resource : (resource && resource.url ? resource.url : '');
+        const mapped = mapAssetUrl(url);
         if (typeof resource === 'string') {
-          resource = mapAssetUrl(resource);
-        } else if (resource && resource.url) {
-          const mapped = mapAssetUrl(resource.url);
-          if (mapped !== resource.url) {
-            resource = new Request(mapped, init || resource);
-          }
+          resource = mapped;
+        } else if (resource && resource.url && mapped !== resource.url) {
+          resource = new Request(mapped, init || resource);
         }
-        return origFetch.call(this, resource, init);
+
+        try {
+          const resp = await origFetch.call(this, resource, init);
+          if (resp.ok) return resp;
+
+          // If a battle animation 404s, fall back to tackle.json or a valid empty animation schema
+          if (url.includes('battle-anims/')) {
+            try {
+              const fallbackResp = await origFetch.call(this, './battle-anims/tackle.json');
+              if (fallbackResp.ok) return fallbackResp;
+            } catch (e) {}
+            return new Response(JSON.stringify({ id: 0, graphic: 'PRAS- Common', frames: [] }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+
+          return resp;
+        } catch (err) {
+          if (url.includes('battle-anims/')) {
+            return new Response(JSON.stringify({ id: 0, graphic: 'PRAS- Common', frames: [] }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+          throw err;
+        }
       };
     })();
   </script>
