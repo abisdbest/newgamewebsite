@@ -60,6 +60,14 @@
     // In-page asset interceptor & fallback (runs synchronously before game scripts)
     (function() {
       const CDN = 'https://pokerogue.online';
+      const SILENT_WAV_B64 = 'UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==';
+
+      function getSilentWavBuffer() {
+        const bin = atob(SILENT_WAV_B64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes.buffer;
+      }
 
       function normalizeUrl(url) {
         if (typeof url !== 'string') return url;
@@ -76,32 +84,55 @@
         const isPokemonImg = url.includes('images/pokemon/');
         const isCry = url.includes('audio/cry/');
         const isBattleAnim = url.includes('battle-anims/');
-        if (!isPokemonImg && !isCry && !isBattleAnim) return url;
+        const isBattleAnimImg = url.includes('images/battle_anims/');
+        const isBattleAnimAudio = url.includes('audio/se/battle_anims/') || url.includes('audio/se/');
+        if (!isPokemonImg && !isCry && !isBattleAnim && !isBattleAnimImg && !isBattleAnimAudio) return url;
 
-        // Base Pokémon (#1 to #1025) and battle anims exist locally in the project!
-        const isBase = /(images\/pokemon\/(back\/)?\d+\.(png|json)|audio\/cry\/\d+\.m4a|battle-anims\/[a-z0-9-]+\.json)/.test(url);
-        if (isBase && !url.startsWith('http')) {
+        // Base assets exist locally in the project!
+        const isLocal = /(images\/pokemon\/(back\/)?\d+\.(png|json)|audio\/cry\/\d+\.m4a|battle-anims\/[a-z0-9-]+\.json|images\/battle_anims\/.+|audio\/se\/.+)/.test(url);
+        if (isLocal && !url.startsWith('http')) {
           return url;
         }
 
-        const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+|battle-anims\/.+)/);
+        const match = url.match(/(images\/pokemon\/.+|audio\/cry\/.+|battle-anims\/.+|images\/battle_anims\/.+|audio\/se\/.+)/);
         if (!match) return url;
         const subpath = match[1];
 
-        // If it's a base Pokémon or local battle anim on full URL, ensure same-origin relative
-        if (isBase) {
+        // If it's a local asset on full URL, ensure same-origin relative
+        if (isLocal) {
           return `./${subpath}`;
         }
 
-        // Route variants / exp-sprites to CDN
+        // Route variants to CDN
         return `${CDN}/${subpath}`;
       }
 
-      // 1. Hook XMLHttpRequest
+      // 1. Hook XMLHttpRequest to route assets and synthesize silent audio on missing sound effects
       const origOpen = XMLHttpRequest.prototype.open;
+      const origSend = XMLHttpRequest.prototype.send;
+
       XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
         const mapped = mapAssetUrl(url);
+        this._reqUrl = mapped;
         return origOpen.call(this, method, mapped, async !== false, user, pass);
+      };
+
+      XMLHttpRequest.prototype.send = function(body) {
+        const url = this._reqUrl || '';
+        if (url.includes('/audio/')) {
+          this.addEventListener('readystatechange', function() {
+            if (this.readyState === 4 && this.status >= 400) {
+              try {
+                const wavBuf = getSilentWavBuffer();
+                Object.defineProperty(this, 'status', { get: () => 200, configurable: true });
+                Object.defineProperty(this, 'statusText', { get: () => 'OK', configurable: true });
+                Object.defineProperty(this, 'response', { get: () => wavBuf, configurable: true });
+                Object.defineProperty(this, 'responseText', { get: () => atob(SILENT_WAV_B64), configurable: true });
+              } catch (e) {}
+            }
+          });
+        }
+        return origSend.call(this, body);
       };
 
       // 2. Hook HTMLImageElement src
@@ -114,6 +145,10 @@
             this.addEventListener('error', function onErr() {
               if (!this.dataset.fallbackTried) {
                 this.dataset.fallbackTried = '1';
+                if (val.includes('/battle_anims/')) {
+                  origSrcDesc.set.call(this, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAA=');
+                  return;
+                }
                 const numMatch = val.match(/(\d+)/);
                 const id = numMatch ? numMatch[1] : '1';
                 const isBack = val.includes('/back/');
@@ -144,7 +179,6 @@
           const resp = await origFetch.call(this, resource, init);
           if (resp.ok) return resp;
 
-          // If a battle animation 404s, fall back to tackle.json or a valid empty animation schema
           if (url.includes('battle-anims/')) {
             try {
               const fallbackResp = await origFetch.call(this, './battle-anims/tackle.json');
@@ -156,6 +190,13 @@
             });
           }
 
+          if (url.includes('/audio/')) {
+            return new Response(getSilentWavBuffer(), {
+              status: 200,
+              headers: { 'Content-Type': 'audio/wav' }
+            });
+          }
+
           return resp;
         } catch (err) {
           if (url.includes('battle-anims/')) {
@@ -164,9 +205,29 @@
               headers: { 'Content-Type': 'application/json' }
             });
           }
+          if (url.includes('/audio/')) {
+            return new Response(getSilentWavBuffer(), {
+              status: 200,
+              headers: { 'Content-Type': 'audio/wav' }
+            });
+          }
           throw err;
         }
       };
+
+      // 4. Suppress missing audio cache and tween duration crashes so Phaser never halts
+      window.addEventListener('unhandledrejection', (e) => {
+        if (e && e.reason && typeof e.reason.message === 'string' && (e.reason.message.includes('missing from cache') || e.reason.message.includes('totalDuration'))) {
+          console.warn('Prevented battle freeze (unhandled rejection):', e.reason.message);
+          e.preventDefault();
+        }
+      });
+      window.addEventListener('error', (e) => {
+        if (e && e.message && (e.message.includes('missing from cache') || e.message.includes('totalDuration'))) {
+          console.warn('Prevented battle freeze (error):', e.message);
+          e.preventDefault();
+        }
+      });
     })();
   </script>
   <script type="module" crossorigin src="./assets/index-48e7d695.js"></script>
