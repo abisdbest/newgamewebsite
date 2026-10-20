@@ -245,7 +245,22 @@ pointer-events: auto;
 display: none;
 pointer-events: none;
 }
-</style></head>
+</style>
+<script>
+  window.addEventListener('unhandledrejection', function(e) {
+    if (e && e.reason && (e.reason.name === 'DataCloneError' || e.reason.name === 'EncodingError' || (typeof e.reason.message === 'string' && e.reason.message.includes('decode')))) {
+      e.preventDefault();
+      console.warn('Prevented audio decode freeze:', e.reason);
+    }
+  });
+  window.addEventListener('error', function(e) {
+    if (e && (e.message && (e.message.includes('decode audio data') || e.message.includes('DataCloneError') || e.message.includes('Illegal file handle')))) {
+      e.preventDefault();
+      console.warn('Prevented GameMaker freeze:', e.message);
+    }
+  });
+</script>
+</head>
 
 <body>
 
